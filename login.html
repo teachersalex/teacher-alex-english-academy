@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teacher Alex English Academy BETA - Portal do Estudante</title>
+    <link rel="stylesheet" href="base.css">
+    <link rel="stylesheet" href="layout.css">
+    <link rel="stylesheet" href="theme-patriot.css">
+    <style>
+        /* CSS específico para página de login */
+        body {
+            background: #f8fafc;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .loading {
+            opacity: 0.7;
+            pointer-events: none;
+        }
+
+        .login-btn:disabled {
+            background: #6b7280 !important;
+            cursor: not-allowed;
+            transform: none;
+        }
+    </style>
+</head>
+<body class="login-page">
+    <div class="login-container">
+        <div class="academy-logo">
+            Teacher Alex <span class="logo-highlight">English Academy</span> BETA
+        </div>
+        <div class="academy-subtitle">Portal do Estudante</div>
+        <div class="welcome-text">🎓 Acesso Exclusivo para Alunos</div>
+        
+        <form id="loginForm">
+            <div class="form-group">
+                <label class="form-label" for="username">Nome de usuário</label>
+                <input type="text" id="username" class="form-input" placeholder="Digite seu nome de usuário" required>
+            </div>
+            
+            <div class="form-group">
+                <label class="form-label" for="password">Senha</label>
+                <input type="password" id="password" class="form-input" placeholder="Digite sua senha" required>
+            </div>
+            
+            <button type="submit" class="login-btn">Acessar Minhas Aulas</button>
+        </form>
+        
+        <div id="errorMessage" class="error-message"></div>
+        <div id="successMessage" class="success-message"></div>
+        
+        <div class="contact-info">
+            <strong>Precisa de ajuda?</strong><br>
+            Entre em contato com <a href="mailto:alexmg@gmail.com" class="contact-link">Professor Alex</a>
+        </div>
+    </div>
+    
+    <script>
+        // ===== LISTA COMPLETA DE USUÁRIOS (20+ ALUNOS) =====
+        const students = {
+            // Alunos reais do Teacher Alex
+            "matheus": "english090803",
+            "iasmin": "english050307",
+            "leticia": "english843892",
+            "larissa": "english765352",
+            "ednei": "english4536798",
+            "guilherme": "english408698",
+            "leidson": "english594367",
+            "tais": "english194678",
+            "barbara": "english847693",
+            "dudu": "english136789",
+            "nicolete": "liloestitch",
+            "iago": "english987654",
+            "jaqueline": "english74309",
+            "giovana": "english987543",
+            "marina": "english742387",
+            "breno": "english345687",
+            "duda": "english454356",
+            "kelli": "english434567",
+            "lucas": "english98765423",
+            
+            // Usuários de teste
+            "teacheralex": "teste1234",
+            "testy": "testy"
+        };
+        
+        // ===== SISTEMA DE LOGIN SIMPLIFICADO =====
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const username = document.getElementById('username').value.trim();
+            const password = document.getElementById('password').value.trim();
+            const errorDiv = document.getElementById('errorMessage');
+            const successDiv = document.getElementById('successMessage');
+            const container = document.querySelector('.login-container');
+            const submitBtn = document.querySelector('.login-btn');
+            
+            // Limpar mensagens anteriores
+            errorDiv.style.display = 'none';
+            successDiv.style.display = 'none';
+            container.classList.remove('shake');
+            
+            // Estado de loading
+            container.classList.add('loading');
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Verificando...';
+            
+            // Simular delay para melhor UX
+            setTimeout(() => {
+                // Verificar credenciais (username case insensitive, password case sensitive)
+                const usernameKey = username.toLowerCase();
+                
+                if (students[usernameKey] && students[usernameKey] === password) {
+                    // ✅ LOGIN BEM-SUCEDIDO
+                    successDiv.textContent = '✅ Bem-vindo! Redirecionando para suas aulas...';
+                    successDiv.style.display = 'block';
+                    
+                    // Salvar login no navegador
+                    sessionStorage.setItem('studentLoggedIn', 'true');
+                    sessionStorage.setItem('studentUsername', usernameKey);
+                    
+                    console.log(`✅ Login realizado: ${usernameKey}`);
+                    
+                    // Redirecionar após 1.5 segundos
+                    setTimeout(() => {
+                        window.location.href = 'index.html';
+                    }, 1500);
+                    
+                } else {
+                    // ❌ LOGIN FALHOU
+                    container.classList.remove('loading');
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = 'Acessar Minhas Aulas';
+                    
+                    errorDiv.textContent = '❌ Usuário ou senha incorretos. Tente novamente.';
+                    errorDiv.style.display = 'block';
+                    
+                    // Limpar senha e focar
+                    document.getElementById('password').value = '';
+                    document.getElementById('password').focus();
+                    
+                    // Animação de erro
+                    container.classList.add('shake');
+                    
+                    console.log(`❌ Login falhou para: ${username}`);
+                }
+            }, 800);
+        });
+        
+        // ===== VERIFICAÇÕES INICIAIS =====
+        
+        // Se já está logado, redirecionar
+        if (sessionStorage.getItem('studentLoggedIn') === 'true') {
+            console.log('👤 Usuário já logado, redirecionando...');
+            window.location.href = 'index.html';
+        }
+        
+        // Foco automático no campo username
+        document.getElementById('username').focus();
+        
+        // ===== LOGS PARA DEBUG =====
+        console.log('🔐 Teacher Alex Login carregado');
+        console.log(`👥 ${Object.keys(students).length} usuários cadastrados`);
+        console.log('📱 Versão enxuta: ~3KB total');
+        
+        // Detectar modo de desenvolvimento
+        if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+            console.log('🛠️ Modo desenvolvimento detectado');
+            console.log('💡 Usuários de teste: testy/testy, teacheralex/teste1234');
+        }
+    </script>
+</body>
+</html>

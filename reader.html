@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teacher Alex English Academy - The Secret in the Old House</title>
+    
+    <!-- CSS EXTERNO - ESTRATÉGIA VENCEDORA FINAL! -->
+    <link rel="stylesheet" href="base.css">
+    <link rel="stylesheet" href="layout.css">
+    <link rel="stylesheet" href="theme-patriot.css">
+
+    <style>
+        /* CSS ESPECÍFICO - ANIMAÇÕES DE CELEBRAÇÃO CRÍTICAS */
+        .celebration-overlay {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100vw; height: 100vh;
+            background: rgba(0, 0, 0, 0.1);
+            z-index: 9999;
+            pointer-events: none;
+        }
+
+        .celebration-text {
+            position: fixed;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 4em;
+            font-weight: 900;
+            background: linear-gradient(135deg, #1e3a8a, #dc2626);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            z-index: 10000;
+            animation: celebrationPulse 2s ease-in-out;
+            pointer-events: none;
+        }
+
+        @keyframes celebrationPulse {
+            0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0; }
+            50% { transform: translate(-50%, -50%) scale(1.2); opacity: 1; }
+        }
+
+        .confetti {
+            position: fixed;
+            width: 10px; height: 10px;
+            background: #1e3a8a;
+            animation: confettiFall linear forwards;
+            pointer-events: none;
+            z-index: 9998;
+        }
+
+        @keyframes confettiFall {
+            0% { transform: translateY(-100vh) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+        }
+
+        .firework {
+            position: fixed;
+            width: 6px; height: 6px;
+            border-radius: 50%;
+            animation: fireworkExplode 1.5s ease-out forwards;
+            pointer-events: none;
+            z-index: 9998;
+        }
+
+        @keyframes fireworkExplode {
+            0% { transform: scale(0); opacity: 1; }
+            50% { transform: scale(15); opacity: 0.8; }
+            100% { transform: scale(25); opacity: 0; }
+        }
+
+        /* CSS ESPECÍFICO PARA QUESTION TYPES */
+        .question-type {
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.8em;
+            font-weight: 700;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .question-type.grammar {
+            background: linear-gradient(135deg, #a855f7, #7c3aed);
+            color: white;
+        }
+
+        .question-type.comprehension {
+            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+            color: white;
+        }
+    </style>
+</head>
+<body class="reading-page">
+    <!-- User Info -->
+    <div style="position: fixed; top: 15px; right: 15px; z-index: 1000;">
+        <div style="background: rgba(255,255,255,0.95); border-radius: 15px; padding: 8px 15px; box-shadow: 0 8px 25px rgba(0,0,0,0.1); border: 2px solid #dc2626; backdrop-filter: blur(10px);">
+            <span style="color: #1e3a8a; font-weight: 700; margin-right: 8px; font-size: 0.8em;">👋 <span id="userName">Aluno</span></span>
+            <button onclick="logout()" style="background: #dc2626; color: white; border: none; padding: 5px 10px; border-radius: 8px; cursor: pointer; font-size: 0.75em; font-weight: 600; transition: all 0.3s ease;" onmouseover="this.style.background='#ef4444'" onmouseout="this.style.background='#dc2626'">🚪 Sair</button>
+        </div>
+    </div>
+    
+    <div class="container reading-page">
+        <div class="header">
+            <a href="index.html" style="text-decoration: none; color: inherit;">
+                <div class="logo">
+                    Teacher Alex <span class="logo-highlight">English Academy</span> BETA
+                </div>
+            </a>
+            <div class="story-title">📚 The Secret in the Old House</div>
+            <div class="level-badge">📖 Nível A2 - Graded Reader</div>
+        </div>
+    
+        <!-- NAVEGAÇÃO DE CAPÍTULOS -->
+        <div class="chapter-navigation">
+            <div class="nav-title">📖 Escolha seu Capítulo</div>
+            <div class="chapter-cards" id="chapterCards">
+                <!-- Cards serão gerados dinamicamente -->
+            </div>
+        </div>
+        
+        <div class="chapter-container" id="chapterContainer">
+            <div class="chapter-header">
+                <div class="chapter-title" id="chapterTitle">The New Neighbor</div>
+                <div class="chapter-number" id="chapterNumber">Capítulo 1</div>
+            </div>
+            
+            <div class="progress-section">
+                <div class="progress-bar"><div class="progress-fill" id="progressBar"></div></div>
+                
+                <div class="badges">
+                    <div class="badge" id="badge1">📚 Primeira Leitura</div>
+                    <div class="badge" id="badge2">🎯 Boa Pontuação</div>
+                    <div class="badge" id="badge3">⭐ Capítulo Perfeito</div>
+                    <div class="badge" id="badge4">🧠 Mestre da Gramática</div>
+                    <div class="badge" id="badge5">🔍 Detetive</div>
+                </div>
+            </div>
+            
+            <div class="audio-section">
+                <div class="audio-title" id="audioTitle">🎧 Escute o Capítulo: The New Neighbor</div>
+                <audio id="mainAudio" controls>
+                    <source src="audios/chapter1.mp3" type="audio/mpeg">
+                    Seu navegador não suporta o elemento de áudio.
+                </audio>
+                <div class="play-buttons">
+                    <button class="btn btn-primary" onclick="playAudio()">▶️ Reproduzir</button>
+                    <button class="btn btn-secondary" onclick="replayAudio()">🔄 Repetir</button>
+                    <button class="btn btn-primary" onclick="pauseAudio()">⏸️ Pausar</button>
+                </div>
+            </div>
+            
+            <div class="questions-section" id="questionsContainer"></div>
+            
+            <div class="controls">
+                <button class="btn btn-primary" onclick="checkAnswers()">✅ Verificar Respostas</button>
+                <button class="btn btn-secondary" onclick="resetQuiz()">🔄 Reiniciar Capítulo</button>
+                <button class="btn btn-primary" onclick="nextChapter()">➡️ Próximo Capítulo</button>
+            </div>
+            
+            <div id="scoreSection" class="score" style="display: none;">
+                Sua Pontuação: <span id="scoreValue">0</span>/5 📚
+            </div>
+            
+            <div id="feedback" class="feedback" style="display: none;"></div>
+        </div>
+    </div>
+    
+    <script>
+        // ===== SISTEMA DE PROTEÇÃO DE LOGIN PURO =====
+        function checkLogin() {
+            if (sessionStorage.getItem('studentLoggedIn') !== 'true') {
+                window.location.href = 'login.html';
+                return false;
+            }
+            return true;
+        }
+
+        function logout() {
+            sessionStorage.removeItem('studentLoggedIn');
+            sessionStorage.removeItem('studentUsername');
+            window.location.href = 'login.html';
+        }
+
+        function getStudentName() {
+            return sessionStorage.getItem('studentUsername') || 'Student';
+        }
+
+        if (!checkLogin()) throw new Error('Not logged in');
+
+        // ===== SISTEMA DE PROGRESSO PURO LOCALSTORAGE =====
+        class StudentProgress {
+            constructor() {
+                this.studentId = sessionStorage.getItem('studentUsername') || 'student';
+                this.progressKey = `progress_${this.studentId}`;
+                this.loadProgress();
+            }
+
+            loadProgress() {
+                const saved = localStorage.getItem(this.progressKey);
+                if (saved) {
+                    this.data = JSON.parse(saved);
+                } else {
+                    this.data = {
+                        listening: { lessonsCompleted: [], bestScores: {}, totalAttempts: 0, badges: [] },
+                        reading: { chaptersCompleted: [], bestScores: {}, totalAttempts: 0, badges: [] },
+                        globalBadges: [], lastActivity: null, joinDate: new Date().toISOString(), totalStudyTime: 0
+                    };
+                }
+            }
+
+            saveProgress() { 
+                localStorage.setItem(this.progressKey, JSON.stringify(this.data));
+                console.log(`💾 Progresso salvo no localStorage para ${this.studentId}`);
+            }
+
+            completeReadingChapter(chapterNumber, score, timeSpent) {
+                const chapter = `chapter_${chapterNumber}`;
+                if (!this.data.reading.chaptersCompleted.includes(chapter)) {
+                    this.data.reading.chaptersCompleted.push(chapter);
+                }
+                if (!this.data.reading.bestScores[chapter] || score > this.data.reading.bestScores[chapter]) {
+                    this.data.reading.bestScores[chapter] = score;
+                }
+                this.data.reading.totalAttempts++;
+                this.data.totalStudyTime += timeSpent;
+                this.data.lastActivity = new Date().toISOString();
+                this.checkReadingBadges(chapterNumber, score);
+                this.saveProgress();
+                this.updateChapterCards();
+            }
+
+            checkReadingBadges(chapterNumber, score) {
+                const badges = this.data.reading.badges;
+                if (!badges.includes('first_chapter')) {
+                    badges.push('first_chapter');
+                    this.showBadgeNotification('📚 Primeiro Capítulo!', 'Você começou a aventura de leitura!');
+                }
+                if (score === 5 && !badges.includes('perfect_chapter')) {
+                    badges.push('perfect_chapter');
+                    this.showBadgeNotification('⭐ Capítulo Perfeito!', 'Você entendeu perfeitamente a história!');
+                }
+                if (this.data.reading.chaptersCompleted.length >= 4 && !badges.includes('complete_story')) {
+                    badges.push('complete_story');
+                    this.showBadgeNotification('🎉 Detetive Completo!', 'Você terminou toda a história!');
+                }
+                if (score >= 4 && !badges.includes('grammar_master')) {
+                    badges.push('grammar_master');
+                    this.showBadgeNotification('🧠 Mestre da Gramática!', 'Excelente conhecimento gramatical!');
+                }
+            }
+
+            showBadgeNotification(title, message) {
+                const notification = document.createElement('div');
+                notification.style.cssText = `
+                    position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
+                    background: linear-gradient(135deg, #1e3a8a, #dc2626); color: white;
+                    padding: 25px 35px; border-radius: 20px; z-index: 10000; text-align: center;
+                    box-shadow: 0 15px 40px rgba(0,0,0,0.3); backdrop-filter: blur(10px);
+                `;
+                notification.innerHTML = `<div style="font-size: 1.8em; font-weight: bold; margin-bottom: 15px;">${title}</div><div style="font-size: 1.1em;">${message}</div>`;
+                document.body.appendChild(notification);
+                setTimeout(() => { if (document.body.contains(notification)) document.body.removeChild(notification); }, 3000);
+            }
+
+            updateChapterCards() {
+                createChapterCards();
+            }
+        }
+
+        // ===== SISTEMA DE CAPÍTULOS - 4 CAPÍTULOS A2 =====
+        const chapters = {
+            1: { title: "The New Neighbor", shortTitle: "New Neighbor", icon: "🏠", audioUrl: "audios/chapter1.mp3", questions: { q1: { type: "comprehension", text: "How old is Emma?", options: ["Fifteen years old", "Sixteen years old", "Seventeen years old", "Eighteen years old"], correct: "b" }, q2: { type: "comprehension", text: "How long was the old house empty?", options: ["For one year", "For many years", "For fifty years", "For two months"], correct: "b" }, q3: { type: "grammar", text: '"She _____ from her bedroom window." Which past tense form is correct?', options: ["was watching", "watched", "has watched", "watches"], correct: "b" }, q4: { type: "comprehension", text: "What did Emma see in the old house that night?", options: ["A television", "A strange light moving around", "The new neighbor cooking", "Nothing unusual"], correct: "b" }, q5: { type: "grammar", text: '"Wait _____ tomorrow." Which preposition completes the sentence?', options: ["until", "for", "at", "in"], correct: "a" } } },
+            2: { title: "The Meeting", shortTitle: "The Meeting", icon: "👥", audioUrl: "audios/chapter2.mp3", questions: { q1: { type: "comprehension", text: "What is the new neighbor's name?", options: ["Mrs. Peterson", "Mrs. Johnson", "Mrs. Williams", "Mrs. Anderson"], correct: "a" }, q2: { type: "comprehension", text: "Who lived in the house fifty years ago?", options: ["Mrs. Peterson", "Mrs. Peterson's mother", "Mrs. Peterson's grandmother", "Mrs. Peterson's sister"], correct: "c" }, q3: { type: "grammar", text: '"Do you need help?" This is an example of:', options: ["A statement", "A yes/no question", "A wh-question", "An exclamation"], correct: "b" }, q4: { type: "comprehension", text: "What is Mrs. Peterson looking for?", options: ["Her keys", "A special box", "Her glasses", "A book"], correct: "b" }, q5: { type: "grammar", text: '"I _____ find it anywhere." Which modal verb fits best?', options: ["can't", "mustn't", "shouldn't", "wouldn't"], correct: "a" } } },
+            3: { title: "The Search", shortTitle: "The Search", icon: "🔍", audioUrl: "audios/chapter3.mp3", questions: { q1: { type: "comprehension", text: "How many days did they search together?", options: ["Two days", "Three days", "Four days", "Five days"], correct: "b" }, q2: { type: "grammar", text: '"They _____ looking for three days." Which verb form is correct?', options: ["were", "was", "are", "is"], correct: "a" }, q3: { type: "comprehension", text: "What did Emma notice about the kitchen wall?", options: ["It was dirty", "It was damaged", "It was shorter than the others", "It was painted differently"], correct: "c" }, q4: { type: "grammar", text: '"One wall was _____ than the others." What type of adjective is this?', options: ["Positive", "Comparative", "Superlative", "Possessive"], correct: "b" }, q5: { type: "comprehension", text: "What did they move to find the hidden door?", options: ["The stove", "The refrigerator", "The table", "The cabinet"], correct: "b" } } },
+            4: { title: "The Discovery", shortTitle: "Discovery", icon: "💎", audioUrl: "audios/chapter4.mp3", questions: { q1: { type: "comprehension", text: "What was inside the wooden box?", options: ["Money and coins", "Books and papers", "Photos, letters, and a necklace", "Toys and games"], correct: "c" }, q2: { type: "grammar", text: '"These are photos of my grandmother _____ was young." Which relative pronoun fits?', options: ["who", "when", "which", "where"], correct: "b" }, q3: { type: "comprehension", text: "What did Mrs. Peterson give to Emma?", options: ["The photos", "The letters", "The gold necklace", "The wooden box"], correct: "c" }, q4: { type: "grammar", text: '"I _____ it was lost forever." Which verb form shows past belief?', options: ["think", "thought", "have thought", "was thinking"], correct: "b" }, q5: { type: "comprehension", text: "What do Emma and Mrs. Peterson do every afternoon now?", options: ["Search for more treasures", "Have tea together", "Read mystery books", "Go shopping"], correct: "b" } } }
+        };
+        
+        let currentChapter = 1, attempts = 0, chapterStartTime = Date.now(), studentProgress = new StudentProgress();
+        
+        // ===== NAVEGAÇÃO DE CAPÍTULOS =====
+        function createChapterCards() {
+            const cardsContainer = document.getElementById('chapterCards');
+            cardsContainer.innerHTML = '';
+            
+            for (let i = 1; i <= 4; i++) {
+                const chapter = chapters[i];
+                const isCompleted = studentProgress.data.reading.chaptersCompleted.includes(`chapter_${i}`);
+                const bestScore = studentProgress.data.reading.bestScores[`chapter_${i}`] || 0;
+                const isActive = i === currentChapter;
+                
+                const card = document.createElement('div');
+                card.className = `chapter-card ${isActive ? 'active' : ''} ${isCompleted ? 'completed' : ''}`;
+                card.onclick = () => switchToChapter(i);
+                
+                card.innerHTML = `
+                    <div class="chapter-icon">${chapter.icon}</div>
+                    <div class="chapter-number">Capítulo ${i}</div>
+                    <div class="chapter-name">${chapter.shortTitle}</div>
+                    ${isCompleted ? `<div class="completion-badge">${bestScore}</div>` : ''}
+                `;
+                
+                cardsContainer.appendChild(card);
+            }
+        }
+        
+        function switchToChapter(chapterNumber) {
+            if (chapterNumber === currentChapter) return;
+            
+            currentChapter = chapterNumber;
+            loadChapter(currentChapter);
+            createChapterCards();
+            
+            const container = document.getElementById('chapterContainer');
+            container.style.animation = 'none';
+            container.offsetHeight;
+            container.style.animation = 'slideInUp 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
+        }
+        
+        // ===== CARREGAR CAPÍTULO =====
+        function loadChapter(chapterNumber) {
+            if (!chapters[chapterNumber]) return;
+            const chapter = chapters[chapterNumber];
+            document.getElementById('chapterTitle').textContent = chapter.title;
+            document.getElementById('chapterNumber').textContent = `Capítulo ${chapterNumber}`;
+            document.getElementById('audioTitle').textContent = `🎧 Escute o Capítulo: ${chapter.title}`;
+            document.getElementById('mainAudio').src = chapter.audioUrl;
+            loadQuestions(chapter.questions);
+            resetQuiz();
+        }
+        
+        function loadQuestions(questions) {
+            const container = document.getElementById('questionsContainer');
+            container.innerHTML = '';
+            Object.keys(questions).forEach((key, index) => {
+                const q = questions[key];
+                const div = document.createElement('div');
+                div.className = 'question';
+                div.innerHTML = `
+                    <div class="question-type ${q.type === 'grammar' ? 'grammar' : 'comprehension'}">${q.type === 'grammar' ? 'GRAMÁTICA' : 'INTERPRETAÇÃO'}</div>
+                    <div class="question-text">${index + 1}. ${q.text}</div>
+                    <div class="options">
+                        ${q.options.map((opt, i) => `
+                            <div class="option" data-value="${String.fromCharCode(97 + i)}">
+                                <input type="radio" name="${key}" value="${String.fromCharCode(97 + i)}" id="${key}_${i}">
+                                <label for="${key}_${i}">${String.fromCharCode(97 + i).toUpperCase()}) ${opt}</label>
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
+                container.appendChild(div);
+            });
+            addOptionEventListeners();
+        }
+        
+        function addOptionEventListeners() {
+            document.querySelectorAll('.option').forEach(option => {
+                option.addEventListener('click', function() {
+                    const radio = this.querySelector('input[type="radio"]');
+                    radio.checked = true;
+                    const name = radio.name;
+                    document.querySelectorAll(`input[name="${name}"]`).forEach(opt => {
+                        opt.closest('.option').classList.remove('selected');
+                    });
+                    this.classList.add('selected');
+                });
+            });
+        }
+        
+        // ===== ÁUDIO =====
+        function playAudio() { document.getElementById('mainAudio').play(); }
+        function replayAudio() { const audio = document.getElementById('mainAudio'); audio.currentTime = 0; audio.play(); }
+        function pauseAudio() { document.getElementById('mainAudio').pause(); }
+        
+        // ===== ANIMAÇÕES DE CELEBRAÇÃO =====
+        function createCelebration(score) {
+            const overlay = document.createElement('div');
+            overlay.className = 'celebration-overlay';
+            document.body.appendChild(overlay);
+            
+            const celebrationText = document.createElement('div');
+            celebrationText.className = 'celebration-text';
+            
+            if (score === 5) {
+                celebrationText.textContent = 'PERFECT! 📚✨';
+                createConfetti();
+            } else if (score === 4) {
+                celebrationText.textContent = 'EXCELLENT! ⭐🎯';
+                createFireworks();
+            }
+            
+            document.body.appendChild(celebrationText);
+            
+            setTimeout(() => {
+                if (document.body.contains(overlay)) document.body.removeChild(overlay);
+                if (document.body.contains(celebrationText)) document.body.removeChild(celebrationText);
+            }, 3000);
+        }
+        
+        function createConfetti() {
+            const colors = ['#1e3a8a', '#dc2626', '#fbbf24', '#10b981', '#8b5cf6'];
+            for (let i = 0; i < 50; i++) {
+                setTimeout(() => {
+                    const confetti = document.createElement('div');
+                    confetti.className = 'confetti';
+                    confetti.style.left = Math.random() * 100 + 'vw';
+                    confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                    confetti.style.borderRadius = Math.random() > 0.5 ? '50%' : '0%';
+                    confetti.style.animationDelay = Math.random() * 0.5 + 's';
+                    confetti.style.animationDuration = (Math.random() * 2 + 2) + 's';
+                    document.body.appendChild(confetti);
+                    
+                    setTimeout(() => {
+                        if (document.body.contains(confetti)) document.body.removeChild(confetti);
+                    }, 4000);
+                }, i * 50);
+            }
+        }
+        
+        function createFireworks() {
+            const colors = ['#fbbf24', '#ef4444', '#10b981', '#3b82f6'];
+            for (let i = 0; i < 15; i++) {
+                setTimeout(() => {
+                    const firework = document.createElement('div');
+                    firework.className = 'firework';
+                    firework.style.left = (Math.random() * 80 + 10) + 'vw';
+                    firework.style.top = (Math.random() * 60 + 20) + 'vh';
+                    firework.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                    firework.style.animationDelay = Math.random() * 0.5 + 's';
+                    document.body.appendChild(firework);
+                    
+                    setTimeout(() => {
+                        if (document.body.contains(firework)) document.body.removeChild(firework);
+                    }, 2000);
+                }, i * 100);
+            }
+        }
+        
+        // ===== VERIFICAR RESPOSTAS =====
+        function checkAnswers() {
+            const chapter = chapters[currentChapter];
+            const questions = Object.keys(chapter.questions);
+            let score = 0;
+            let detailedResults = [];
+            let grammarScore = 0;
+            let comprehensionScore = 0;
+            attempts++;
+            
+            questions.forEach((key, index) => {
+                const selected = document.querySelector(`input[name="${key}"]:checked`);
+                const correct = chapter.questions[key].correct;
+                const allOptions = document.querySelectorAll(`input[name="${key}"]`);
+                const questionType = chapter.questions[key].type;
+                const isGrammar = questionType === 'grammar';
+                
+                allOptions.forEach(opt => {
+                    opt.closest('.option').classList.remove('correct-answer', 'wrong-answer');
+                });
+                
+                const correctOption = document.querySelector(`input[name="${key}"][value="${correct}"]`);
+                correctOption.closest('.option').classList.add('correct-answer');
+                
+                if (selected && selected.value !== correct) {
+                    selected.closest('.option').classList.add('wrong-answer');
+                }
+                
+                const correctOptionText = chapter.questions[key].options[correct.charCodeAt(0) - 97];
+                const selectedOptionText = selected ? chapter.questions[key].options[selected.value.charCodeAt(0) - 97] : "Não respondida";
+                
+                let resultHTML = '';
+                
+                if (selected && selected.value === correct) {
+                    score++;
+                    if (isGrammar) grammarScore++;
+                    else comprehensionScore++;
+                    
+                    const iconType = isGrammar ? '🧠' : '📖';
+                    const typeLabel = isGrammar ? 'GRAMÁTICA' : 'INTERPRETAÇÃO';
+                    
+                    resultHTML = `
+                        <div style="background: linear-gradient(135deg, rgba(34, 197, 94, 0.1), rgba(16, 185, 129, 0.1)); border-left: 5px solid #10b981; padding: 20px; border-radius: 12px; margin-bottom: 15px; border: 2px solid rgba(16, 185, 129, 0.2);">
+                            <div style="font-weight: 800; color: #059669; margin-bottom: 10px; font-size: 1.1em;">
+                                ✅ Questão ${index + 1} (${typeLabel}) ${iconType}: CORRETO! 🎯
+                            </div>
+                            <div style="color: #047857; font-size: 1em; line-height: 1.5;">
+                                <strong>Pergunta:</strong> ${chapter.questions[key].text}<br>
+                                <strong>Sua resposta:</strong> <span style="background: rgba(34, 197, 94, 0.2); padding: 4px 8px; border-radius: 6px; font-weight: 700;">${selectedOptionText}</span> 
+                                <span style="color: #10b981; font-size: 1.2em;">✨</span>
+                            </div>
+                        </div>
+                    `;
+                } else {
+                    const iconType = isGrammar ? '🧠' : '📖';
+                    const typeLabel = isGrammar ? 'GRAMÁTICA' : 'INTERPRETAÇÃO';
+                    
+                    resultHTML = `
+                        <div style="background: linear-gradient(135deg, rgba(239, 68, 68, 0.1), rgba(220, 38, 38, 0.1)); border-left: 5px solid #ef4444; padding: 20px; border-radius: 12px; margin-bottom: 15px; border: 2px solid rgba(239, 68, 68, 0.2);">
+                            <div style="font-weight: 800; color: #dc2626; margin-bottom: 10px; font-size: 1.1em;">
+                                ❌ Questão ${index + 1} (${typeLabel}) ${iconType}: INCORRETO 
+                            </div>
+                            <div style="color: #991b1b; font-size: 1em; line-height: 1.5;">
+                                <strong>Pergunta:</strong> ${chapter.questions[key].text}<br>
+                                <strong>Sua resposta:</strong> <span style="background: rgba(239, 68, 68, 0.2); padding: 4px 8px; border-radius: 6px; font-weight: 600;">${selectedOptionText}</span><br>
+                                <strong>Resposta correta:</strong> <span style="background: linear-gradient(135deg, #fbbf24, #f59e0b); color: white; padding: 4px 10px; border-radius: 8px; font-weight: 700; margin-top: 5px; display: inline-block;">${correctOptionText}</span>
+                            </div>
+                        </div>
+                    `;
+                }
+                
+                detailedResults.push(resultHTML);
+            });
+            
+            studentProgress.completeReadingChapter(currentChapter, score, Date.now() - chapterStartTime);
+            
+            document.getElementById('progressBar').style.width = (score / 5) * 100 + '%';
+            document.getElementById('scoreValue').textContent = score;
+            document.getElementById('scoreSection').style.display = 'block';
+            
+            if (attempts === 1) document.getElementById('badge1').classList.add('earned');
+            if (score >= 4) document.getElementById('badge2').classList.add('earned');
+            if (score === 5) document.getElementById('badge3').classList.add('earned');
+            if (grammarScore >= 2) document.getElementById('badge4').classList.add('earned');
+            if (comprehensionScore >= 3) document.getElementById('badge5').classList.add('earned');
+            
+            if (score === 5 || score === 4) {
+                setTimeout(() => createCelebration(score), 500);
+            }
+            
+            const feedback = document.getElementById('feedback');
+            
+            let feedbackHeader = '';
+            if (score === 5) {
+                feedbackHeader = `
+                    <div style="text-align: center; background: linear-gradient(135deg, #10b981, #059669); color: white; padding: 25px; border-radius: 15px; margin-bottom: 25px; font-size: 1.3em; font-weight: 800; box-shadow: 0 10px 30px rgba(16, 185, 129, 0.4);">
+                        🎉 CAPÍTULO PERFEITO! 📚✨<br>
+                        <span style="font-size: 0.8em; opacity: 0.9;">Você entendeu perfeitamente a história!</span>
+                    </div>
+                `;
+            } else if (score === 4) {
+                feedbackHeader = `
+                    <div style="text-align: center; background: linear-gradient(135deg, #3b82f6, #1d4ed8); color: white; padding: 25px; border-radius: 15px; margin-bottom: 25px; font-size: 1.3em; font-weight: 800; box-shadow: 0 10px 30px rgba(59, 130, 246, 0.4);">
+                        ⭐ EXCELENTE LEITURA! 🎯<br>
+                        <span style="font-size: 0.8em; opacity: 0.9;">Quase perfeito! Continue assim!</span>
+                    </div>
+                `;
+            } else if (score === 3) {
+                feedbackHeader = `
+                    <div style="text-align: center; background: linear-gradient(135deg, #f59e0b, #d97706); color: white; padding: 25px; border-radius: 15px; margin-bottom: 25px; font-size: 1.2em; font-weight: 800; box-shadow: 0 10px 30px rgba(245, 158, 11, 0.4);">
+                        👍 BOM TRABALHO! 💪<br>
+                        <span style="font-size: 0.8em; opacity: 0.9;">Continue lendo e praticando!</span>
+                    </div>
+                `;
+            } else {
+                feedbackHeader = `
+                    <div style="text-align: center; background: linear-gradient(135deg, #ef4444, #dc2626); color: white; padding: 25px; border-radius: 15px; margin-bottom: 25px; font-size: 1.2em; font-weight: 800; box-shadow: 0 10px 30px rgba(239, 68, 68, 0.4);">
+                        💪 CONTINUE TENTANDO! 📖<br>
+                        <span style="font-size: 0.8em; opacity: 0.9;">Leia cuidadosamente e escute novamente!</span>
+                    </div>
+                `;
+            }
+            
+            const statsHTML = `
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 25px;">
+                    <div style="background: rgba(59, 130, 246, 0.1); border: 2px solid #3b82f6; border-radius: 12px; padding: 18px; text-align: center;">
+                        <div style="font-size: 1.6em; font-weight: 800; color: #1d4ed8;">📖 ${comprehensionScore}/3</div>
+                        <div style="color: #1e40af; font-weight: 700;">Interpretação</div>
+                    </div>
+                    <div style="background: rgba(168, 85, 247, 0.1); border: 2px solid #a855f7; border-radius: 12px; padding: 18px; text-align: center;">
+                        <div style="font-size: 1.6em; font-weight: 800; color: #7c3aed;">🧠 ${grammarScore}/2</div>
+                        <div style="color: #6d28d9; font-weight: 700;">Gramática</div>
+                    </div>
+                </div>
+            `;
+            
+            feedback.innerHTML = feedbackHeader + statsHTML + detailedResults.join('');
+            feedback.style.display = 'block';
+        }
+        
+        function resetQuiz() {
+            document.querySelectorAll('input[type="radio"]').forEach(radio => {
+                radio.checked = false;
+                const option = radio.closest('.option');
+                option.classList.remove('selected', 'correct-answer', 'wrong-answer');
+            });
+            
+            document.getElementById('scoreSection').style.display = 'none';
+            document.getElementById('feedback').style.display = 'none';
+            document.getElementById('progressBar').style.width = '0%';
+            
+            document.querySelectorAll('.badge').forEach(badge => {
+                badge.classList.remove('earned');
+            });
+            
+            pauseAudio();
+            attempts = 0;
+            chapterStartTime = Date.now();
+        }
+        
+        function nextChapter() {
+            if (currentChapter < 4) {
+                switchToChapter(currentChapter + 1);
+            } else {
+                alert('🎉 Parabéns! Você terminou "The Secret in the Old House"! 🏆📚');
+            }
+        }
+        
+        // ===== INICIALIZAÇÃO =====
+        document.addEventListener('DOMContentLoaded', function() {
+            const studentName = getStudentName();
+            document.getElementById('userName').textContent = studentName;
+            
+            console.log(`📚 The Secret in the Old House carregado - usuário: ${studentName}`);
+            console.log('💾 Sistema localStorage puro - Firebase EXTERMINADO!');
+            console.log('🎧 4 capítulos A2 Graded Reader com áudio preservados');
+            
+            createChapterCards();
+            loadChapter(currentChapter);
+        });
+    </script>
+</body>
+</html>
