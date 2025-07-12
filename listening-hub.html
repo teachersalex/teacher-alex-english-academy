@@ -372,7 +372,7 @@
                     <div class="stat-label">Lições Concluídas</div>
                 </div>
                 <div class="stat-card">
-                    <div class="stat-number">15</div>
+                    <div class="stat-number">23</div>
                     <div class="stat-label">Lições Disponíveis</div>
                 </div>
                 <div class="stat-card">
@@ -394,8 +394,8 @@
                     <div class="level-badge">🟦 Foundation</div>
                     <div class="level-info">
                         <div class="level-title">Nível Foundation</div>
-                        <div class="level-description">Primeiros passos essenciais para quem nunca estudou inglês</div>
-                        <div class="level-lessons">Lições F1-F4 • Alfabeto, Números, Cumprimentos, Casa & Compras</div>
+                        <div class="level-description">Survival Kit completo com 12 lições essenciais para brasileiros</div>
+                        <div class="level-lessons">Lições F1-F12 • Basics, Daily Essentials, Practical Skills</div>
                     </div>
                 </div>
                 
@@ -403,14 +403,14 @@
                     <div class="progress-bar">
                         <div class="progress-fill" id="foundationProgress" style="width: 0%"></div>
                     </div>
-                    <div class="progress-text" id="foundationText">0/4 Concluídas</div>
+                    <div class="progress-text" id="foundationText">0/12 Concluídas</div>
                 </div>
                 
                 <ul class="level-features">
-                    <li>Alfabeto e números essenciais</li>
-                    <li>Cumprimentos básicos de sobrevivência</li>
-                    <li>Vocabulário de casa e família</li>
-                    <li>Compras simples do dia a dia</li>
+                    <li>Survival Basics: Alfabeto, números, cumprimentos</li>
+                    <li>Daily Essentials: Cores, comida, corpo, direções</li>
+                    <li>Practical Skills: Compras, trabalho, emergência</li>
+                    <li>12 lições de sobrevivência total no inglês</li>
                 </ul>
                 
                 <button class="level-button" onclick="goToLevel('foundation')">🚀 Começar do Zero</button>
@@ -562,8 +562,8 @@
                 const averageScore = scores.length > 0 ? 
                     (scores.reduce((a, b) => a + b, 0) / scores.length).toFixed(1) : 0;
 
-                // Progresso por nível - INCLUINDO FOUNDATION
-                const foundationLessons = ['f1', 'f2', 'f3', 'f4'];
+                // Progresso por nível - INCLUINDO FOUNDATION EXPANDIDO
+                const foundationLessons = ['f1', 'f2', 'f3', 'f4', 'f5', 'f6', 'f7', 'f8', 'f9', 'f10', 'f11', 'f12'];
                 const beginnerLessons = [1, 2, 3, 4];
                 const intermediateLessons = [5, 6, 7, 8];
                 const advancedLessons = [9, 10, 11];
@@ -588,7 +588,7 @@
                     totalCompleted,
                     totalBadges,
                     averageScore,
-                    foundation: { completed: foundationCompleted, total: 4 },
+                    foundation: { completed: foundationCompleted, total: 12 },
                     beginner: { completed: beginnerCompleted, total: 4 },
                     intermediate: { completed: intermediateCompleted, total: 4 },
                     advanced: { completed: advancedCompleted, total: 3 }
@@ -643,7 +643,7 @@
             updateLevelProgress('intermediate', stats.intermediate.completed, stats.intermediate.total);
             updateLevelProgress('advanced', stats.advanced.completed, stats.advanced.total);
             
-            console.log('✅ Listening Hub inicializado com 4 níveis: Foundation + Beginner + Intermediate + Advanced');
+            console.log('✅ Listening Hub inicializado com 4 níveis: Foundation(12) + Beginner(4) + Intermediate(4) + Advanced(3) = 23 lições!');
         });
     </script>
 </body>
