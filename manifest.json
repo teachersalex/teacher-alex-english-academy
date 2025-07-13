@@ -9,22 +9,22 @@
   "theme_color": "#dc2626",
   "background_color": "#1e3a8a",
   "lang": "pt-BR",
-  "version": "2.0",
+  "version": "2.1",
   "icons": [
     {
-      "src": "./icon-192.png",
+      "src": "./src/assets/images/icons/icon-192.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "any maskable"
     },
     {
-      "src": "./icon-512.png",
+      "src": "./src/assets/images/icons/icon-512.png",
       "sizes": "512x512", 
       "type": "image/png",
       "purpose": "any maskable"
     },
     {
-      "src": "./icon-192.png",
+      "src": "./src/assets/images/icons/icon-192.png",
       "sizes": "180x180",
       "type": "image/png",
       "purpose": "apple-touch-icon"
@@ -36,10 +36,10 @@
       "name": "Listening Practice",
       "short_name": "Listening",
       "description": "Praticar listening",
-      "url": "./listening-hub.html",
+      "url": "./pages/hubs/listening-hub.html",
       "icons": [
         {
-          "src": "./icon-192.png",
+          "src": "./src/assets/images/icons/icon-192.png",
           "sizes": "96x96",
           "type": "image/png"
         }
@@ -49,11 +49,24 @@
       "name": "Reading Hub", 
       "short_name": "Reading",
       "description": "Histórias e leitura",
-      "url": "./graded-readers-hub.html",
+      "url": "./pages/hubs/graded-readers-hub.html",
       "icons": [
         {
-          "src": "./icon-192.png",
+          "src": "./src/assets/images/icons/icon-192.png",
           "sizes": "96x96", 
+          "type": "image/png"
+        }
+      ]
+    },
+    {
+      "name": "Pure Reading",
+      "short_name": "Pure Reading", 
+      "description": "Foco na interpretação textual",
+      "url": "./pages/hubs/pure-reading-hub.html",
+      "icons": [
+        {
+          "src": "./src/assets/images/icons/icon-192.png",
+          "sizes": "96x96",
           "type": "image/png"
         }
       ]
