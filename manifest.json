@@ -1,0 +1,62 @@
+{
+  "name": "Teacher Alex English Academy",
+  "short_name": "English Academy",
+  "description": "Aprenda inglês com Teacher Alex",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "theme_color": "#dc2626",
+  "background_color": "#1e3a8a",
+  "lang": "pt-BR",
+  "version": "2.0",
+  "icons": [
+    {
+      "src": "./icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "./icon-512.png",
+      "sizes": "512x512", 
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "./icon-192.png",
+      "sizes": "180x180",
+      "type": "image/png",
+      "purpose": "apple-touch-icon"
+    }
+  ],
+  "categories": ["education", "productivity"],
+  "shortcuts": [
+    {
+      "name": "Listening Practice",
+      "short_name": "Listening",
+      "description": "Praticar listening",
+      "url": "./listening-hub.html",
+      "icons": [
+        {
+          "src": "./icon-192.png",
+          "sizes": "96x96",
+          "type": "image/png"
+        }
+      ]
+    },
+    {
+      "name": "Reading Hub", 
+      "short_name": "Reading",
+      "description": "Histórias e leitura",
+      "url": "./graded-readers-hub.html",
+      "icons": [
+        {
+          "src": "./icon-192.png",
+          "sizes": "96x96", 
+          "type": "image/png"
+        }
+      ]
+    }
+  ]
+}
