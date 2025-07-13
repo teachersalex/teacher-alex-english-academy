@@ -5,20 +5,96 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Teacher Alex English Academy BETA</title>
     
-    <!-- CSS EXTERNO - ESTRATÉGIA VENCEDORA! -->
-    <link rel="stylesheet" href="base.css">
-    <link rel="stylesheet" href="layout.css">
-    <link rel="stylesheet" href="theme-patriot.css">
+    <!-- External CSS -->
+    <link rel="stylesheet" href="src/styles/base.css">
+    <link rel="stylesheet" href="src/styles/layout.css">
+    <link rel="stylesheet" href="src/styles/theme-patriot.css">
+    
+    <!-- PWA Configuration -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#dc2626">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Alex Academy">
+    <link rel="apple-touch-icon" href="src/assets/images/icons/icon-192.png">
     
     <style>
-        /* ===== 🔥 CORREÇÕES CIRÚRGICAS URGENTES ===== */
+        /* ===== 🎨 COMPONENT STYLES (CLEAN VERSION) ===== */
         
-        /* CORREÇÃO 1: CONTROLE TOTAL DAS IMAGENS */
+        /* User Widget Component */
+        .user-widget {
+            position: fixed;
+            top: 1.25rem;
+            right: 1.25rem;
+            z-index: 1000;
+            background: rgba(255,255,255,0.95);
+            border-radius: 0.9375rem;
+            padding: 0.3125rem 0.625rem;
+            box-shadow: 0 0.5rem 1.5625rem rgba(0,0,0,0.1);
+            border: 2px solid #dc2626;
+            backdrop-filter: blur(10px);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .user-avatar {
+            width: 1.875rem;
+            height: 1.875rem;
+            background: linear-gradient(135deg, #1e3a8a, #dc2626);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+        
+        .user-name {
+            color: #1e3a8a;
+            font-weight: 700;
+            font-size: 0.9em;
+        }
+        
+        .logout-btn {
+            background: #dc2626;
+            color: white;
+            border: none;
+            padding: 0.375rem 0.75rem;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            font-size: 0.8em;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .logout-btn:hover {
+            background: #ef4444;
+        }
+        
+        /* Activity Card Components */
+        .activity-card {
+            background: white;
+            border-radius: 1.25rem;
+            box-shadow: 0 0.25rem 0.375rem rgba(0,0,0,0.07), 0 0.625rem 0.9375rem rgba(0,0,0,0.1);
+            overflow: hidden;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            min-height: 32.5rem;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .activity-card:hover {
+            transform: translateY(-0.5rem);
+            box-shadow: 0 1.25rem 2.5rem rgba(30, 58, 138, 0.15);
+        }
+        
         .image-container {
             position: relative;
-            height: 260px;
+            height: 16.25rem;
             overflow: hidden;
-            border-radius: 17px 17px 0 0;
             background: #f1f5f9;
         }
         
@@ -30,324 +106,294 @@
             display: block;
         }
         
-        /* CORREÇÃO 2: Esconder status "carregada" */
-        .image-status {
-            display: none !important;
-        }
-        
-        /* CORREÇÃO 3: Espaçamento dos ícones nos cards especiais */
-        .coming-soon .activity-icon,
-        .secret-area .activity-icon {
-            margin-bottom: 10px;
-            margin-top: 15px;
-        }
-        
-        /* CORREÇÃO 4: Garantir que botões especiais continuem lindos */
-        .coming-soon-button {
-            background: linear-gradient(135deg, #f59e0b, #d97706) !important;
-            border-radius: 18px !important;
-            font-weight: 700 !important;
-            font-size: 1.1em !important;
-            padding: 18px 32px !important;
-            text-transform: uppercase !important;
-            letter-spacing: 1px !important;
-        }
-
-        .mystery-button {
-            background: linear-gradient(135deg, #8b5cf6, #7c3aed) !important;
-            border-radius: 18px !important;
-            font-weight: 700 !important;
-            font-size: 1.1em !important;
-            padding: 18px 32px !important;
-            text-transform: uppercase !important;
-            letter-spacing: 1px !important;
-        }
-        
-        /* CORREÇÃO 5: Fallback humanizado para imagens */
-        .image-fallback {
-            display: none;
-            align-items: center;
-            justify-content: center;
-            height: 100%;
-            background: linear-gradient(135deg, #f1f5f9, #e2e8f0);
-            color: #64748b;
-        }
-        
-        /* CORREÇÃO 6: Overlay sempre visível para debug */
         .activity-overlay {
             position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
+            inset: 0;
             background: linear-gradient(135deg, rgba(30, 58, 138, 0.88), rgba(220, 38, 38, 0.78));
             display: flex;
             align-items: center;
             justify-content: center;
             opacity: 0;
             transition: all 0.5s ease;
-            z-index: 3;
+            color: white;
+            font-size: 1.5em;
+            font-weight: 700;
         }
         
         .activity-card:hover .activity-overlay {
             opacity: 1;
         }
         
-        /* ===== 🛡️ FALLBACK CSS CRÍTICO (AJUSTADO) ===== */
-        
-        /* Progress Badges - Funcionalidade crítica */
-        .progress-badge {
-            position: absolute !important;
-            top: -8px !important;
-            right: -8px !important;
-            background: #10b981 !important;
-            color: white !important;
-            padding: 6px 12px !important;
-            border-radius: 12px !important;
-            font-size: 0.8em !important;
-            font-weight: 700 !important;
-            border: 3px solid white !important;
-            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4) !important;
-            z-index: 5 !important;
-        }
-        
-        /* Card Content - Layout essencial CORRIGIDO */
         .card-content {
-            padding: 30px !important;
-            flex-grow: 1 !important;
-            display: flex !important;
-            flex-direction: column !important;
-            position: relative !important;
-            z-index: 2 !important;
+            padding: 1.875rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
         }
         
-        /* CORREÇÃO: Garantir que cards tenham altura igual */
-        .dashboard-grid .activity-card {
-            min-height: 520px !important;
-            display: flex !important;
-            flex-direction: column !important;
-        }
-        
-        /* CORREÇÃO: Forçar alinhamento dos botões */
-        .activity-features {
-            list-style: none !important;
-            margin-bottom: 25px !important;
-            flex-grow: 1 !important;
-        }
-        
-        /* Botões principais - ALINHAMENTO CORRIGIDO */
-        .start-button {
-            background: linear-gradient(135deg, #1e3a8a, #dc2626) !important;
-            color: white !important;
-            padding: 18px 32px !important;
-            border: none !important;
-            border-radius: 12px !important;
-            font-weight: 700 !important;
-            cursor: pointer !important;
-            font-size: 1.1em !important;
-            transition: all 0.3s ease !important;
-            text-transform: uppercase !important;
-            letter-spacing: 0.5px !important;
-            margin-top: auto !important;
-            align-self: stretch !important;
-        }
-        
-        .start-button:hover {
-            transform: translateY(-3px) !important;
-            box-shadow: 0 12px 30px rgba(30, 58, 138, 0.4) !important;
-        }
-        
-        /* Títulos e descrições - ESPAÇAMENTO CORRIGIDO */
         .activity-title {
-            font-size: 1.8em !important;
-            font-weight: 800 !important;
-            color: #1e3a8a !important;
-            margin-bottom: 15px !important;
-            text-align: center !important;
-            line-height: 1.2 !important;
+            font-size: 1.8em;
+            font-weight: 800;
+            color: #1e3a8a;
+            margin-bottom: 0.9375rem;
+            text-align: center;
+            line-height: 1.2;
         }
         
         .activity-description {
-            color: #64748b !important;
-            font-size: 1.1em !important;
-            text-align: center !important;
-            margin-bottom: 25px !important;
-            font-weight: 500 !important;
-            line-height: 1.4 !important;
+            color: #64748b;
+            font-size: 1.1em;
+            text-align: center;
+            margin-bottom: 1.5625rem;
+            font-weight: 500;
+            line-height: 1.4;
         }
         
-        /* Features list - ESPAÇAMENTO CORRIGIDO */
+        .activity-features {
+            list-style: none;
+            margin: 0 0 1.5625rem 0;
+            padding: 0;
+            flex-grow: 1;
+        }
+        
         .activity-features li {
-            color: #64748b !important;
-            margin-bottom: 8px !important;
-            font-weight: 500 !important;
-            position: relative !important;
-            padding-left: 30px !important;
-            font-size: 1.05em !important;
-            line-height: 1.3 !important;
+            color: #64748b;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            position: relative;
+            padding-left: 1.875rem;
+            font-size: 1.05em;
+            line-height: 1.3;
         }
         
         .activity-features li::before {
-            content: '✓' !important;
-            position: absolute !important;
-            left: 0 !important;
-            color: #10b981 !important;
-            font-weight: bold !important;
-            font-size: 1.2em !important;
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #10b981;
+            font-weight: bold;
+            font-size: 1.2em;
         }
         
-        /* ===== 📱 FOOTER CENTRALIZADO ===== */
+        .start-button {
+            background: linear-gradient(135deg, #1e3a8a, #dc2626);
+            color: white;
+            padding: 1.125rem 2rem;
+            border: none;
+            border-radius: 0.75rem;
+            font-weight: 700;
+            cursor: pointer;
+            font-size: 1.1em;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.03125rem;
+            margin-top: auto;
+        }
+        
+        .start-button:hover {
+            transform: translateY(-0.1875rem);
+            box-shadow: 0 0.75rem 1.875rem rgba(30, 58, 138, 0.4);
+        }
+        
+        /* Special Cards */
+        .coming-soon,
+        .secret-area {
+            opacity: 0.5;
+            filter: grayscale(30%);
+            transition: all 0.4s ease;
+        }
+        
+        .coming-soon:hover,
+        .secret-area:hover {
+            opacity: 1;
+            filter: grayscale(0%);
+            transform: translateY(-0.5rem);
+        }
+        
+        .coming-soon-button,
+        .mystery-button {
+            background: linear-gradient(135deg, #f59e0b, #d97706);
+            border-radius: 1.125rem;
+            font-weight: 700;
+            font-size: 1.1em;
+            padding: 1.125rem 2rem;
+            text-transform: uppercase;
+            letter-spacing: 0.0625rem;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .mystery-button {
+            background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+        }
+        
+        .activity-icon {
+            font-size: 4rem;
+            text-align: center;
+            margin: 2rem 0 1rem 0;
+        }
+        
+        /* Progress Badge */
+        .progress-badge {
+            position: absolute;
+            top: -0.5rem;
+            right: -0.5rem;
+            background: #10b981;
+            color: white;
+            padding: 0.375rem 0.75rem;
+            border-radius: 0.75rem;
+            font-size: 0.8em;
+            font-weight: 700;
+            border: 3px solid white;
+            box-shadow: 0 0.25rem 0.75rem rgba(16, 185, 129, 0.4);
+            z-index: 5;
+        }
+        
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.25rem;
+            margin-top: 1.25rem;
+        }
+        
+        .stat-item {
+            background: white;
+            border-radius: 1rem;
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: 0 0.125rem 0.25rem rgba(0,0,0,0.05);
+        }
+        
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: #1e3a8a;
+            margin-bottom: 0.5rem;
+        }
+        
+        .stat-label {
+            color: #64748b;
+            font-weight: 500;
+        }
+        
+        /* Instructions */
+        .instruction-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .instruction-number {
+            background: linear-gradient(135deg, #1e3a8a, #dc2626);
+            color: white;
+            width: 2rem;
+            height: 2rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+        
+        /* Footer */
         .footer {
-            background: rgba(255, 255, 255, 0.95) !important;
-            backdrop-filter: blur(20px) !important;
-            border-radius: 16px !important;
-            padding: 30px !important;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07), 0 10px 15px rgba(0, 0, 0, 0.1) !important;
-            border: 1px solid rgba(255, 255, 255, 0.2) !important;
-            text-align: center !important;
-            margin-top: 30px !important;
-        }
-        
-        .footer h3 {
-            margin-bottom: 15px !important;
-            font-size: 1.3em !important;
-            color: #1e3a8a !important;
-            font-weight: 800 !important;
-        }
-        
-        .footer p {
-            margin-bottom: 10px !important;
-            opacity: 0.9 !important;
-            color: #64748b !important;
-            font-weight: 500 !important;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(1.25rem);
+            border-radius: 1rem;
+            padding: 1.875rem;
+            box-shadow: 0 0.25rem 0.375rem rgba(0,0,0,0.07), 0 0.625rem 0.9375rem rgba(0,0,0,0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            text-align: center;
+            margin-top: 1.875rem;
         }
         
         .contact-link {
-            color: #dc2626 !important;
-            text-decoration: none !important;
-            font-weight: 600 !important;
-            transition: all 0.3s ease !important;
+            color: #dc2626;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
         }
         
         .contact-link:hover {
-            color: #ef4444 !important;
-            text-decoration: underline !important;
+            color: #ef4444;
+            text-decoration: underline;
         }
         
-        /* ===== 📱 MOBILE RESPONSIVO CRÍTICO ===== */
+        /* Mobile Responsive */
         @media (max-width: 768px) {
+            .user-widget {
+                top: 1rem;
+                right: 1rem;
+            }
+            
             .card-content {
-                padding: 20px !important;
+                padding: 1.25rem;
             }
             
             .activity-title {
-                font-size: 1.5em !important;
+                font-size: 1.5em;
             }
             
             .footer {
-                padding: 20px !important;
-                margin-top: 20px !important;
-            }
-            
-            .footer h3 {
-                font-size: 1.1em !important;
+                padding: 1.25rem;
+                margin-top: 1.25rem;
             }
         }
-        /* ===== EFEITO ESMAECIDO PARA CARDS ESPECIAIS ===== */
-
-/* Cards esmaecidos por padrão */
-.coming-soon,
-.secret-area {
-    opacity: 0.5 !important;
-    filter: grayscale(30%) !important;
-    transition: all 0.4s ease !important;
-}
-
-/* Ativar cor normal no hover */
-.coming-soon:hover,
-.secret-area:hover {
-    opacity: 1 !important;
-    filter: grayscale(0%) !important;
-    transform: translateY(-8px) !important;
-}
-
-/* Ativar cor normal no clique/toque (mobile) */
-.coming-soon:active,
-.secret-area:active {
-    opacity: 1 !important;
-    filter: grayscale(0%) !important;
-    transform: translateY(-4px) scale(0.98) !important;
-}
     </style>
-    <!-- ===== PWA CONFIGURATION ===== -->
-<link rel="manifest" href="manifest.json">
-<meta name="theme-color" content="#dc2626">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="Alex Academy">
-<link rel="apple-touch-icon" href="icon-192.png">
-<meta name="msapplication-TileColor" content="#1e3a8a">
-<meta name="msapplication-config" content="browserconfig.xml">
-
-<!-- Service Worker Registration -->
-<script>
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
-    navigator.serviceWorker.register('./sw.js')
-      .then(registration => {
-        console.log('✅ SW registrado:', registration.scope);
-      })
-      .catch(error => {
-        console.log('❌ SW falhou:', error);
-      });
-  });
-}
-</script>
 </head>
 <body>
-    <!-- User Info -->
-    <div style="position: fixed; top: 20px; right: 20px; z-index: 1000;">
-        <div style="background: rgba(255,255,255,0.95); border-radius: 15px; padding: 5px 10px; box-shadow: 0 8px 25px rgba(0,0,0,0.1); border: 2px solid #dc2626; backdrop-filter: blur(10px); display: flex; align-items: center; gap: 8px;">
-            <div style="width: 30px; height: 30px; background: linear-gradient(135deg, #1e3a8a, #dc2626); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 1.2em;" id="userAvatar">A</div>
-            <div style="color: #1e3a8a; font-weight: 700; font-size: 0.9em;" id="userName">Aluno</div>
-            <button onclick="logout()" style="background: #dc2626; color: white; border: none; padding: 6px 12px; border-radius: 8px; cursor: pointer; font-size: 0.8em; font-weight: 600; transition: all 0.3s ease;" onmouseover="this.style.background='#ef4444'" onmouseout="this.style.background='#dc2626'">🚪 Sair</button>
-        </div>
-    </div>
+    <!-- User Widget -->
+    <aside class="user-widget" aria-label="Informações do Usuário">
+        <div class="user-avatar" data-user-avatar>A</div>
+        <span class="user-name" data-user-name>Aluno</span>
+        <button class="logout-btn" onclick="logout()">🚪 Sair</button>
+    </aside>
 
+    <!-- Main App Container -->
     <div class="container">
-        <div class="header">
-            <div class="logo">
+        <!-- Header -->
+        <header class="header">
+            <h1 class="logo">
                 Teacher Alex <span class="logo-highlight">English Academy</span> BETA
-            </div>
-            <div class="welcome-message" id="welcomeMessage">Bem-vindo de volta, teacheralex!</div>
-            <div class="subtitle">Escolha sua atividade e continue aprendendo inglês</div>
-        </div>
+            </h1>
+            <p class="welcome-message" data-welcome-message>Bem-vindo de volta, teacheralex!</p>
+            <p class="subtitle">Escolha sua atividade e continue aprendendo inglês</p>
+        </header>
         
-        <div class="stats-section">
-            <div class="stats-title">📊 Seu Progresso</div>
+        <!-- Progress Stats -->
+        <section class="stats-section" aria-label="Estatísticas de Progresso">
+            <h2 class="stats-title">📊 Seu Progresso</h2>
             <div class="stats-grid">
                 <div class="stat-item">
-                    <div class="stat-number">0</div>
+                    <div class="stat-number" data-stat-lessons>0</div>
                     <div class="stat-label">Lições Concluídas</div>
                 </div>
                 <div class="stat-item">
-                    <div class="stat-number">0</div>
+                    <div class="stat-number" data-stat-chapters>0</div>
                     <div class="stat-label">Capítulos Lidos</div>
                 </div>
                 <div class="stat-item">
-                    <div class="stat-number">0</div>
+                    <div class="stat-number" data-stat-badges>0</div>
                     <div class="stat-label">Badges Conquistadas</div>
                 </div>
                 <div class="stat-item">
-                    <div class="stat-number">0h</div>
+                    <div class="stat-number" data-stat-time>0h</div>
                     <div class="stat-label">Tempo de Estudo</div>
                 </div>
             </div>
-        </div>
+        </section>
         
-        <div class="dashboard-grid">
-            <!-- Listening Practice - CORRIGIDO PARA 23 LIÇÕES! -->
-            <div class="activity-card" onclick="navigateToSection('listening')">
+        <!-- Activities Dashboard -->
+        <main class="dashboard-grid" role="main">
+            <!-- Listening Practice -->
+            <article class="activity-card" onclick="navigateToSection('listening')">
                 <div class="image-container">
-                    <img src="listening-student.jpg" 
-                         alt="Jovem estudando com fones e livros" 
+                    <img src="src/assets/images/students/listening-student.jpg" 
+                         alt="Estudante praticando listening" 
                          class="activity-image"
                          onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
                     <div class="image-fallback">
@@ -358,8 +404,8 @@ if ('serviceWorker' in navigator) {
                     </div>
                 </div>
                 <div class="card-content">
-                    <div class="activity-title">Listening Practice</div>
-                    <div class="activity-description">Melhore sua compreensão auditiva com diálogos autênticos</div>
+                    <h3 class="activity-title">Listening Practice</h3>
+                    <p class="activity-description">Melhore sua compreensão auditiva com diálogos autênticos</p>
                     <ul class="activity-features">
                         <li>23 lições interativas (12 Foundation + 11 regulares)</li>
                         <li>Áudios nativos de qualidade</li>
@@ -368,13 +414,13 @@ if ('serviceWorker' in navigator) {
                     </ul>
                     <button class="start-button">Começar Listening</button>
                 </div>
-            </div>
+            </article>
             
-            <!-- Graded Readers Hub - CORREÇÃO: Troca para reading-student.jpg -->
-            <div class="activity-card" onclick="navigateToSection('graded-readers')">
+            <!-- Graded Readers Hub -->
+            <article class="activity-card" onclick="navigateToSection('graded-readers')">
                 <div class="image-container">
-                    <img src="reading-student.jpg" 
-                         alt="Jovem estudando individualmente" 
+                    <img src="src/assets/images/students/reading-student.jpg" 
+                         alt="Estudante praticando leitura" 
                          class="activity-image"
                          onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
                     <div class="image-fallback">
@@ -385,8 +431,8 @@ if ('serviceWorker' in navigator) {
                     </div>
                 </div>
                 <div class="card-content">
-                    <div class="activity-title">Graded Readers Hub</div>
-                    <div class="activity-description">Hub organizado com histórias por nível para absorção de vocabulário</div>
+                    <h3 class="activity-title">Graded Readers Hub</h3>
+                    <p class="activity-description">Hub organizado com histórias por nível para absorção de vocabulário</p>
                     <ul class="activity-features">
                         <li>Nível A1: Histórias para iniciantes</li>
                         <li>Nível A2: Vocabulário intermediário</li>
@@ -395,13 +441,13 @@ if ('serviceWorker' in navigator) {
                     </ul>
                     <button class="start-button">Explorar Hub de Leitura</button>
                 </div>
-            </div>
+            </article>
             
-            <!-- Pure Reading Hub - CORREÇÃO: Troca para group-students.png -->
-            <div class="activity-card" onclick="navigateToSection('pure-reading')">
+            <!-- Pure Reading Hub -->
+            <article class="activity-card" onclick="navigateToSection('pure-reading')">
                 <div class="image-container">
-                    <img src="group-students.png" 
-                         alt="Grupo de estudantes colaborando" 
+                    <img src="src/assets/images/students/group-students.png" 
+                         alt="Grupo de estudantes" 
                          class="activity-image"
                          onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
                     <div class="image-fallback">
@@ -412,8 +458,8 @@ if ('serviceWorker' in navigator) {
                     </div>
                 </div>
                 <div class="card-content">
-                    <div class="activity-title">Pure Reading Hub</div>
-                    <div class="activity-description">Hub focado 100% na interpretação textual</div>
+                    <h3 class="activity-title">Pure Reading Hub</h3>
+                    <p class="activity-description">Hub focado 100% na interpretação textual</p>
                     <ul class="activity-features">
                         <li>A2 Low: Perfect Neighbor + mais histórias</li>
                         <li>A2 Mid: Histórias mais complexas</li>
@@ -422,39 +468,44 @@ if ('serviceWorker' in navigator) {
                     </ul>
                     <button class="start-button">Explorar Hub de Leitura</button>
                 </div>
-            </div>
+            </article>
             
-            <!-- Apostilas Em Breve -->
-            <div class="activity-card coming-soon">
+            <!-- Coming Soon -->
+            <article class="activity-card coming-soon">
                 <div class="activity-icon">📖</div>
-                <div class="activity-title">Apostilas Em Breve</div>
-                <div class="activity-description">Materiais didáticos exclusivos em desenvolvimento</div>
-                <ul class="activity-features">
-                    <li>Gramática estruturada</li>
-                    <li>Exercícios práticos</li>
-                    <li>Vocabulário essencial</li>
-                    <li>Guias de conversação</li>
-                </ul>
-                <button class="coming-soon-button" disabled>🚀 Em Desenvolvimento</button>
-            </div>
+                <div class="card-content">
+                    <h3 class="activity-title">Apostilas Em Breve</h3>
+                    <p class="activity-description">Materiais didáticos exclusivos em desenvolvimento</p>
+                    <ul class="activity-features">
+                        <li>Gramática estruturada</li>
+                        <li>Exercícios práticos</li>
+                        <li>Vocabulário essencial</li>
+                        <li>Guias de conversação</li>
+                    </ul>
+                    <button class="coming-soon-button" disabled>🚀 Em Desenvolvimento</button>
+                </div>
+            </article>
             
             <!-- Secret Area -->
-            <div class="activity-card secret-area">
-                <div class="activity-icon mystery-icon">🔒</div>
-                <div class="activity-title">Secret Area</div>
-                <div class="activity-description">Algo especial está chegando... apenas para alunos dedicados</div>
-                <ul class="activity-features">
-                    <li>??? Área restrita em desenvolvimento</li>
-                    <li>??? Apenas para alunos excepcionais</li>
-                    <li>??? Conteúdo nunca visto antes</li>
-                    <li>??? Acesso mediante conquista</li>
-                </ul>
-                <button class="mystery-button">🔓 Investigar</button>
-            </div>
-        </div>
+            <article class="activity-card secret-area">
+                <div class="activity-icon">🔒</div>
+                <div class="card-content">
+                    <h3 class="activity-title">Secret Area</h3>
+                    <p class="activity-description">Algo especial está chegando... apenas para alunos dedicados</p>
+                    <ul class="activity-features">
+                        <li>??? Área restrita em desenvolvimento</li>
+                        <li>??? Apenas para alunos excepcionais</li>
+                        <li>??? Conteúdo nunca visto antes</li>
+                        <li>??? Acesso mediante conquista</li>
+                    </ul>
+                    <button class="mystery-button">🔓 Investigar</button>
+                </div>
+            </article>
+        </main>
         
-        <div class="info-section">
-            <div class="info-title">📋 Como Usar Esta Plataforma</div>
+        <!-- Instructions -->
+        <section class="info-section">
+            <h2 class="info-title">📋 Como Usar Esta Plataforma</h2>
             <div class="instructions">
                 <div class="instruction-item">
                     <div class="instruction-number">1</div>
@@ -481,20 +532,33 @@ if ('serviceWorker' in navigator) {
                     </div>
                 </div>
             </div>
-        </div>
+        </section>
         
-        <div class="footer">
+        <!-- Footer -->
+        <footer class="footer">
             <h3>🎓 Teacher Alex English Academy BETA</h3>
             <p>Sua jornada para dominar o inglês começa aqui!</p>
             <p>Dúvidas? Entre em contato: <a href="mailto:alexmg@gmail.com" class="contact-link">alexmg@gmail.com</a></p>
-        </div>
+        </footer>
     </div>
     
+    <!-- Service Worker Registration -->
     <script>
-        // ===== SISTEMA DE PROTEÇÃO DE LOGIN CRÍTICO =====
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('./sw.js')
+                    .then(registration => console.log('✅ SW registrado:', registration.scope))
+                    .catch(error => console.log('❌ SW falhou:', error));
+            });
+        }
+    </script>
+    
+    <!-- App Logic -->
+    <script>
+        // ===== AUTH SYSTEM =====
         function checkLogin() {
             if (sessionStorage.getItem('studentLoggedIn') !== 'true') {
-                window.location.href = 'login.html';
+                window.location.href = 'pages/auth/login.html';
                 return false;
             }
             return true;
@@ -503,20 +567,20 @@ if ('serviceWorker' in navigator) {
         function logout() {
             sessionStorage.removeItem('studentLoggedIn');
             sessionStorage.removeItem('studentUsername');
-            window.location.href = 'login.html';
+            window.location.href = 'pages/auth/login.html';
         }
 
         function getStudentName() {
             return sessionStorage.getItem('studentUsername') || 'Student';
         }
 
-        // PROTEÇÃO IMEDIATA - BLOQUEAR ACESSO SEM LOGIN
+        // Immediate protection
         if (!checkLogin()) {
             document.body.innerHTML = '<div style="text-align:center;padding:50px;"><h1>Redirecionando para login...</h1></div>';
             throw new Error('Access denied - redirecting to login');
         }
 
-        // ===== SISTEMA DE PROGRESSO PURO LOCALSTORAGE =====
+        // ===== PROGRESS SYSTEM =====
         class SimpleProgress {
             constructor() {
                 this.studentId = sessionStorage.getItem('studentUsername') || 'student';
@@ -543,20 +607,16 @@ if ('serviceWorker' in navigator) {
             }
 
             getStats() {
-                // INCLUINDO FOUNDATION AGORA! 🟦
                 const foundationLessons = Array.from({length: 12}, (_, i) => `f${i + 1}`);
                 const foundationCompleted = foundationLessons.filter(lesson => 
                     this.data.listening.lessonsCompleted.includes(`lesson_${lesson}`)
                 ).length;
                 
-                // Lições regulares
                 const regularLessonsCompleted = this.data.listening.lessonsCompleted.filter(lesson => 
                     !lesson.startsWith('lesson_f')
                 ).length;
                 
-                // TOTAL: Foundation + Regular
                 const totalListeningLessons = foundationCompleted + regularLessonsCompleted;
-                
                 const readingChapters = this.data.reading.chaptersCompleted.length;
                 const roommateChapters = this.data.roommate.chaptersCompleted.length;
                 const neighborChapters = this.data.neighbor.chaptersCompleted.length;
@@ -569,7 +629,7 @@ if ('serviceWorker' in navigator) {
                 const studyTimeHours = Math.floor(this.data.totalStudyTime / (1000 * 60 * 60));
 
                 return {
-                    lessonsCompleted: totalListeningLessons, // 📊 AGORA INCLUI FOUNDATION!
+                    lessonsCompleted: totalListeningLessons,
                     chaptersRead: totalChapters,
                     totalBadges: totalBadges,
                     studyTime: studyTimeHours
@@ -577,7 +637,7 @@ if ('serviceWorker' in navigator) {
             }
         }
 
-        // ===== NAVEGAÇÃO REAL RESPEITANDO ARQUITETURA =====
+        // ===== NAVIGATION =====
         function navigateToSection(section) {
             const button = event.currentTarget.querySelector('.start-button');
             const originalText = button.textContent;
@@ -588,13 +648,13 @@ if ('serviceWorker' in navigator) {
             let destination = '';
             switch(section) {
                 case 'listening':
-                    destination = 'listening-hub.html'; // Respeitando modularização
+                    destination = 'pages/hubs/listening-hub.html';
                     break;
                 case 'graded-readers':
-                    destination = 'graded-readers-hub.html';
+                    destination = 'pages/hubs/graded-readers-hub.html';
                     break;
                 case 'pure-reading':
-                    destination = 'pure-reading-hub.html';
+                    destination = 'pages/hubs/pure-reading-hub.html';
                     break;
                 default:
                     alert('🚀 Esta funcionalidade está em desenvolvimento!');
@@ -609,34 +669,32 @@ if ('serviceWorker' in navigator) {
             }, 800);
         }
 
-        // ===== INICIALIZAÇÃO PURA =====
+        // ===== INITIALIZATION =====
         function initializePage() {
             const studentName = getStudentName();
             const progressTracker = new SimpleProgress();
             const stats = progressTracker.getStats();
             
-            document.getElementById('userName').textContent = 
+            document.querySelector('[data-user-name]').textContent = 
                 studentName.charAt(0).toUpperCase() + studentName.slice(1).toLowerCase();
-            document.getElementById('userAvatar').textContent = studentName.charAt(0).toUpperCase();
-            document.getElementById('welcomeMessage').textContent = `Bem-vindo de volta, ${studentName}!`;
+            document.querySelector('[data-user-avatar]').textContent = studentName.charAt(0).toUpperCase();
+            document.querySelector('[data-welcome-message]').textContent = `Bem-vindo de volta, ${studentName}!`;
             
             console.log(`✅ Carregado - usuário: ${studentName}`);
             console.log(`📊 Stats:`, stats);
             
-            const statNumbers = document.querySelectorAll('.stat-number');
-            statNumbers[0].textContent = stats.lessonsCompleted;
-            statNumbers[1].textContent = stats.chaptersRead;
-            statNumbers[2].textContent = stats.totalBadges;
-            statNumbers[3].textContent = stats.studyTime + 'h';
+            document.querySelector('[data-stat-lessons]').textContent = stats.lessonsCompleted;
+            document.querySelector('[data-stat-chapters]').textContent = stats.chaptersRead;
+            document.querySelector('[data-stat-badges]').textContent = stats.totalBadges;
+            document.querySelector('[data-stat-time]').textContent = stats.studyTime + 'h';
             
             addProgressBadges(progressTracker);
-            animateCounters(statNumbers);
         }
 
         function addProgressBadges(progressTracker) {
             const activityCards = document.querySelectorAll('.activity-card');
             
-            // Listening Badge (23 lições: 12 Foundation + 11 regulares) - CORRIGIDO!
+            // Listening Badge
             const listeningCard = activityCards[0];
             const listeningCompleted = progressTracker.data.listening.lessonsCompleted.length;
             if (listeningCompleted > 0) {
@@ -678,24 +736,7 @@ if ('serviceWorker' in navigator) {
             }
         }
 
-        function animateCounters(counters) {
-            counters.forEach(counter => {
-                const target = parseInt(counter.textContent.replace('h', ''));
-                let current = 0;
-                const increment = target / 20;
-                const timer = setInterval(() => {
-                    current += increment;
-                    if (current >= target) {
-                        counter.textContent = target + (counter.textContent.includes('h') ? 'h' : '');
-                        clearInterval(timer);
-                    } else {
-                        counter.textContent = Math.floor(current) + (counter.textContent.includes('h') ? 'h' : '');
-                    }
-                }, 50);
-            });
-        }
-
-        // ===== EVENT LISTENERS PARA SECRET AREA =====
+        // ===== EVENT LISTENERS =====
         document.addEventListener('DOMContentLoaded', function() {
             initializePage();
             
@@ -723,20 +764,6 @@ if ('serviceWorker' in navigator) {
                 });
             }
         });
-
-        // ===== USUÁRIOS VÁLIDOS =====
-        const validUsers = {
-            "matheus": "english090803", "iasmin": "english050307", 
-            "leticia": "english843892", "larissa": "english765352",
-            "ednei": "english4536798", "guilherme": "english408698",
-            "leidson": "english594367", "tais": "english194678",
-            "barbara": "english847693", "dudu": "english136789",
-            "nicolete": "liloestitch", "iago": "english987654",
-            "jaqueline": "english74309", "giovana": "english987543",
-            "marina": "english742387", "breno": "english345687",
-            "duda": "english454356", "kelli": "english434567",
-            "lucas": "english98765423", "teacheralex": "teste1234", "testy": "testy"
-        };
     </script>
 </body>
 </html>
