@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Listening Hub - Teacher Alex English Academy BETA</title>
+    <title>Graded Readers Hub - Teacher Alex English Academy BETA</title>
     
     <!-- CSS - CAMINHOS CORRETOS PARA pages/hubs/ -->
     <link rel="stylesheet" href="../../src/styles/base.css">
@@ -133,12 +133,16 @@
             height: 4px;
         }
 
-        .foundation::before {
-            background: linear-gradient(90deg, #10b981, #059669);
+        .level-a1::before {
+            background: linear-gradient(90deg, #22c55e, #16a34a);
         }
 
-        .regular::before {
+        .level-a2::before {
             background: linear-gradient(90deg, #1e3a8a, #dc2626);
+        }
+
+        .level-b1::before {
+            background: linear-gradient(90deg, #8b5cf6, #7c3aed);
         }
 
         /* Level Header */
@@ -158,12 +162,16 @@
             box-shadow: 0 0.25rem 0.75rem rgba(0,0,0,0.2);
         }
 
-        .foundation .level-badge {
-            background: linear-gradient(135deg, #10b981, #059669);
+        .level-a1 .level-badge {
+            background: linear-gradient(135deg, #22c55e, #16a34a);
         }
 
-        .regular .level-badge {
+        .level-a2 .level-badge {
             background: linear-gradient(135deg, #1e3a8a, #dc2626);
+        }
+
+        .level-b1 .level-badge {
+            background: linear-gradient(135deg, #8b5cf6, #7c3aed);
         }
 
         .level-title {
@@ -179,33 +187,37 @@
             margin-top: 0.25rem;
         }
 
-        /* Lessons Grid */
-        .lessons-grid {
+        /* Stories Grid */
+        .stories-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
             gap: 1.5rem;
         }
 
-        /* Lesson Cards - OTIMIZADOS */
-        .lesson-card {
+        /* Story Cards - OTIMIZADOS */
+        .story-card {
             background: white;
             border-radius: 1rem;
             box-shadow: 0 0.125rem 0.25rem rgba(0,0,0,0.05), 0 0.25rem 0.5rem rgba(0,0,0,0.1);
             overflow: hidden;
             transition: all 0.3s ease;
             cursor: pointer;
-            min-height: 18rem;
+            min-height: 22rem;
             display: flex;
             flex-direction: column;
             position: relative;
+            text-decoration: none;
+            color: inherit;
+            border: 2px solid #e2e8f0;
         }
 
-        .lesson-card:hover {
+        .story-card:hover {
             transform: translateY(-0.375rem);
             box-shadow: 0 0.75rem 1.5rem rgba(30, 58, 138, 0.15);
+            border-color: #1e3a8a;
         }
 
-        .lesson-card::before {
+        .story-card::before {
             content: '';
             position: absolute;
             top: 0; left: -100%;
@@ -215,52 +227,52 @@
             z-index: 1;
         }
 
-        .lesson-card:hover::before {
+        .story-card:hover::before {
             left: 100%;
         }
 
-        .lesson-header {
+        .story-header {
             padding: 1.5rem 1.5rem 1rem;
             position: relative;
             z-index: 2;
         }
 
-        .lesson-icon {
-            font-size: 2.5rem;
+        .story-icon {
+            font-size: 3rem;
             margin-bottom: 0.75rem;
             text-align: center;
             filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.1));
         }
 
-        .lesson-title {
-            font-size: 1.2em;
+        .story-title {
+            font-size: 1.3em;
             font-weight: 700;
             color: #1e3a8a;
             margin-bottom: 0.5rem;
             text-align: center;
         }
 
-        .lesson-description {
+        .story-description {
             color: #64748b;
             font-size: 0.9em;
             text-align: center;
             font-weight: 500;
         }
 
-        .lesson-content {
+        .story-content {
             padding: 0 1.5rem;
             flex-grow: 1;
             position: relative;
             z-index: 2;
         }
 
-        .lesson-features {
+        .story-features {
             list-style: none;
             margin: 0 0 1rem 0;
             padding: 0;
         }
 
-        .lesson-features li {
+        .story-features li {
             color: #64748b;
             margin-bottom: 0.375rem;
             font-weight: 500;
@@ -269,20 +281,20 @@
             font-size: 0.85em;
         }
 
-        .lesson-features li::before {
+        .story-features li::before {
             content: '🎧';
             position: absolute;
             left: 0;
             font-size: 1em;
         }
 
-        .lesson-footer {
+        .story-footer {
             padding: 1rem 1.5rem;
             position: relative;
             z-index: 2;
         }
 
-        .lesson-button {
+        .story-button {
             background: linear-gradient(135deg, #1e3a8a, #dc2626);
             color: white;
             padding: 0.75rem 1.5rem;
@@ -295,7 +307,7 @@
             width: 100%;
         }
 
-        .lesson-button:hover {
+        .story-button:hover {
             background: linear-gradient(135deg, #1e40af, #b91c1c);
             transform: translateY(-0.125rem);
             box-shadow: 0 0.5rem 1rem rgba(30, 58, 138, 0.4);
@@ -317,17 +329,26 @@
             z-index: 5;
         }
 
-        /* Special States */
-        .foundation-lesson {
-            border-left: 4px solid #10b981;
+        /* Coming Soon State */
+        .coming-soon {
+            opacity: 0.75;
+            border-style: dashed !important;
+            cursor: default !important;
         }
 
-        .regular-lesson {
-            border-left: 4px solid #1e3a8a;
+        .coming-soon:hover {
+            transform: translateY(-0.25rem) !important;
+            opacity: 1;
         }
 
-        .completed .progress-badge {
-            background: linear-gradient(135deg, #10b981, #059669);
+        .coming-soon-button {
+            background: linear-gradient(135deg, #fbbf24, #f59e0b) !important;
+            cursor: not-allowed !important;
+        }
+
+        .coming-soon-button:hover {
+            transform: none !important;
+            box-shadow: none !important;
         }
 
         /* Mobile Optimizations */
@@ -361,54 +382,54 @@
                 font-size: 1.3em;
             }
 
-            .lessons-grid {
+            .stories-grid {
                 grid-template-columns: 1fr;
                 gap: 1rem;
             }
 
-            .lesson-card {
-                min-height: 16rem;
+            .story-card {
+                min-height: 20rem;
             }
 
-            .lesson-header {
+            .story-header {
                 padding: 1.25rem 1.25rem 0.75rem;
             }
 
-            .lesson-icon {
-                font-size: 2rem;
+            .story-icon {
+                font-size: 2.5rem;
             }
 
-            .lesson-title {
-                font-size: 1.1em;
+            .story-title {
+                font-size: 1.2em;
             }
 
-            .lesson-content {
+            .story-content {
                 padding: 0 1.25rem;
             }
 
-            .lesson-footer {
+            .story-footer {
                 padding: 0.75rem 1.25rem;
             }
         }
 
         @media (max-width: 480px) {
-            .lessons-grid {
+            .stories-grid {
                 gap: 0.75rem;
             }
 
-            .lesson-card {
-                min-height: 15rem;
+            .story-card {
+                min-height: 18rem;
             }
 
-            .lesson-header {
+            .story-header {
                 padding: 1rem 1rem 0.5rem;
             }
 
-            .lesson-content {
+            .story-content {
                 padding: 0 1rem;
             }
 
-            .lesson-footer {
+            .story-footer {
                 padding: 0.5rem 1rem;
             }
         }
@@ -431,445 +452,226 @@
         
         <!-- Header -->
         <header class="header">
-            <h1 class="hub-title">🎧 Listening Practice Hub</h1>
-            <p class="hub-subtitle">Melhore sua compreensão auditiva com diálogos autênticos e progressivos</p>
+            <h1 class="hub-title">📚 Graded Readers Hub</h1>
+            <p class="hub-subtitle">Hub organizado com histórias por nível para absorção de vocabulário</p>
         </header>
 
-        <!-- Foundation Lessons -->
-        <section class="level-section foundation">
+        <!-- A1 Level -->
+        <section class="level-section level-a1">
             <header class="level-header">
-                <div class="level-badge">Foundation</div>
+                <div class="level-badge">A1 - Beginner</div>
                 <div>
-                    <h2 class="level-title">Lições Foundation</h2>
-                    <p class="level-description">Base sólida com vocabulário essencial e gramática fundamental (12 lições)</p>
+                    <h2 class="level-title">Nível Iniciante</h2>
+                    <p class="level-description">Vocabulário básico e gramática simples para começar sua jornada no inglês</p>
                 </div>
             </header>
             
-            <div class="lessons-grid">
-                <article class="lesson-card foundation-lesson" onclick="navigateToLesson('f1')">
-                    <div class="lesson-header">
-                        <div class="lesson-icon">👋</div>
-                        <h3 class="lesson-title">F1 - First Introductions</h3>
-                        <p class="lesson-description">Primeiras apresentações e cumprimentos básicos</p>
+            <div class="stories-grid">
+                <article class="story-card" onclick="navigateToStory('roommate')">
+                    <div class="story-header">
+                        <div class="story-icon">🏠</div>
+                        <h3 class="story-title">The Roommate Problem</h3>
+                        <p class="story-description">Sarah e Emma enfrentam problemas de convivência que testam sua amizade e ensinam lições valiosas</p>
                     </div>
-                    <div class="lesson-content">
-                        <ul class="lesson-features">
-                            <li>Vocabulário de apresentação</li>
-                            <li>Frases de cortesia</li>
-                            <li>Pronúncia básica</li>
+                    <div class="story-content">
+                        <ul class="story-features">
+                            <li>3 capítulos progressivos</li>
+                            <li>Vocabulário do dia a dia</li>
+                            <li>Gramática básica essencial</li>
+                            <li>Áudio IA de alta qualidade</li>
+                            <li>Sistema de badges motivador</li>
                         </ul>
                     </div>
-                    <div class="lesson-footer">
-                        <button class="lesson-button">Começar F1</button>
+                    <div class="story-footer">
+                        <button class="story-button">Começar História A1</button>
+                    </div>
+                    <div class="progress-badge" id="roommateProgress">✅ Disponível</div>
+                </article>
+
+                <article class="story-card coming-soon" onclick="showComingSoon('New Friends at School')">
+                    <div class="story-header">
+                        <div class="story-icon">🌟</div>
+                        <h3 class="story-title">New Friends at School</h3>
+                        <p class="story-description">Uma história tocante sobre fazer novos amigos e superar a timidez no ambiente escolar</p>
+                    </div>
+                    <div class="story-content">
+                        <ul class="story-features">
+                            <li>4 capítulos envolventes</li>
+                            <li>Vocabulário escolar básico</li>
+                            <li>Expressões de amizade</li>
+                            <li>Áudio IA naturalizado</li>
+                            <li>Situações do cotidiano</li>
+                        </ul>
+                    </div>
+                    <div class="story-footer">
+                        <button class="story-button coming-soon-button">🚀 Em Breve</button>
                     </div>
                 </article>
 
-                <article class="lesson-card foundation-lesson" onclick="navigateToLesson('f2')">
-                    <div class="lesson-header">
-                        <div class="lesson-icon">🏠</div>
-                        <h3 class="lesson-title">F2 - Family & Home</h3>
-                        <p class="lesson-description">Família e ambiente doméstico</p>
+                <article class="story-card coming-soon" onclick="showComingSoon('The Pizza Restaurant')">
+                    <div class="story-header">
+                        <div class="story-icon">🍕</div>
+                        <h3 class="story-title">The Pizza Restaurant</h3>
+                        <p class="story-description">Aventuras e confusões divertidas em um restaurante familiar italiano</p>
                     </div>
-                    <div class="lesson-content">
-                        <ul class="lesson-features">
-                            <li>Membros da família</li>
-                            <li>Cômodos da casa</li>
-                            <li>Objetos domésticos</li>
+                    <div class="story-content">
+                        <ul class="story-features">
+                            <li>3 capítulos cheios de humor</li>
+                            <li>Vocabulário de comida e restaurante</li>
+                            <li>Situações práticas do dia a dia</li>
+                            <li>Áudio IA expressivo</li>
+                            <li>Cultura italiana básica</li>
                         </ul>
                     </div>
-                    <div class="lesson-footer">
-                        <button class="lesson-button">Começar F2</button>
-                    </div>
-                </article>
-
-                <article class="lesson-card foundation-lesson" onclick="navigateToLesson('f3')">
-                    <div class="lesson-header">
-                        <div class="lesson-icon">🛍️</div>
-                        <h3 class="lesson-title">F3 - Shopping & Money</h3>
-                        <p class="lesson-description">Compras e transações básicas</p>
-                    </div>
-                    <div class="lesson-content">
-                        <ul class="lesson-features">
-                            <li>Números e preços</li>
-                            <li>Lojas e produtos</li>
-                            <li>Formas de pagamento</li>
-                        </ul>
-                    </div>
-                    <div class="lesson-footer">
-                        <button class="lesson-button">Começar F3</button>
-                    </div>
-                </article>
-
-                <article class="lesson-card foundation-lesson" onclick="navigateToLesson('f4')">
-                    <div class="lesson-header">
-                        <div class="lesson-icon">🍔</div>
-                        <h3 class="lesson-title">F4 - Food & Restaurants</h3>
-                        <p class="lesson-description">Comidas e experiências gastronômicas</p>
-                    </div>
-                    <div class="lesson-content">
-                        <ul class="lesson-features">
-                            <li>Tipos de comida</li>
-                            <li>Pedidos em restaurantes</li>
-                            <li>Preferências alimentares</li>
-                        </ul>
-                    </div>
-                    <div class="lesson-footer">
-                        <button class="lesson-button">Começar F4</button>
-                    </div>
-                </article>
-
-                <article class="lesson-card foundation-lesson" onclick="navigateToLesson('f5')">
-                    <div class="lesson-header">
-                        <div class="lesson-icon">🚗</div>
-                        <h3 class="lesson-title">F5 - Transportation</h3>
-                        <p class="lesson-description">Meios de transporte e viagens</p>
-                    </div>
-                    <div class="lesson-content">
-                        <ul class="lesson-features">
-                            <li>Veículos e transporte</li>
-                            <li>Direções e localização</li>
-                            <li>Horários e distâncias</li>
-                        </ul>
-                    </div>
-                    <div class="lesson-footer">
-                        <button class="lesson-button">Começar F5</button>
-                    </div>
-                </article>
-
-                <article class="lesson-card foundation-lesson" onclick="navigateToLesson('f6')">
-                    <div class="lesson-header">
-                        <div class="lesson-icon">⏰</div>
-                        <h3 class="lesson-title">F6 - Time & Schedule</h3>
-                        <p class="lesson-description">Tempo, horários e rotina diária</p>
-                    </div>
-                    <div class="lesson-content">
-                        <ul class="lesson-features">
-                            <li>Horas e datas</li>
-                            <li>Rotina diária</li>
-                            <li>Compromissos</li>
-                        </ul>
-                    </div>
-                    <div class="lesson-footer">
-                        <button class="lesson-button">Começar F6</button>
-                    </div>
-                </article>
-
-                <article class="lesson-card foundation-lesson" onclick="navigateToLesson('f7')">
-                    <div class="lesson-header">
-                        <div class="lesson-icon">🌤️</div>
-                        <h3 class="lesson-title">F7 - Weather & Seasons</h3>
-                        <p class="lesson-description">Clima, estações e atividades</p>
-                    </div>
-                    <div class="lesson-content">
-                        <ul class="lesson-features">
-                            <li>Condições climáticas</li>
-                            <li>Estações do ano</li>
-                            <li>Atividades sazonais</li>
-                        </ul>
-                    </div>
-                    <div class="lesson-footer">
-                        <button class="lesson-button">Começar F7</button>
-                    </div>
-                </article>
-
-                <article class="lesson-card foundation-lesson" onclick="navigateToLesson('f8')">
-                    <div class="lesson-header">
-                        <div class="lesson-icon">💼</div>
-                        <h3 class="lesson-title">F8 - Work & Jobs</h3>
-                        <p class="lesson-description">Profissões e ambiente de trabalho</p>
-                    </div>
-                    <div class="lesson-content">
-                        <ul class="lesson-features">
-                            <li>Tipos de trabalho</li>
-                            <li>Ambiente profissional</li>
-                            <li>Habilidades básicas</li>
-                        </ul>
-                    </div>
-                    <div class="lesson-footer">
-                        <button class="lesson-button">Começar F8</button>
-                    </div>
-                </article>
-
-                <article class="lesson-card foundation-lesson" onclick="navigateToLesson('f9')">
-                    <div class="lesson-header">
-                        <div class="lesson-icon">🏥</div>
-                        <h3 class="lesson-title">F9 - Health & Body</h3>
-                        <p class="lesson-description">Saúde, corpo e bem-estar</p>
-                    </div>
-                    <div class="lesson-content">
-                        <ul class="lesson-features">
-                            <li>Partes do corpo</li>
-                            <li>Sintomas e doenças</li>
-                            <li>Consultas médicas</li>
-                        </ul>
-                    </div>
-                    <div class="lesson-footer">
-                        <button class="lesson-button">Começar F9</button>
-                    </div>
-                </article>
-
-                <article class="lesson-card foundation-lesson" onclick="navigateToLesson('f10')">
-                    <div class="lesson-header">
-                        <div class="lesson-icon">🎉</div>
-                        <h3 class="lesson-title">F10 - Hobbies & Fun</h3>
-                        <p class="lesson-description">Hobbies, diversão e entretenimento</p>
-                    </div>
-                    <div class="lesson-content">
-                        <ul class="lesson-features">
-                            <li>Atividades de lazer</li>
-                            <li>Esportes e jogos</li>
-                            <li>Entretenimento</li>
-                        </ul>
-                    </div>
-                    <div class="lesson-footer">
-                        <button class="lesson-button">Começar F10</button>
-                    </div>
-                </article>
-
-                <article class="lesson-card foundation-lesson" onclick="navigateToLesson('f11')">
-                    <div class="lesson-header">
-                        <div class="lesson-icon">🎓</div>
-                        <h3 class="lesson-title">F11 - Education & School</h3>
-                        <p class="lesson-description">Educação, escola e aprendizado</p>
-                    </div>
-                    <div class="lesson-content">
-                        <ul class="lesson-features">
-                            <li>Ambiente escolar</li>
-                            <li>Matérias e estudos</li>
-                            <li>Exames e notas</li>
-                        </ul>
-                    </div>
-                    <div class="lesson-footer">
-                        <button class="lesson-button">Começar F11</button>
-                    </div>
-                </article>
-
-                <article class="lesson-card foundation-lesson" onclick="navigateToLesson('f12')">
-                    <div class="lesson-header">
-                        <div class="lesson-icon">🌍</div>
-                        <h3 class="lesson-title">F12 - Travel & Places</h3>
-                        <p class="lesson-description">Viagens, lugares e culturas</p>
-                    </div>
-                    <div class="lesson-content">
-                        <ul class="lesson-features">
-                            <li>Destinos e países</li>
-                            <li>Hotéis e hospedagem</li>
-                            <li>Cultura e tradições</li>
-                        </ul>
-                    </div>
-                    <div class="lesson-footer">
-                        <button class="lesson-button">Começar F12</button>
+                    <div class="story-footer">
+                        <button class="story-button coming-soon-button">🚀 Em Breve</button>
                     </div>
                 </article>
             </div>
         </section>
 
-        <!-- Regular Lessons -->
-        <section class="level-section regular">
+        <!-- A2 Level -->
+        <section class="level-section level-a2">
             <header class="level-header">
-                <div class="level-badge">Regular</div>
+                <div class="level-badge">A2 - Elementary</div>
                 <div>
-                    <h2 class="level-title">Lições Regulares</h2>
-                    <p class="level-description">Desenvolvimento avançado com diálogos complexos e situações reais (11 lições)</p>
+                    <h2 class="level-title">Nível Elementar</h2>
+                    <p class="level-description">Expansão vocabular e estruturas mais complexas para consolidar o aprendizado</p>
                 </div>
             </header>
             
-            <div class="lessons-grid">
-                <article class="lesson-card regular-lesson" onclick="navigateToLesson('1')">
-                    <div class="lesson-header">
-                        <div class="lesson-icon">✈️</div>
-                        <h3 class="lesson-title">Lesson 1 - Airport Adventure</h3>
-                        <p class="lesson-description">Aventura no aeroporto com situações reais</p>
+            <div class="stories-grid">
+                <article class="story-card" onclick="navigateToStory('reader')">
+                    <div class="story-header">
+                        <div class="story-icon">🏚️</div>
+                        <h3 class="story-title">The Secret in the Old House</h3>
+                        <p class="story-description">Emma descobre mistérios fascinantes escondidos na casa antiga de sua nova vizinha Mrs. Peterson</p>
                     </div>
-                    <div class="lesson-content">
-                        <ul class="lesson-features">
-                            <li>Check-in e segurança</li>
-                            <li>Anúncios do aeroporto</li>
-                            <li>Problemas de viagem</li>
+                    <div class="story-content">
+                        <ul class="story-features">
+                            <li>4 capítulos de mistério envolvente</li>
+                            <li>Vocabulário intermediário rico</li>
+                            <li>Gramática A2 estruturada</li>
+                            <li>Áudio IA dramatizado</li>
+                            <li>Narrativa cativante</li>
                         </ul>
                     </div>
-                    <div class="lesson-footer">
-                        <button class="lesson-button">Começar Lesson 1</button>
+                    <div class="story-footer">
+                        <button class="story-button">Começar História A2</button>
+                    </div>
+                    <div class="progress-badge" id="readerProgress">✅ Disponível</div>
+                </article>
+
+                <article class="story-card coming-soon" onclick="showComingSoon('The School Play')">
+                    <div class="story-header">
+                        <div class="story-icon">🎭</div>
+                        <h3 class="story-title">The School Play</h3>
+                        <p class="story-description">Drama e comédia nos bastidores de uma peça teatral escolar cheia de emoções</p>
+                    </div>
+                    <div class="story-content">
+                        <ul class="story-features">
+                            <li>5 capítulos dramáticos</li>
+                            <li>Vocabulário artístico e teatral</li>
+                            <li>Expressões emotivas avançadas</li>
+                            <li>Áudio IA dramatizado</li>
+                            <li>Cultura teatral básica</li>
+                        </ul>
+                    </div>
+                    <div class="story-footer">
+                        <button class="story-button coming-soon-button">🚀 Em Breve</button>
                     </div>
                 </article>
 
-                <article class="lesson-card regular-lesson" onclick="navigateToLesson('2')">
-                    <div class="lesson-header">
-                        <div class="lesson-icon">🏨</div>
-                        <h3 class="lesson-title">Lesson 2 - Hotel Confusion</h3>
-                        <p class="lesson-description">Confusões e soluções em hotéis</p>
+                <article class="story-card coming-soon" onclick="showComingSoon('Summer Beach Adventure')">
+                    <div class="story-header">
+                        <div class="story-icon">🌊</div>
+                        <h3 class="story-title">Summer Beach Adventure</h3>
+                        <p class="story-description">Férias de verão cheias de aventura, descobertas e amizades na costa californiana</p>
                     </div>
-                    <div class="lesson-content">
-                        <ul class="lesson-features">
-                            <li>Reservas e check-in</li>
-                            <li>Serviços do hotel</li>
-                            <li>Reclamações e soluções</li>
+                    <div class="story-content">
+                        <ul class="story-features">
+                            <li>4 capítulos de aventura</li>
+                            <li>Vocabulário de viagem e praia</li>
+                            <li>Tempos verbais variados</li>
+                            <li>Áudio IA relaxante</li>
+                            <li>Cultura americana costeira</li>
                         </ul>
                     </div>
-                    <div class="lesson-footer">
-                        <button class="lesson-button">Começar Lesson 2</button>
+                    <div class="story-footer">
+                        <button class="story-button coming-soon-button">🚀 Em Breve</button>
                     </div>
                 </article>
 
-                <article class="lesson-card regular-lesson" onclick="navigateToLesson('3')">
-                    <div class="lesson-header">
-                        <div class="lesson-icon">🍽️</div>
-                        <h3 class="lesson-title">Lesson 3 - Restaurant Drama</h3>
-                        <p class="lesson-description">Drama e comédia em restaurantes</p>
+                <article class="story-card coming-soon" onclick="showComingSoon('The Science Competition')">
+                    <div class="story-header">
+                        <div class="story-icon">🔬</div>
+                        <h3 class="story-title">The Science Competition</h3>
+                        <p class="story-description">Rivalidade saudável e parceria inesperada em uma competição científica estudantil</p>
                     </div>
-                    <div class="lesson-content">
-                        <ul class="lesson-features">
-                            <li>Pedidos complexos</li>
-                            <li>Especialidades do chef</li>
-                            <li>Situações embaraçosas</li>
+                    <div class="story-content">
+                        <ul class="story-features">
+                            <li>4 capítulos educativos</li>
+                            <li>Vocabulário científico básico</li>
+                            <li>Estruturas comparativas</li>
+                            <li>Áudio IA educativo</li>
+                            <li>Método científico simplificado</li>
                         </ul>
                     </div>
-                    <div class="lesson-footer">
-                        <button class="lesson-button">Começar Lesson 3</button>
+                    <div class="story-footer">
+                        <button class="story-button coming-soon-button">🚀 Em Breve</button>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <!-- B1 Level -->
+        <section class="level-section level-b1">
+            <header class="level-header">
+                <div class="level-badge">B1 - Intermediate</div>
+                <div>
+                    <h2 class="level-title">Nível Intermediário</h2>
+                    <p class="level-description">Para seus poucos alunos avançados - preparação séria para fluência</p>
+                </div>
+            </header>
+            
+            <div class="stories-grid">
+                <article class="story-card coming-soon" onclick="showComingSoon('The Job Interview')">
+                    <div class="story-header">
+                        <div class="story-icon">💼</div>
+                        <h3 class="story-title">The Job Interview</h3>
+                        <p class="story-description">Preparação profissional intensa e desafios reais do mundo corporativo moderno</p>
+                    </div>
+                    <div class="story-content">
+                        <ul class="story-features">
+                            <li>5 capítulos profissionais</li>
+                            <li>Vocabulário corporativo avançado</li>
+                            <li>Gramática B1 complexa</li>
+                            <li>Áudio IA profissional</li>
+                            <li>Situações de trabalho reais</li>
+                        </ul>
+                    </div>
+                    <div class="story-footer">
+                        <button class="story-button coming-soon-button">🚀 Em Breve</button>
                     </div>
                 </article>
 
-                <article class="lesson-card regular-lesson" onclick="navigateToLesson('4')">
-                    <div class="lesson-header">
-                        <div class="lesson-icon">🛒</div>
-                        <h3 class="lesson-title">Lesson 4 - Shopping Spree</h3>
-                        <p class="lesson-description">Compras intensas e negociações</p>
+                <article class="story-card coming-soon" onclick="showComingSoon('Around the World')">
+                    <div class="story-header">
+                        <div class="story-icon">🌍</div>
+                        <h3 class="story-title">Around the World</h3>
+                        <p class="story-description">Viagem cultural fascinante pelos continentes e suas tradições únicas</p>
                     </div>
-                    <div class="lesson-content">
-                        <ul class="lesson-features">
-                            <li>Negociação de preços</li>
-                            <li>Diferentes lojas</li>
-                            <li>Devoluções e trocas</li>
+                    <div class="story-content">
+                        <ul class="story-features">
+                            <li>6 capítulos globais</li>
+                            <li>Vocabulário cultural diversificado</li>
+                            <li>Estruturas linguísticas complexas</li>
+                            <li>Áudio IA multicultural</li>
+                            <li>Geografia e história mundial</li>
                         </ul>
                     </div>
-                    <div class="lesson-footer">
-                        <button class="lesson-button">Começar Lesson 4</button>
-                    </div>
-                </article>
-
-                <article class="lesson-card regular-lesson" onclick="navigateToLesson('5')">
-                    <div class="lesson-header">
-                        <div class="lesson-icon">👥</div>
-                        <h3 class="lesson-title">Lesson 5 - Meeting Friends</h3>
-                        <p class="lesson-description">Encontros sociais e amizades</p>
-                    </div>
-                    <div class="lesson-content">
-                        <ul class="lesson-features">
-                            <li>Conversas informais</li>
-                            <li>Planos e convites</li>
-                            <li>Histórias pessoais</li>
-                        </ul>
-                    </div>
-                    <div class="lesson-footer">
-                        <button class="lesson-button">Começar Lesson 5</button>
-                    </div>
-                </article>
-
-                <article class="lesson-card regular-lesson" onclick="navigateToLesson('6')">
-                    <div class="lesson-header">
-                        <div class="lesson-icon">💻</div>
-                        <h3 class="lesson-title">Lesson 6 - Tech Problems</h3>
-                        <p class="lesson-description">Problemas tecnológicos modernos</p>
-                    </div>
-                    <div class="lesson-content">
-                        <ul class="lesson-features">
-                            <li>Suporte técnico</li>
-                            <li>Gadgets e apps</li>
-                            <li>Soluções criativas</li>
-                        </ul>
-                    </div>
-                    <div class="lesson-footer">
-                        <button class="lesson-button">Começar Lesson 6</button>
-                    </div>
-                </article>
-
-                <article class="lesson-card regular-lesson" onclick="navigateToLesson('7')">
-                    <div class="lesson-header">
-                        <div class="lesson-icon">🏥</div>
-                        <h3 class="lesson-title">Lesson 7 - Doctor Visit</h3>
-                        <p class="lesson-description">Consultas médicas detalhadas</p>
-                    </div>
-                    <div class="lesson-content">
-                        <ul class="lesson-features">
-                            <li>Sintomas complexos</li>
-                            <li>Exames e diagnósticos</li>
-                            <li>Tratamentos e cuidados</li>
-                        </ul>
-                    </div>
-                    <div class="lesson-footer">
-                        <button class="lesson-button">Começar Lesson 7</button>
-                    </div>
-                </article>
-
-                <article class="lesson-card regular-lesson" onclick="navigateToLesson('8')">
-                    <div class="lesson-header">
-                        <div class="lesson-icon">🚗</div>
-                        <h3 class="lesson-title">Lesson 8 - Car Trouble</h3>
-                        <p class="lesson-description">Problemas automotivos e soluções</p>
-                    </div>
-                    <div class="lesson-content">
-                        <ul class="lesson-features">
-                            <li>Mecânica e reparos</li>
-                            <li>Seguro e documentos</li>
-                            <li>Emergências na estrada</li>
-                        </ul>
-                    </div>
-                    <div class="lesson-footer">
-                        <button class="lesson-button">Começar Lesson 8</button>
-                    </div>
-                </article>
-
-                <article class="lesson-card regular-lesson" onclick="navigateToLesson('9')">
-                    <div class="lesson-header">
-                        <div class="lesson-icon">🏢</div>
-                        <h3 class="lesson-title">Lesson 9 - Job Interview</h3>
-                        <p class="lesson-description">Entrevistas de emprego profissionais</p>
-                    </div>
-                    <div class="lesson-content">
-                        <ul class="lesson-features">
-                            <li>Perguntas desafiadoras</li>
-                            <li>Experiência profissional</li>
-                            <li>Negociação salarial</li>
-                        </ul>
-                    </div>
-                    <div class="lesson-footer">
-                        <button class="lesson-button">Começar Lesson 9</button>
-                    </div>
-                </article>
-
-                <article class="lesson-card regular-lesson" onclick="navigateToLesson('10')">
-                    <div class="lesson-header">
-                        <div class="lesson-icon">🏠</div>
-                        <h3 class="lesson-title">Lesson 10 - Moving House</h3>
-                        <p class="lesson-description">Mudança de casa e novos vizinhos</p>
-                    </div>
-                    <div class="lesson-content">
-                        <ul class="lesson-features">
-                            <li>Empresas de mudança</li>
-                            <li>Novos vizinhos</li>
-                            <li>Organização da casa</li>
-                        </ul>
-                    </div>
-                    <div class="lesson-footer">
-                        <button class="lesson-button">Começar Lesson 10</button>
-                    </div>
-                </article>
-
-                <article class="lesson-card regular-lesson" onclick="navigateToLesson('11')">
-                    <div class="lesson-header">
-                        <div class="lesson-icon">🎭</div>
-                        <h3 class="lesson-title">Lesson 11 - Cultural Event</h3>
-                        <p class="lesson-description">Eventos culturais e tradições</p>
-                    </div>
-                    <div class="lesson-content">
-                        <ul class="lesson-features">
-                            <li>Festivais e celebrações</li>
-                            <li>Arte e música</li>
-                            <li>Tradições locais</li>
-                        </ul>
-                    </div>
-                    <div class="lesson-footer">
-                        <button class="lesson-button">Começar Lesson 11</button>
+                    <div class="story-footer">
+                        <button class="story-button coming-soon-button">🚀 Em Breve</button>
                     </div>
                 </article>
             </div>
@@ -925,21 +727,23 @@
                         totalStudyTime: 0
                     };
                 }
+                // Garantir compatibilidade
+                if (!this.data.roommate) this.data.roommate = { chaptersCompleted: [], bestScores: {}, badges: [] };
+                if (!this.data.neighbor) this.data.neighbor = { chaptersCompleted: [], bestScores: {}, badges: [] };
             }
 
-            isLessonCompleted(lessonId) {
-                return this.data.listening.lessonsCompleted.includes(`lesson_${lessonId}`);
-            }
-
-            getLessonScore(lessonId) {
-                return this.data.listening.bestScores[`lesson_${lessonId}`] || 0;
+            getProgressBadge(category, totalChapters) {
+                const completed = this.data[category] ? this.data[category].chaptersCompleted.length : 0;
+                if (completed === 0) return '✅ Disponível';
+                if (completed === totalChapters) return '🏆 Completo';
+                return `${completed}/${totalChapters} ✓`;
             }
         }
 
         // ===== NAVIGATION WITH LOADING =====
-        function navigateToLesson(lessonId) {
+        function navigateToStory(storyId) {
             const card = event.currentTarget;
-            const button = card.querySelector('.lesson-button');
+            const button = card.querySelector('.story-button');
             const originalText = button.textContent;
             
             button.textContent = 'Carregando...';
@@ -947,8 +751,22 @@
             card.style.opacity = '0.7';
             
             setTimeout(() => {
-                window.location.href = `../../pages/listening/lesson-${lessonId}.html`;
+                if (storyId === 'roommate') {
+                    window.location.href = '../../pages/reading/roommate.html';
+                } else if (storyId === 'reader') {
+                    window.location.href = '../../pages/reading/reader.html';
+                }
             }, 800);
+        }
+
+        function showComingSoon(storyTitle) {
+            const messages = [
+                `🚀 "${storyTitle}" está em desenvolvimento!`,
+                `📚 Em breve teremos esta história incrível!`,
+                `⭐ Continue praticando enquanto preparamos "${storyTitle}"!`,
+                `🎯 Sua dedicação será recompensada quando "${storyTitle}" for lançada!`
+            ];
+            alert(messages[Math.floor(Math.random() * messages.length)]);
         }
 
         // ===== INITIALIZATION =====
@@ -964,37 +782,34 @@
             // Add progress badges - GAMIFICAÇÃO
             addProgressBadges(progressTracker);
             
-            console.log(`✅ Listening Hub carregado - usuário: ${studentName}`);
+            console.log(`✅ Graded Readers Hub carregado - usuário: ${studentName}`);
             console.log('🎮 Sistema de gamificação ativo');
         }
 
         function addProgressBadges(progressTracker) {
-            const lessonCards = document.querySelectorAll('.lesson-card');
-            
-            lessonCards.forEach((card, index) => {
-                const lessonId = card.getAttribute('onclick')?.match(/navigateToLesson\('(.+?)'\)/)?.[1];
-                if (!lessonId) return;
-                
-                if (progressTracker.isLessonCompleted(lessonId)) {
-                    const badge = document.createElement('div');
-                    badge.className = 'progress-badge';
-                    const score = progressTracker.getLessonScore(lessonId);
-                    badge.textContent = `${score}% ✓`;
-                    
-                    if (score >= 90) {
-                        badge.style.background = 'linear-gradient(135deg, #f59e0b, #d97706)';
-                    }
-                    
-                    card.classList.add('completed');
-                    card.appendChild(badge);
+            // Roommate Progress Badge
+            const roommateProgress = document.getElementById('roommateProgress');
+            if (roommateProgress) {
+                roommateProgress.textContent = progressTracker.getProgressBadge('roommate', 3);
+                if (progressTracker.data.roommate && progressTracker.data.roommate.chaptersCompleted.length > 0) {
+                    roommateProgress.style.background = 'linear-gradient(135deg, #10b981, #059669)';
                 }
-            });
+            }
+            
+            // Reader Progress Badge  
+            const readerProgress = document.getElementById('readerProgress');
+            if (readerProgress) {
+                readerProgress.textContent = progressTracker.getProgressBadge('reading', 4);
+                if (progressTracker.data.reading && progressTracker.data.reading.chaptersCompleted.length > 0) {
+                    readerProgress.style.background = 'linear-gradient(135deg, #10b981, #059669)';
+                }
+            }
         }
 
         // ===== EVENT LISTENERS =====
         document.addEventListener('DOMContentLoaded', initializePage);
 
-        console.log('✅ Listening Hub - Clean & Modern');
+        console.log('✅ Graded Readers Hub - Clean & Modern');
         console.log('🎨 Design system consistente com index.html');
         console.log('🎮 Gamificação 100% preservada');
         console.log('📱 Mobile PWA otimizado');
