@@ -33,7 +33,61 @@
     background: linear-gradient(90deg, var(--primary-blue), var(--primary-red), var(--primary-blue));
 }
 
-/* User Info (Canto Superior Direito) */
+/* ===== 🎯 ADIÇÕES MODERNAS - USER WIDGET ===== */
+
+/* Modern User Widget - SUBSTITUI .user-info */
+.user-widget {
+    position: fixed;
+    top: 1.25rem;
+    right: 1.25rem;
+    z-index: 1000;
+    background: rgba(255,255,255,0.95);
+    border-radius: 0.9375rem;
+    padding: 0.3125rem 0.625rem;
+    box-shadow: 0 0.5rem 1.5625rem rgba(0,0,0,0.1);
+    border: 2px solid var(--primary-red);
+    backdrop-filter: blur(10px);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.user-widget .user-avatar {
+    width: 1.875rem;
+    height: 1.875rem;
+    background: linear-gradient(135deg, var(--primary-blue), var(--primary-red));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: bold;
+    font-size: 1.2em;
+}
+
+.user-widget .user-name {
+    color: var(--primary-blue);
+    font-weight: 700;
+    font-size: 0.9em;
+}
+
+.user-widget .logout-btn {
+    background: var(--primary-red);
+    color: white;
+    border: none;
+    padding: 0.375rem 0.75rem;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    font-size: 0.8em;
+    font-weight: 600;
+    transition: var(--transition-fast);
+}
+
+.user-widget .logout-btn:hover {
+    background: var(--error-red);
+}
+
+/* User Info (Canto Superior Direito) - MANTIDO PARA COMPATIBILIDADE */
 .user-info {
     position: fixed;
     top: 20px;
@@ -84,6 +138,445 @@
 .logout-btn:hover {
     background: var(--error-red);
     transform: scale(1.05);
+}
+
+/* ===== 🎯 ADIÇÕES MODERNAS - HUB COMPONENTS ===== */
+
+/* Hub Headers */
+.hub-title {
+    font-size: 2.5em;
+    font-weight: 800;
+    background: linear-gradient(135deg, var(--primary-blue), var(--primary-red));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 0.5rem;
+    text-align: center;
+}
+
+.hub-subtitle {
+    font-size: 1.2em;
+    color: var(--gray-500);
+    font-weight: 500;
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+/* Back Navigation */
+.back-button {
+    background: linear-gradient(135deg, var(--gray-500), var(--gray-600));
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    font-weight: 600;
+    transition: var(--transition-fast);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 2rem;
+}
+
+.back-button:hover {
+    background: linear-gradient(135deg, var(--gray-600), var(--gray-500));
+    transform: translateY(-0.125rem);
+    box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.2);
+}
+
+/* Level Sections */
+.level-sections {
+    display: grid;
+    gap: 2rem;
+}
+
+.level-section {
+    background: var(--white-95);
+    backdrop-filter: blur(20px);
+    border-radius: var(--border-radius);
+    padding: 2rem;
+    margin-bottom: 2rem;
+    box-shadow: var(--shadow-light);
+    border: 1px solid rgba(30, 58, 138, 0.1);
+    position: relative;
+    overflow: hidden;
+    transition: var(--transition-smooth);
+}
+
+.level-section:hover {
+    transform: translateY(-0.25rem);
+    box-shadow: var(--shadow-medium);
+}
+
+.level-section::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 4px;
+}
+
+/* Level Headers */
+.level-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.level-badge {
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.75rem;
+    font-weight: 800;
+    font-size: 1em;
+    color: white;
+    box-shadow: 0 0.25rem 0.75rem rgba(0,0,0,0.2);
+}
+
+.level-info {
+    flex: 1;
+}
+
+.level-title {
+    font-size: 1.5em;
+    font-weight: 800;
+    color: var(--gray-700);
+    margin-bottom: 0.25rem;
+}
+
+.level-description {
+    color: var(--gray-500);
+    font-size: 1em;
+    font-weight: 500;
+}
+
+.level-stories {
+    font-size: 0.85em;
+    color: var(--gray-400);
+    margin-top: 0.25rem;
+}
+
+/* ===== 🎯 ADIÇÕES MODERNAS - STORIES & LESSONS GRIDS ===== */
+
+/* Stories Grid (para Reading Hubs) */
+.stories-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 1.5rem;
+}
+
+/* Story Cards */
+.story-card {
+    background: white;
+    border-radius: var(--border-radius-small);
+    box-shadow: 0 0.125rem 0.25rem rgba(0,0,0,0.05), 0 0.25rem 0.5rem rgba(0,0,0,0.1);
+    overflow: hidden;
+    transition: var(--transition-fast);
+    cursor: pointer;
+    min-height: 22rem;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    text-decoration: none;
+    color: inherit;
+    border: 2px solid var(--gray-200);
+}
+
+.story-card:hover {
+    transform: translateY(-0.375rem);
+    box-shadow: 0 0.75rem 1.5rem rgba(30, 58, 138, 0.15);
+    border-color: var(--primary-blue);
+}
+
+.story-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: -100%;
+    width: 100%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+    transition: left 0.5s;
+    z-index: 1;
+}
+
+.story-card:hover::before {
+    left: 100%;
+}
+
+/* Story Card Structure */
+.story-header {
+    padding: 1.5rem 1.5rem 1rem;
+    position: relative;
+    z-index: 2;
+}
+
+.story-icon {
+    font-size: 3rem;
+    margin-bottom: 0.75rem;
+    text-align: center;
+    filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.1));
+}
+
+.story-title {
+    font-size: 1.3em;
+    font-weight: 700;
+    color: var(--primary-blue);
+    margin-bottom: 0.5rem;
+    text-align: center;
+}
+
+.story-description {
+    color: var(--gray-500);
+    font-size: 0.9em;
+    text-align: center;
+    font-weight: 500;
+}
+
+.story-content {
+    padding: 0 1.5rem;
+    flex-grow: 1;
+    position: relative;
+    z-index: 2;
+}
+
+.story-features {
+    list-style: none;
+    margin: 0 0 1rem 0;
+    padding: 0;
+}
+
+.story-features li {
+    color: var(--gray-500);
+    margin-bottom: 0.375rem;
+    font-weight: 500;
+    position: relative;
+    padding-left: 1.25rem;
+    font-size: 0.85em;
+}
+
+.story-features li::before {
+    content: '🎧';
+    position: absolute;
+    left: 0;
+    font-size: 1em;
+}
+
+.story-footer {
+    padding: 1rem 1.5rem;
+    position: relative;
+    z-index: 2;
+}
+
+.story-button {
+    background: linear-gradient(135deg, var(--primary-blue), var(--primary-red));
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 0.5rem;
+    font-weight: 700;
+    cursor: pointer;
+    font-size: 0.9em;
+    transition: var(--transition-fast);
+    width: 100%;
+}
+
+.story-button:hover {
+    background: linear-gradient(135deg, var(--secondary-blue), var(--secondary-red));
+    transform: translateY(-0.125rem);
+    box-shadow: 0 0.5rem 1rem rgba(30, 58, 138, 0.4);
+}
+
+/* ===== 🎯 ADIÇÕES MODERNAS - LESSONS GRID ===== */
+
+/* Lessons Grid (para Listening Hub) */
+.lessons-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+}
+
+/* Lesson Cards - MODERNIZADOS */
+.lesson-card {
+    background: white;
+    border-radius: var(--border-radius-small);
+    box-shadow: 0 0.125rem 0.25rem rgba(0,0,0,0.05), 0 0.25rem 0.5rem rgba(0,0,0,0.1);
+    overflow: hidden;
+    transition: var(--transition-fast);
+    cursor: pointer;
+    min-height: 18rem;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    border: 2px solid var(--gray-200);
+}
+
+.lesson-card:hover {
+    transform: translateY(-0.375rem);
+    box-shadow: 0 0.75rem 1.5rem rgba(30, 58, 138, 0.15);
+    border-color: var(--primary-blue);
+}
+
+.lesson-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: -100%;
+    width: 100%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+    transition: left 0.5s;
+    z-index: 1;
+}
+
+.lesson-card:hover::before {
+    left: 100%;
+}
+
+.lesson-header {
+    padding: 1.5rem 1.5rem 1rem;
+    position: relative;
+    z-index: 2;
+}
+
+.lesson-icon {
+    font-size: 2.5rem;
+    margin-bottom: 0.75rem;
+    text-align: center;
+    filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.1));
+}
+
+.lesson-title {
+    font-size: 1.2em;
+    font-weight: 700;
+    color: var(--primary-blue);
+    margin-bottom: 0.5rem;
+    text-align: center;
+}
+
+.lesson-description {
+    color: var(--gray-500);
+    font-size: 0.9em;
+    text-align: center;
+    font-weight: 500;
+}
+
+.lesson-content {
+    padding: 0 1.5rem;
+    flex-grow: 1;
+    position: relative;
+    z-index: 2;
+}
+
+.lesson-features {
+    list-style: none;
+    margin: 0 0 1rem 0;
+    padding: 0;
+}
+
+.lesson-features li {
+    color: var(--gray-500);
+    margin-bottom: 0.375rem;
+    font-weight: 500;
+    position: relative;
+    padding-left: 1.25rem;
+    font-size: 0.85em;
+}
+
+.lesson-features li::before {
+    content: '🎧';
+    position: absolute;
+    left: 0;
+    font-size: 1em;
+}
+
+.lesson-footer {
+    padding: 1rem 1.5rem;
+    position: relative;
+    z-index: 2;
+}
+
+.lesson-button {
+    background: linear-gradient(135deg, var(--primary-blue), var(--primary-red));
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 0.5rem;
+    font-weight: 700;
+    cursor: pointer;
+    font-size: 0.9em;
+    transition: var(--transition-fast);
+    width: 100%;
+}
+
+.lesson-button:hover {
+    background: linear-gradient(135deg, var(--secondary-blue), var(--secondary-red));
+    transform: translateY(-0.125rem);
+    box-shadow: 0 0.5rem 1rem rgba(30, 58, 138, 0.4);
+}
+
+/* ===== 🎯 ADIÇÕES MODERNAS - PROGRESS BADGES ===== */
+
+/* Modern Progress Badge */
+.progress-badge {
+    position: absolute;
+    top: -0.5rem;
+    right: -0.5rem;
+    background: var(--success-green);
+    color: white;
+    padding: 0.375rem 0.75rem;
+    border-radius: 0.75rem;
+    font-size: 0.75em;
+    font-weight: 700;
+    border: 3px solid white;
+    box-shadow: 0 0.25rem 0.75rem rgba(16, 185, 129, 0.4);
+    z-index: 5;
+}
+
+/* Overview Stats (para Hub pages) */
+.overview-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1rem;
+    margin: 1.5rem 0;
+}
+
+.stat-card {
+    background: linear-gradient(135deg, rgba(30, 58, 138, 0.05), rgba(220, 38, 38, 0.05));
+    padding: 1.5rem;
+    border-radius: 0.75rem;
+    border: 1px solid rgba(30, 58, 138, 0.1);
+    text-align: center;
+}
+
+.stat-number {
+    font-size: 2em;
+    font-weight: 800;
+    color: var(--primary-blue);
+    margin-bottom: 0.25rem;
+}
+
+.stat-label {
+    color: var(--gray-500);
+    font-weight: 600;
+    font-size: 0.9em;
+}
+
+/* Reading Overview (para Pure Reading Hub) */
+.reading-overview {
+    background: var(--white-95);
+    backdrop-filter: blur(20px);
+    border-radius: var(--border-radius);
+    padding: 2rem;
+    margin-bottom: 2rem;
+    box-shadow: var(--shadow-light);
+    border: 1px solid rgba(30, 58, 138, 0.1);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.reading-overview::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--primary-blue), var(--primary-red));
 }
 
 /* Seções de Conteúdo */
@@ -207,9 +700,7 @@
 
 /* Cards Base */
 .activity-card,
-.stat-item,
-.lesson-card,
-.chapter-card {
+.stat-item {
     background: var(--white-90);
     border: 3px solid var(--gray-200);
     border-radius: var(--border-radius);
@@ -233,14 +724,8 @@
     border: 2px solid rgba(30, 58, 138, 0.1);
 }
 
-.lesson-card {
-    padding: 20px;
-}
-
 /* Efeitos de Hover e Estados */
-.activity-card::before,
-.lesson-card::before,
-.chapter-card::before {
+.activity-card::before {
     content: '';
     position: absolute;
     top: 0;
@@ -252,26 +737,16 @@
     z-index: 1;
 }
 
-.activity-card:hover::before,
-.lesson-card:hover::before,
-.chapter-card:hover::before {
+.activity-card:hover::before {
     left: 100%;
 }
 
 .activity-card:hover,
-.stat-item:hover,
-.lesson-card:hover,
-.chapter-card:hover {
+.stat-item:hover {
     transform: translateY(-8px);
     box-shadow: var(--shadow-heavy);
     border-color: var(--primary-blue);
     background: white;
-}
-
-.lesson-card:hover,
-.chapter-card:hover {
-    transform: translateY(-8px) scale(1.03);
-    box-shadow: 0 20px 40px rgba(30, 58, 138, 0.2);
 }
 
 .stat-item:hover {
@@ -344,7 +819,6 @@
 }
 
 /* Badges de Completude */
-.progress-badge,
 .completion-badge {
     position: absolute;
     top: -8px;
@@ -361,18 +835,6 @@
     font-weight: 800;
     border: 3px solid white;
     box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-}
-
-.progress-badge {
-    top: 15px;
-    left: 15px;
-    width: auto;
-    height: auto;
-    padding: 6px 12px;
-    border-radius: var(--border-radius-small);
-    font-size: 0.8em;
-    font-weight: 700;
-    box-shadow: 0 4px 12px rgba(34, 197, 94, 0.4);
 }
 
 .lesson-card .completion-badge {
@@ -406,6 +868,46 @@
 
 /* Responsivo - Mobile */
 @media (max-width: 768px) {
+    .user-widget {
+        top: 1rem;
+        right: 1rem;
+        padding: 0.25rem 0.5rem;
+    }
+
+    .hub-title {
+        font-size: 2em;
+    }
+
+    .hub-subtitle {
+        font-size: 1.1em;
+    }
+
+    .level-section {
+        padding: 1.5rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .level-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.75rem;
+    }
+
+    .level-title {
+        font-size: 1.3em;
+    }
+
+    .stories-grid,
+    .lessons-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    .story-card,
+    .lesson-card {
+        min-height: 16rem;
+    }
+
     .container {
         padding: 15px;
     }
@@ -415,7 +917,8 @@
         gap: 20px;
     }
     
-    .stats-grid {
+    .stats-grid,
+    .overview-stats {
         grid-template-columns: repeat(2, 1fr);
     }
     
@@ -455,5 +958,10 @@
         right: auto;
         margin-bottom: 20px;
         justify-content: center;
+    }
+
+    .reading-overview {
+        padding: 1.5rem;
+        margin-bottom: 1.5rem;
     }
 }
