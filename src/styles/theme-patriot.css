@@ -29,6 +29,175 @@ body::before {
         radial-gradient(circle at 80% 80%, #dc262610 0%, transparent 50%);
 }
 
+/* ===== 🎯 ADIÇÕES MODERNAS - LEVEL COLORS ===== */
+
+/* Graded Readers Hub - Level Colors */
+.level-a1::before {
+    background: linear-gradient(90deg, #22c55e, #16a34a);
+}
+
+.level-a2::before {
+    background: linear-gradient(90deg, var(--primary-blue), var(--primary-red));
+}
+
+.level-b1::before {
+    background: linear-gradient(90deg, #8b5cf6, #7c3aed);
+}
+
+.level-a1 .level-badge {
+    background: linear-gradient(135deg, #22c55e, #16a34a);
+}
+
+.level-a2 .level-badge {
+    background: linear-gradient(135deg, var(--primary-blue), var(--primary-red));
+}
+
+.level-b1 .level-badge {
+    background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+}
+
+/* Pure Reading Hub - Level Colors */
+.level-a2-low::before {
+    background: linear-gradient(90deg, #22c55e, #16a34a);
+}
+
+.level-a2-mid::before {
+    background: linear-gradient(90deg, var(--primary-blue), var(--primary-red));
+}
+
+.level-a2-low .level-badge {
+    background: linear-gradient(135deg, #22c55e, #16a34a);
+}
+
+.level-a2-mid .level-badge {
+    background: linear-gradient(135deg, var(--primary-blue), var(--primary-red));
+}
+
+/* Listening Hub - Foundation vs Regular */
+.foundation::before {
+    background: linear-gradient(90deg, #10b981, #059669);
+}
+
+.regular::before {
+    background: linear-gradient(90deg, var(--primary-blue), var(--primary-red));
+}
+
+.foundation .level-badge {
+    background: linear-gradient(135deg, #10b981, #059669);
+}
+
+.regular .level-badge {
+    background: linear-gradient(135deg, var(--primary-blue), var(--primary-red));
+}
+
+/* Level Buttons - Matching Colors */
+.level-a1 .level-button,
+.level-a2-low .level-button,
+.foundation .level-button {
+    background: linear-gradient(135deg, #22c55e, #16a34a);
+}
+
+.level-a2 .level-button,
+.level-a2-mid .level-button,
+.regular .level-button {
+    background: linear-gradient(135deg, var(--primary-blue), var(--primary-red));
+}
+
+.level-b1 .level-button {
+    background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+}
+
+.level-a1 .level-button:hover,
+.level-a2-low .level-button:hover,
+.foundation .level-button:hover {
+    background: linear-gradient(135deg, #16a34a, #22c55e);
+}
+
+.level-a2 .level-button:hover,
+.level-a2-mid .level-button:hover,
+.regular .level-button:hover {
+    background: linear-gradient(135deg, var(--secondary-blue), var(--secondary-red));
+}
+
+.level-b1 .level-button:hover {
+    background: linear-gradient(135deg, #7c3aed, #8b5cf6);
+}
+
+/* Progress Bars - Matching Colors */
+.level-a1 .progress-fill,
+.level-a2-low .progress-fill,
+.foundation .progress-fill {
+    background: linear-gradient(90deg, #22c55e, #16a34a);
+}
+
+.level-a2 .progress-fill,
+.level-a2-mid .progress-fill,
+.regular .progress-fill {
+    background: linear-gradient(90deg, var(--primary-blue), var(--primary-red));
+}
+
+.level-b1 .progress-fill {
+    background: linear-gradient(90deg, #8b5cf6, #7c3aed);
+}
+
+/* ===== 🎯 ADIÇÕES MODERNAS - SPECIAL STATES ===== */
+
+/* Coming Soon State */
+.coming-soon {
+    opacity: 0.75;
+    border-style: dashed !important;
+    cursor: default !important;
+}
+
+.coming-soon:hover {
+    transform: translateY(-0.25rem) !important;
+    opacity: 1;
+}
+
+.coming-soon-button {
+    background: linear-gradient(135deg, #fbbf24, #f59e0b) !important;
+    cursor: not-allowed !important;
+}
+
+.coming-soon-button:hover {
+    transform: none !important;
+    box-shadow: none !important;
+}
+
+/* Foundation vs Regular Lesson Types */
+.foundation-lesson {
+    border-left: 4px solid #10b981;
+}
+
+.regular-lesson {
+    border-left: 4px solid var(--primary-blue);
+}
+
+/* Completed States */
+.completed .progress-badge {
+    background: linear-gradient(135deg, #10b981, #059669);
+}
+
+/* Level Specific Badges */
+.level-a1 .progress-badge,
+.level-a2-low .progress-badge,
+.foundation .progress-badge {
+    background: #10b981;
+    box-shadow: 0 0.25rem 0.75rem rgba(16, 185, 129, 0.4);
+}
+
+.level-a2 .progress-badge,
+.level-a2-mid .progress-badge,
+.regular .progress-badge {
+    background: var(--primary-blue);
+    box-shadow: 0 0.25rem 0.75rem rgba(30, 58, 138, 0.4);
+}
+
+.level-b1 .progress-badge {
+    background: #8b5cf6;
+    box-shadow: 0 0.25rem 0.75rem rgba(139, 92, 246, 0.4);
+}
+
 /* Mensagens de Bem-vindo */
 .welcome-message {
     font-size: 1.4em;
