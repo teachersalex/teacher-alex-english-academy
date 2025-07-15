@@ -11,33 +11,18 @@
     <link rel="stylesheet" href="../../src/styles/theme-patriot.css">
     
     <style>
-        /* 🔥 CUSTOM STYLES PARA FAZER ESSA HUB INSANA */
+        /* 🎯 ELEGANT DESIGN SYSTEM */
         
-        /* Hero Section com gradiente dinâmico */
+        /* Hero Section elegante */
         .listening-hero {
-            background: linear-gradient(135deg, #1e3a8a 0%, #dc2626 50%, #8b5cf6 100%);
-            border-radius: 20px;
+            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 50%, #1e40af 100%);
+            border-radius: 16px;
             padding: 3rem;
-            margin-bottom: 3rem;
+            margin-bottom: 2.5rem;
             position: relative;
             overflow: hidden;
-            border: 2px solid rgba(255,255,255,0.2);
-        }
-        
-        .listening-hero::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
-            animation: heroFloat 8s ease-in-out infinite;
-        }
-        
-        @keyframes heroFloat {
-            0%, 100% { transform: translate(-50%, -50%) rotate(0deg); }
-            50% { transform: translate(-30%, -30%) rotate(180deg); }
+            border: 1px solid rgba(255,255,255,0.1);
+            box-shadow: 0 20px 60px rgba(30, 58, 138, 0.15);
         }
         
         .hero-content {
@@ -48,69 +33,60 @@
         }
         
         .hero-title {
-            font-size: 3.5em;
-            font-weight: 900;
+            font-size: 3.2em;
+            font-weight: 800;
             margin-bottom: 1rem;
-            text-shadow: 2px 2px 8px rgba(0,0,0,0.3);
-            background: linear-gradient(45deg, #fff, #fbbf24, #fff);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: titleShine 3s ease-in-out infinite;
-        }
-        
-        @keyframes titleShine {
-            0%, 100% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
+            color: white;
+            text-shadow: 0 2px 20px rgba(0,0,0,0.3);
         }
         
         .hero-subtitle {
-            font-size: 1.4em;
-            font-weight: 600;
-            margin-bottom: 2rem;
-            opacity: 0.95;
+            font-size: 1.3em;
+            font-weight: 500;
+            margin-bottom: 2.5rem;
+            opacity: 0.9;
+            color: #e2e8f0;
         }
         
         .hero-stats {
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-            flex-wrap: wrap;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 1.5rem;
+            max-width: 600px;
+            margin: 0 auto;
         }
         
         .hero-stat {
-            background: rgba(255,255,255,0.15);
+            background: rgba(255,255,255,0.1);
             backdrop-filter: blur(10px);
-            padding: 1rem 2rem;
-            border-radius: 15px;
-            border: 1px solid rgba(255,255,255,0.2);
+            padding: 1.5rem 1rem;
+            border-radius: 12px;
+            border: 1px solid rgba(255,255,255,0.15);
             text-align: center;
-            min-width: 120px;
         }
         
         .hero-stat-number {
-            font-size: 2.2em;
-            font-weight: 900;
+            font-size: 2em;
+            font-weight: 800;
             display: block;
             margin-bottom: 0.5rem;
         }
         
         .hero-stat-label {
             font-size: 0.9em;
-            opacity: 0.9;
+            opacity: 0.85;
             font-weight: 600;
         }
         
-        /* Level sections com design mais dinâmico */
+        /* Level sections elegantes */
         .level-section {
-            background: linear-gradient(135deg, rgba(255,255,255,0.95), rgba(248,250,252,0.95));
-            backdrop-filter: blur(20px);
-            border-radius: 24px;
+            background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+            border-radius: 16px;
             padding: 2.5rem;
-            margin-bottom: 3rem;
-            border: 2px solid rgba(255,255,255,0.3);
+            margin-bottom: 2.5rem;
+            border: 2px solid #e2e8f0;
             position: relative;
-            overflow: hidden;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+            box-shadow: 0 8px 32px rgba(15, 23, 42, 0.08);
         }
         
         .level-section::before {
@@ -119,161 +95,124 @@
             top: 0;
             left: 0;
             right: 0;
-            height: 6px;
-            background: linear-gradient(90deg, #10b981, #16a34a);
-            border-radius: 24px 24px 0 0;
+            height: 4px;
+            background: linear-gradient(90deg, #1e3a8a, #3b82f6);
+            border-radius: 16px 16px 0 0;
         }
         
-        .level-section.regular::before {
-            background: linear-gradient(90deg, #1e3a8a, #dc2626, #8b5cf6);
+        .foundation::before {
+            background: linear-gradient(90deg, #475569, #64748b);
         }
         
         .level-header {
             display: flex;
             align-items: center;
             gap: 1.5rem;
-            margin-bottom: 2.5rem;
+            margin-bottom: 2rem;
             padding-bottom: 1.5rem;
-            border-bottom: 2px solid rgba(0,0,0,0.1);
+            border-bottom: 2px solid #f1f5f9;
         }
         
         .level-badge {
-            background: linear-gradient(135deg, #10b981, #059669);
+            background: linear-gradient(135deg, #1e3a8a, #3b82f6);
             color: white;
-            padding: 1rem 2rem;
-            border-radius: 20px;
-            font-weight: 900;
-            font-size: 1.1em;
-            box-shadow: 0 8px 25px rgba(16, 185, 129, 0.4);
-            position: relative;
-            overflow: hidden;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 0.95em;
+            box-shadow: 0 4px 12px rgba(30, 58, 138, 0.3);
         }
         
-        .level-badge::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.3), transparent);
-            animation: badgeShine 2s ease-in-out infinite;
-        }
-        
-        @keyframes badgeShine {
-            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
-            50% { transform: translateX(100%) translateY(100%) rotate(45deg); }
-            100% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
-        }
-        
-        .regular .level-badge {
-            background: linear-gradient(135deg, #1e3a8a, #dc2626);
-            box-shadow: 0 8px 25px rgba(30, 58, 138, 0.4);
+        .foundation .level-badge {
+            background: linear-gradient(135deg, #475569, #64748b);
+            box-shadow: 0 4px 12px rgba(71, 85, 105, 0.3);
         }
         
         .level-info h2 {
-            font-size: 2.2em;
-            font-weight: 900;
-            background: linear-gradient(135deg, #1e3a8a, #dc2626);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            font-size: 2em;
+            font-weight: 800;
+            color: #1e293b;
             margin-bottom: 0.5rem;
         }
         
         .level-info p {
-            font-size: 1.1em;
-            color: #6b7280;
-            font-weight: 600;
+            font-size: 1.05em;
+            color: #64748b;
+            font-weight: 500;
             line-height: 1.6;
         }
         
-        /* Cards com design mais impactante */
+        .level-meta {
+            color: #3b82f6;
+            font-weight: 600;
+            margin-top: 0.5rem;
+            font-size: 0.95em;
+        }
+        
+        .foundation .level-meta {
+            color: #64748b;
+        }
+        
+        /* Cards elegantes */
         .lessons-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 2rem;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 1.5rem;
         }
         
         .lesson-card {
-            background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
-            border-radius: 20px;
+            background: white;
+            border-radius: 12px;
             overflow: hidden;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             cursor: pointer;
-            border: 2px solid #e2e8f0;
-            position: relative;
-            height: 320px;
+            border: 2px solid #f1f5f9;
+            height: 300px;
             display: flex;
             flex-direction: column;
         }
         
         .lesson-card:hover {
-            transform: translateY(-12px) scale(1.02);
-            box-shadow: 0 25px 80px rgba(30, 58, 138, 0.25);
-            border-color: #1e3a8a;
-        }
-        
-        .lesson-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.6), transparent);
-            transition: left 0.6s;
-            z-index: 1;
-        }
-        
-        .lesson-card:hover::before {
-            left: 100%;
+            transform: translateY(-6px);
+            box-shadow: 0 20px 40px rgba(30, 58, 138, 0.12);
+            border-color: #e2e8f0;
         }
         
         .lesson-header {
-            background: linear-gradient(135deg, #f0f9ff, #e0f2fe);
-            padding: 2rem 1.5rem 1.5rem;
+            background: linear-gradient(135deg, #f8fafc, #f1f5f9);
+            padding: 1.5rem;
             text-align: center;
-            position: relative;
-            z-index: 2;
+            border-bottom: 1px solid #e2e8f0;
         }
         
         .foundation-lesson .lesson-header {
-            background: linear-gradient(135deg, #f0fdf4, #dcfce7);
+            background: linear-gradient(135deg, #f8fafc, #f1f5f9);
         }
         
         .lesson-icon {
-            font-size: 3.5em;
-            margin-bottom: 1rem;
+            font-size: 2.5em;
+            margin-bottom: 0.75rem;
             display: block;
-            filter: drop-shadow(2px 2px 8px rgba(0,0,0,0.1));
-            animation: iconFloat 3s ease-in-out infinite;
-        }
-        
-        @keyframes iconFloat {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-8px); }
         }
         
         .lesson-title {
-            font-size: 1.3em;
-            font-weight: 800;
-            color: #1e3a8a;
+            font-size: 1.1em;
+            font-weight: 700;
+            color: #1e293b;
             margin-bottom: 0.5rem;
             line-height: 1.3;
         }
         
         .lesson-description {
-            color: #6b7280;
-            font-size: 0.95em;
-            font-weight: 600;
-            line-height: 1.5;
+            color: #64748b;
+            font-size: 0.9em;
+            font-weight: 500;
+            line-height: 1.4;
         }
         
         .lesson-content {
-            padding: 0 1.5rem;
+            padding: 1rem 1.5rem;
             flex-grow: 1;
-            position: relative;
-            z-index: 2;
         }
         
         .lesson-features {
@@ -284,174 +223,142 @@
         
         .lesson-features li {
             color: #64748b;
-            margin-bottom: 0.75rem;
-            font-weight: 600;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
             position: relative;
-            padding-left: 2rem;
-            font-size: 0.9em;
+            padding-left: 1.5rem;
+            font-size: 0.85em;
         }
         
         .lesson-features li::before {
-            content: '✨';
+            content: '•';
             position: absolute;
             left: 0;
+            color: #3b82f6;
+            font-weight: 900;
             font-size: 1.2em;
-            animation: sparkle 2s ease-in-out infinite;
         }
         
-        @keyframes sparkle {
-            0%, 100% { opacity: 1; transform: scale(1); }
-            50% { opacity: 0.7; transform: scale(1.2); }
+        .foundation-lesson .lesson-features li::before {
+            color: #64748b;
         }
         
         .lesson-footer {
             padding: 1.5rem;
-            position: relative;
-            z-index: 2;
         }
         
         .lesson-button {
             width: 100%;
-            background: linear-gradient(135deg, #1e3a8a, #dc2626);
+            background: linear-gradient(135deg, #1e3a8a, #3b82f6);
             color: white;
-            padding: 1rem 2rem;
+            padding: 0.75rem 1.5rem;
             border: none;
-            border-radius: 15px;
-            font-weight: 800;
-            font-size: 1em;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.9em;
             cursor: pointer;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+            transition: all 0.2s ease;
         }
         
         .foundation-lesson .lesson-button {
-            background: linear-gradient(135deg, #10b981, #059669);
+            background: linear-gradient(135deg, #475569, #64748b);
         }
         
         .lesson-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(30, 58, 138, 0.4);
+            transform: translateY(-1px);
+            box-shadow: 0 6px 20px rgba(30, 58, 138, 0.25);
         }
         
-        .lesson-button::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
-            transition: left 0.5s;
+        .foundation-lesson .lesson-button:hover {
+            box-shadow: 0 6px 20px rgba(71, 85, 105, 0.25);
         }
         
-        .lesson-button:hover::before {
-            left: 100%;
-        }
-        
-        /* Progress badges mais impactantes */
+        /* Progress badges elegantes */
         .progress-badge {
             position: absolute;
-            top: -10px;
-            right: -10px;
-            background: linear-gradient(135deg, #f59e0b, #d97706);
+            top: -8px;
+            right: -8px;
+            background: linear-gradient(135deg, #3b82f6, #1e40af);
             color: white;
-            padding: 0.5rem 1rem;
-            border-radius: 20px;
-            font-size: 0.8em;
-            font-weight: 900;
-            border: 3px solid white;
-            box-shadow: 0 8px 25px rgba(245, 158, 11, 0.4);
+            padding: 0.4rem 0.8rem;
+            border-radius: 12px;
+            font-size: 0.75em;
+            font-weight: 700;
+            border: 2px solid white;
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
             z-index: 5;
-            animation: badgePulse 2s ease-in-out infinite;
-        }
-        
-        @keyframes badgePulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.1); }
-        }
-        
-        .progress-badge.perfect {
-            background: linear-gradient(135deg, #8b5cf6, #7c3aed);
-            box-shadow: 0 8px 25px rgba(139, 92, 246, 0.4);
         }
         
         .progress-badge.excellent {
-            background: linear-gradient(135deg, #10b981, #059669);
-            box-shadow: 0 8px 25px rgba(16, 185, 129, 0.4);
+            background: linear-gradient(135deg, #1e293b, #334155);
+            box-shadow: 0 4px 12px rgba(30, 41, 59, 0.3);
         }
         
-        /* Study tips mais visuais */
+        .progress-badge.perfect {
+            background: linear-gradient(135deg, #dc2626, #b91c1c);
+            box-shadow: 0 4px 12px rgba(220, 38, 38, 0.3);
+        }
+        
+        /* Study tips elegantes */
         .study-tips {
-            background: linear-gradient(135deg, #fef3c7, #fde68a);
-            border: 2px solid #f59e0b;
+            background: linear-gradient(135deg, #f8fafc, #f1f5f9);
+            border: 2px solid #e2e8f0;
         }
         
         .study-tips .instruction-item {
-            background: linear-gradient(135deg, rgba(255,255,255,0.9), rgba(254,243,199,0.9));
-            border: 2px solid rgba(245, 158, 11, 0.3);
-            transition: all 0.3s ease;
+            background: white;
+            border: 1px solid #e2e8f0;
+            transition: all 0.2s ease;
         }
         
         .study-tips .instruction-item:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 40px rgba(245, 158, 11, 0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(15, 23, 42, 0.08);
         }
         
         .study-tips .instruction-number {
-            font-size: 2em;
-            background: linear-gradient(135deg, #f59e0b, #d97706);
-            width: 60px;
-            height: 60px;
-            box-shadow: 0 8px 25px rgba(245, 158, 11, 0.4);
+            font-size: 1.5em;
+            background: linear-gradient(135deg, #1e3a8a, #3b82f6);
+            width: 50px;
+            height: 50px;
+            box-shadow: 0 4px 12px rgba(30, 58, 138, 0.25);
         }
         
-        /* Loading states mais suaves */
+        /* Loading states */
         .loading {
-            opacity: 0.8;
+            opacity: 0.7;
             pointer-events: none;
-            filter: blur(1px);
         }
         
-        /* Mobile responsiveness aprimorada */
+        /* Mobile responsiveness */
         @media (max-width: 768px) {
             .listening-hero {
                 padding: 2rem;
             }
             
             .hero-title {
-                font-size: 2.5em;
+                font-size: 2.2em;
             }
             
             .hero-stats {
+                grid-template-columns: repeat(2, 1fr);
                 gap: 1rem;
-            }
-            
-            .hero-stat {
-                min-width: 100px;
-                padding: 0.75rem 1.5rem;
             }
             
             .lessons-grid {
                 grid-template-columns: 1fr;
-                gap: 1.5rem;
+                gap: 1rem;
             }
             
             .lesson-card {
                 height: auto;
-                min-height: 280px;
+                min-height: 260px;
             }
             
             .level-header {
                 flex-direction: column;
                 align-items: flex-start;
                 gap: 1rem;
-            }
-            
-            .level-badge {
-                align-self: center;
             }
         }
     </style>
@@ -471,11 +378,11 @@
             ← Voltar ao Dashboard
         </a>
         
-        <!-- Hero Section INSANA -->
+        <!-- Hero Section Elegante -->
         <section class="listening-hero">
             <div class="hero-content">
-                <h1 class="hero-title">🎧 LISTENING MASTERY</h1>
-                <p class="hero-subtitle">Transforme sua compreensão auditiva com diálogos reais e desafiadores</p>
+                <h1 class="hero-title">🎧 Listening Practice</h1>
+                <p class="hero-subtitle">Desenvolva sua compreensão auditiva com diálogos autênticos e progressivos</p>
                 
                 <div class="hero-stats">
                     <div class="hero-stat">
@@ -504,8 +411,8 @@
                 <div class="level-badge">Foundation</div>
                 <div class="level-info">
                     <h2>Lições Foundation</h2>
-                    <p>Base sólida com vocabulário essencial e gramática fundamental para iniciantes</p>
-                    <p style="color: #059669; font-weight: 700; margin-top: 0.5rem;">12 lições progressivas • Nível A1-A2 • Vocabulário básico</p>
+                    <p>Base sólida com vocabulário essencial e gramática fundamental para construir uma compreensão auditiva consistente</p>
+                    <div class="level-meta">12 lições progressivas • Nível A1-A2 • Vocabulário essencial</div>
                 </div>
             </header>
             
@@ -734,8 +641,8 @@
                 <div class="level-badge">Regular</div>
                 <div class="level-info">
                     <h2>Lições Regulares</h2>
-                    <p>Desenvolvimento avançado com diálogos complexos e situações reais desafiadoras</p>
-                    <p style="color: #dc2626; font-weight: 700; margin-top: 0.5rem;">11 lições intensivas • Nível A2-B1 • Situações reais</p>
+                    <p>Desenvolvimento avançado com diálogos complexos e situações reais para expandir sua fluência auditiva</p>
+                    <div class="level-meta">11 lições desafiadoras • Nível A2-B1 • Situações reais</div>
                 </div>
             </header>
             
@@ -940,32 +847,32 @@
             </div>
         </section>
 
-        <!-- Study Tips com design insano -->
+        <!-- Study Tips elegantes -->
         <section class="info-section study-tips">
-            <h2 class="info-title">💡 Dicas GOLD para Listening</h2>
+            <h2 class="info-title">💡 Estratégias de Listening</h2>
             <div class="instructions">
                 <div class="instruction-item">
                     <div class="instruction-number">🎧</div>
                     <div class="instruction-text">
-                        <strong>Fones de Ouvido Premium:</strong> Use sempre fones de qualidade para captar cada nuance dos diálogos nativos.
+                        <strong>Equipamento de Qualidade:</strong> Use fones de ouvido para captar todos os detalhes dos diálogos nativos.
                     </div>
                 </div>
                 <div class="instruction-item">
                     <div class="instruction-number">🔄</div>
                     <div class="instruction-text">
-                        <strong>Técnica da Repetição:</strong> Escute 3x: primeira para entender geral, segunda para detalhes, terceira para fixar.
+                        <strong>Técnica de Repetição:</strong> Primeira escuta para contexto geral, segunda para detalhes específicos.
                     </div>
                 </div>
                 <div class="instruction-item">
                     <div class="instruction-number">📝</div>
                     <div class="instruction-text">
-                        <strong>Notebook de Ouro:</strong> Anote expressões idiomáticas e palavras que aparecem nos diálogos.
+                        <strong>Registro de Vocabulário:</strong> Anote expressões e palavras novas para revisão posterior.
                     </div>
                 </div>
                 <div class="instruction-item">
                     <div class="instruction-number">⚡</div>
                     <div class="instruction-text">
-                        <strong>Consistência é Poder:</strong> 20 minutos diários superam 3 horas no final de semana. Seja consistente!
+                        <strong>Prática Consistente:</strong> 15-20 minutos diários são mais efetivos que sessões longas esporádicas.
                     </div>
                 </div>
             </div>
@@ -999,8 +906,8 @@
             throw new Error('Access denied');
         }
 
-        // ===== INSANE PROGRESS SYSTEM =====
-        class InsaneProgressTracker {
+        // ===== ELEGANT PROGRESS SYSTEM =====
+        class ElegantProgressTracker {
             constructor() {
                 this.studentId = sessionStorage.getItem('studentUsername') || 'student';
                 this.progressKey = `progress_${this.studentId}`;
@@ -1056,89 +963,55 @@
             }
         }
 
-        // ===== INSANE NAVIGATION =====
+        // ===== ELEGANT NAVIGATION =====
         function navigateToLesson(lessonId) {
             const card = event.currentTarget;
             const button = card.querySelector('.lesson-button');
             const originalText = button.textContent;
             
-            // INSANE loading animation
-            button.textContent = '🚀 Carregando...';
-            button.style.background = 'linear-gradient(135deg, #6b7280, #4b5563)';
+            // Clean loading state
+            button.textContent = 'Carregando...';
+            button.style.background = '#64748b';
             card.classList.add('loading');
-            
-            // Add epic sound effect (just visual feedback)
-            card.style.transform = 'translateY(-12px) scale(1.02) rotateX(5deg)';
             
             setTimeout(() => {
                 window.location.href = `../../pages/listening/lesson-${lessonId}.html`;
-            }, 1000);
+            }, 600);
         }
 
-        // ===== INSANE INITIALIZATION =====
-        function initializeInsanePage() {
+        // ===== ELEGANT INITIALIZATION =====
+        function initializeElegantPage() {
             const studentName = getStudentName();
-            const progressTracker = new InsaneProgressTracker();
+            const progressTracker = new ElegantProgressTracker();
             
             // Update user info
             document.querySelector('[data-user-name]').textContent = 
                 studentName.charAt(0).toUpperCase() + studentName.slice(1).toLowerCase();
             document.querySelector('[data-user-avatar]').textContent = studentName.charAt(0).toUpperCase();
             
-            // Update hero stats with epic animations
+            // Update hero stats
             updateHeroStats(progressTracker);
             
-            // Add insane progress badges
-            addInsaneProgressBadges(progressTracker);
+            // Add elegant progress badges
+            addElegantProgressBadges(progressTracker);
             
-            // Add epic motivational messages
-            addEpicMotivation(progressTracker);
-            
-            console.log('🔥 LISTENING HUB INSANO CARREGADO!');
-            console.log(`🎮 Usuário: ${studentName}`);
-            console.log('⚡ Performance MÁXIMA');
-            console.log('🎨 Design de OUTRO MUNDO');
+            console.log('✨ Listening Hub Elegante carregado');
+            console.log(`👤 Usuário: ${studentName}`);
+            console.log('🎨 Design sofisticado ativado');
         }
 
         function updateHeroStats(progressTracker) {
-            const foundationProgress = progressTracker.getFoundationProgress();
-            const regularProgress = progressTracker.getRegularProgress();
-            const averageScore = progressTracker.getAverageScore();
-            const badgesCount = progressTracker.getBadgesCount();
-            
-            // Animate counter updates
-            animateCounter('[data-foundation-progress]', `${foundationProgress}/12`);
-            animateCounter('[data-regular-progress]', `${regularProgress}/11`);
-            animateCounter('[data-average-score]', `${averageScore}%`);
-            animateCounter('[data-badges-count]', badgesCount);
+            document.querySelector('[data-foundation-progress]').textContent = 
+                `${progressTracker.getFoundationProgress()}/12`;
+            document.querySelector('[data-regular-progress]').textContent = 
+                `${progressTracker.getRegularProgress()}/11`;
+            document.querySelector('[data-average-score]').textContent = 
+                `${progressTracker.getAverageScore()}%`;
+            document.querySelector('[data-badges-count]').textContent = 
+                progressTracker.getBadgesCount();
         }
 
-        function animateCounter(selector, finalValue) {
-            const element = document.querySelector(selector);
-            const duration = 1500;
-            const start = performance.now();
-            
-            function updateCounter(currentTime) {
-                const elapsed = currentTime - start;
-                const progress = Math.min(elapsed / duration, 1);
-                
-                // Easing function for smooth animation
-                const easedProgress = 1 - Math.pow(1 - progress, 3);
-                
-                if (progress < 1) {
-                    requestAnimationFrame(updateCounter);
-                } else {
-                    element.textContent = finalValue;
-                }
-            }
-            
-            requestAnimationFrame(updateCounter);
-            setTimeout(() => {
-                element.textContent = finalValue;
-            }, duration);
-        }
-
-        function addInsaneProgressBadges(progressTracker) {
+        function addElegantProgressBadges(progressTracker) {
             const lessonCards = document.querySelectorAll('.lesson-card');
             
             lessonCards.forEach((card) => {
@@ -1149,19 +1022,16 @@
                     const badge = document.createElement('div');
                     const score = progressTracker.getLessonScore(lessonId);
                     
-                    // INSANE badge styling based on score
-                    if (score >= 98) {
+                    // Elegant badge styling
+                    if (score >= 95) {
                         badge.className = 'progress-badge perfect';
-                        badge.textContent = `${score}% 👑`;
-                    } else if (score >= 90) {
+                        badge.textContent = `${score}% ★`;
+                    } else if (score >= 85) {
                         badge.className = 'progress-badge excellent';
-                        badge.textContent = `${score}% 🏆`;
-                    } else if (score >= 80) {
-                        badge.className = 'progress-badge';
-                        badge.textContent = `${score}% ⭐`;
+                        badge.textContent = `${score}% ✓`;
                     } else {
                         badge.className = 'progress-badge';
-                        badge.textContent = `${score}% ✓`;
+                        badge.textContent = `${score}%`;
                     }
                     
                     card.classList.add('completed');
@@ -1170,48 +1040,14 @@
             });
         }
 
-        function addEpicMotivation(progressTracker) {
-            const totalCompleted = progressTracker.getFoundationProgress() + progressTracker.getRegularProgress();
-            
-            // Epic motivational messages
-            if (totalCompleted === 0) {
-                setTimeout(() => {
-                    console.log('🚀 Sua jornada épica começa AGORA!');
-                }, 2000);
-            } else if (totalCompleted >= 10) {
-                setTimeout(() => {
-                    console.log(`🔥 IMPRESSIONANTE! ${totalCompleted} lições dominadas!`);
-                }, 2000);
-            }
-        }
+        // ===== EVENT LISTENERS =====
+        document.addEventListener('DOMContentLoaded', initializeElegantPage);
 
-        // ===== EPIC EVENT LISTENERS =====
-        document.addEventListener('DOMContentLoaded', function() {
-            // Add epic hover effects
-            const lessonCards = document.querySelectorAll('.lesson-card');
-            
-            lessonCards.forEach(card => {
-                card.addEventListener('mouseenter', function() {
-                    this.style.transition = 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)';
-                });
-                
-                card.addEventListener('mouseleave', function() {
-                    if (!this.classList.contains('loading')) {
-                        this.style.transform = '';
-                    }
-                });
-            });
-            
-            initializeInsanePage();
-        });
-
-        console.log('🔥🔥🔥 LISTENING HUB - DESIGN INSANO CARREGADO! 🔥🔥🔥');
-        console.log('🎨 Hero section com gradiente dinâmico');
-        console.log('✨ Animações de outro mundo');
-        console.log('🏆 Sistema de badges épico');
-        console.log('⚡ Performance e visual INSANOS');
-        console.log('📱 Mobile responsiveness perfeita');
-        console.log('🎮 Gamificação que vicia!');
+        console.log('✨ Listening Hub - Design Elegante e Sofisticado');
+        console.log('🎨 Palette: Brancos, Azuis e Tons Chumbo');
+        console.log('🔧 Código limpo e otimizado');
+        console.log('📱 Responsividade perfeita');
+        console.log('🎯 Foco na experiência do usuário');
     </script>
 </body>
 </html>
