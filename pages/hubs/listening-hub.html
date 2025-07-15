@@ -153,101 +153,65 @@
             color: #64748b;
         }
         
-        /* Cards elegantes */
-        .lessons-grid {
+        /* Cards elegantes - ORGANIZADOS POR NÍVEL */
+        .level-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 1.5rem;
         }
         
-        .lesson-card {
+        .level-card {
             background: white;
             border-radius: 12px;
             overflow: hidden;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             cursor: pointer;
             border: 2px solid #f1f5f9;
-            height: 300px;
+            height: 280px;
             display: flex;
             flex-direction: column;
+            position: relative;
         }
         
-        .lesson-card:hover {
+        .level-card:hover {
             transform: translateY(-6px);
             box-shadow: 0 20px 40px rgba(30, 58, 138, 0.12);
             border-color: #e2e8f0;
         }
         
-        .lesson-header {
+        .level-header-card {
             background: linear-gradient(135deg, #f8fafc, #f1f5f9);
-            padding: 1.5rem;
+            padding: 2rem;
             text-align: center;
             border-bottom: 1px solid #e2e8f0;
-        }
-        
-        .foundation-lesson .lesson-header {
-            background: linear-gradient(135deg, #f8fafc, #f1f5f9);
-        }
-        
-        .lesson-icon {
-            font-size: 2.5em;
-            margin-bottom: 0.75rem;
-            display: block;
-        }
-        
-        .lesson-title {
-            font-size: 1.1em;
-            font-weight: 700;
-            color: #1e293b;
-            margin-bottom: 0.5rem;
-            line-height: 1.3;
-        }
-        
-        .lesson-description {
-            color: #64748b;
-            font-size: 0.9em;
-            font-weight: 500;
-            line-height: 1.4;
-        }
-        
-        .lesson-content {
-            padding: 1rem 1.5rem;
             flex-grow: 1;
         }
         
-        .lesson-features {
-            list-style: none;
-            margin: 0;
-            padding: 0;
+        .level-icon {
+            font-size: 3em;
+            margin-bottom: 1rem;
+            display: block;
         }
         
-        .lesson-features li {
+        .level-title {
+            font-size: 1.3em;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 0.75rem;
+        }
+        
+        .level-description {
             color: #64748b;
-            margin-bottom: 0.5rem;
+            font-size: 1em;
             font-weight: 500;
-            position: relative;
-            padding-left: 1.5rem;
-            font-size: 0.85em;
+            line-height: 1.5;
         }
         
-        .lesson-features li::before {
-            content: '•';
-            position: absolute;
-            left: 0;
-            color: #3b82f6;
-            font-weight: 900;
-            font-size: 1.2em;
-        }
-        
-        .foundation-lesson .lesson-features li::before {
-            color: #64748b;
-        }
-        
-        .lesson-footer {
+        .level-footer {
             padding: 1.5rem;
         }
         
-        .lesson-button {
+        .level-button {
             width: 100%;
             background: linear-gradient(135deg, #1e3a8a, #3b82f6);
             color: white;
@@ -255,21 +219,21 @@
             border: none;
             border-radius: 8px;
             font-weight: 600;
-            font-size: 0.9em;
+            font-size: 0.95em;
             cursor: pointer;
             transition: all 0.2s ease;
         }
         
-        .foundation-lesson .lesson-button {
+        .foundation-card .level-button {
             background: linear-gradient(135deg, #475569, #64748b);
         }
         
-        .lesson-button:hover {
+        .level-button:hover {
             transform: translateY(-1px);
             box-shadow: 0 6px 20px rgba(30, 58, 138, 0.25);
         }
         
-        .foundation-lesson .lesson-button:hover {
+        .foundation-card .level-button:hover {
             box-shadow: 0 6px 20px rgba(71, 85, 105, 0.25);
         }
         
@@ -345,14 +309,14 @@
                 gap: 1rem;
             }
             
-            .lessons-grid {
+            .level-grid {
                 grid-template-columns: 1fr;
                 gap: 1rem;
             }
             
-            .lesson-card {
+            .level-card {
                 height: auto;
-                min-height: 260px;
+                min-height: 240px;
             }
             
             .level-header {
@@ -382,466 +346,124 @@
         <section class="listening-hero">
             <div class="hero-content">
                 <h1 class="hero-title">🎧 Listening Practice</h1>
-                <p class="hero-subtitle">Desenvolva sua compreensão auditiva com diálogos autênticos e progressivos</p>
+                <p class="hero-subtitle">Desenvolva sua compreensão auditiva através de 4 níveis progressivos</p>
                 
                 <div class="hero-stats">
                     <div class="hero-stat">
-                        <span class="hero-stat-number" data-foundation-progress>0/12</span>
+                        <span class="hero-stat-number" data-foundation-progress>0%</span>
                         <span class="hero-stat-label">Foundation</span>
                     </div>
                     <div class="hero-stat">
-                        <span class="hero-stat-number" data-regular-progress>0/11</span>
-                        <span class="hero-stat-label">Regular</span>
+                        <span class="hero-stat-number" data-beginner-progress>0%</span>
+                        <span class="hero-stat-label">Beginner</span>
                     </div>
                     <div class="hero-stat">
-                        <span class="hero-stat-number" data-average-score>0%</span>
-                        <span class="hero-stat-label">Média</span>
+                        <span class="hero-stat-number" data-intermediate-progress>0%</span>
+                        <span class="hero-stat-label">Intermediate</span>
                     </div>
                     <div class="hero-stat">
-                        <span class="hero-stat-number" data-badges-count>0</span>
-                        <span class="hero-stat-label">Badges</span>
+                        <span class="hero-stat-number" data-advanced-progress>0%</span>
+                        <span class="hero-stat-label">Advanced</span>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Foundation Lessons -->
+        <!-- Foundation Level -->
         <section class="level-section foundation">
             <header class="level-header">
                 <div class="level-badge">Foundation</div>
                 <div class="level-info">
-                    <h2>Lições Foundation</h2>
-                    <p>Base sólida com vocabulário essencial e gramática fundamental para construir uma compreensão auditiva consistente</p>
-                    <div class="level-meta">12 lições progressivas • Nível A1-A2 • Vocabulário essencial</div>
+                    <h2>Foundation Level</h2>
+                    <p>Base sólida com vocabulário essencial e estruturas fundamentais para construir confiança auditiva</p>
+                    <div class="level-meta">Áudio 1-3 • Nível A1 • Vocabulário básico</div>
                 </div>
             </header>
             
-            <div class="lessons-grid">
-                <article class="lesson-card foundation-lesson" onclick="navigateToLesson('f1')">
-                    <div class="lesson-header">
-                        <div class="lesson-icon">👋</div>
-                        <h3 class="lesson-title">F1 - First Introductions</h3>
-                        <p class="lesson-description">Primeiras apresentações e cumprimentos básicos</p>
+            <div class="level-grid">
+                <article class="level-card foundation-card" onclick="navigateToLevel('foundation')">
+                    <div class="level-header-card">
+                        <div class="level-icon">🌱</div>
+                        <h3 class="level-title">Foundation Listening</h3>
+                        <p class="level-description">Comece sua jornada com conversas simples e vocabulário essencial do dia a dia</p>
                     </div>
-                    <div class="lesson-content">
-                        <ul class="lesson-features">
-                            <li>Vocabulário de apresentação</li>
-                            <li>Frases de cortesia essenciais</li>
-                            <li>Pronúncia básica clara</li>
-                        </ul>
-                    </div>
-                    <div class="lesson-footer">
-                        <button class="lesson-button">Começar F1</button>
-                    </div>
-                </article>
-
-                <article class="lesson-card foundation-lesson" onclick="navigateToLesson('f2')">
-                    <div class="lesson-header">
-                        <div class="lesson-icon">🏠</div>
-                        <h3 class="lesson-title">F2 - Family & Home</h3>
-                        <p class="lesson-description">Família e ambiente doméstico</p>
-                    </div>
-                    <div class="lesson-content">
-                        <ul class="lesson-features">
-                            <li>Membros da família</li>
-                            <li>Cômodos e objetos da casa</li>
-                            <li>Rotina familiar básica</li>
-                        </ul>
-                    </div>
-                    <div class="lesson-footer">
-                        <button class="lesson-button">Começar F2</button>
-                    </div>
-                </article>
-
-                <article class="lesson-card foundation-lesson" onclick="navigateToLesson('f3')">
-                    <div class="lesson-header">
-                        <div class="lesson-icon">🛍️</div>
-                        <h3 class="lesson-title">F3 - Shopping & Money</h3>
-                        <p class="lesson-description">Compras e transações básicas</p>
-                    </div>
-                    <div class="lesson-content">
-                        <ul class="lesson-features">
-                            <li>Números e preços básicos</li>
-                            <li>Tipos de lojas comuns</li>
-                            <li>Formas de pagamento</li>
-                        </ul>
-                    </div>
-                    <div class="lesson-footer">
-                        <button class="lesson-button">Começar F3</button>
-                    </div>
-                </article>
-
-                <article class="lesson-card foundation-lesson" onclick="navigateToLesson('f4')">
-                    <div class="lesson-header">
-                        <div class="lesson-icon">🍔</div>
-                        <h3 class="lesson-title">F4 - Food & Restaurants</h3>
-                        <p class="lesson-description">Comidas e experiências gastronômicas</p>
-                    </div>
-                    <div class="lesson-content">
-                        <ul class="lesson-features">
-                            <li>Tipos de comida popular</li>
-                            <li>Pedidos em restaurantes</li>
-                            <li>Preferências alimentares</li>
-                        </ul>
-                    </div>
-                    <div class="lesson-footer">
-                        <button class="lesson-button">Começar F4</button>
-                    </div>
-                </article>
-
-                <article class="lesson-card foundation-lesson" onclick="navigateToLesson('f5')">
-                    <div class="lesson-header">
-                        <div class="lesson-icon">🚗</div>
-                        <h3 class="lesson-title">F5 - Transportation</h3>
-                        <p class="lesson-description">Meios de transporte e viagens</p>
-                    </div>
-                    <div class="lesson-content">
-                        <ul class="lesson-features">
-                            <li>Veículos e transporte público</li>
-                            <li>Direções e localização</li>
-                            <li>Horários e distâncias</li>
-                        </ul>
-                    </div>
-                    <div class="lesson-footer">
-                        <button class="lesson-button">Começar F5</button>
-                    </div>
-                </article>
-
-                <article class="lesson-card foundation-lesson" onclick="navigateToLesson('f6')">
-                    <div class="lesson-header">
-                        <div class="lesson-icon">⏰</div>
-                        <h3 class="lesson-title">F6 - Time & Schedule</h3>
-                        <p class="lesson-description">Tempo, horários e rotina diária</p>
-                    </div>
-                    <div class="lesson-content">
-                        <ul class="lesson-features">
-                            <li>Horas e datas importantes</li>
-                            <li>Rotina diária comum</li>
-                            <li>Compromissos e agenda</li>
-                        </ul>
-                    </div>
-                    <div class="lesson-footer">
-                        <button class="lesson-button">Começar F6</button>
-                    </div>
-                </article>
-
-                <article class="lesson-card foundation-lesson" onclick="navigateToLesson('f7')">
-                    <div class="lesson-header">
-                        <div class="lesson-icon">🌤️</div>
-                        <h3 class="lesson-title">F7 - Weather & Seasons</h3>
-                        <p class="lesson-description">Clima, estações e atividades</p>
-                    </div>
-                    <div class="lesson-content">
-                        <ul class="lesson-features">
-                            <li>Condições climáticas</li>
-                            <li>Estações do ano</li>
-                            <li>Atividades sazonais</li>
-                        </ul>
-                    </div>
-                    <div class="lesson-footer">
-                        <button class="lesson-button">Começar F7</button>
-                    </div>
-                </article>
-
-                <article class="lesson-card foundation-lesson" onclick="navigateToLesson('f8')">
-                    <div class="lesson-header">
-                        <div class="lesson-icon">💼</div>
-                        <h3 class="lesson-title">F8 - Work & Jobs</h3>
-                        <p class="lesson-description">Profissões e ambiente de trabalho</p>
-                    </div>
-                    <div class="lesson-content">
-                        <ul class="lesson-features">
-                            <li>Tipos de trabalho comum</li>
-                            <li>Ambiente profissional básico</li>
-                            <li>Habilidades fundamentais</li>
-                        </ul>
-                    </div>
-                    <div class="lesson-footer">
-                        <button class="lesson-button">Começar F8</button>
-                    </div>
-                </article>
-
-                <article class="lesson-card foundation-lesson" onclick="navigateToLesson('f9')">
-                    <div class="lesson-header">
-                        <div class="lesson-icon">🏥</div>
-                        <h3 class="lesson-title">F9 - Health & Body</h3>
-                        <p class="lesson-description">Saúde, corpo e bem-estar</p>
-                    </div>
-                    <div class="lesson-content">
-                        <ul class="lesson-features">
-                            <li>Partes do corpo básicas</li>
-                            <li>Sintomas comuns</li>
-                            <li>Consultas médicas simples</li>
-                        </ul>
-                    </div>
-                    <div class="lesson-footer">
-                        <button class="lesson-button">Começar F9</button>
-                    </div>
-                </article>
-
-                <article class="lesson-card foundation-lesson" onclick="navigateToLesson('f10')">
-                    <div class="lesson-header">
-                        <div class="lesson-icon">🎉</div>
-                        <h3 class="lesson-title">F10 - Hobbies & Fun</h3>
-                        <p class="lesson-description">Hobbies, diversão e entretenimento</p>
-                    </div>
-                    <div class="lesson-content">
-                        <ul class="lesson-features">
-                            <li>Atividades de lazer</li>
-                            <li>Esportes e jogos básicos</li>
-                            <li>Entretenimento popular</li>
-                        </ul>
-                    </div>
-                    <div class="lesson-footer">
-                        <button class="lesson-button">Começar F10</button>
-                    </div>
-                </article>
-
-                <article class="lesson-card foundation-lesson" onclick="navigateToLesson('f11')">
-                    <div class="lesson-header">
-                        <div class="lesson-icon">🎓</div>
-                        <h3 class="lesson-title">F11 - Education & School</h3>
-                        <p class="lesson-description">Educação, escola e aprendizado</p>
-                    </div>
-                    <div class="lesson-content">
-                        <ul class="lesson-features">
-                            <li>Ambiente escolar básico</li>
-                            <li>Matérias e estudos</li>
-                            <li>Exames e avaliações</li>
-                        </ul>
-                    </div>
-                    <div class="lesson-footer">
-                        <button class="lesson-button">Começar F11</button>
-                    </div>
-                </article>
-
-                <article class="lesson-card foundation-lesson" onclick="navigateToLesson('f12')">
-                    <div class="lesson-header">
-                        <div class="lesson-icon">🌍</div>
-                        <h3 class="lesson-title">F12 - Travel & Places</h3>
-                        <p class="lesson-description">Viagens, lugares e culturas</p>
-                    </div>
-                    <div class="lesson-content">
-                        <ul class="lesson-features">
-                            <li>Destinos e países</li>
-                            <li>Hotéis e hospedagem</li>
-                            <li>Cultura e tradições</li>
-                        </ul>
-                    </div>
-                    <div class="lesson-footer">
-                        <button class="lesson-button">Começar F12</button>
+                    <div class="level-footer">
+                        <button class="level-button">Acessar Foundation</button>
                     </div>
                 </article>
             </div>
         </section>
 
-        <!-- Regular Lessons -->
-        <section class="level-section regular">
+        <!-- Beginner Level -->
+        <section class="level-section">
             <header class="level-header">
-                <div class="level-badge">Regular</div>
+                <div class="level-badge">Beginner</div>
                 <div class="level-info">
-                    <h2>Lições Regulares</h2>
-                    <p>Desenvolvimento avançado com diálogos complexos e situações reais para expandir sua fluência auditiva</p>
-                    <div class="level-meta">11 lições desafiadoras • Nível A2-B1 • Situações reais</div>
+                    <h2>Beginner Level</h2>
+                    <p>Expanda seu vocabulário com diálogos mais longos e situações cotidianas reais</p>
+                    <div class="level-meta">Áudio 4-6 • Nível A2 • Situações cotidianas</div>
                 </div>
             </header>
             
-            <div class="lessons-grid">
-                <article class="lesson-card regular-lesson" onclick="navigateToLesson('1')">
-                    <div class="lesson-header">
-                        <div class="lesson-icon">✈️</div>
-                        <h3 class="lesson-title">Lesson 1 - Airport Adventure</h3>
-                        <p class="lesson-description">Aventura no aeroporto com situações reais</p>
+            <div class="level-grid">
+                <article class="level-card" onclick="navigateToLevel('beginner')">
+                    <div class="level-header-card">
+                        <div class="level-icon">🚀</div>
+                        <h3 class="level-title">Beginner Listening</h3>
+                        <p class="level-description">Desenvolva compreensão em conversas sobre trabalho, família e atividades diárias</p>
                     </div>
-                    <div class="lesson-content">
-                        <ul class="lesson-features">
-                            <li>Check-in e segurança</li>
-                            <li>Anúncios do aeroporto</li>
-                            <li>Problemas de viagem</li>
-                        </ul>
-                    </div>
-                    <div class="lesson-footer">
-                        <button class="lesson-button">Começar Lesson 1</button>
+                    <div class="level-footer">
+                        <button class="level-button">Acessar Beginner</button>
                     </div>
                 </article>
+            </div>
+        </section>
 
-                <article class="lesson-card regular-lesson" onclick="navigateToLesson('2')">
-                    <div class="lesson-header">
-                        <div class="lesson-icon">🏨</div>
-                        <h3 class="lesson-title">Lesson 2 - Hotel Confusion</h3>
-                        <p class="lesson-description">Confusões e soluções em hotéis</p>
+        <!-- Intermediate Level -->
+        <section class="level-section">
+            <header class="level-header">
+                <div class="level-badge">Intermediate</div>
+                <div class="level-info">
+                    <h2>Intermediate Level</h2>
+                    <p>Domine conversas complexas com múltiplos interlocutores e contextos variados</p>
+                    <div class="level-meta">Áudio 7-9 • Nível B1 • Múltiplos contextos</div>
+                </div>
+            </header>
+            
+            <div class="level-grid">
+                <article class="level-card" onclick="navigateToLevel('intermediate')">
+                    <div class="level-header-card">
+                        <div class="level-icon">⚡</div>
+                        <h3 class="level-title">Intermediate Listening</h3>
+                        <p class="level-description">Compreenda discussões, debates e conversas em ritmo natural com sotaques variados</p>
                     </div>
-                    <div class="lesson-content">
-                        <ul class="lesson-features">
-                            <li>Reservas e check-in</li>
-                            <li>Serviços do hotel</li>
-                            <li>Reclamações e soluções</li>
-                        </ul>
-                    </div>
-                    <div class="lesson-footer">
-                        <button class="lesson-button">Começar Lesson 2</button>
+                    <div class="level-footer">
+                        <button class="level-button">Acessar Intermediate</button>
                     </div>
                 </article>
+            </div>
+        </section>
 
-                <article class="lesson-card regular-lesson" onclick="navigateToLesson('3')">
-                    <div class="lesson-header">
-                        <div class="lesson-icon">🍽️</div>
-                        <h3 class="lesson-title">Lesson 3 - Restaurant Drama</h3>
-                        <p class="lesson-description">Drama e comédia em restaurantes</p>
+        <!-- Advanced Level -->
+        <section class="level-section">
+            <header class="level-header">
+                <div class="level-badge">Advanced</div>
+                <div class="level-info">
+                    <h2>Advanced Level</h2>
+                    <p>Desafie-se com conteúdo nativo, gírias e expressões complexas em situações profissionais</p>
+                    <div class="level-meta">Áudio 10-11 • Nível B2 • Conteúdo nativo</div>
+                </div>
+            </header>
+            
+            <div class="level-grid">
+                <article class="level-card" onclick="navigateToLevel('advanced')">
+                    <div class="level-header-card">
+                        <div class="level-icon">🏆</div>
+                        <h3 class="level-title">Advanced Listening</h3>
+                        <p class="level-description">Domine sotaques regionais, gírias e conversas em velocidade nativa real</p>
                     </div>
-                    <div class="lesson-content">
-                        <ul class="lesson-features">
-                            <li>Pedidos complexos</li>
-                            <li>Especialidades do chef</li>
-                            <li>Situações embaraçosas</li>
-                        </ul>
-                    </div>
-                    <div class="lesson-footer">
-                        <button class="lesson-button">Começar Lesson 3</button>
-                    </div>
-                </article>
-
-                <article class="lesson-card regular-lesson" onclick="navigateToLesson('4')">
-                    <div class="lesson-header">
-                        <div class="lesson-icon">🛒</div>
-                        <h3 class="lesson-title">Lesson 4 - Shopping Spree</h3>
-                        <p class="lesson-description">Compras intensas e negociações</p>
-                    </div>
-                    <div class="lesson-content">
-                        <ul class="lesson-features">
-                            <li>Negociação de preços</li>
-                            <li>Diferentes tipos de lojas</li>
-                            <li>Devoluções e trocas</li>
-                        </ul>
-                    </div>
-                    <div class="lesson-footer">
-                        <button class="lesson-button">Começar Lesson 4</button>
-                    </div>
-                </article>
-
-                <article class="lesson-card regular-lesson" onclick="navigateToLesson('5')">
-                    <div class="lesson-header">
-                        <div class="lesson-icon">👥</div>
-                        <h3 class="lesson-title">Lesson 5 - Meeting Friends</h3>
-                        <p class="lesson-description">Encontros sociais e amizades</p>
-                    </div>
-                    <div class="lesson-content">
-                        <ul class="lesson-features">
-                            <li>Conversas informais</li>
-                            <li>Planos e convites</li>
-                            <li>Histórias pessoais</li>
-                        </ul>
-                    </div>
-                    <div class="lesson-footer">
-                        <button class="lesson-button">Começar Lesson 5</button>
-                    </div>
-                </article>
-
-                <article class="lesson-card regular-lesson" onclick="navigateToLesson('6')">
-                    <div class="lesson-header">
-                        <div class="lesson-icon">💻</div>
-                        <h3 class="lesson-title">Lesson 6 - Tech Problems</h3>
-                        <p class="lesson-description">Problemas tecnológicos modernos</p>
-                    </div>
-                    <div class="lesson-content">
-                        <ul class="lesson-features">
-                            <li>Suporte técnico</li>
-                            <li>Gadgets e aplicativos</li>
-                            <li>Soluções criativas</li>
-                        </ul>
-                    </div>
-                    <div class="lesson-footer">
-                        <button class="lesson-button">Começar Lesson 6</button>
-                    </div>
-                </article>
-
-                <article class="lesson-card regular-lesson" onclick="navigateToLesson('7')">
-                    <div class="lesson-header">
-                        <div class="lesson-icon">🏥</div>
-                        <h3 class="lesson-title">Lesson 7 - Doctor Visit</h3>
-                        <p class="lesson-description">Consultas médicas detalhadas</p>
-                    </div>
-                    <div class="lesson-content">
-                        <ul class="lesson-features">
-                            <li>Sintomas complexos</li>
-                            <li>Exames e diagnósticos</li>
-                            <li>Tratamentos e cuidados</li>
-                        </ul>
-                    </div>
-                    <div class="lesson-footer">
-                        <button class="lesson-button">Começar Lesson 7</button>
-                    </div>
-                </article>
-
-                <article class="lesson-card regular-lesson" onclick="navigateToLesson('8')">
-                    <div class="lesson-header">
-                        <div class="lesson-icon">🚗</div>
-                        <h3 class="lesson-title">Lesson 8 - Car Trouble</h3>
-                        <p class="lesson-description">Problemas automotivos e soluções</p>
-                    </div>
-                    <div class="lesson-content">
-                        <ul class="lesson-features">
-                            <li>Mecânica e reparos</li>
-                            <li>Seguro e documentação</li>
-                            <li>Emergências na estrada</li>
-                        </ul>
-                    </div>
-                    <div class="lesson-footer">
-                        <button class="lesson-button">Começar Lesson 8</button>
-                    </div>
-                </article>
-
-                <article class="lesson-card regular-lesson" onclick="navigateToLesson('9')">
-                    <div class="lesson-header">
-                        <div class="lesson-icon">🏢</div>
-                        <h3 class="lesson-title">Lesson 9 - Job Interview</h3>
-                        <p class="lesson-description">Entrevistas de emprego profissionais</p>
-                    </div>
-                    <div class="lesson-content">
-                        <ul class="lesson-features">
-                            <li>Perguntas desafiadoras</li>
-                            <li>Experiência profissional</li>
-                            <li>Negociação salarial</li>
-                        </ul>
-                    </div>
-                    <div class="lesson-footer">
-                        <button class="lesson-button">Começar Lesson 9</button>
-                    </div>
-                </article>
-
-                <article class="lesson-card regular-lesson" onclick="navigateToLesson('10')">
-                    <div class="lesson-header">
-                        <div class="lesson-icon">🏠</div>
-                        <h3 class="lesson-title">Lesson 10 - Moving House</h3>
-                        <p class="lesson-description">Mudança de casa e novos vizinhos</p>
-                    </div>
-                    <div class="lesson-content">
-                        <ul class="lesson-features">
-                            <li>Empresas de mudança</li>
-                            <li>Novos vizinhos</li>
-                            <li>Organização da casa</li>
-                        </ul>
-                    </div>
-                    <div class="lesson-footer">
-                        <button class="lesson-button">Começar Lesson 10</button>
-                    </div>
-                </article>
-
-                <article class="lesson-card regular-lesson" onclick="navigateToLesson('11')">
-                    <div class="lesson-header">
-                        <div class="lesson-icon">🎭</div>
-                        <h3 class="lesson-title">Lesson 11 - Cultural Event</h3>
-                        <p class="lesson-description">Eventos culturais e tradições</p>
-                    </div>
-                    <div class="lesson-content">
-                        <ul class="lesson-features">
-                            <li>Festivais e celebrações</li>
-                            <li>Arte e música</li>
-                            <li>Tradições locais</li>
-                        </ul>
-                    </div>
-                    <div class="lesson-footer">
-                        <button class="lesson-button">Começar Lesson 11</button>
+                    <div class="level-footer">
+                        <button class="level-button">Acessar Advanced</button>
                     </div>
                 </article>
             </div>
@@ -872,7 +494,7 @@
                 <div class="instruction-item">
                     <div class="instruction-number">⚡</div>
                     <div class="instruction-text">
-                        <strong>Prática Consistente:</strong> 15-20 minutos diários são mais efetivos que sessões longas esporádicas.
+                        <strong>Progressão Gradual:</strong> Complete cada nível antes de avançar para garantir base sólida.
                     </div>
                 </div>
             </div>
@@ -906,6 +528,23 @@
             throw new Error('Access denied');
         }
 
+        // ===== CORRECTED NAVIGATION SYSTEM =====
+        function navigateToLevel(level) {
+            const card = event.currentTarget;
+            const button = card.querySelector('.level-button');
+            const originalText = button.textContent;
+            
+            // Clean loading state
+            button.textContent = 'Carregando...';
+            button.style.background = '#64748b';
+            card.classList.add('loading');
+            
+            // ✅ NAVEGAÇÃO CORRIGIDA - PATHS QUE EXISTEM
+            setTimeout(() => {
+                window.location.href = `../listening/${level}.html`;
+            }, 600);
+        }
+
         // ===== ELEGANT PROGRESS SYSTEM =====
         class ElegantProgressTracker {
             constructor() {
@@ -920,7 +559,17 @@
                     this.data = JSON.parse(saved);
                 } else {
                     this.data = {
-                        listening: { lessonsCompleted: [], bestScores: {}, badges: [] },
+                        listening: { 
+                            levelsCompleted: [],
+                            currentLevel: 'foundation',
+                            bestScores: {
+                                foundation: 0,
+                                beginner: 0,
+                                intermediate: 0,
+                                advanced: 0
+                            },
+                            badges: [] 
+                        },
                         reading: { chaptersCompleted: [], bestScores: {}, badges: [] },
                         roommate: { chaptersCompleted: [], bestScores: {}, badges: [] },
                         neighbor: { chaptersCompleted: [], bestScores: {}, badges: [] },
@@ -930,53 +579,18 @@
                 }
             }
 
-            isLessonCompleted(lessonId) {
-                return this.data.listening.lessonsCompleted.includes(`lesson_${lessonId}`);
+            isLevelCompleted(level) {
+                return this.data.listening.levelsCompleted.includes(level);
             }
 
-            getLessonScore(lessonId) {
-                return this.data.listening.bestScores[`lesson_${lessonId}`] || 0;
+            getLevelScore(level) {
+                return this.data.listening.bestScores[level] || 0;
             }
 
-            getFoundationProgress() {
-                const foundationLessons = Array.from({length: 12}, (_, i) => `lesson_f${i + 1}`);
-                return foundationLessons.filter(lesson => 
-                    this.data.listening.lessonsCompleted.includes(lesson)
-                ).length;
+            getLevelProgress(level) {
+                const score = this.getLevelScore(level);
+                return score > 0 ? `${score}%` : '0%';
             }
-
-            getRegularProgress() {
-                const regularLessons = Array.from({length: 11}, (_, i) => `lesson_${i + 1}`);
-                return regularLessons.filter(lesson => 
-                    this.data.listening.lessonsCompleted.includes(lesson)
-                ).length;
-            }
-
-            getAverageScore() {
-                const scores = Object.values(this.data.listening.bestScores);
-                if (scores.length === 0) return 0;
-                return Math.round(scores.reduce((a, b) => a + b, 0) / scores.length);
-            }
-
-            getBadgesCount() {
-                return this.data.listening.badges.length;
-            }
-        }
-
-        // ===== ELEGANT NAVIGATION =====
-        function navigateToLesson(lessonId) {
-            const card = event.currentTarget;
-            const button = card.querySelector('.lesson-button');
-            const originalText = button.textContent;
-            
-            // Clean loading state
-            button.textContent = 'Carregando...';
-            button.style.background = '#64748b';
-            card.classList.add('loading');
-            
-            setTimeout(() => {
-                window.location.href = `../../pages/listening/lesson-${lessonId}.html`;
-            }, 600);
         }
 
         // ===== ELEGANT INITIALIZATION =====
@@ -1002,25 +616,25 @@
 
         function updateHeroStats(progressTracker) {
             document.querySelector('[data-foundation-progress]').textContent = 
-                `${progressTracker.getFoundationProgress()}/12`;
-            document.querySelector('[data-regular-progress]').textContent = 
-                `${progressTracker.getRegularProgress()}/11`;
-            document.querySelector('[data-average-score]').textContent = 
-                `${progressTracker.getAverageScore()}%`;
-            document.querySelector('[data-badges-count]').textContent = 
-                progressTracker.getBadgesCount();
+                progressTracker.getLevelProgress('foundation');
+            document.querySelector('[data-beginner-progress]').textContent = 
+                progressTracker.getLevelProgress('beginner');
+            document.querySelector('[data-intermediate-progress]').textContent = 
+                progressTracker.getLevelProgress('intermediate');
+            document.querySelector('[data-advanced-progress]').textContent = 
+                progressTracker.getLevelProgress('advanced');
         }
 
         function addElegantProgressBadges(progressTracker) {
-            const lessonCards = document.querySelectorAll('.lesson-card');
+            const levelCards = document.querySelectorAll('.level-card');
             
-            lessonCards.forEach((card) => {
-                const lessonId = card.getAttribute('onclick')?.match(/navigateToLesson\('(.+?)'\)/)?.[1];
-                if (!lessonId) return;
+            levelCards.forEach((card, index) => {
+                const levels = ['foundation', 'beginner', 'intermediate', 'advanced'];
+                const level = levels[index];
                 
-                if (progressTracker.isLessonCompleted(lessonId)) {
+                if (level && progressTracker.isLevelCompleted(level)) {
                     const badge = document.createElement('div');
-                    const score = progressTracker.getLessonScore(lessonId);
+                    const score = progressTracker.getLevelScore(level);
                     
                     // Elegant badge styling
                     if (score >= 95) {
@@ -1043,15 +657,14 @@
         // ===== EVENT LISTENERS =====
         document.addEventListener('DOMContentLoaded', initializeElegantPage);
 
-        console.log('✅ LISTENING HUB CORRIGIDA - NAVEGAÇÃO ATUALIZADA');
-        console.log('🎯 Foundation Cards → ../listening/foundation.html');
-        console.log('🎯 Regular Cards → ../listening/beginner.html');
-        console.log('❌ NÃO MAIS: lesson-f1.html (que não existe)');
-        console.log('✨ Listening Hub - Design Elegante e Sofisticado');
-        console.log('🎨 Palette: Brancos, Azuis e Tons Chumbo');
-        console.log('🔧 Código limpo e otimizado');
-        console.log('📱 Responsividade perfeita');
-        console.log('🎯 Foco na experiência do usuário');
+        // ===== DEBUGGING =====
+        console.log('🔧 LISTENING HUB - NAVEGAÇÃO CORRIGIDA');
+        console.log('✅ Foundation → ../listening/foundation.html');
+        console.log('✅ Beginner → ../listening/beginner.html');
+        console.log('✅ Intermediate → ../listening/intermediate.html');
+        console.log('✅ Advanced → ../listening/advanced.html');
+        console.log('🎯 Paths corretos baseados na estrutura real');
+        console.log('🎨 Design elegante e moderno mantido');
     </script>
 </body>
 </html>
