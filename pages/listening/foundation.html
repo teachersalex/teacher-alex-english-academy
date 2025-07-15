@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Listening Foundation - Teacher Alex English Academy BETA</title>
     
-    <!-- CSS - CAMINHOS CORRETOS -->
+    <!-- CSS - CAMINHOS CORRETOS PARA pages/listening/ -->
     <link rel="stylesheet" href="../../src/styles/base.css">
     <link rel="stylesheet" href="../../src/styles/layout.css">
     <link rel="stylesheet" href="../../src/styles/theme-patriot.css">
@@ -49,7 +49,7 @@
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
             gap: 1rem;
-            max-width: 500px;
+            max-width: 400px;
             margin: 0 auto;
         }
         
@@ -75,46 +75,32 @@
             font-weight: 600;
         }
         
-        /* Lesson groups elegantes */
-        .lesson-groups {
-            display: grid;
-            gap: 2rem;
-            margin-bottom: 2rem;
-        }
-        
-        .lesson-group {
+        /* Lesson section elegante */
+        .lessons-section {
             background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
             border-radius: 16px;
             padding: 2rem;
             border: 2px solid #e2e8f0;
             box-shadow: 0 8px 32px rgba(15, 23, 42, 0.08);
+            margin-bottom: 2rem;
         }
         
-        .group-title {
-            font-size: 1.4em;
-            font-weight: 800;
-            color: #1e293b;
-            margin-bottom: 1.5rem;
-            text-align: center;
-            padding-bottom: 1rem;
-            border-bottom: 2px solid #f1f5f9;
-        }
-        
-        .lesson-cards {
+        .lessons-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-            gap: 1rem;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
         }
         
         /* Foundation lesson cards */
         .lesson-card {
             background: white;
             border-radius: 12px;
-            padding: 1.5rem 1rem;
+            padding: 1.5rem;
             text-align: center;
             cursor: pointer;
             border: 2px solid #f1f5f9;
-            height: 160px;
+            height: 200px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
@@ -142,24 +128,30 @@
             border-color: #1e293b;
         }
         
+        .lesson-header {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+        
         .lesson-icon {
-            font-size: 2.2em;
+            font-size: 2.5em;
             margin-bottom: 0.5rem;
-            display: block;
         }
         
         .lesson-number {
             background: linear-gradient(135deg, #475569, #64748b);
             color: white;
-            width: 35px;
-            height: 35px;
+            width: 40px;
+            height: 40px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             font-weight: 700;
-            font-size: 0.9em;
-            margin: 0 auto 0.5rem auto;
+            font-size: 1em;
             box-shadow: 0 4px 12px rgba(71, 85, 105, 0.3);
         }
         
@@ -168,29 +160,40 @@
             background: rgba(255, 255, 255, 0.2);
         }
         
-        .lesson-name {
-            font-size: 0.85em;
-            font-weight: 600;
+        .lesson-title {
+            font-size: 1.1em;
+            font-weight: 700;
             color: #1e293b;
-            line-height: 1.2;
+            margin-bottom: 0.5rem;
         }
         
-        .lesson-card.active .lesson-name,
-        .lesson-card.completed .lesson-name {
+        .lesson-card.active .lesson-title,
+        .lesson-card.completed .lesson-title {
             color: rgba(255, 255, 255, 0.9);
+        }
+        
+        .lesson-description {
+            font-size: 0.9em;
+            color: #64748b;
+            line-height: 1.4;
+        }
+        
+        .lesson-card.active .lesson-description,
+        .lesson-card.completed .lesson-description {
+            color: rgba(255, 255, 255, 0.8);
         }
         
         /* Progress badge elegante */
         .completion-badge {
             position: absolute;
-            top: -6px;
-            right: -6px;
-            width: 22px;
-            height: 22px;
+            top: -8px;
+            right: -8px;
+            width: 28px;
+            height: 28px;
             background: linear-gradient(135deg, #1e293b, #334155);
             border-radius: 50%;
             color: white;
-            font-size: 0.7em;
+            font-size: 0.8em;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -209,7 +212,7 @@
             margin-bottom: 2rem;
         }
         
-        .lesson-header {
+        .current-lesson-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -218,7 +221,7 @@
             border-bottom: 2px solid #f1f5f9;
         }
         
-        .lesson-title {
+        .current-lesson-title {
             font-size: 2em;
             font-weight: 800;
             color: #1e293b;
@@ -488,31 +491,27 @@
                 grid-template-columns: repeat(2, 1fr);
             }
             
-            .lesson-cards {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 0.75rem;
+            .lessons-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
             }
             
             .lesson-card {
-                height: 140px;
-                padding: 1rem 0.75rem;
+                height: 180px;
+                padding: 1.25rem;
             }
             
             .lesson-icon {
-                font-size: 1.8em;
+                font-size: 2em;
             }
             
             .lesson-number {
-                width: 30px;
-                height: 30px;
-                font-size: 0.8em;
+                width: 35px;
+                height: 35px;
+                font-size: 0.9em;
             }
             
-            .lesson-name {
-                font-size: 0.8em;
-            }
-            
-            .lesson-header {
+            .current-lesson-header {
                 flex-direction: column;
                 gap: 1rem;
                 text-align: center;
@@ -546,58 +545,40 @@
         <!-- Foundation Hero -->
         <section class="foundation-hero">
             <div class="hero-content">
-                <h1 class="foundation-title">🎯 Foundation Level</h1>
-                <p class="foundation-subtitle">English Survival Kit • 12 Lições Essenciais</p>
+                <h1 class="foundation-title">🌱 Foundation Level</h1>
+                <p class="foundation-subtitle">English Survival Kit • 3 Lições Essenciais</p>
                 
                 <div class="foundation-stats">
                     <div class="foundation-stat">
-                        <span class="stat-number" data-completed>0/12</span>
+                        <span class="stat-number" data-completed>0/3</span>
                         <span class="stat-label">Concluídas</span>
-                    </div>
-                    <div class="foundation-stat">
-                        <span class="stat-number" data-badges>0</span>
-                        <span class="stat-label">Badges</span>
                     </div>
                     <div class="foundation-stat">
                         <span class="stat-number" data-average>0%</span>
                         <span class="stat-label">Média</span>
                     </div>
+                    <div class="foundation-stat">
+                        <span class="stat-number" data-badges>0</span>
+                        <span class="stat-label">Badges</span>
+                    </div>
                 </div>
             </div>
         </section>
 
-        <!-- Lesson Groups -->
-        <div class="lesson-groups">
-            <!-- Grupo 1: Survival Basics -->
-            <div class="lesson-group">
-                <h2 class="group-title">📝 Grupo 1: Survival Basics</h2>
-                <div class="lesson-cards" data-group="1">
-                    <!-- F1-F4 gerados dinamicamente -->
-                </div>
-            </div>
-
-            <!-- Grupo 2: Daily Essentials -->
-            <div class="lesson-group">
-                <h2 class="group-title">🌟 Grupo 2: Daily Essentials</h2>
-                <div class="lesson-cards" data-group="2">
-                    <!-- F5-F8 gerados dinamicamente -->
-                </div>
-            </div>
-
-            <!-- Grupo 3: Practical Skills -->
-            <div class="lesson-group">
-                <h2 class="group-title">🚀 Grupo 3: Practical Skills</h2>
-                <div class="lesson-cards" data-group="3">
-                    <!-- F9-F12 gerados dinamicamente -->
-                </div>
+        <!-- Lessons Section -->
+        <div class="lessons-section">
+            <h2 style="text-align: center; font-size: 1.5em; font-weight: 800; color: #1e293b; margin-bottom: 2rem;">📚 Foundation Lessons</h2>
+            
+            <div class="lessons-grid" id="lessonsGrid">
+                <!-- Lessons geradas dinamicamente -->
             </div>
         </div>
         
         <!-- Current Lesson Container -->
         <div class="current-lesson" id="lessonContainer">
-            <div class="lesson-header">
-                <h2 class="lesson-title" id="lessonTitle">Alphabet & Spelling</h2>
-                <div class="lesson-number-display" id="lessonNumber">Lição F1</div>
+            <div class="current-lesson-header">
+                <h2 class="current-lesson-title" id="lessonTitle">Basic Survival English</h2>
+                <div class="lesson-number-display" id="lessonNumber">Lição 1</div>
             </div>
             
             <div class="progress-section">
@@ -614,9 +595,9 @@
             </div>
             
             <div class="audio-section">
-                <h3 class="audio-title" id="audioTitle">🎧 Escute a Lição: Alphabet & Spelling</h3>
+                <h3 class="audio-title" id="audioTitle">🎧 Escute a Lição: Basic Survival English</h3>
                 <audio id="mainAudio" controls>
-                    <source src="../../audios/audioF1.mp3" type="audio/mpeg">
+                    <source src="../../src/assets/audio/listening/audio1.mp3" type="audio/mpeg">
                     Seu navegador não suporta o elemento de áudio.
                 </audio>
                 <div class="play-buttons">
@@ -682,10 +663,22 @@
                     this.data = JSON.parse(saved);
                 } else {
                     this.data = {
-                        listening: { lessonsCompleted: [], bestScores: {}, badges: [] },
+                        listening: { 
+                            levelsCompleted: [],
+                            currentLevel: 'foundation',
+                            bestScores: {
+                                foundation: 0,
+                                beginner: 0,
+                                intermediate: 0,
+                                advanced: 0
+                            },
+                            foundationLessons: {
+                                completed: [],
+                                scores: {}
+                            },
+                            badges: [] 
+                        },
                         reading: { chaptersCompleted: [], bestScores: {}, badges: [] },
-                        roommate: { chaptersCompleted: [], bestScores: {}, badges: [] },
-                        neighbor: { chaptersCompleted: [], bestScores: {}, badges: [] },
                         globalBadges: [],
                         totalStudyTime: 0
                     };
@@ -697,15 +690,34 @@
             }
 
             completeFoundationLesson(lessonNumber, score, timeSpent) {
-                const lesson = `lesson_f${lessonNumber}`;
-                if (!this.data.listening.lessonsCompleted.includes(lesson)) {
-                    this.data.listening.lessonsCompleted.push(lesson);
+                const lesson = `foundation_${lessonNumber}`;
+                if (!this.data.listening.foundationLessons.completed.includes(lesson)) {
+                    this.data.listening.foundationLessons.completed.push(lesson);
                 }
-                if (!this.data.listening.bestScores[lesson] || score > this.data.listening.bestScores[lesson]) {
-                    this.data.listening.bestScores[lesson] = score;
-                }
+                
+                this.data.listening.foundationLessons.scores[lesson] = Math.max(
+                    this.data.listening.foundationLessons.scores[lesson] || 0, 
+                    score
+                );
+                
                 this.data.totalStudyTime += timeSpent;
                 this.checkFoundationBadges(lessonNumber, score);
+                
+                // Update overall foundation level score
+                const allScores = Object.values(this.data.listening.foundationLessons.scores);
+                if (allScores.length > 0) {
+                    this.data.listening.bestScores.foundation = Math.round(
+                        allScores.reduce((a, b) => a + b, 0) / allScores.length * 20
+                    );
+                }
+                
+                // Mark foundation as completed if all 3 lessons done
+                if (this.data.listening.foundationLessons.completed.length === 3) {
+                    if (!this.data.listening.levelsCompleted.includes('foundation')) {
+                        this.data.listening.levelsCompleted.push('foundation');
+                    }
+                }
+                
                 this.saveProgress();
                 this.updateLessonCards();
                 this.updateProgressStats();
@@ -724,7 +736,7 @@
                     this.showBadgeNotification('🏆 Perfect Foundation!', 'Pontuação perfeita!');
                 }
                 
-                if (this.getFoundationCompleted() >= 12 && !badges.includes('survival_legend')) {
+                if (this.getFoundationCompleted() >= 3 && !badges.includes('survival_legend')) {
                     badges.push('survival_legend');
                     this.showBadgeNotification('🚀 Survival Legend!', 'Foundation completo!');
                 }
@@ -754,15 +766,12 @@
             }
 
             getFoundationCompleted() {
-                const foundationLessons = Array.from({length: 12}, (_, i) => `f${i + 1}`);
-                return foundationLessons.filter(lesson => 
-                    this.data.listening.lessonsCompleted.includes(`lesson_${lesson}`)
-                ).length;
+                return this.data.listening.foundationLessons.completed.length;
             }
 
             getFoundationStats() {
                 const completed = this.getFoundationCompleted();
-                const scores = Object.values(this.data.listening.bestScores).filter(score => score > 0);
+                const scores = Object.values(this.data.listening.foundationLessons.scores);
                 const average = scores.length > 0 ? Math.round(scores.reduce((a, b) => a + b, 0) / scores.length * 20) : 0;
                 const badges = this.data.listening.badges.length;
 
@@ -771,7 +780,7 @@
 
             updateProgressStats() {
                 const stats = this.getFoundationStats();
-                document.querySelector('[data-completed]').textContent = `${stats.completed}/12`;
+                document.querySelector('[data-completed]').textContent = `${stats.completed}/3`;
                 document.querySelector('[data-badges]').textContent = stats.badges;
                 document.querySelector('[data-average]').textContent = `${stats.average}%`;
             }
@@ -781,59 +790,84 @@
             }
         }
 
-        // ===== FOUNDATION LESSONS DATA =====
+        // ===== FOUNDATION LESSONS DATA - CORRIGIDO =====
         const foundationLessons = {
-            'f1': { title: "Alphabet & Spelling", shortTitle: "Alphabet", icon: "🔤", group: 1, audioUrl: "../../audios/audioF1.mp3", questions: { q1: { text: "How do you spell 'HELLO'?", options: ["H-E-L-L-O", "H-A-L-L-O", "E-L-L-O", "H-E-L-O"], correct: "a" }, q2: { text: "Which letter comes before 'M'?", options: ["N", "L", "K", "O"], correct: "b" }, q3: { text: "How do you spell 'NAME'?", options: ["N-A-M-E", "N-E-A-M", "M-A-N-E", "N-A-E-M"], correct: "a" }, q4: { text: "What's the last letter of the alphabet?", options: ["Y", "X", "Z", "W"], correct: "c" }, q5: { text: "How many letters are in the English alphabet?", options: ["24", "25", "26", "27"], correct: "c" } } },
-            'f2': { title: "Numbers & Time", shortTitle: "Numbers", icon: "🕐", group: 1, audioUrl: "../../audios/audioF2.mp3", questions: { q1: { text: "What number comes after 'seven'?", options: ["Six", "Eight", "Nine", "Ten"], correct: "b" }, q2: { text: "How do you say '15'?", options: ["Fifty", "Fifteen", "Fourteen", "Sixteen"], correct: "b" }, q3: { text: "What time is 'three thirty'?", options: ["3:00", "3:30", "3:13", "13:30"], correct: "b" }, q4: { text: "How do you say '21'?", options: ["Twelve one", "Twenty one", "Two ten", "Twenty first"], correct: "b" }, q5: { text: "What comes after 'nineteenth'?", options: ["Eighteenth", "Twentieth", "Twenty first", "Thirtieth"], correct: "b" } } },
-            'f3': { title: "Essential Greetings", shortTitle: "Greetings", icon: "👋", group: 1, audioUrl: "../../audios/audioF3.mp3", questions: { q1: { text: "What do you say in the morning?", options: ["Good night", "Good morning", "Good afternoon", "Good evening"], correct: "b" }, q2: { text: "How do you ask someone's name?", options: ["How are you?", "What's your name?", "Where are you from?", "How old are you?"], correct: "b" }, q3: { text: "What's the response to 'Thank you'?", options: ["Yes", "No", "You're welcome", "Excuse me"], correct: "c" }, q4: { text: "How do you say goodbye?", options: ["Hello", "Hi", "Goodbye", "Please"], correct: "c" }, q5: { text: "What do you say to be polite?", options: ["Sorry", "Excuse me", "Thank you", "All answers"], correct: "d" } } },
-            'f4': { title: "Family & People", shortTitle: "Family", icon: "👨‍👩‍👧‍👦", group: 1, audioUrl: "../../audios/audioF4.mp3", questions: { q1: { text: "What do you call your father's wife?", options: ["Sister", "Mother", "Daughter", "Aunt"], correct: "b" }, q2: { text: "What do you call your mother's son?", options: ["Father", "Uncle", "Cousin", "Brother"], correct: "d" }, q3: { text: "Who is your father's father?", options: ["Uncle", "Grandfather", "Cousin", "Brother"], correct: "b" }, q4: { text: "What do you call your sister's daughter?", options: ["Niece", "Nephew", "Cousin", "Daughter"], correct: "a" }, q5: { text: "Who is your parent's sister?", options: ["Grandmother", "Cousin", "Aunt", "Sister"], correct: "c" } } },
-            'f5': { title: "Colors & Weather", shortTitle: "Colors", icon: "☀️", group: 2, audioUrl: "../../audios/audioF5.mp3", questions: { q1: { text: "What color is the sun?", options: ["Blue", "Yellow", "Green", "Red"], correct: "b" }, q2: { text: "What's the weather when it rains?", options: ["Sunny", "Rainy", "Hot", "Cold"], correct: "b" }, q3: { text: "What color is grass?", options: ["Blue", "Yellow", "Green", "Red"], correct: "c" }, q4: { text: "When it's very cold, it might...", options: ["Rain", "Snow", "Sun", "Wind"], correct: "b" }, q5: { text: "What color is the sky on a clear day?", options: ["Blue", "Yellow", "Green", "Red"], correct: "a" } } },
-            'f6': { title: "Food & Drinks", shortTitle: "Food", icon: "🍔", group: 2, audioUrl: "../../audios/audioF6.mp3", questions: { q1: { text: "What do you drink when thirsty?", options: ["Bread", "Water", "Meat", "Rice"], correct: "b" }, q2: { text: "What meal do you eat in the morning?", options: ["Lunch", "Dinner", "Breakfast", "Snack"], correct: "c" }, q3: { text: "What fruit is yellow?", options: ["Apple", "Banana", "Orange", "Grape"], correct: "b" }, q4: { text: "Where do you buy food?", options: ["Hospital", "School", "Supermarket", "Bank"], correct: "c" }, q5: { text: "What do you use to eat soup?", options: ["Fork", "Knife", "Spoon", "Hands"], correct: "c" } } },
-            'f7': { title: "Body & Health", shortTitle: "Body", icon: "💪", group: 2, audioUrl: "../../audios/audioF7.mp3", questions: { q1: { text: "What do you use to see?", options: ["Ears", "Eyes", "Nose", "Mouth"], correct: "b" }, q2: { text: "What do you use to hear?", options: ["Ears", "Eyes", "Nose", "Mouth"], correct: "a" }, q3: { text: "When you're sick, you go to...", options: ["School", "Doctor", "Store", "Park"], correct: "b" }, q4: { text: "What do you use to walk?", options: ["Hands", "Arms", "Feet", "Head"], correct: "c" }, q5: { text: "Where is your brain?", options: ["In your head", "In your chest", "In your stomach", "In your legs"], correct: "a" } } },
-            'f8': { title: "Directions & Places", shortTitle: "Directions", icon: "🗺️", group: 2, audioUrl: "../../audios/audioF8.mp3", questions: { q1: { text: "What's the opposite of 'left'?", options: ["Up", "Down", "Right", "Front"], correct: "c" }, q2: { text: "Where do children learn?", options: ["Hospital", "School", "Store", "Park"], correct: "b" }, q3: { text: "Where do you sleep?", options: ["Kitchen", "Bathroom", "Bedroom", "Living room"], correct: "c" }, q4: { text: "How do you ask for directions?", options: ["Where is...?", "What is...?", "Who is...?", "When is...?"], correct: "a" }, q5: { text: "Where do you buy medicine?", options: ["Supermarket", "Pharmacy", "Restaurant", "Bank"], correct: "b" } } },
-            'f9': { title: "Shopping & Money", shortTitle: "Shopping", icon: "💰", group: 3, audioUrl: "../../audios/audioF9.mp3", questions: { q1: { text: "How do you ask the price?", options: ["How much?", "How many?", "How old?", "How big?"], correct: "a" }, q2: { text: "What do you say when you want to buy?", options: ["I need this", "I want this", "I like this", "I have this"], correct: "b" }, q3: { text: "What do you give to pay?", options: ["Food", "Money", "Water", "Clothes"], correct: "b" }, q4: { text: "Where do you pay?", options: ["Entrance", "Cashier", "Exit", "Bathroom"], correct: "b" }, q5: { text: "What do you get after paying?", options: ["Receipt", "Menu", "Map", "Key"], correct: "a" } } },
-            'f10': { title: "Work & School", shortTitle: "Work", icon: "📚", group: 3, audioUrl: "../../audios/audioF10.mp3", questions: { q1: { text: "What do you ask in an interview?", options: ["What's your name?", "What's your job?", "Where do you work?", "All answers"], correct: "d" }, q2: { text: "Where do students study?", options: ["Office", "School", "Hospital", "Store"], correct: "b" }, q3: { text: "Who teaches in school?", options: ["Doctor", "Teacher", "Driver", "Cook"], correct: "b" }, q4: { text: "What do you need for a job?", options: ["Experience", "Skills", "Resume", "All answers"], correct: "d" }, q5: { text: "When do most people work?", options: ["Night", "Weekend", "Morning to evening", "Midnight"], correct: "c" } } },
-            'f11': { title: "Emergency & Help", shortTitle: "Emergency", icon: "🚨", group: 3, audioUrl: "../../audios/audioF11.mp3", questions: { q1: { text: "What do you call for emergency?", options: ["Store", "Friend", "Police", "Teacher"], correct: "c" }, q2: { text: "How do you ask for help?", options: ["Help me!", "Thank you!", "Goodbye!", "Hello!"], correct: "a" }, q3: { text: "Where do you go when very sick?", options: ["School", "Hospital", "Store", "Park"], correct: "b" }, q4: { text: "What number for emergency in US?", options: ["111", "999", "911", "411"], correct: "c" }, q5: { text: "When you're lost, you ask...", options: ["Where am I?", "Who are you?", "What time?", "How much?"], correct: "a" } } },
-            'f12': { title: "Phone & Internet", shortTitle: "Technology", icon: "📱", group: 3, audioUrl: "../../audios/audioF12.mp3", questions: { q1: { text: "How do you answer the phone?", options: ["Goodbye", "Hello", "Thank you", "Excuse me"], correct: "b" }, q2: { text: "What do you need for internet?", options: ["Water", "Food", "WiFi password", "Money"], correct: "c" }, q3: { text: "How do you end a phone call?", options: ["Hello", "Goodbye", "Please", "Sorry"], correct: "b" }, q4: { text: "What app do you use for messages?", options: ["Camera", "Clock", "Messages", "Calculator"], correct: "c" }, q5: { text: "When your phone doesn't work...", options: ["It's broken", "It's expensive", "It's new", "It's big"], correct: "a" } } }
+            '1': { 
+                title: "Basic Survival English", 
+                shortTitle: "Survival Basics", 
+                icon: "🌱", 
+                audioUrl: "../../src/assets/audio/listening/audio1.mp3", 
+                description: "Vocabulário essencial para sobrevivência em inglês",
+                questions: { 
+                    q1: { text: "How do you greet someone in the morning?", options: ["Good night", "Good morning", "Good afternoon", "Good evening"], correct: "b" }, 
+                    q2: { text: "What do you say when you want help?", options: ["Thank you", "Please help me", "Goodbye", "Sorry"], correct: "b" }, 
+                    q3: { text: "How do you ask for directions?", options: ["Where is...?", "What is...?", "Who is...?", "When is...?"], correct: "a" }, 
+                    q4: { text: "What do you say when someone helps you?", options: ["Please", "Sorry", "Thank you", "Excuse me"], correct: "c" }, 
+                    q5: { text: "How do you introduce yourself?", options: ["I am...", "You are...", "He is...", "We are..."], correct: "a" } 
+                } 
+            },
+            '2': { 
+                title: "Essential Daily Conversations", 
+                shortTitle: "Daily Talk", 
+                icon: "💬", 
+                audioUrl: "../../src/assets/audio/listening/audio2.mp3", 
+                description: "Conversas básicas do dia a dia",
+                questions: { 
+                    q1: { text: "How do you ask someone's name?", options: ["How are you?", "What's your name?", "Where are you from?", "How old are you?"], correct: "b" }, 
+                    q2: { text: "What's the response to 'How are you?'", options: ["I'm fine", "My name is...", "I'm from...", "I'm 20"], correct: "a" }, 
+                    q3: { text: "How do you ask about the weather?", options: ["How's the weather?", "What time is it?", "Where is it?", "Who is that?"], correct: "a" }, 
+                    q4: { text: "What do you say when leaving?", options: ["Hello", "Good morning", "Goodbye", "Please"], correct: "c" }, 
+                    q5: { text: "How do you say you don't understand?", options: ["I understand", "I don't understand", "I know", "I speak"], correct: "b" } 
+                } 
+            },
+            '3': { 
+                title: "Emergency & Important Phrases", 
+                shortTitle: "Emergency", 
+                icon: "🚨", 
+                audioUrl: "../../src/assets/audio/listening/audio3.mp3", 
+                description: "Frases importantes para emergências",
+                questions: { 
+                    q1: { text: "How do you call for help?", options: ["Help!", "Hello!", "Thank you!", "Goodbye!"], correct: "a" }, 
+                    q2: { text: "What number do you call for emergency in US?", options: ["111", "999", "911", "411"], correct: "c" }, 
+                    q3: { text: "How do you say you need a doctor?", options: ["I need a doctor", "I need food", "I need water", "I need help"], correct: "a" }, 
+                    q4: { text: "When you're lost, you say...", options: ["I'm happy", "I'm lost", "I'm hungry", "I'm tired"], correct: "b" }, 
+                    q5: { text: "How do you ask to repeat something?", options: ["Again, please", "Fast, please", "Slow, please", "Stop, please"], correct: "a" } 
+                } 
+            }
         };
         
-        let currentLesson = 'f1';
+        let currentLesson = '1';
         let attempts = 0;
         let lessonStartTime = Date.now();
         let studentProgress = new FoundationProgress();
         
         // ===== LESSON CARDS CREATION =====
         function createLessonCards() {
-            for (let group = 1; group <= 3; group++) {
-                const container = document.querySelector(`[data-group="${group}"]`);
-                container.innerHTML = '';
+            const container = document.getElementById('lessonsGrid');
+            container.innerHTML = '';
+            
+            Object.keys(foundationLessons).forEach(lessonId => {
+                const lesson = foundationLessons[lessonId];
+                const isCompleted = studentProgress.data.listening.foundationLessons.completed.includes(`foundation_${lessonId}`);
+                const bestScore = studentProgress.data.listening.foundationLessons.scores[`foundation_${lessonId}`] || 0;
+                const isActive = lessonId === currentLesson;
                 
-                const groupLessons = Object.keys(foundationLessons).filter(lessonId => 
-                    foundationLessons[lessonId].group === group
-                );
+                const card = document.createElement('div');
+                card.className = `lesson-card ${isActive ? 'active' : ''} ${isCompleted ? 'completed' : ''}`;
+                card.onclick = () => switchToLesson(lessonId);
                 
-                groupLessons.forEach(lessonId => {
-                    const lesson = foundationLessons[lessonId];
-                    const isCompleted = studentProgress.data.listening.lessonsCompleted.includes(`lesson_${lessonId}`);
-                    const bestScore = studentProgress.data.listening.bestScores[`lesson_${lessonId}`] || 0;
-                    const isActive = lessonId === currentLesson;
-                    
-                    const card = document.createElement('div');
-                    card.className = `lesson-card ${isActive ? 'active' : ''} ${isCompleted ? 'completed' : ''}`;
-                    card.onclick = () => switchToLesson(lessonId);
-                    
-                    const lessonNumber = lessonId.toUpperCase();
-                    
-                    card.innerHTML = `
+                card.innerHTML = `
+                    <div class="lesson-header">
                         <div class="lesson-icon">${lesson.icon}</div>
-                        <div class="lesson-number">${lessonNumber}</div>
-                        <div class="lesson-name">${lesson.shortTitle}</div>
-                        ${isCompleted ? `<div class="completion-badge">${bestScore}</div>` : ''}
-                    `;
-                    
-                    container.appendChild(card);
-                });
-            }
+                        <div class="lesson-number">${lessonId}</div>
+                    </div>
+                    <div class="lesson-title">${lesson.title}</div>
+                    <div class="lesson-description">${lesson.description}</div>
+                    ${isCompleted ? `<div class="completion-badge">${bestScore}</div>` : ''}
+                `;
+                
+                container.appendChild(card);
+            });
         }
         
         function switchToLesson(lessonId) {
@@ -848,10 +882,9 @@
         function loadLesson(lessonId) {
             if (!foundationLessons[lessonId]) return;
             const lesson = foundationLessons[lessonId];
-            const lessonNumber = lessonId.toUpperCase();
             
             document.getElementById('lessonTitle').textContent = lesson.title;
-            document.getElementById('lessonNumber').textContent = `Lição ${lessonNumber}`;
+            document.getElementById('lessonNumber').textContent = `Lição ${lessonId}`;
             document.getElementById('audioTitle').textContent = `🎧 Escute a Lição: ${lesson.title}`;
             document.getElementById('mainAudio').src = lesson.audioUrl;
             loadQuestions(lesson.questions);
@@ -935,7 +968,7 @@
                 }
             });
             
-            studentProgress.completeFoundationLesson(currentLesson.replace('f', ''), score, Date.now() - lessonStartTime);
+            studentProgress.completeFoundationLesson(currentLesson, score, Date.now() - lessonStartTime);
             
             document.getElementById('progressBar').style.width = (score / 5) * 100 + '%';
             document.getElementById('scoreValue').textContent = score;
@@ -977,14 +1010,14 @@
         }
         
         function nextLesson() {
-            const allLessons = ['f1', 'f2', 'f3', 'f4', 'f5', 'f6', 'f7', 'f8', 'f9', 'f10', 'f11', 'f12'];
+            const allLessons = ['1', '2', '3'];
             const currentIndex = allLessons.indexOf(currentLesson);
             
             if (currentIndex < allLessons.length - 1) {
                 switchToLesson(allLessons[currentIndex + 1]);
             } else {
                 setTimeout(() => {
-                    alert('🎯 Parabéns! Foundation Level completo!\nAgora você pode partir para as lições regulares! 🚀');
+                    alert('🎯 Parabéns! Foundation Level completo!\nAgora você pode partir para o Beginner Level! 🚀');
                     window.location.href = '../hubs/listening-hub.html';
                 }, 500);
             }
@@ -999,9 +1032,10 @@
                 studentName.charAt(0).toUpperCase() + studentName.slice(1).toLowerCase();
             document.querySelector('[data-user-avatar]').textContent = studentName.charAt(0).toUpperCase();
             
-            console.log('✨ Foundation Page - Design Elegante carregado');
+            console.log('✨ Foundation Page - PATHS CORRIGIDOS');
             console.log(`👤 Usuário: ${studentName}`);
-            console.log('🎯 12 lições Foundation organizadas por grupos');
+            console.log('🎯 3 lições Foundation com áudios corretos');
+            console.log('📁 Áudios: ../../src/assets/audio/listening/audio1-3.mp3');
             
             createLessonCards();
             loadLesson(currentLesson);
@@ -1020,10 +1054,12 @@
         `;
         document.head.appendChild(style);
 
-        console.log('✨ Foundation Page - Design Elegante e Profissional');
-        console.log('🎨 Palette: Tons Chumbo + Brancos + Azuis Sutis');
-        console.log('🔧 Código limpo e otimizado');
-        console.log('🎯 Gamificação elegante mantida');
+        console.log('🔧 FOUNDATION PAGE - PATHS E ESTRUTURA CORRIGIDOS');
+        console.log('✅ Áudios: ../../src/assets/audio/listening/audio1-3.mp3');
+        console.log('✅ Navegação: ../hubs/listening-hub.html'); 
+        console.log('✅ Auth: ../auth/login.html');
+        console.log('✅ 3 lições organizadas e funcionais');
+        console.log('🎨 Design elegante mantido');
     </script>
 </body>
 </html>
