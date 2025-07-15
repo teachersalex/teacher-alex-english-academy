@@ -9,6 +9,452 @@
     <link rel="stylesheet" href="../../src/styles/base.css">
     <link rel="stylesheet" href="../../src/styles/layout.css">
     <link rel="stylesheet" href="../../src/styles/theme-patriot.css">
+    
+    <style>
+        /* 🔥 CUSTOM STYLES PARA FAZER ESSA HUB INSANA */
+        
+        /* Hero Section com gradiente dinâmico */
+        .listening-hero {
+            background: linear-gradient(135deg, #1e3a8a 0%, #dc2626 50%, #8b5cf6 100%);
+            border-radius: 20px;
+            padding: 3rem;
+            margin-bottom: 3rem;
+            position: relative;
+            overflow: hidden;
+            border: 2px solid rgba(255,255,255,0.2);
+        }
+        
+        .listening-hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: heroFloat 8s ease-in-out infinite;
+        }
+        
+        @keyframes heroFloat {
+            0%, 100% { transform: translate(-50%, -50%) rotate(0deg); }
+            50% { transform: translate(-30%, -30%) rotate(180deg); }
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            color: white;
+        }
+        
+        .hero-title {
+            font-size: 3.5em;
+            font-weight: 900;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.3);
+            background: linear-gradient(45deg, #fff, #fbbf24, #fff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: titleShine 3s ease-in-out infinite;
+        }
+        
+        @keyframes titleShine {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+        
+        .hero-subtitle {
+            font-size: 1.4em;
+            font-weight: 600;
+            margin-bottom: 2rem;
+            opacity: 0.95;
+        }
+        
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+        
+        .hero-stat {
+            background: rgba(255,255,255,0.15);
+            backdrop-filter: blur(10px);
+            padding: 1rem 2rem;
+            border-radius: 15px;
+            border: 1px solid rgba(255,255,255,0.2);
+            text-align: center;
+            min-width: 120px;
+        }
+        
+        .hero-stat-number {
+            font-size: 2.2em;
+            font-weight: 900;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+        
+        .hero-stat-label {
+            font-size: 0.9em;
+            opacity: 0.9;
+            font-weight: 600;
+        }
+        
+        /* Level sections com design mais dinâmico */
+        .level-section {
+            background: linear-gradient(135deg, rgba(255,255,255,0.95), rgba(248,250,252,0.95));
+            backdrop-filter: blur(20px);
+            border-radius: 24px;
+            padding: 2.5rem;
+            margin-bottom: 3rem;
+            border: 2px solid rgba(255,255,255,0.3);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+        }
+        
+        .level-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 6px;
+            background: linear-gradient(90deg, #10b981, #16a34a);
+            border-radius: 24px 24px 0 0;
+        }
+        
+        .level-section.regular::before {
+            background: linear-gradient(90deg, #1e3a8a, #dc2626, #8b5cf6);
+        }
+        
+        .level-header {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            margin-bottom: 2.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 2px solid rgba(0,0,0,0.1);
+        }
+        
+        .level-badge {
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 20px;
+            font-weight: 900;
+            font-size: 1.1em;
+            box-shadow: 0 8px 25px rgba(16, 185, 129, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .level-badge::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.3), transparent);
+            animation: badgeShine 2s ease-in-out infinite;
+        }
+        
+        @keyframes badgeShine {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            50% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+            100% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+        }
+        
+        .regular .level-badge {
+            background: linear-gradient(135deg, #1e3a8a, #dc2626);
+            box-shadow: 0 8px 25px rgba(30, 58, 138, 0.4);
+        }
+        
+        .level-info h2 {
+            font-size: 2.2em;
+            font-weight: 900;
+            background: linear-gradient(135deg, #1e3a8a, #dc2626);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 0.5rem;
+        }
+        
+        .level-info p {
+            font-size: 1.1em;
+            color: #6b7280;
+            font-weight: 600;
+            line-height: 1.6;
+        }
+        
+        /* Cards com design mais impactante */
+        .lessons-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+        
+        .lesson-card {
+            background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            border: 2px solid #e2e8f0;
+            position: relative;
+            height: 320px;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .lesson-card:hover {
+            transform: translateY(-12px) scale(1.02);
+            box-shadow: 0 25px 80px rgba(30, 58, 138, 0.25);
+            border-color: #1e3a8a;
+        }
+        
+        .lesson-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.6), transparent);
+            transition: left 0.6s;
+            z-index: 1;
+        }
+        
+        .lesson-card:hover::before {
+            left: 100%;
+        }
+        
+        .lesson-header {
+            background: linear-gradient(135deg, #f0f9ff, #e0f2fe);
+            padding: 2rem 1.5rem 1.5rem;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .foundation-lesson .lesson-header {
+            background: linear-gradient(135deg, #f0fdf4, #dcfce7);
+        }
+        
+        .lesson-icon {
+            font-size: 3.5em;
+            margin-bottom: 1rem;
+            display: block;
+            filter: drop-shadow(2px 2px 8px rgba(0,0,0,0.1));
+            animation: iconFloat 3s ease-in-out infinite;
+        }
+        
+        @keyframes iconFloat {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-8px); }
+        }
+        
+        .lesson-title {
+            font-size: 1.3em;
+            font-weight: 800;
+            color: #1e3a8a;
+            margin-bottom: 0.5rem;
+            line-height: 1.3;
+        }
+        
+        .lesson-description {
+            color: #6b7280;
+            font-size: 0.95em;
+            font-weight: 600;
+            line-height: 1.5;
+        }
+        
+        .lesson-content {
+            padding: 0 1.5rem;
+            flex-grow: 1;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .lesson-features {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .lesson-features li {
+            color: #64748b;
+            margin-bottom: 0.75rem;
+            font-weight: 600;
+            position: relative;
+            padding-left: 2rem;
+            font-size: 0.9em;
+        }
+        
+        .lesson-features li::before {
+            content: '✨';
+            position: absolute;
+            left: 0;
+            font-size: 1.2em;
+            animation: sparkle 2s ease-in-out infinite;
+        }
+        
+        @keyframes sparkle {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.7; transform: scale(1.2); }
+        }
+        
+        .lesson-footer {
+            padding: 1.5rem;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .lesson-button {
+            width: 100%;
+            background: linear-gradient(135deg, #1e3a8a, #dc2626);
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 15px;
+            font-weight: 800;
+            font-size: 1em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .foundation-lesson .lesson-button {
+            background: linear-gradient(135deg, #10b981, #059669);
+        }
+        
+        .lesson-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(30, 58, 138, 0.4);
+        }
+        
+        .lesson-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.5s;
+        }
+        
+        .lesson-button:hover::before {
+            left: 100%;
+        }
+        
+        /* Progress badges mais impactantes */
+        .progress-badge {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            background: linear-gradient(135deg, #f59e0b, #d97706);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.8em;
+            font-weight: 900;
+            border: 3px solid white;
+            box-shadow: 0 8px 25px rgba(245, 158, 11, 0.4);
+            z-index: 5;
+            animation: badgePulse 2s ease-in-out infinite;
+        }
+        
+        @keyframes badgePulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+        
+        .progress-badge.perfect {
+            background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+            box-shadow: 0 8px 25px rgba(139, 92, 246, 0.4);
+        }
+        
+        .progress-badge.excellent {
+            background: linear-gradient(135deg, #10b981, #059669);
+            box-shadow: 0 8px 25px rgba(16, 185, 129, 0.4);
+        }
+        
+        /* Study tips mais visuais */
+        .study-tips {
+            background: linear-gradient(135deg, #fef3c7, #fde68a);
+            border: 2px solid #f59e0b;
+        }
+        
+        .study-tips .instruction-item {
+            background: linear-gradient(135deg, rgba(255,255,255,0.9), rgba(254,243,199,0.9));
+            border: 2px solid rgba(245, 158, 11, 0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .study-tips .instruction-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(245, 158, 11, 0.3);
+        }
+        
+        .study-tips .instruction-number {
+            font-size: 2em;
+            background: linear-gradient(135deg, #f59e0b, #d97706);
+            width: 60px;
+            height: 60px;
+            box-shadow: 0 8px 25px rgba(245, 158, 11, 0.4);
+        }
+        
+        /* Loading states mais suaves */
+        .loading {
+            opacity: 0.8;
+            pointer-events: none;
+            filter: blur(1px);
+        }
+        
+        /* Mobile responsiveness aprimorada */
+        @media (max-width: 768px) {
+            .listening-hero {
+                padding: 2rem;
+            }
+            
+            .hero-title {
+                font-size: 2.5em;
+            }
+            
+            .hero-stats {
+                gap: 1rem;
+            }
+            
+            .hero-stat {
+                min-width: 100px;
+                padding: 0.75rem 1.5rem;
+            }
+            
+            .lessons-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+            
+            .lesson-card {
+                height: auto;
+                min-height: 280px;
+            }
+            
+            .level-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+            
+            .level-badge {
+                align-self: center;
+            }
+        }
+    </style>
 </head>
 <body>
     <!-- User Widget Moderno -->
@@ -25,34 +471,29 @@
             ← Voltar ao Dashboard
         </a>
         
-        <!-- Header -->
-        <header class="header">
-            <h1 class="logo">
-                Teacher Alex <span class="logo-highlight">English Academy</span> BETA
-            </h1>
-            <h2 class="hub-title">🎧 Listening Practice Hub</h2>
-            <p class="hub-subtitle">Melhore sua compreensão auditiva com diálogos autênticos e progressivos</p>
-        </header>
-
-        <!-- Overview Stats -->
-        <section class="reading-overview">
-            <h2 class="stats-title">📊 Progresso no Listening</h2>
-            <div class="overview-stats">
-                <div class="stat-card">
-                    <div class="stat-number" data-foundation-progress>0</div>
-                    <div class="stat-label">Foundation Completas</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-number" data-regular-progress>0</div>
-                    <div class="stat-label">Regulares Completas</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-number" data-total-score>0</div>
-                    <div class="stat-label">Pontuação Média</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-number" data-badges-earned>0</div>
-                    <div class="stat-label">Badges Conquistadas</div>
+        <!-- Hero Section INSANA -->
+        <section class="listening-hero">
+            <div class="hero-content">
+                <h1 class="hero-title">🎧 LISTENING MASTERY</h1>
+                <p class="hero-subtitle">Transforme sua compreensão auditiva com diálogos reais e desafiadores</p>
+                
+                <div class="hero-stats">
+                    <div class="hero-stat">
+                        <span class="hero-stat-number" data-foundation-progress>0/12</span>
+                        <span class="hero-stat-label">Foundation</span>
+                    </div>
+                    <div class="hero-stat">
+                        <span class="hero-stat-number" data-regular-progress>0/11</span>
+                        <span class="hero-stat-label">Regular</span>
+                    </div>
+                    <div class="hero-stat">
+                        <span class="hero-stat-number" data-average-score>0%</span>
+                        <span class="hero-stat-label">Média</span>
+                    </div>
+                    <div class="hero-stat">
+                        <span class="hero-stat-number" data-badges-count>0</span>
+                        <span class="hero-stat-label">Badges</span>
+                    </div>
                 </div>
             </div>
         </section>
@@ -62,9 +503,9 @@
             <header class="level-header">
                 <div class="level-badge">Foundation</div>
                 <div class="level-info">
-                    <h2 class="level-title">Lições Foundation</h2>
-                    <p class="level-description">Base sólida com vocabulário essencial e gramática fundamental</p>
-                    <p class="level-stories">12 lições progressivas • Nível A1-A2</p>
+                    <h2>Lições Foundation</h2>
+                    <p>Base sólida com vocabulário essencial e gramática fundamental para iniciantes</p>
+                    <p style="color: #059669; font-weight: 700; margin-top: 0.5rem;">12 lições progressivas • Nível A1-A2 • Vocabulário básico</p>
                 </div>
             </header>
             
@@ -78,8 +519,8 @@
                     <div class="lesson-content">
                         <ul class="lesson-features">
                             <li>Vocabulário de apresentação</li>
-                            <li>Frases de cortesia</li>
-                            <li>Pronúncia básica</li>
+                            <li>Frases de cortesia essenciais</li>
+                            <li>Pronúncia básica clara</li>
                         </ul>
                     </div>
                     <div class="lesson-footer">
@@ -96,8 +537,8 @@
                     <div class="lesson-content">
                         <ul class="lesson-features">
                             <li>Membros da família</li>
-                            <li>Cômodos da casa</li>
-                            <li>Objetos domésticos</li>
+                            <li>Cômodos e objetos da casa</li>
+                            <li>Rotina familiar básica</li>
                         </ul>
                     </div>
                     <div class="lesson-footer">
@@ -113,8 +554,8 @@
                     </div>
                     <div class="lesson-content">
                         <ul class="lesson-features">
-                            <li>Números e preços</li>
-                            <li>Lojas e produtos</li>
+                            <li>Números e preços básicos</li>
+                            <li>Tipos de lojas comuns</li>
                             <li>Formas de pagamento</li>
                         </ul>
                     </div>
@@ -131,7 +572,7 @@
                     </div>
                     <div class="lesson-content">
                         <ul class="lesson-features">
-                            <li>Tipos de comida</li>
+                            <li>Tipos de comida popular</li>
                             <li>Pedidos em restaurantes</li>
                             <li>Preferências alimentares</li>
                         </ul>
@@ -149,7 +590,7 @@
                     </div>
                     <div class="lesson-content">
                         <ul class="lesson-features">
-                            <li>Veículos e transporte</li>
+                            <li>Veículos e transporte público</li>
                             <li>Direções e localização</li>
                             <li>Horários e distâncias</li>
                         </ul>
@@ -167,9 +608,9 @@
                     </div>
                     <div class="lesson-content">
                         <ul class="lesson-features">
-                            <li>Horas e datas</li>
-                            <li>Rotina diária</li>
-                            <li>Compromissos</li>
+                            <li>Horas e datas importantes</li>
+                            <li>Rotina diária comum</li>
+                            <li>Compromissos e agenda</li>
                         </ul>
                     </div>
                     <div class="lesson-footer">
@@ -203,9 +644,9 @@
                     </div>
                     <div class="lesson-content">
                         <ul class="lesson-features">
-                            <li>Tipos de trabalho</li>
-                            <li>Ambiente profissional</li>
-                            <li>Habilidades básicas</li>
+                            <li>Tipos de trabalho comum</li>
+                            <li>Ambiente profissional básico</li>
+                            <li>Habilidades fundamentais</li>
                         </ul>
                     </div>
                     <div class="lesson-footer">
@@ -221,9 +662,9 @@
                     </div>
                     <div class="lesson-content">
                         <ul class="lesson-features">
-                            <li>Partes do corpo</li>
-                            <li>Sintomas e doenças</li>
-                            <li>Consultas médicas</li>
+                            <li>Partes do corpo básicas</li>
+                            <li>Sintomas comuns</li>
+                            <li>Consultas médicas simples</li>
                         </ul>
                     </div>
                     <div class="lesson-footer">
@@ -240,8 +681,8 @@
                     <div class="lesson-content">
                         <ul class="lesson-features">
                             <li>Atividades de lazer</li>
-                            <li>Esportes e jogos</li>
-                            <li>Entretenimento</li>
+                            <li>Esportes e jogos básicos</li>
+                            <li>Entretenimento popular</li>
                         </ul>
                     </div>
                     <div class="lesson-footer">
@@ -257,9 +698,9 @@
                     </div>
                     <div class="lesson-content">
                         <ul class="lesson-features">
-                            <li>Ambiente escolar</li>
+                            <li>Ambiente escolar básico</li>
                             <li>Matérias e estudos</li>
-                            <li>Exames e notas</li>
+                            <li>Exames e avaliações</li>
                         </ul>
                     </div>
                     <div class="lesson-footer">
@@ -292,9 +733,9 @@
             <header class="level-header">
                 <div class="level-badge">Regular</div>
                 <div class="level-info">
-                    <h2 class="level-title">Lições Regulares</h2>
-                    <p class="level-description">Desenvolvimento avançado com diálogos complexos e situações reais</p>
-                    <p class="level-stories">11 lições desafiadoras • Nível A2-B1</p>
+                    <h2>Lições Regulares</h2>
+                    <p>Desenvolvimento avançado com diálogos complexos e situações reais desafiadoras</p>
+                    <p style="color: #dc2626; font-weight: 700; margin-top: 0.5rem;">11 lições intensivas • Nível A2-B1 • Situações reais</p>
                 </div>
             </header>
             
@@ -362,7 +803,7 @@
                     <div class="lesson-content">
                         <ul class="lesson-features">
                             <li>Negociação de preços</li>
-                            <li>Diferentes lojas</li>
+                            <li>Diferentes tipos de lojas</li>
                             <li>Devoluções e trocas</li>
                         </ul>
                     </div>
@@ -398,7 +839,7 @@
                     <div class="lesson-content">
                         <ul class="lesson-features">
                             <li>Suporte técnico</li>
-                            <li>Gadgets e apps</li>
+                            <li>Gadgets e aplicativos</li>
                             <li>Soluções criativas</li>
                         </ul>
                     </div>
@@ -434,7 +875,7 @@
                     <div class="lesson-content">
                         <ul class="lesson-features">
                             <li>Mecânica e reparos</li>
-                            <li>Seguro e documentos</li>
+                            <li>Seguro e documentação</li>
                             <li>Emergências na estrada</li>
                         </ul>
                     </div>
@@ -499,32 +940,32 @@
             </div>
         </section>
 
-        <!-- Study Tips -->
+        <!-- Study Tips com design insano -->
         <section class="info-section study-tips">
-            <h2 class="info-title">💡 Dicas de Estudo para Listening</h2>
+            <h2 class="info-title">💡 Dicas GOLD para Listening</h2>
             <div class="instructions">
                 <div class="instruction-item">
                     <div class="instruction-number">🎧</div>
                     <div class="instruction-text">
-                        <strong>Use Fones de Ouvido:</strong> Para melhor qualidade de áudio e concentração máxima durante as lições.
+                        <strong>Fones de Ouvido Premium:</strong> Use sempre fones de qualidade para captar cada nuance dos diálogos nativos.
                     </div>
                 </div>
                 <div class="instruction-item">
                     <div class="instruction-number">🔄</div>
                     <div class="instruction-text">
-                        <strong>Repita Quando Necessário:</strong> Não tenha vergonha de escutar o áudio várias vezes até entender completamente.
+                        <strong>Técnica da Repetição:</strong> Escute 3x: primeira para entender geral, segunda para detalhes, terceira para fixar.
                     </div>
                 </div>
                 <div class="instruction-item">
                     <div class="instruction-number">📝</div>
                     <div class="instruction-text">
-                        <strong>Anote Palavras Novas:</strong> Mantenha um caderno para vocabulário novo e expressões interessantes.
+                        <strong>Notebook de Ouro:</strong> Anote expressões idiomáticas e palavras que aparecem nos diálogos.
                     </div>
                 </div>
                 <div class="instruction-item">
-                    <div class="instruction-number">⏰</div>
+                    <div class="instruction-number">⚡</div>
                     <div class="instruction-text">
-                        <strong>Pratique Regularmente:</strong> 15-20 minutos diários são mais eficazes que sessões longas esporádicas.
+                        <strong>Consistência é Poder:</strong> 20 minutos diários superam 3 horas no final de semana. Seja consistente!
                     </div>
                 </div>
             </div>
@@ -558,8 +999,8 @@
             throw new Error('Access denied');
         }
 
-        // ===== ENHANCED PROGRESS SYSTEM =====
-        class EnhancedProgressTracker {
+        // ===== INSANE PROGRESS SYSTEM =====
+        class InsaneProgressTracker {
             constructor() {
                 this.studentId = sessionStorage.getItem('studentUsername') || 'student';
                 this.progressKey = `progress_${this.studentId}`;
@@ -610,68 +1051,94 @@
                 return Math.round(scores.reduce((a, b) => a + b, 0) / scores.length);
             }
 
-            getBadgesEarned() {
+            getBadgesCount() {
                 return this.data.listening.badges.length;
             }
         }
 
-        // ===== NAVIGATION WITH ENHANCED LOADING =====
+        // ===== INSANE NAVIGATION =====
         function navigateToLesson(lessonId) {
             const card = event.currentTarget;
             const button = card.querySelector('.lesson-button');
             const originalText = button.textContent;
             
-            // Enhanced loading animation
-            button.textContent = 'Carregando...';
-            button.style.background = '#6b7280';
-            card.style.opacity = '0.7';
-            card.style.transform = 'scale(0.98)';
-            
-            // Add loading pulse effect
+            // INSANE loading animation
+            button.textContent = '🚀 Carregando...';
+            button.style.background = 'linear-gradient(135deg, #6b7280, #4b5563)';
             card.classList.add('loading');
+            
+            // Add epic sound effect (just visual feedback)
+            card.style.transform = 'translateY(-12px) scale(1.02) rotateX(5deg)';
             
             setTimeout(() => {
                 window.location.href = `../../pages/listening/lesson-${lessonId}.html`;
-            }, 800);
+            }, 1000);
         }
 
-        // ===== ENHANCED INITIALIZATION =====
-        function initializePage() {
+        // ===== INSANE INITIALIZATION =====
+        function initializeInsanePage() {
             const studentName = getStudentName();
-            const progressTracker = new EnhancedProgressTracker();
+            const progressTracker = new InsaneProgressTracker();
             
             // Update user info
             document.querySelector('[data-user-name]').textContent = 
                 studentName.charAt(0).toUpperCase() + studentName.slice(1).toLowerCase();
             document.querySelector('[data-user-avatar]').textContent = studentName.charAt(0).toUpperCase();
             
-            // Update overview stats
-            updateOverviewStats(progressTracker);
+            // Update hero stats with epic animations
+            updateHeroStats(progressTracker);
             
-            // Add enhanced progress badges
-            addEnhancedProgressBadges(progressTracker);
+            // Add insane progress badges
+            addInsaneProgressBadges(progressTracker);
             
-            // Add motivational messages
-            addMotivationalElements(progressTracker);
+            // Add epic motivational messages
+            addEpicMotivation(progressTracker);
             
-            console.log(`✅ Listening Hub SUPER OTIMIZADO carregado - usuário: ${studentName}`);
-            console.log('🎮 Sistema de gamificação ENHANCED ativo');
-            console.log('🧹 CSS 100% externo - ZERO inline!');
-            console.log('⚡ Performance otimizada para mobile');
+            console.log('🔥 LISTENING HUB INSANO CARREGADO!');
+            console.log(`🎮 Usuário: ${studentName}`);
+            console.log('⚡ Performance MÁXIMA');
+            console.log('🎨 Design de OUTRO MUNDO');
         }
 
-        function updateOverviewStats(progressTracker) {
-            document.querySelector('[data-foundation-progress]').textContent = 
-                `${progressTracker.getFoundationProgress()}/12`;
-            document.querySelector('[data-regular-progress]').textContent = 
-                `${progressTracker.getRegularProgress()}/11`;
-            document.querySelector('[data-total-score]').textContent = 
-                `${progressTracker.getAverageScore()}%`;
-            document.querySelector('[data-badges-earned]').textContent = 
-                progressTracker.getBadgesEarned();
+        function updateHeroStats(progressTracker) {
+            const foundationProgress = progressTracker.getFoundationProgress();
+            const regularProgress = progressTracker.getRegularProgress();
+            const averageScore = progressTracker.getAverageScore();
+            const badgesCount = progressTracker.getBadgesCount();
+            
+            // Animate counter updates
+            animateCounter('[data-foundation-progress]', `${foundationProgress}/12`);
+            animateCounter('[data-regular-progress]', `${regularProgress}/11`);
+            animateCounter('[data-average-score]', `${averageScore}%`);
+            animateCounter('[data-badges-count]', badgesCount);
         }
 
-        function addEnhancedProgressBadges(progressTracker) {
+        function animateCounter(selector, finalValue) {
+            const element = document.querySelector(selector);
+            const duration = 1500;
+            const start = performance.now();
+            
+            function updateCounter(currentTime) {
+                const elapsed = currentTime - start;
+                const progress = Math.min(elapsed / duration, 1);
+                
+                // Easing function for smooth animation
+                const easedProgress = 1 - Math.pow(1 - progress, 3);
+                
+                if (progress < 1) {
+                    requestAnimationFrame(updateCounter);
+                } else {
+                    element.textContent = finalValue;
+                }
+            }
+            
+            requestAnimationFrame(updateCounter);
+            setTimeout(() => {
+                element.textContent = finalValue;
+            }, duration);
+        }
+
+        function addInsaneProgressBadges(progressTracker) {
             const lessonCards = document.querySelectorAll('.lesson-card');
             
             lessonCards.forEach((card) => {
@@ -680,17 +1147,20 @@
                 
                 if (progressTracker.isLessonCompleted(lessonId)) {
                     const badge = document.createElement('div');
-                    badge.className = 'progress-badge';
                     const score = progressTracker.getLessonScore(lessonId);
                     
-                    // Enhanced badge styling based on score
-                    if (score >= 95) {
+                    // INSANE badge styling based on score
+                    if (score >= 98) {
+                        badge.className = 'progress-badge perfect';
+                        badge.textContent = `${score}% 👑`;
+                    } else if (score >= 90) {
+                        badge.className = 'progress-badge excellent';
                         badge.textContent = `${score}% 🏆`;
-                        badge.style.background = 'linear-gradient(135deg, #f59e0b, #d97706)';
-                    } else if (score >= 85) {
+                    } else if (score >= 80) {
+                        badge.className = 'progress-badge';
                         badge.textContent = `${score}% ⭐`;
-                        badge.style.background = 'linear-gradient(135deg, #10b981, #059669)';
                     } else {
+                        badge.className = 'progress-badge';
                         badge.textContent = `${score}% ✓`;
                     }
                     
@@ -700,47 +1170,48 @@
             });
         }
 
-        function addMotivationalElements(progressTracker) {
+        function addEpicMotivation(progressTracker) {
             const totalCompleted = progressTracker.getFoundationProgress() + progressTracker.getRegularProgress();
-            const totalLessons = 23;
             
-            // Add progress celebration if user has made significant progress
-            if (totalCompleted > 0 && totalCompleted % 5 === 0) {
+            // Epic motivational messages
+            if (totalCompleted === 0) {
                 setTimeout(() => {
-                    console.log(`🎉 Parabéns! Você completou ${totalCompleted} lições!`);
-                }, 1500);
+                    console.log('🚀 Sua jornada épica começa AGORA!');
+                }, 2000);
+            } else if (totalCompleted >= 10) {
+                setTimeout(() => {
+                    console.log(`🔥 IMPRESSIONANTE! ${totalCompleted} lições dominadas!`);
+                }, 2000);
             }
         }
 
-        // ===== EVENT LISTENERS =====
-        document.addEventListener('DOMContentLoaded', initializePage);
-
-        // Add enhanced hover effects
+        // ===== EPIC EVENT LISTENERS =====
         document.addEventListener('DOMContentLoaded', function() {
+            // Add epic hover effects
             const lessonCards = document.querySelectorAll('.lesson-card');
             
             lessonCards.forEach(card => {
                 card.addEventListener('mouseenter', function() {
-                    this.style.transform = 'translateY(-8px) scale(1.02)';
+                    this.style.transition = 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)';
                 });
                 
                 card.addEventListener('mouseleave', function() {
                     if (!this.classList.contains('loading')) {
-                        this.style.transform = 'translateY(0) scale(1)';
+                        this.style.transform = '';
                     }
                 });
             });
             
-            initializePage();
+            initializeInsanePage();
         });
 
-        console.log('✅ Listening Hub - SUPER OTIMIZADO CARREGADO!');
-        console.log('🎨 Design moderno com micro-animações');
-        console.log('📊 Overview stats implementadas');
-        console.log('🎮 Sistema de badges aprimorado');
-        console.log('💡 Seção de dicas adicionada');
-        console.log('📱 Responsividade mobile perfeita');
-        console.log('⚡ Performance máxima alcançada');
+        console.log('🔥🔥🔥 LISTENING HUB - DESIGN INSANO CARREGADO! 🔥🔥🔥');
+        console.log('🎨 Hero section com gradiente dinâmico');
+        console.log('✨ Animações de outro mundo');
+        console.log('🏆 Sistema de badges épico');
+        console.log('⚡ Performance e visual INSANOS');
+        console.log('📱 Mobile responsiveness perfeita');
+        console.log('🎮 Gamificação que vicia!');
     </script>
 </body>
 </html>
