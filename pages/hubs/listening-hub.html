@@ -3,15 +3,369 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Graded Readers Hub - Teacher Alex English Academy BETA</title>
+    <title>Listening Hub - Teacher Alex English Academy BETA</title>
     
     <!-- CSS - CAMINHOS CORRETOS PARA pages/hubs/ -->
     <link rel="stylesheet" href="../../src/styles/base.css">
     <link rel="stylesheet" href="../../src/styles/layout.css">
     <link rel="stylesheet" href="../../src/styles/theme-patriot.css">
+    
+    <style>
+        /* 🎯 ELEGANT DESIGN SYSTEM - RESTAURADO */
+        
+        /* Hero Section elegante ORIGINAL */
+        .listening-hero {
+            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 50%, #1e40af 100%);
+            border-radius: 16px;
+            padding: 3rem;
+            margin-bottom: 2.5rem;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.1);
+            box-shadow: 0 20px 60px rgba(30, 58, 138, 0.15);
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            color: white;
+        }
+        
+        .hero-title {
+            font-size: 3.2em;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            color: white;
+            text-shadow: 0 2px 20px rgba(0,0,0,0.3);
+        }
+        
+        .hero-subtitle {
+            font-size: 1.3em;
+            font-weight: 500;
+            margin-bottom: 2.5rem;
+            opacity: 0.9;
+            color: #e2e8f0;
+        }
+        
+        .hero-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 1.5rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .hero-stat {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            padding: 1.5rem 1rem;
+            border-radius: 12px;
+            border: 1px solid rgba(255,255,255,0.15);
+            text-align: center;
+        }
+        
+        .hero-stat-number {
+            font-size: 2em;
+            font-weight: 800;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+        
+        .hero-stat-label {
+            font-size: 0.9em;
+            opacity: 0.85;
+            font-weight: 600;
+        }
+        
+        /* Level sections elegantes ORIGINAIS */
+        .level-section {
+            background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+            border-radius: 16px;
+            padding: 2.5rem;
+            margin-bottom: 2.5rem;
+            border: 2px solid #e2e8f0;
+            position: relative;
+            box-shadow: 0 8px 32px rgba(15, 23, 42, 0.08);
+        }
+        
+        .level-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #1e3a8a, #3b82f6);
+            border-radius: 16px 16px 0 0;
+        }
+        
+        .foundation::before {
+            background: linear-gradient(90deg, #475569, #64748b);
+        }
+        
+        .level-header {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 2px solid #f1f5f9;
+        }
+        
+        .level-badge {
+            background: linear-gradient(135deg, #1e3a8a, #3b82f6);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 0.95em;
+            box-shadow: 0 4px 12px rgba(30, 58, 138, 0.3);
+        }
+        
+        .foundation .level-badge {
+            background: linear-gradient(135deg, #475569, #64748b);
+            box-shadow: 0 4px 12px rgba(71, 85, 105, 0.3);
+        }
+        
+        .level-info h2 {
+            font-size: 2em;
+            font-weight: 800;
+            color: #1e293b;
+            margin-bottom: 0.5rem;
+        }
+        
+        .level-info p {
+            font-size: 1.05em;
+            color: #64748b;
+            font-weight: 500;
+            line-height: 1.6;
+        }
+        
+        .level-meta {
+            color: #3b82f6;
+            font-weight: 600;
+            margin-top: 0.5rem;
+            font-size: 0.95em;
+        }
+        
+        .foundation .level-meta {
+            color: #64748b;
+        }
+        
+        /* Cards elegantes ORIGINAIS - mas organizados por nível */
+        .lessons-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .lesson-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            border: 2px solid #f1f5f9;
+            height: 300px;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+        
+        .lesson-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 20px 40px rgba(30, 58, 138, 0.12);
+            border-color: #e2e8f0;
+        }
+        
+        .lesson-header {
+            background: linear-gradient(135deg, #f8fafc, #f1f5f9);
+            padding: 1.5rem;
+            text-align: center;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        
+        .foundation-lesson .lesson-header {
+            background: linear-gradient(135deg, #f8fafc, #f1f5f9);
+        }
+        
+        .lesson-icon {
+            font-size: 2.5em;
+            margin-bottom: 0.75rem;
+            display: block;
+        }
+        
+        .lesson-title {
+            font-size: 1.1em;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 0.5rem;
+            line-height: 1.3;
+        }
+        
+        .lesson-description {
+            color: #64748b;
+            font-size: 0.9em;
+            font-weight: 500;
+            line-height: 1.4;
+        }
+        
+        .lesson-content {
+            padding: 1rem 1.5rem;
+            flex-grow: 1;
+        }
+        
+        .lesson-features {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .lesson-features li {
+            color: #64748b;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            position: relative;
+            padding-left: 1.5rem;
+            font-size: 0.85em;
+        }
+        
+        .lesson-features li::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: #3b82f6;
+            font-weight: 900;
+            font-size: 1.2em;
+        }
+        
+        .foundation-lesson .lesson-features li::before {
+            color: #64748b;
+        }
+        
+        .lesson-footer {
+            padding: 1.5rem;
+        }
+        
+        .lesson-button {
+            width: 100%;
+            background: linear-gradient(135deg, #1e3a8a, #3b82f6);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.9em;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .foundation-lesson .lesson-button {
+            background: linear-gradient(135deg, #475569, #64748b);
+        }
+        
+        .lesson-button:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 20px rgba(30, 58, 138, 0.25);
+        }
+        
+        .foundation-lesson .lesson-button:hover {
+            box-shadow: 0 6px 20px rgba(71, 85, 105, 0.25);
+        }
+        
+        /* Progress badges elegantes ORIGINAIS */
+        .progress-badge {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: linear-gradient(135deg, #3b82f6, #1e40af);
+            color: white;
+            padding: 0.4rem 0.8rem;
+            border-radius: 12px;
+            font-size: 0.75em;
+            font-weight: 700;
+            border: 2px solid white;
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+            z-index: 5;
+        }
+        
+        .progress-badge.excellent {
+            background: linear-gradient(135deg, #1e293b, #334155);
+            box-shadow: 0 4px 12px rgba(30, 41, 59, 0.3);
+        }
+        
+        .progress-badge.perfect {
+            background: linear-gradient(135deg, #dc2626, #b91c1c);
+            box-shadow: 0 4px 12px rgba(220, 38, 38, 0.3);
+        }
+        
+        /* Study tips elegantes ORIGINAIS */
+        .study-tips {
+            background: linear-gradient(135deg, #f8fafc, #f1f5f9);
+            border: 2px solid #e2e8f0;
+        }
+        
+        .study-tips .instruction-item {
+            background: white;
+            border: 1px solid #e2e8f0;
+            transition: all 0.2s ease;
+        }
+        
+        .study-tips .instruction-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(15, 23, 42, 0.08);
+        }
+        
+        .study-tips .instruction-number {
+            font-size: 1.5em;
+            background: linear-gradient(135deg, #1e3a8a, #3b82f6);
+            width: 50px;
+            height: 50px;
+            box-shadow: 0 4px 12px rgba(30, 58, 138, 0.25);
+        }
+        
+        /* Loading states */
+        .loading {
+            opacity: 0.7;
+            pointer-events: none;
+        }
+        
+        /* Mobile responsiveness ORIGINAL */
+        @media (max-width: 768px) {
+            .listening-hero {
+                padding: 2rem;
+            }
+            
+            .hero-title {
+                font-size: 2.2em;
+            }
+            
+            .hero-stats {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1rem;
+            }
+            
+            .lessons-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+            
+            .lesson-card {
+                height: auto;
+                min-height: 260px;
+            }
+            
+            .level-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+        }
+    </style>
 </head>
 <body>
-    <!-- User Widget Moderno -->
+    <!-- User Widget Moderno ORIGINAL -->
     <aside class="user-widget" aria-label="Informações do Usuário">
         <div class="user-avatar" data-user-avatar>A</div>
         <span class="user-name" data-user-name>Aluno</span>
@@ -20,248 +374,330 @@
 
     <!-- Main Container -->
     <div class="container">
-        <!-- Back Navigation - CORRIGIDO -->
+        <!-- Back Navigation -->
         <a href="../../index.html" class="back-button">
             ← Voltar ao Dashboard
         </a>
         
-        <!-- Header -->
-        <header class="header">
-            <h1 class="logo">
-                Teacher Alex <span class="logo-highlight">English Academy</span> BETA
-            </h1>
-            <h2 class="hub-title">📚 Graded Readers Hub</h2>
-            <p class="hub-subtitle">Hub organizado com histórias por nível para absorção de vocabulário</p>
-        </header>
+        <!-- Hero Section Elegante ORIGINAL -->
+        <section class="listening-hero">
+            <div class="hero-content">
+                <h1 class="hero-title">🎧 Listening Practice</h1>
+                <p class="hero-subtitle">Desenvolva sua compreensão auditiva com diálogos autênticos e progressivos</p>
+                
+                <div class="hero-stats">
+                    <div class="hero-stat">
+                        <span class="hero-stat-number" data-foundation-progress>0%</span>
+                        <span class="hero-stat-label">Foundation</span>
+                    </div>
+                    <div class="hero-stat">
+                        <span class="hero-stat-number" data-beginner-progress>0%</span>
+                        <span class="hero-stat-label">Beginner</span>
+                    </div>
+                    <div class="hero-stat">
+                        <span class="hero-stat-number" data-intermediate-progress>0%</span>
+                        <span class="hero-stat-label">Intermediate</span>
+                    </div>
+                    <div class="hero-stat">
+                        <span class="hero-stat-number" data-advanced-progress>0%</span>
+                        <span class="hero-stat-label">Advanced</span>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-        <!-- A1 Level -->
-        <section class="level-section level-a1">
+        <!-- Foundation Lessons VISUAL ORIGINAL + NAVEGAÇÃO CORRIGIDA -->
+        <section class="level-section foundation">
             <header class="level-header">
-                <div class="level-badge">A1 - Beginner</div>
+                <div class="level-badge">Foundation</div>
                 <div class="level-info">
-                    <h2 class="level-title">Nível Iniciante</h2>
-                    <p class="level-description">Vocabulário básico e gramática simples para começar sua jornada no inglês</p>
+                    <h2>Foundation Level</h2>
+                    <p>Base sólida com vocabulário essencial e estruturas fundamentais para construir confiança auditiva</p>
+                    <div class="level-meta">Áudio 1-3 • Nível A1 • Vocabulário básico</div>
                 </div>
             </header>
             
-            <div class="stories-grid">
-                <article class="story-card" onclick="navigateToStory('roommate')">
-                    <div class="story-header">
-                        <div class="story-icon">🏠</div>
-                        <h3 class="story-title">The Roommate Problem</h3>
-                        <p class="story-description">Sarah e Emma enfrentam problemas de convivência que testam sua amizade e ensinam lições valiosas</p>
+            <div class="lessons-grid">
+                <article class="lesson-card foundation-lesson" onclick="navigateToLevel('foundation')">
+                    <div class="lesson-header">
+                        <div class="lesson-icon">👋</div>
+                        <h3 class="lesson-title">Foundation Survival Kit</h3>
+                        <p class="lesson-description">Primeiras apresentações e vocabulário essencial</p>
                     </div>
-                    <div class="story-content">
-                        <ul class="story-features">
-                            <li>3 capítulos progressivos</li>
-                            <li>Vocabulário do dia a dia</li>
-                            <li>Gramática básica essencial</li>
-                            <li>Áudio IA de alta qualidade</li>
-                            <li>Sistema de badges motivador</li>
+                    <div class="lesson-content">
+                        <ul class="lesson-features">
+                            <li>Vocabulário de sobrevivência</li>
+                            <li>Frases de emergência</li>
+                            <li>Conversas básicas do dia a dia</li>
                         </ul>
                     </div>
-                    <div class="story-footer">
-                        <button class="story-button">Começar História A1</button>
-                    </div>
-                    <div class="progress-badge" id="roommateProgress">✅ Disponível</div>
-                </article>
-
-                <article class="story-card coming-soon" onclick="showComingSoon('New Friends at School')">
-                    <div class="story-header">
-                        <div class="story-icon">🌟</div>
-                        <h3 class="story-title">New Friends at School</h3>
-                        <p class="story-description">Uma história tocante sobre fazer novos amigos e superar a timidez no ambiente escolar</p>
-                    </div>
-                    <div class="story-content">
-                        <ul class="story-features">
-                            <li>4 capítulos envolventes</li>
-                            <li>Vocabulário escolar básico</li>
-                            <li>Expressões de amizade</li>
-                            <li>Áudio IA naturalizado</li>
-                            <li>Situações do cotidiano</li>
-                        </ul>
-                    </div>
-                    <div class="story-footer">
-                        <button class="story-button coming-soon-button">🚀 Em Breve</button>
+                    <div class="lesson-footer">
+                        <button class="lesson-button">Acessar Foundation</button>
                     </div>
                 </article>
 
-                <article class="story-card coming-soon" onclick="showComingSoon('The Pizza Restaurant')">
-                    <div class="story-header">
-                        <div class="story-icon">🍕</div>
-                        <h3 class="story-title">The Pizza Restaurant</h3>
-                        <p class="story-description">Aventuras e confusões divertidas em um restaurante familiar italiano</p>
+                <article class="lesson-card foundation-lesson" onclick="navigateToLevel('foundation')">
+                    <div class="lesson-header">
+                        <div class="lesson-icon">🏠</div>
+                        <h3 class="lesson-title">Daily Essentials</h3>
+                        <p class="lesson-description">Família, casa e rotina doméstica</p>
                     </div>
-                    <div class="story-content">
-                        <ul class="story-features">
-                            <li>3 capítulos cheios de humor</li>
-                            <li>Vocabulário de comida e restaurante</li>
-                            <li>Situações práticas do dia a dia</li>
-                            <li>Áudio IA expressivo</li>
-                            <li>Cultura italiana básica</li>
+                    <div class="lesson-content">
+                        <ul class="lesson-features">
+                            <li>Membros da família</li>
+                            <li>Cômodos e objetos da casa</li>
+                            <li>Rotina diária básica</li>
                         </ul>
                     </div>
-                    <div class="story-footer">
-                        <button class="story-button coming-soon-button">🚀 Em Breve</button>
+                    <div class="lesson-footer">
+                        <button class="lesson-button">Acessar Foundation</button>
+                    </div>
+                </article>
+
+                <article class="lesson-card foundation-lesson" onclick="navigateToLevel('foundation')">
+                    <div class="lesson-header">
+                        <div class="lesson-icon">🚨</div>
+                        <h3 class="lesson-title">Emergency English</h3>
+                        <p class="lesson-description">Situações de emergência e ajuda</p>
+                    </div>
+                    <div class="lesson-content">
+                        <ul class="lesson-features">
+                            <li>Pedindo ajuda e direções</li>
+                            <li>Situações de emergência</li>
+                            <li>Frases de cortesia</li>
+                        </ul>
+                    </div>
+                    <div class="lesson-footer">
+                        <button class="lesson-button">Acessar Foundation</button>
                     </div>
                 </article>
             </div>
         </section>
 
-        <!-- A2 Level -->
-        <section class="level-section level-a2">
+        <!-- Beginner Lessons VISUAL ORIGINAL + NAVEGAÇÃO CORRIGIDA -->
+        <section class="level-section regular">
             <header class="level-header">
-                <div class="level-badge">A2 - Elementary</div>
+                <div class="level-badge">Beginner</div>
                 <div class="level-info">
-                    <h2 class="level-title">Nível Elementar</h2>
-                    <p class="level-description">Expansão vocabular e estruturas mais complexas para consolidar o aprendizado</p>
+                    <h2>Beginner Level</h2>
+                    <p>Expanda seu vocabulário com diálogos mais longos e situações cotidianas reais</p>
+                    <div class="level-meta">Áudio 4-6 • Nível A2 • Situações cotidianas</div>
                 </div>
             </header>
             
-            <div class="stories-grid">
-                <article class="story-card" onclick="navigateToStory('reader')">
-                    <div class="story-header">
-                        <div class="story-icon">🏚️</div>
-                        <h3 class="story-title">The Secret in the Old House</h3>
-                        <p class="story-description">Emma descobre mistérios fascinantes escondidos na casa antiga de sua nova vizinha Mrs. Peterson</p>
+            <div class="lessons-grid">
+                <article class="lesson-card regular-lesson" onclick="navigateToLevel('beginner')">
+                    <div class="lesson-header">
+                        <div class="lesson-icon">✈️</div>
+                        <h3 class="lesson-title">Travel & Transport</h3>
+                        <p class="lesson-description">Viagens, aeroportos e transporte público</p>
                     </div>
-                    <div class="story-content">
-                        <ul class="story-features">
-                            <li>4 capítulos de mistério envolvente</li>
-                            <li>Vocabulário intermediário rico</li>
-                            <li>Gramática A2 estruturada</li>
-                            <li>Áudio IA dramatizado</li>
-                            <li>Narrativa cativante</li>
+                    <div class="lesson-content">
+                        <ul class="lesson-features">
+                            <li>Check-in e aeroportos</li>
+                            <li>Transporte público</li>
+                            <li>Hotéis e reservas</li>
                         </ul>
                     </div>
-                    <div class="story-footer">
-                        <button class="story-button">Começar História A2</button>
-                    </div>
-                    <div class="progress-badge" id="readerProgress">✅ Disponível</div>
-                </article>
-
-                <article class="story-card coming-soon" onclick="showComingSoon('The School Play')">
-                    <div class="story-header">
-                        <div class="story-icon">🎭</div>
-                        <h3 class="story-title">The School Play</h3>
-                        <p class="story-description">Drama e comédia nos bastidores de uma peça teatral escolar cheia de emoções</p>
-                    </div>
-                    <div class="story-content">
-                        <ul class="story-features">
-                            <li>5 capítulos dramáticos</li>
-                            <li>Vocabulário artístico e teatral</li>
-                            <li>Expressões emotivas avançadas</li>
-                            <li>Áudio IA dramatizado</li>
-                            <li>Cultura teatral básica</li>
-                        </ul>
-                    </div>
-                    <div class="story-footer">
-                        <button class="story-button coming-soon-button">🚀 Em Breve</button>
+                    <div class="lesson-footer">
+                        <button class="lesson-button">Acessar Beginner</button>
                     </div>
                 </article>
 
-                <article class="story-card coming-soon" onclick="showComingSoon('Summer Beach Adventure')">
-                    <div class="story-header">
-                        <div class="story-icon">🌊</div>
-                        <h3 class="story-title">Summer Beach Adventure</h3>
-                        <p class="story-description">Férias de verão cheias de aventura, descobertas e amizades na costa californiana</p>
+                <article class="lesson-card regular-lesson" onclick="navigateToLevel('beginner')">
+                    <div class="lesson-header">
+                        <div class="lesson-icon">🍽️</div>
+                        <h3 class="lesson-title">Food & Restaurants</h3>
+                        <p class="lesson-description">Restaurantes, pedidos e experiências gastronômicas</p>
                     </div>
-                    <div class="story-content">
-                        <ul class="story-features">
-                            <li>4 capítulos de aventura</li>
-                            <li>Vocabulário de viagem e praia</li>
-                            <li>Tempos verbais variados</li>
-                            <li>Áudio IA relaxante</li>
-                            <li>Cultura americana costeira</li>
+                    <div class="lesson-content">
+                        <ul class="lesson-features">
+                            <li>Fazendo pedidos</li>
+                            <li>Especialidades culinárias</li>
+                            <li>Reclamações e elogios</li>
                         </ul>
                     </div>
-                    <div class="story-footer">
-                        <button class="story-button coming-soon-button">🚀 Em Breve</button>
+                    <div class="lesson-footer">
+                        <button class="lesson-button">Acessar Beginner</button>
                     </div>
                 </article>
 
-                <article class="story-card coming-soon" onclick="showComingSoon('The Science Competition')">
-                    <div class="story-header">
-                        <div class="story-icon">🔬</div>
-                        <h3 class="story-title">The Science Competition</h3>
-                        <p class="story-description">Rivalidade saudável e parceria inesperada em uma competição científica estudantil</p>
+                <article class="lesson-card regular-lesson" onclick="navigateToLevel('beginner')">
+                    <div class="lesson-header">
+                        <div class="lesson-icon">🛒</div>
+                        <h3 class="lesson-title">Shopping & Services</h3>
+                        <p class="lesson-description">Compras, serviços e negociações</p>
                     </div>
-                    <div class="story-content">
-                        <ul class="story-features">
-                            <li>4 capítulos educativos</li>
-                            <li>Vocabulário científico básico</li>
-                            <li>Estruturas comparativas</li>
-                            <li>Áudio IA educativo</li>
-                            <li>Método científico simplificado</li>
+                    <div class="lesson-content">
+                        <ul class="lesson-features">
+                            <li>Diferentes tipos de lojas</li>
+                            <li>Negociação de preços</li>
+                            <li>Devoluções e trocas</li>
                         </ul>
                     </div>
-                    <div class="story-footer">
-                        <button class="story-button coming-soon-button">🚀 Em Breve</button>
+                    <div class="lesson-footer">
+                        <button class="lesson-button">Acessar Beginner</button>
                     </div>
                 </article>
             </div>
         </section>
 
-        <!-- B1 Level -->
-        <section class="level-section level-b1">
+        <!-- Intermediate Lessons VISUAL ORIGINAL + NAVEGAÇÃO CORRIGIDA -->
+        <section class="level-section regular">
             <header class="level-header">
-                <div class="level-badge">B1 - Intermediate</div>
+                <div class="level-badge">Intermediate</div>
                 <div class="level-info">
-                    <h2 class="level-title">Nível Intermediário</h2>
-                    <p class="level-description">Para seus poucos alunos avançados - preparação séria para fluência</p>
+                    <h2>Intermediate Level</h2>
+                    <p>Domine conversas complexas com múltiplos interlocutores e contextos variados</p>
+                    <div class="level-meta">Áudio 7-9 • Nível B1 • Múltiplos contextos</div>
                 </div>
             </header>
             
-            <div class="stories-grid">
-                <article class="story-card coming-soon" onclick="showComingSoon('The Job Interview')">
-                    <div class="story-header">
-                        <div class="story-icon">💼</div>
-                        <h3 class="story-title">The Job Interview</h3>
-                        <p class="story-description">Preparação profissional intensa e desafios reais do mundo corporativo moderno</p>
+            <div class="lessons-grid">
+                <article class="lesson-card regular-lesson" onclick="navigateToLevel('intermediate')">
+                    <div class="lesson-header">
+                        <div class="lesson-icon">💼</div>
+                        <h3 class="lesson-title">Work & Business</h3>
+                        <p class="lesson-description">Ambiente profissional e entrevistas</p>
                     </div>
-                    <div class="story-content">
-                        <ul class="story-features">
-                            <li>5 capítulos profissionais</li>
-                            <li>Vocabulário corporativo avançado</li>
-                            <li>Gramática B1 complexa</li>
-                            <li>Áudio IA profissional</li>
-                            <li>Situações de trabalho reais</li>
+                    <div class="lesson-content">
+                        <ul class="lesson-features">
+                            <li>Entrevistas de emprego</li>
+                            <li>Reuniões de trabalho</li>
+                            <li>Apresentações profissionais</li>
                         </ul>
                     </div>
-                    <div class="story-footer">
-                        <button class="story-button coming-soon-button">🚀 Em Breve</button>
+                    <div class="lesson-footer">
+                        <button class="lesson-button">Acessar Intermediate</button>
                     </div>
                 </article>
 
-                <article class="story-card coming-soon" onclick="showComingSoon('Around the World')">
-                    <div class="story-header">
-                        <div class="story-icon">🌍</div>
-                        <h3 class="story-title">Around the World</h3>
-                        <p class="story-description">Viagem cultural fascinante pelos continentes e suas tradições únicas</p>
+                <article class="lesson-card regular-lesson" onclick="navigateToLevel('intermediate')">
+                    <div class="lesson-header">
+                        <div class="lesson-icon">🏥</div>
+                        <h3 class="lesson-title">Health & Services</h3>
+                        <p class="lesson-description">Consultas médicas e serviços especializados</p>
                     </div>
-                    <div class="story-content">
-                        <ul class="story-features">
-                            <li>6 capítulos globais</li>
-                            <li>Vocabulário cultural diversificado</li>
-                            <li>Estruturas linguísticas complexas</li>
-                            <li>Áudio IA multicultural</li>
-                            <li>Geografia e história mundial</li>
+                    <div class="lesson-content">
+                        <ul class="lesson-features">
+                            <li>Consultas médicas detalhadas</li>
+                            <li>Sintomas e tratamentos</li>
+                            <li>Serviços especializados</li>
                         </ul>
                     </div>
-                    <div class="story-footer">
-                        <button class="story-button coming-soon-button">🚀 Em Breve</button>
+                    <div class="lesson-footer">
+                        <button class="lesson-button">Acessar Intermediate</button>
                     </div>
                 </article>
+
+                <article class="lesson-card regular-lesson" onclick="navigateToLevel('intermediate')">
+                    <div class="lesson-header">
+                        <div class="lesson-icon">💻</div>
+                        <h3 class="lesson-title">Technology & Problems</h3>
+                        <p class="lesson-description">Problemas tecnológicos e soluções modernas</p>
+                    </div>
+                    <div class="lesson-content">
+                        <ul class="lesson-features">
+                            <li>Suporte técnico avançado</li>
+                            <li>Gadgets e aplicativos</li>
+                            <li>Soluções criativas</li>
+                        </ul>
+                    </div>
+                    <div class="lesson-footer">
+                        <button class="lesson-button">Acessar Intermediate</button>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <!-- Advanced Lessons VISUAL ORIGINAL + NAVEGAÇÃO CORRIGIDA -->
+        <section class="level-section regular">
+            <header class="level-header">
+                <div class="level-badge">Advanced</div>
+                <div class="level-info">
+                    <h2>Advanced Level</h2>
+                    <p>Desafie-se com conteúdo nativo, gírias e expressões complexas em situações profissionais</p>
+                    <div class="level-meta">Áudio 10-11 • Nível B2 • Conteúdo nativo</div>
+                </div>
+            </header>
+            
+            <div class="lessons-grid">
+                <article class="lesson-card regular-lesson" onclick="navigateToLevel('advanced')">
+                    <div class="lesson-header">
+                        <div class="lesson-icon">🏠</div>
+                        <h3 class="lesson-title">Real Estate & Moving</h3>
+                        <p class="lesson-description">Mudanças, imóveis e novos vizinhos</p>
+                    </div>
+                    <div class="lesson-content">
+                        <ul class="lesson-features">
+                            <li>Aluguel e compra de imóveis</li>
+                            <li>Empresas de mudança</li>
+                            <li>Integração em novos bairros</li>
+                        </ul>
+                    </div>
+                    <div class="lesson-footer">
+                        <button class="lesson-button">Acessar Advanced</button>
+                    </div>
+                </article>
+
+                <article class="lesson-card regular-lesson" onclick="navigateToLevel('advanced')">
+                    <div class="lesson-header">
+                        <div class="lesson-icon">🎭</div>
+                        <h3 class="lesson-title">Culture & Events</h3>
+                        <p class="lesson-description">Eventos culturais, arte e tradições</p>
+                    </div>
+                    <div class="lesson-content">
+                        <ul class="lesson-features">
+                            <li>Festivais e celebrações</li>
+                            <li>Arte e expressões culturais</li>
+                            <li>Discussões aprofundadas</li>
+                        </ul>
+                    </div>
+                    <div class="lesson-footer">
+                        <button class="lesson-button">Acessar Advanced</button>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <!-- Study Tips elegantes ORIGINAIS -->
+        <section class="info-section study-tips">
+            <h2 class="info-title">💡 Estratégias de Listening</h2>
+            <div class="instructions">
+                <div class="instruction-item">
+                    <div class="instruction-number">🎧</div>
+                    <div class="instruction-text">
+                        <strong>Equipamento de Qualidade:</strong> Use fones de ouvido para captar todos os detalhes dos diálogos nativos.
+                    </div>
+                </div>
+                <div class="instruction-item">
+                    <div class="instruction-number">🔄</div>
+                    <div class="instruction-text">
+                        <strong>Técnica de Repetição:</strong> Primeira escuta para contexto geral, segunda para detalhes específicos.
+                    </div>
+                </div>
+                <div class="instruction-item">
+                    <div class="instruction-number">📝</div>
+                    <div class="instruction-text">
+                        <strong>Registro de Vocabulário:</strong> Anote expressões e palavras novas para revisão posterior.
+                    </div>
+                </div>
+                <div class="instruction-item">
+                    <div class="instruction-number">⚡</div>
+                    <div class="instruction-text">
+                        <strong>Progressão Gradual:</strong> Complete cada nível antes de avançar para garantir base sólida.
+                    </div>
+                </div>
             </div>
         </section>
     </div>
 
     <!-- Scripts -->
     <script>
-        // ===== AUTH SYSTEM - CAMINHOS CORRIGIDOS =====
+        // ===== AUTH SYSTEM =====
         function checkLogin() {
             if (sessionStorage.getItem('studentLoggedIn') !== 'true') {
-                window.location.href = '../auth/login.html';
+                window.location.href = '../../pages/auth/login.html';
                 return false;
             }
             return true;
@@ -270,7 +706,7 @@
         function logout() {
             sessionStorage.removeItem('studentLoggedIn');
             sessionStorage.removeItem('studentUsername');
-            window.location.href = '../auth/login.html';
+            window.location.href = '../../pages/auth/login.html';
         }
 
         function getStudentName() {
@@ -283,8 +719,25 @@
             throw new Error('Access denied');
         }
 
-        // ===== PROGRESS SYSTEM - GAMIFICAÇÃO =====
-        class ProgressTracker {
+        // ===== NAVEGAÇÃO CORRIGIDA - MANTÉM VISUAL ELEGANTE =====
+        function navigateToLevel(level) {
+            const card = event.currentTarget;
+            const button = card.querySelector('.lesson-button');
+            const originalText = button.textContent;
+            
+            // Clean loading state ORIGINAL
+            button.textContent = 'Carregando...';
+            button.style.background = '#64748b';
+            card.classList.add('loading');
+            
+            // ✅ NAVEGAÇÃO CORRIGIDA - PATHS QUE EXISTEM
+            setTimeout(() => {
+                window.location.href = `../listening/${level}.html`;
+            }, 600);
+        }
+
+        // ===== ELEGANT PROGRESS SYSTEM ORIGINAL =====
+        class ElegantProgressTracker {
             constructor() {
                 this.studentId = sessionStorage.getItem('studentUsername') || 'student';
                 this.progressKey = `progress_${this.studentId}`;
@@ -297,7 +750,17 @@
                     this.data = JSON.parse(saved);
                 } else {
                     this.data = {
-                        listening: { lessonsCompleted: [], bestScores: {}, badges: [] },
+                        listening: { 
+                            levelsCompleted: [],
+                            currentLevel: 'foundation',
+                            bestScores: {
+                                foundation: 0,
+                                beginner: 0,
+                                intermediate: 0,
+                                advanced: 0
+                            },
+                            badges: [] 
+                        },
                         reading: { chaptersCompleted: [], bestScores: {}, badges: [] },
                         roommate: { chaptersCompleted: [], bestScores: {}, badges: [] },
                         neighbor: { chaptersCompleted: [], bestScores: {}, badges: [] },
@@ -305,99 +768,102 @@
                         totalStudyTime: 0
                     };
                 }
-                // Garantir compatibilidade
-                if (!this.data.roommate) this.data.roommate = { chaptersCompleted: [], bestScores: {}, badges: [] };
-                if (!this.data.neighbor) this.data.neighbor = { chaptersCompleted: [], bestScores: {}, badges: [] };
-                if (!this.data.reading) this.data.reading = { chaptersCompleted: [], bestScores: {}, badges: [] };
             }
 
-            getProgressBadge(category, totalChapters) {
-                const completed = this.data[category] ? this.data[category].chaptersCompleted.length : 0;
-                if (completed === 0) return '✅ Disponível';
-                if (completed === totalChapters) return '🏆 Completo';
-                return `${completed}/${totalChapters} ✓`;
+            isLevelCompleted(level) {
+                return this.data.listening.levelsCompleted.includes(level);
+            }
+
+            getLevelScore(level) {
+                return this.data.listening.bestScores[level] || 0;
+            }
+
+            getLevelProgress(level) {
+                const score = this.getLevelScore(level);
+                return score > 0 ? `${score}%` : '0%';
             }
         }
 
-        // ===== NAVIGATION WITH LOADING - CAMINHOS CORRETOS PARA ESTRUTURA REAL =====
-        function navigateToStory(storyId) {
-            const card = event.currentTarget;
-            const button = card.querySelector('.story-button');
-            const originalText = button.textContent;
-            
-            button.textContent = 'Carregando...';
-            button.style.background = '#6b7280';
-            card.style.opacity = '0.7';
-            
-            setTimeout(() => {
-                if (storyId === 'roommate') {
-                    window.location.href = '../reading/graded/roommate-problem-story.html';
-                } else if (storyId === 'reader') {
-                    window.location.href = '../reading/graded/secret-house-story.html';
-                }
-            }, 800);
-        }
-
-        function showComingSoon(storyTitle) {
-            const messages = [
-                `🚀 "${storyTitle}" está em desenvolvimento!`,
-                `📚 Em breve teremos esta história incrível!`,
-                `⭐ Continue praticando enquanto preparamos "${storyTitle}"!`,
-                `🎯 Sua dedicação será recompensada quando "${storyTitle}" for lançada!`
-            ];
-            alert(messages[Math.floor(Math.random() * messages.length)]);
-        }
-
-        // ===== INITIALIZATION =====
-        function initializePage() {
+        // ===== ELEGANT INITIALIZATION ORIGINAL =====
+        function initializeElegantPage() {
             const studentName = getStudentName();
-            const progressTracker = new ProgressTracker();
+            const progressTracker = new ElegantProgressTracker();
             
             // Update user info
             document.querySelector('[data-user-name]').textContent = 
                 studentName.charAt(0).toUpperCase() + studentName.slice(1).toLowerCase();
             document.querySelector('[data-user-avatar]').textContent = studentName.charAt(0).toUpperCase();
             
-            // Add progress badges - GAMIFICAÇÃO
-            addProgressBadges(progressTracker);
+            // Update hero stats
+            updateHeroStats(progressTracker);
             
-            console.log(`✅ Graded Readers Hub carregado - usuário: ${studentName}`);
-            console.log('🎮 Sistema de gamificação ativo');
-            console.log('🧹 CSS 100% externo - ZERO inline!');
-            console.log('🔗 TODOS OS LINKS CORRIGIDOS!');
+            // Add elegant progress badges
+            addElegantProgressBadges(progressTracker);
+            
+            console.log('✨ Listening Hub Elegante RESTAURADO');
+            console.log(`👤 Usuário: ${studentName}`);
+            console.log('🎨 Design sofisticado ORIGINAL mantido');
+            console.log('✅ Navegação CORRIGIDA funcionando');
         }
 
-        function addProgressBadges(progressTracker) {
-            // Roommate Progress Badge
-            const roommateProgress = document.getElementById('roommateProgress');
-            if (roommateProgress) {
-                roommateProgress.textContent = progressTracker.getProgressBadge('roommate', 3);
-                if (progressTracker.data.roommate && progressTracker.data.roommate.chaptersCompleted.length > 0) {
-                    roommateProgress.style.background = 'linear-gradient(135deg, #10b981, #059669)';
-                    roommateProgress.style.color = 'white';
-                }
-            }
+        function updateHeroStats(progressTracker) {
+            document.querySelector('[data-foundation-progress]').textContent = 
+                progressTracker.getLevelProgress('foundation');
+            document.querySelector('[data-beginner-progress]').textContent = 
+                progressTracker.getLevelProgress('beginner');
+            document.querySelector('[data-intermediate-progress]').textContent = 
+                progressTracker.getLevelProgress('intermediate');
+            document.querySelector('[data-advanced-progress]').textContent = 
+                progressTracker.getLevelProgress('advanced');
+        }
+
+        function addElegantProgressBadges(progressTracker) {
+            const levelCards = document.querySelectorAll('.lesson-card');
             
-            // Reader Progress Badge  
-            const readerProgress = document.getElementById('readerProgress');
-            if (readerProgress) {
-                readerProgress.textContent = progressTracker.getProgressBadge('reading', 4);
-                if (progressTracker.data.reading && progressTracker.data.reading.chaptersCompleted.length > 0) {
-                    readerProgress.style.background = 'linear-gradient(135deg, #10b981, #059669)';
-                    readerProgress.style.color = 'white';
+            levelCards.forEach((card) => {
+                // Determina o nível baseado na classe do card
+                let level = '';
+                if (card.classList.contains('foundation-lesson')) level = 'foundation';
+                else if (card.classList.contains('regular-lesson')) {
+                    const section = card.closest('.level-section');
+                    const badge = section.querySelector('.level-badge');
+                    level = badge.textContent.toLowerCase();
                 }
-            }
+                
+                if (level && progressTracker.isLevelCompleted(level)) {
+                    const badge = document.createElement('div');
+                    const score = progressTracker.getLevelScore(level);
+                    
+                    // Elegant badge styling ORIGINAL
+                    if (score >= 95) {
+                        badge.className = 'progress-badge perfect';
+                        badge.textContent = `${score}% ★`;
+                    } else if (score >= 85) {
+                        badge.className = 'progress-badge excellent';
+                        badge.textContent = `${score}% ✓`;
+                    } else {
+                        badge.className = 'progress-badge';
+                        badge.textContent = `${score}%`;
+                    }
+                    
+                    card.classList.add('completed');
+                    card.appendChild(badge);
+                }
+            });
         }
 
         // ===== EVENT LISTENERS =====
-        document.addEventListener('DOMContentLoaded', initializePage);
+        document.addEventListener('DOMContentLoaded', initializeElegantPage);
 
-        console.log('✅ Graded Readers Hub - CSS COMPLETAMENTE LIMPO!');
-        console.log('🎨 Usando apenas classes externas');
-        console.log('🎮 Gamificação 100% preservada');
-        console.log('📱 Mobile PWA otimizado');
-        console.log('📦 Tamanho: ~70% menor sem CSS inline');
-        console.log('🔗 Links corrigidos para estrutura pages/');
+        // ===== DEBUGGING =====
+        console.log('🔧 LISTENING HUB - VISUAL ELEGANTE RESTAURADO + NAVEGAÇÃO FUNCIONANDO');
+        console.log('✅ Foundation → ../listening/foundation.html');
+        console.log('✅ Beginner → ../listening/beginner.html');
+        console.log('✅ Intermediate → ../listening/intermediate.html');
+        console.log('✅ Advanced → ../listening/advanced.html');
+        console.log('🎨 Todo o design elegante ORIGINAL mantido');
+        console.log('✨ Cards bonitos + Animações + Hero elegante');
+        console.log('🎯 Paths corretos + Visual lindo = PERFEITO!');
     </script>
 </body>
 </html>
