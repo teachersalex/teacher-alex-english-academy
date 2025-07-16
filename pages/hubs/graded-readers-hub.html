@@ -319,7 +319,7 @@
             }
         }
 
-        // ===== NAVIGATION WITH LOADING - CAMINHOS CORRIGIDOS =====
+        // ===== NAVIGATION - LINKS PARA OS ARQUIVOS QUE REALMENTE EXISTEM! =====
         function navigateToStory(storyId) {
             const card = event.currentTarget;
             const button = card.querySelector('.story-button');
@@ -331,9 +331,11 @@
             
             setTimeout(() => {
                 if (storyId === 'roommate') {
-                    window.location.href = '../reading/roommate.html';
+                    // ✅ CORRETO: vai para o arquivo que EXISTE
+                    window.location.href = '../reading/graded/roommate-problem-story.html';
                 } else if (storyId === 'reader') {
-                    window.location.href = '../reading/reader.html';
+                    // ✅ CORRETO: vai para o arquivo que EXISTE  
+                    window.location.href = '../reading/graded/secret-house-story.html';
                 }
             }, 800);
         }
@@ -364,7 +366,7 @@
             console.log(`✅ Graded Readers Hub carregado - usuário: ${studentName}`);
             console.log('🎮 Sistema de gamificação ativo');
             console.log('🧹 CSS 100% externo - ZERO inline!');
-            console.log('🔗 TODOS OS LINKS CORRIGIDOS!');
+            console.log('🔗 LINKS DEFINITIVAMENTE CORRETOS!');
         }
 
         function addProgressBadges(progressTracker) {
@@ -392,12 +394,10 @@
         // ===== EVENT LISTENERS =====
         document.addEventListener('DOMContentLoaded', initializePage);
 
-        console.log('✅ Graded Readers Hub - CSS COMPLETAMENTE LIMPO!');
-        console.log('🎨 Usando apenas classes externas');
-        console.log('🎮 Gamificação 100% preservada');
-        console.log('📱 Mobile PWA otimizado');
-        console.log('📦 Tamanho: ~70% menor sem CSS inline');
-        console.log('🔗 Links corrigidos para estrutura pages/');
+        console.log('✅ Graded Readers Hub - NAVEGAÇÃO CORRIGIDA!');
+        console.log('🎯 roommate → roommate-problem-story.html');
+        console.log('🎯 reader → secret-house-story.html');
+        console.log('📁 Estrutura: pages/reading/graded/');
     </script>
 </body>
 </html>
