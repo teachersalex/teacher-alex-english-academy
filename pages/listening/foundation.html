@@ -11,171 +11,260 @@
     <link rel="stylesheet" href="../../src/styles/theme-patriot.css">
     
     <style>
-        /* 🎯 ELEGANT FOUNDATION DESIGN SYSTEM */
+        /* 🎯 ELEGANT FOUNDATION DESIGN SYSTEM - REFINED */
         
-        /* Hero section para Foundation */
+        /* Hero section elegante e sofisticado */
         .foundation-hero {
             background: linear-gradient(135deg, #475569 0%, #64748b 50%, #374155 100%);
-            border-radius: 16px;
-            padding: 2.5rem;
-            margin-bottom: 2rem;
+            border-radius: 20px;
+            padding: 3rem;
+            margin-bottom: 3rem;
             position: relative;
+            overflow: hidden;
             border: 1px solid rgba(255,255,255,0.1);
-            box-shadow: 0 20px 60px rgba(71, 85, 105, 0.15);
+            box-shadow: 
+                0 25px 80px rgba(71, 85, 105, 0.15),
+                0 8px 32px rgba(71, 85, 105, 0.1);
+        }
+        
+        .foundation-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.03) 50%, transparent 70%);
+            pointer-events: none;
         }
         
         .hero-content {
+            position: relative;
+            z-index: 2;
             text-align: center;
             color: white;
         }
         
         .foundation-title {
-            font-size: 2.8em;
+            font-size: 3em;
             font-weight: 800;
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.75rem;
             color: white;
-            text-shadow: 0 2px 20px rgba(0,0,0,0.3);
+            text-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            letter-spacing: -0.02em;
         }
         
         .foundation-subtitle {
-            font-size: 1.2em;
+            font-size: 1.25em;
             font-weight: 500;
-            margin-bottom: 2rem;
+            margin-bottom: 2.5rem;
             opacity: 0.9;
             color: #e2e8f0;
+            line-height: 1.5;
         }
         
         .foundation-stats {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-            gap: 1rem;
-            max-width: 400px;
+            grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+            gap: 1.5rem;
+            max-width: 450px;
             margin: 0 auto;
         }
         
         .foundation-stat {
-            background: rgba(255,255,255,0.1);
-            backdrop-filter: blur(10px);
-            padding: 1rem;
-            border-radius: 12px;
-            border: 1px solid rgba(255,255,255,0.15);
+            background: rgba(255,255,255,0.12);
+            backdrop-filter: blur(20px);
+            padding: 1.5rem 1rem;
+            border-radius: 16px;
+            border: 1px solid rgba(255,255,255,0.2);
             text-align: center;
+            transition: all 0.3s ease;
+        }
+        
+        .foundation-stat:hover {
+            transform: translateY(-2px);
+            background: rgba(255,255,255,0.15);
         }
         
         .stat-number {
-            font-size: 1.8em;
+            font-size: 2em;
             font-weight: 800;
             display: block;
-            margin-bottom: 0.25rem;
+            margin-bottom: 0.5rem;
+            color: white;
         }
         
         .stat-label {
-            font-size: 0.85em;
+            font-size: 0.9em;
             opacity: 0.85;
             font-weight: 600;
+            color: #cbd5e1;
         }
         
-        /* Lesson section elegante */
+        /* Lessons section refinada */
         .lessons-section {
             background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
-            border-radius: 16px;
-            padding: 2rem;
-            border: 2px solid #e2e8f0;
-            box-shadow: 0 8px 32px rgba(15, 23, 42, 0.08);
-            margin-bottom: 2rem;
+            border-radius: 20px;
+            padding: 3rem;
+            border: 1px solid #e2e8f0;
+            box-shadow: 
+                0 20px 60px rgba(15, 23, 42, 0.08),
+                0 8px 32px rgba(15, 23, 42, 0.04);
+            margin-bottom: 3rem;
+            position: relative;
+        }
+        
+        .lessons-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #475569, #64748b);
+            border-radius: 20px 20px 0 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 1.75em;
+            font-weight: 800;
+            color: #1e293b;
+            margin-bottom: 2.5rem;
+            letter-spacing: -0.01em;
         }
         
         .lessons-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1.5rem;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
             margin-bottom: 2rem;
         }
         
-        /* Foundation lesson cards */
+        /* Cards das lições mais elegantes */
         .lesson-card {
             background: white;
-            border-radius: 12px;
-            padding: 1.5rem;
+            border-radius: 16px;
+            padding: 2rem 1.5rem;
             text-align: center;
             cursor: pointer;
             border: 2px solid #f1f5f9;
-            height: 200px;
+            height: auto;
+            min-height: 220px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
+            overflow: hidden;
+        }
+        
+        .lesson-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, transparent 0%, rgba(71, 85, 105, 0.02) 100%);
+            transition: all 0.4s ease;
+            opacity: 0;
         }
         
         .lesson-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 12px 32px rgba(71, 85, 105, 0.15);
-            border-color: #e2e8f0;
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 
+                0 25px 50px rgba(71, 85, 105, 0.15),
+                0 10px 30px rgba(71, 85, 105, 0.1);
+            border-color: #cbd5e1;
+        }
+        
+        .lesson-card:hover::before {
+            opacity: 1;
         }
         
         .lesson-card.active {
-            background: linear-gradient(135deg, #475569, #64748b);
+            background: linear-gradient(135deg, #475569 0%, #64748b 100%);
             color: white;
             border-color: #475569;
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(71, 85, 105, 0.3);
+            transform: translateY(-4px) scale(1.05);
+            box-shadow: 
+                0 25px 50px rgba(71, 85, 105, 0.25),
+                0 10px 30px rgba(71, 85, 105, 0.15);
         }
         
         .lesson-card.completed {
-            background: linear-gradient(135deg, #1e293b, #334155);
+            background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
             color: white;
             border-color: #1e293b;
+            transform: translateY(-2px);
+            box-shadow: 
+                0 20px 40px rgba(30, 41, 59, 0.2),
+                0 8px 25px rgba(30, 41, 59, 0.1);
         }
         
         .lesson-header {
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 0.5rem;
-            margin-bottom: 1rem;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            z-index: 2;
         }
         
         .lesson-icon {
-            font-size: 2.5em;
+            font-size: 3em;
             margin-bottom: 0.5rem;
+            transition: all 0.3s ease;
+        }
+        
+        .lesson-card:hover .lesson-icon {
+            transform: scale(1.1) rotate(5deg);
         }
         
         .lesson-number {
             background: linear-gradient(135deg, #475569, #64748b);
             color: white;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            border-radius: 25px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-weight: 700;
-            font-size: 1em;
-            box-shadow: 0 4px 12px rgba(71, 85, 105, 0.3);
+            font-weight: 800;
+            font-size: 1.1em;
+            box-shadow: 0 8px 25px rgba(71, 85, 105, 0.3);
+            transition: all 0.3s ease;
         }
         
         .lesson-card.active .lesson-number,
         .lesson-card.completed .lesson-number {
-            background: rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.25);
+            transform: scale(1.1);
         }
         
         .lesson-title {
-            font-size: 1.1em;
+            font-size: 1.2em;
             font-weight: 700;
             color: #1e293b;
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.75rem;
+            line-height: 1.3;
+            position: relative;
+            z-index: 2;
         }
         
         .lesson-card.active .lesson-title,
         .lesson-card.completed .lesson-title {
-            color: rgba(255, 255, 255, 0.9);
+            color: rgba(255, 255, 255, 0.95);
         }
         
         .lesson-description {
-            font-size: 0.9em;
+            font-size: 0.95em;
             color: #64748b;
-            line-height: 1.4;
+            line-height: 1.5;
+            position: relative;
+            z-index: 2;
         }
         
         .lesson-card.active .lesson-description,
@@ -183,162 +272,157 @@
             color: rgba(255, 255, 255, 0.8);
         }
         
-        /* Progress badge elegante */
+        /* Progress badge mais elegante */
         .completion-badge {
             position: absolute;
-            top: -8px;
-            right: -8px;
-            width: 28px;
-            height: 28px;
+            top: -10px;
+            right: -10px;
+            width: 36px;
+            height: 36px;
             background: linear-gradient(135deg, #1e293b, #334155);
             border-radius: 50%;
             color: white;
-            font-size: 0.8em;
+            font-size: 0.85em;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-weight: 700;
-            border: 2px solid white;
-            box-shadow: 0 4px 12px rgba(30, 41, 59, 0.3);
+            font-weight: 800;
+            border: 3px solid white;
+            box-shadow: 
+                0 8px 25px rgba(30, 41, 59, 0.3),
+                0 4px 12px rgba(30, 41, 59, 0.2);
+            z-index: 5;
+            animation: badgePulse 2s ease-in-out infinite;
         }
         
-        /* Current lesson container */
+        @keyframes badgePulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        
+        /* Current lesson container mais sofisticado */
         .current-lesson {
             background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
-            border-radius: 16px;
-            padding: 2rem;
-            border: 2px solid #e2e8f0;
-            box-shadow: 0 8px 32px rgba(15, 23, 42, 0.08);
-            margin-bottom: 2rem;
+            border-radius: 20px;
+            padding: 3rem;
+            border: 1px solid #e2e8f0;
+            box-shadow: 
+                0 20px 60px rgba(15, 23, 42, 0.08),
+                0 8px 32px rgba(15, 23, 42, 0.04);
+            margin-bottom: 3rem;
+            position: relative;
+        }
+        
+        .current-lesson::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #475569, #64748b);
+            border-radius: 20px 20px 0 0;
         }
         
         .current-lesson-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 2rem;
-            padding-bottom: 1.5rem;
+            margin-bottom: 2.5rem;
+            padding-bottom: 2rem;
             border-bottom: 2px solid #f1f5f9;
         }
         
         .current-lesson-title {
-            font-size: 2em;
+            font-size: 2.2em;
             font-weight: 800;
             color: #1e293b;
+            letter-spacing: -0.01em;
         }
         
         .lesson-number-display {
             background: linear-gradient(135deg, #475569, #64748b);
             color: white;
-            padding: 0.75rem 1.5rem;
-            border-radius: 8px;
-            font-weight: 700;
-            font-size: 1em;
-            box-shadow: 0 4px 12px rgba(71, 85, 105, 0.3);
-        }
-        
-        /* Audio section elegante */
-        .audio-section {
-            background: linear-gradient(135deg, #f8fafc, #f1f5f9);
+            padding: 1rem 2rem;
             border-radius: 12px;
-            padding: 2rem;
-            margin-bottom: 2rem;
-            border: 1px solid #e2e8f0;
-            text-align: center;
-        }
-        
-        .audio-title {
-            font-size: 1.3em;
             font-weight: 700;
-            color: #475569;
-            margin-bottom: 1.5rem;
+            font-size: 1.1em;
+            box-shadow: 0 8px 25px rgba(71, 85, 105, 0.3);
         }
         
-        audio {
-            width: 100%;
-            max-width: 400px;
-            margin-bottom: 1.5rem;
-        }
-        
-        .play-buttons {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-            flex-wrap: wrap;
-        }
-        
-        .btn {
-            padding: 0.75rem 1.5rem;
-            border: none;
-            border-radius: 8px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            font-size: 0.9em;
-        }
-        
-        .btn-primary {
-            background: linear-gradient(135deg, #475569, #64748b);
-            color: white;
-        }
-        
-        .btn-primary:hover {
-            transform: translateY(-1px);
-            box-shadow: 0 6px 20px rgba(71, 85, 105, 0.25);
-        }
-        
-        .btn-secondary {
-            background: linear-gradient(135deg, #e2e8f0, #cbd5e1);
-            color: #475569;
-        }
-        
-        .btn-secondary:hover {
-            transform: translateY(-1px);
-            box-shadow: 0 6px 20px rgba(203, 213, 225, 0.4);
-        }
-        
-        /* Progress section */
+        /* Progress section mais elegante */
         .progress-section {
             background: linear-gradient(135deg, #f8fafc, #f1f5f9);
-            border-radius: 12px;
-            padding: 1.5rem;
-            margin-bottom: 2rem;
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 2.5rem;
             border: 1px solid #e2e8f0;
         }
         
         .progress-bar {
             width: 100%;
-            height: 8px;
+            height: 12px;
             background: #e2e8f0;
-            border-radius: 4px;
+            border-radius: 6px;
             overflow: hidden;
-            margin-bottom: 1.5rem;
+            margin-bottom: 2rem;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
         }
         
         .progress-fill {
             height: 100%;
             background: linear-gradient(90deg, #475569, #64748b);
             width: 0%;
-            transition: width 1s ease;
-            border-radius: 4px;
+            transition: width 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+            border-radius: 6px;
+            position: relative;
+        }
+        
+        .progress-fill::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            animation: shimmer 2s ease-in-out infinite;
+        }
+        
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
         }
         
         .badges {
             display: flex;
             justify-content: center;
-            gap: 0.75rem;
+            gap: 1rem;
             flex-wrap: wrap;
         }
         
         .badge {
-            background: #f1f5f9;
+            background: white;
             border: 2px solid #e2e8f0;
-            border-radius: 20px;
-            padding: 0.5rem 1rem;
-            font-size: 0.8em;
+            border-radius: 25px;
+            padding: 0.75rem 1.5rem;
+            font-size: 0.85em;
             font-weight: 600;
             color: #64748b;
-            transition: all 0.3s ease;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .badge::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(71, 85, 105, 0.1), transparent);
+            transition: left 0.5s ease;
         }
         
         .badge.earned {
@@ -346,73 +430,183 @@
             color: white;
             border-color: #475569;
             transform: scale(1.05);
+            box-shadow: 0 8px 25px rgba(71, 85, 105, 0.3);
         }
         
-        /* Questions section */
-        .questions-section {
+        .badge.earned::before {
+            left: 100%;
+        }
+        
+        /* Audio section mais refinada */
+        .audio-section {
+            background: linear-gradient(135deg, #f8fafc, #f1f5f9);
+            border-radius: 16px;
+            padding: 2.5rem;
+            margin-bottom: 2.5rem;
+            border: 1px solid #e2e8f0;
+            text-align: center;
+            position: relative;
+        }
+        
+        .audio-title {
+            font-size: 1.4em;
+            font-weight: 700;
+            color: #475569;
             margin-bottom: 2rem;
+        }
+        
+        audio {
+            width: 100%;
+            max-width: 450px;
+            margin-bottom: 2rem;
+            border-radius: 8px;
+        }
+        
+        .play-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            padding: 0.875rem 2rem;
+            border: none;
+            border-radius: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            font-size: 0.95em;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s ease;
+        }
+        
+        .btn:hover::before {
+            left: 100%;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #475569, #64748b);
+            color: white;
+            box-shadow: 0 4px 15px rgba(71, 85, 105, 0.3);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(71, 85, 105, 0.4);
+        }
+        
+        .btn-secondary {
+            background: linear-gradient(135deg, #f1f5f9, #e2e8f0);
+            color: #475569;
+            box-shadow: 0 4px 15px rgba(203, 213, 225, 0.3);
+        }
+        
+        .btn-secondary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(203, 213, 225, 0.5);
+        }
+        
+        /* Questions section mais elegante */
+        .questions-section {
+            margin-bottom: 2.5rem;
         }
         
         .question {
             background: white;
-            border-radius: 12px;
-            padding: 1.5rem;
-            margin-bottom: 1.5rem;
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 2rem;
             border: 2px solid #f1f5f9;
-            transition: all 0.2s ease;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(15, 23, 42, 0.05);
         }
         
         .question:hover {
             border-color: #e2e8f0;
-            box-shadow: 0 4px 12px rgba(15, 23, 42, 0.05);
+            box-shadow: 0 8px 25px rgba(15, 23, 42, 0.08);
+            transform: translateY(-2px);
         }
         
         .question-text {
-            font-size: 1.1em;
+            font-size: 1.15em;
             font-weight: 600;
             color: #1e293b;
-            margin-bottom: 1rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.4;
         }
         
         .options {
             display: grid;
-            gap: 0.75rem;
+            gap: 1rem;
         }
         
         .option {
             display: flex;
             align-items: center;
-            padding: 0.75rem 1rem;
-            background: #f8fafc;
+            padding: 1rem 1.25rem;
+            background: linear-gradient(135deg, #f8fafc, #f1f5f9);
             border: 2px solid #f1f5f9;
-            border-radius: 8px;
+            border-radius: 12px;
             cursor: pointer;
-            transition: all 0.2s ease;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .option::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(71, 85, 105, 0.05), transparent);
+            transition: left 0.3s ease;
         }
         
         .option:hover {
-            border-color: #e2e8f0;
-            background: #f1f5f9;
+            border-color: #cbd5e1;
+            background: linear-gradient(135deg, #f1f5f9, #e2e8f0);
+            transform: translateX(4px);
+        }
+        
+        .option:hover::before {
+            left: 100%;
         }
         
         .option.selected {
             border-color: #475569;
-            background: rgba(71, 85, 105, 0.1);
+            background: linear-gradient(135deg, rgba(71, 85, 105, 0.1), rgba(71, 85, 105, 0.05));
+            transform: translateX(8px);
         }
         
         .option.correct-answer {
-            background: rgba(30, 41, 59, 0.1);
+            background: linear-gradient(135deg, rgba(30, 41, 59, 0.1), rgba(30, 41, 59, 0.05));
             border-color: #1e293b;
+            transform: translateX(8px);
         }
         
         .option.wrong-answer {
-            background: rgba(239, 68, 68, 0.1);
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.1), rgba(239, 68, 68, 0.05));
             border-color: #ef4444;
+            transform: translateX(8px);
         }
         
         .option input[type="radio"] {
-            margin-right: 0.75rem;
-            transform: scale(1.2);
+            margin-right: 1rem;
+            transform: scale(1.3);
             accent-color: #475569;
         }
         
@@ -421,109 +615,154 @@
             color: #374155;
             cursor: pointer;
             flex: 1;
+            line-height: 1.4;
         }
         
-        /* Controls */
+        /* Controls mais elegantes */
         .controls {
             display: flex;
             justify-content: center;
-            gap: 1rem;
-            margin-bottom: 2rem;
+            gap: 1.5rem;
+            margin-bottom: 2.5rem;
             flex-wrap: wrap;
         }
         
-        /* Score section */
+        /* Score section mais impactante */
         .score {
             text-align: center;
             background: linear-gradient(135deg, #475569, #64748b);
             color: white;
-            padding: 1.5rem;
-            border-radius: 12px;
-            font-size: 1.2em;
+            padding: 2rem;
+            border-radius: 16px;
+            font-size: 1.3em;
             font-weight: 700;
-            margin-bottom: 1.5rem;
-            box-shadow: 0 8px 25px rgba(71, 85, 105, 0.3);
+            margin-bottom: 2rem;
+            box-shadow: 
+                0 15px 35px rgba(71, 85, 105, 0.3),
+                0 8px 25px rgba(71, 85, 105, 0.2);
+            position: relative;
+            overflow: hidden;
         }
         
-        /* Feedback */
+        .score::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.1) 50%, transparent 70%);
+            animation: scoreShimmer 3s ease-in-out infinite;
+        }
+        
+        @keyframes scoreShimmer {
+            0%, 100% { opacity: 0; }
+            50% { opacity: 1; }
+        }
+        
+        /* Feedback mais sofisticado */
         .feedback {
             background: white;
-            border-radius: 12px;
-            padding: 1.5rem;
+            border-radius: 16px;
+            padding: 2rem;
             border: 2px solid #e2e8f0;
-            max-height: 400px;
+            max-height: 450px;
             overflow-y: auto;
+            box-shadow: 0 8px 25px rgba(15, 23, 42, 0.08);
         }
         
-        /* Back button elegante */
+        /* Back button mais elegante */
         .back-to-hub {
             background: linear-gradient(135deg, #6b7280, #4b5563);
             color: white;
-            padding: 0.75rem 1.5rem;
+            padding: 1rem 2rem;
             border: none;
-            border-radius: 8px;
+            border-radius: 12px;
             font-weight: 600;
             cursor: pointer;
-            transition: all 0.2s ease;
-            margin-bottom: 1.5rem;
+            transition: all 0.3s ease;
+            margin-bottom: 2rem;
             text-decoration: none;
             display: inline-flex;
             align-items: center;
-            gap: 0.5rem;
+            gap: 0.75rem;
+            box-shadow: 0 4px 15px rgba(107, 114, 128, 0.3);
         }
         
         .back-to-hub:hover {
-            transform: translateY(-1px);
-            box-shadow: 0 6px 20px rgba(107, 114, 128, 0.25);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(107, 114, 128, 0.4);
         }
         
-        /* Mobile responsiveness */
+        /* Mobile responsiveness aprimorada */
         @media (max-width: 768px) {
             .foundation-hero {
                 padding: 2rem;
+                margin-bottom: 2rem;
             }
             
             .foundation-title {
-                font-size: 2.2em;
+                font-size: 2.4em;
             }
             
             .foundation-stats {
                 grid-template-columns: repeat(2, 1fr);
+                gap: 1rem;
+            }
+            
+            .lessons-section {
+                padding: 2rem;
+                margin-bottom: 2rem;
             }
             
             .lessons-grid {
                 grid-template-columns: 1fr;
-                gap: 1rem;
+                gap: 1.5rem;
             }
             
             .lesson-card {
-                height: 180px;
-                padding: 1.25rem;
+                min-height: 200px;
+                padding: 1.5rem;
             }
             
             .lesson-icon {
-                font-size: 2em;
+                font-size: 2.5em;
             }
             
             .lesson-number {
-                width: 35px;
-                height: 35px;
-                font-size: 0.9em;
+                width: 45px;
+                height: 45px;
+                font-size: 1em;
+            }
+            
+            .current-lesson {
+                padding: 2rem;
+                margin-bottom: 2rem;
             }
             
             .current-lesson-header {
                 flex-direction: column;
-                gap: 1rem;
+                gap: 1.5rem;
                 text-align: center;
+            }
+            
+            .current-lesson-title {
+                font-size: 1.8em;
             }
             
             .controls {
                 flex-direction: column;
+                align-items: center;
             }
             
             .play-buttons {
                 flex-direction: column;
                 align-items: center;
+                gap: 1rem;
+            }
+            
+            .btn {
+                min-width: 200px;
             }
         }
     </style>
@@ -546,7 +785,7 @@
         <section class="foundation-hero">
             <div class="hero-content">
                 <h1 class="foundation-title">🌱 Foundation Level</h1>
-                <p class="foundation-subtitle">English Survival Kit • 3 Lições Essenciais</p>
+                <p class="foundation-subtitle">English Survival Kit • 3 Lições Essenciais para Dominação Total</p>
                 
                 <div class="foundation-stats">
                     <div class="foundation-stat">
@@ -567,7 +806,7 @@
 
         <!-- Lessons Section -->
         <div class="lessons-section">
-            <h2 style="text-align: center; font-size: 1.5em; font-weight: 800; color: #1e293b; margin-bottom: 2rem;">📚 Foundation Lessons</h2>
+            <h2 class="section-title">📚 Foundation Lessons</h2>
             
             <div class="lessons-grid" id="lessonsGrid">
                 <!-- Lessons geradas dinamicamente -->
@@ -747,22 +986,22 @@
                 notification.style.cssText = `
                     position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
                     background: linear-gradient(135deg, #475569, #64748b); 
-                    color: white; padding: 2rem 2.5rem; border-radius: 16px; z-index: 10000; 
-                    text-align: center; box-shadow: 0 20px 60px rgba(0,0,0,0.3); 
+                    color: white; padding: 2.5rem 3rem; border-radius: 20px; z-index: 10000; 
+                    text-align: center; box-shadow: 0 25px 80px rgba(0,0,0,0.3); 
                     backdrop-filter: blur(20px); border: 2px solid rgba(255,255,255,0.2);
-                    animation: badgeNotification 3s ease-in-out forwards;
+                    animation: badgeNotification 4s ease-in-out forwards;
                 `;
                 
                 notification.innerHTML = `
-                    <div style="font-size: 1.8em; font-weight: 800; margin-bottom: 0.5rem;">${title}</div>
-                    <div style="font-size: 1.1em; font-weight: 500; opacity: 0.9;">${message}</div>
+                    <div style="font-size: 2em; font-weight: 800; margin-bottom: 0.75rem;">${title}</div>
+                    <div style="font-size: 1.2em; font-weight: 500; opacity: 0.9;">${message}</div>
                 `;
                 
                 document.body.appendChild(notification);
                 
                 setTimeout(() => { 
                     if (document.body.contains(notification)) document.body.removeChild(notification);
-                }, 3000);
+                }, 4000);
             }
 
             getFoundationCompleted() {
@@ -790,7 +1029,7 @@
             }
         }
 
-        // ===== FOUNDATION LESSONS DATA - CORRIGIDO =====
+        // ===== FOUNDATION LESSONS DATA - MANTIDO =====
         const foundationLessons = {
             '1': { 
                 title: "Basic Survival English", 
@@ -981,12 +1220,12 @@
             
             const feedback = document.getElementById('feedback');
             let feedbackHeader = score === 5 ? 
-                '<div style="text-align: center; background: linear-gradient(135deg, #475569, #64748b); color: white; padding: 2rem; border-radius: 12px; margin-bottom: 1.5rem; font-size: 1.2em; font-weight: 700;">🎯 FOUNDATION PERFECT!</div>' :
+                '<div style="text-align: center; background: linear-gradient(135deg, #475569, #64748b); color: white; padding: 2.5rem; border-radius: 16px; margin-bottom: 2rem; font-size: 1.3em; font-weight: 700; box-shadow: 0 15px 35px rgba(71, 85, 105, 0.3);">🎯 FOUNDATION PERFECT!</div>' :
                 score === 4 ? 
-                '<div style="text-align: center; background: linear-gradient(135deg, #1e293b, #334155); color: white; padding: 2rem; border-radius: 12px; margin-bottom: 1.5rem; font-size: 1.2em; font-weight: 700;">⭐ EXCELLENT WORK!</div>' :
-                '<div style="text-align: center; background: linear-gradient(135deg, #6b7280, #4b5563); color: white; padding: 2rem; border-radius: 12px; margin-bottom: 1.5rem; font-size: 1.2em; font-weight: 700;">💪 CONTINUE PRATICANDO!</div>';
+                '<div style="text-align: center; background: linear-gradient(135deg, #1e293b, #334155); color: white; padding: 2.5rem; border-radius: 16px; margin-bottom: 2rem; font-size: 1.3em; font-weight: 700; box-shadow: 0 15px 35px rgba(30, 41, 59, 0.3);">⭐ EXCELLENT WORK!</div>' :
+                '<div style="text-align: center; background: linear-gradient(135deg, #6b7280, #4b5563); color: white; padding: 2.5rem; border-radius: 16px; margin-bottom: 2rem; font-size: 1.3em; font-weight: 700; box-shadow: 0 15px 35px rgba(107, 114, 128, 0.3);">💪 CONTINUE PRATICANDO!</div>';
             
-            feedback.innerHTML = feedbackHeader + detailedResults.map(result => `<div style="margin: 0.75rem 0; padding: 1rem; background: #f8fafc; border-radius: 8px; border-left: 4px solid #475569;">${result}</div>`).join('');
+            feedback.innerHTML = feedbackHeader + detailedResults.map(result => `<div style="margin: 1rem 0; padding: 1.25rem; background: linear-gradient(135deg, #f8fafc, #f1f5f9); border-radius: 12px; border-left: 4px solid #475569; font-weight: 500;">${result}</div>`).join('');
             feedback.style.display = 'block';
         }
         
@@ -1032,10 +1271,10 @@
                 studentName.charAt(0).toUpperCase() + studentName.slice(1).toLowerCase();
             document.querySelector('[data-user-avatar]').textContent = studentName.charAt(0).toUpperCase();
             
-            console.log('✨ Foundation Page - PATHS CORRIGIDOS');
+            console.log('✨ Foundation Page - DESIGN ELEGANTE E SOFISTICADO');
             console.log(`👤 Usuário: ${studentName}`);
-            console.log('🎯 3 lições Foundation com áudios corretos');
-            console.log('📁 Áudios: ../../src/assets/audio/listening/audio1-3.mp3');
+            console.log('🎯 3 lições Foundation com visual polido');
+            console.log('🎨 Micro-animations e gradients refinados');
             
             createLessonCards();
             loadLesson(currentLesson);
@@ -1046,20 +1285,21 @@
         const style = document.createElement('style');
         style.textContent = `
             @keyframes badgeNotification {
-                0% { opacity: 0; transform: translate(-50%, -50%) scale(0.8); }
-                20% { opacity: 1; transform: translate(-50%, -50%) scale(1.1); }
-                80% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
-                100% { opacity: 0; transform: translate(-50%, -50%) scale(0.9); }
+                0% { opacity: 0; transform: translate(-50%, -50%) scale(0.8) rotate(-5deg); }
+                20% { opacity: 1; transform: translate(-50%, -50%) scale(1.1) rotate(2deg); }
+                80% { opacity: 1; transform: translate(-50%, -50%) scale(1) rotate(0deg); }
+                100% { opacity: 0; transform: translate(-50%, -50%) scale(0.9) rotate(-2deg); }
             }
         `;
         document.head.appendChild(style);
 
-        console.log('🔧 FOUNDATION PAGE - PATHS E ESTRUTURA CORRIGIDOS');
-        console.log('✅ Áudios: ../../src/assets/audio/listening/audio1-3.mp3');
-        console.log('✅ Navegação: ../hubs/listening-hub.html'); 
-        console.log('✅ Auth: ../auth/login.html');
-        console.log('✅ 3 lições organizadas e funcionais');
-        console.log('🎨 Design elegante mantido');
+        console.log('🎨 FOUNDATION PAGE - DESIGN ELEGANTE APLICADO');
+        console.log('✨ Cards sofisticados com micro-animations');
+        console.log('✨ Progress bar com shimmer effect');
+        console.log('✨ Badges com hover refinado');
+        console.log('✨ Questions com feedback visual elegante');
+        console.log('✨ Hero section com overlay sutil');
+        console.log('🎯 Mantida toda funcionalidade + visual premium');
     </script>
 </body>
 </html>
