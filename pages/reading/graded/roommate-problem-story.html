@@ -5,10 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Teacher Alex English Academy BETA - The Roommate Problem</title>
     
-    <!-- CSS EXTERNO - ESTRATÉGIA VENCEDORA! -->
-    <link rel="stylesheet" href="base.css">
-    <link rel="stylesheet" href="layout.css">
-    <link rel="stylesheet" href="theme-patriot.css">
+    <!-- CSS EXTERNO - CAMINHOS CORRETOS PARA pages/reading/ -->
+    <link rel="stylesheet" href="../../src/styles/base.css">
+    <link rel="stylesheet" href="../../src/styles/layout.css">
+    <link rel="stylesheet" href="../../src/styles/theme-patriot.css">
 
     <style>
         /* CSS ESPECÍFICO - ANIMAÇÕES DE CELEBRAÇÃO CRÍTICAS */
@@ -90,20 +90,50 @@
             background: linear-gradient(135deg, #3b82f6, #1d4ed8);
             color: white;
         }
+
+        /* Back Button */
+        .back-to-hub {
+            background: linear-gradient(135deg, #6b7280, #4b5563);
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 2rem;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            box-shadow: 0 4px 15px rgba(107, 114, 128, 0.3);
+        }
+        
+        .back-to-hub:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(107, 114, 128, 0.4);
+            color: white;
+            text-decoration: none;
+        }
     </style>
 </head>
 <body class="roommate-page">
-    <!-- User Info -->
-    <div style="position: fixed; top: 15px; right: 15px; z-index: 1000;">
-        <div style="background: rgba(255,255,255,0.95); border-radius: 15px; padding: 8px 15px; box-shadow: 0 8px 25px rgba(0,0,0,0.1); border: 2px solid #dc2626; backdrop-filter: blur(10px);">
-            <span style="color: #1e3a8a; font-weight: 700; margin-right: 8px; font-size: 0.8em;">👋 <span id="userName">Aluno</span></span>
-            <button onclick="logout()" style="background: #dc2626; color: white; border: none; padding: 5px 10px; border-radius: 8px; cursor: pointer; font-size: 0.75em; font-weight: 600; transition: all 0.3s ease;" onmouseover="this.style.background='#ef4444'" onmouseout="this.style.background='#dc2626'">🚪 Sair</button>
-        </div>
-    </div>
+    <!-- User Widget -->
+    <aside class="user-widget" aria-label="Informações do Usuário">
+        <div class="user-avatar" data-user-avatar>A</div>
+        <span class="user-name" data-user-name>Aluno</span>
+        <button class="logout-btn" onclick="logout()">🚪 Sair</button>
+    </aside>
     
     <div class="container roommate-page">
+        <!-- Back Navigation - CORRIGIDO -->
+        <a href="../hubs/graded-readers-hub.html" class="back-to-hub">
+            ← Voltar ao Graded Readers Hub
+        </a>
+        
         <div class="header">
-            <a href="index.html" style="text-decoration: none; color: inherit;">
+            <!-- Link para Dashboard CORRIGIDO -->
+            <a href="../../index.html" style="text-decoration: none; color: inherit;">
                 <div class="logo">
                     Teacher Alex <span class="logo-highlight">English Academy</span> BETA
                 </div>
@@ -141,7 +171,7 @@
             <div class="audio-section">
                 <div class="audio-title" id="audioTitle">🎧 Escute o Capítulo: The Missing Money</div>
                 <audio id="mainAudio" controls>
-                    <source src="audios/roommate1.mp3" type="audio/mpeg">
+                    <source src="../../src/assets/audio/roommate/roommate1.mp3" type="audio/mpeg">
                     Seu navegador não suporta o elemento de áudio.
                 </audio>
                 <div class="play-buttons">
@@ -168,10 +198,10 @@
     </div>
     
     <script>
-        // ===== SISTEMA DE PROTEÇÃO DE LOGIN PURO =====
+        // ===== SISTEMA DE PROTEÇÃO DE LOGIN - CAMINHOS CORRIGIDOS =====
         function checkLogin() {
             if (sessionStorage.getItem('studentLoggedIn') !== 'true') {
-                window.location.href = 'login.html';
+                window.location.href = '../auth/login.html';
                 return false;
             }
             return true;
@@ -180,19 +210,23 @@
         function logout() {
             sessionStorage.removeItem('studentLoggedIn');
             sessionStorage.removeItem('studentUsername');
-            window.location.href = 'login.html';
+            window.location.href = '../auth/login.html';
         }
 
         function getStudentName() {
             return sessionStorage.getItem('studentUsername') || 'Student';
         }
 
-        if (!checkLogin()) throw new Error('Not logged in');
+        // Immediate protection
+        if (!checkLogin()) {
+            document.body.innerHTML = '<div style="text-align:center;padding:50px;"><h1>Redirecionando...</h1></div>';
+            throw new Error('Access denied');
+        }
 
         // ===== SISTEMA DE PROGRESSO PURO LOCALSTORAGE =====
         class StudentProgress {
             constructor() {
-                this.studentId = sessionStorage.getItem('studentUsername') || 'student';
+                this.studentId = sessionStorage.getStudentName() || 'student';
                 this.progressKey = `progress_${this.studentId}`;
                 this.loadProgress();
             }
@@ -273,13 +307,13 @@
             }
         }
 
-        // ===== SISTEMA DE CAPÍTULOS - 3 CAPÍTULOS A1 =====
+        // ===== SISTEMA DE CAPÍTULOS - 3 CAPÍTULOS A1 - CAMINHOS DE ÁUDIO CORRIGIDOS =====
         const chapters = {
             1: { 
                 title: "The Missing Money", 
                 shortTitle: "Missing Money", 
                 icon: "💸", 
-                audioUrl: "audios/ROOMMATE1.mp3", 
+                audioUrl: "../../src/assets/audio/roommate/roommate1.mp3", 
                 questions: { 
                     q1: { type: "comprehension", text: "Where do Sarah and Emma live?", options: ["In a big house", "In a small apartment", "In a hotel", "In a dormitory"], correct: "b" }, 
                     q2: { type: "comprehension", text: "How much money is missing?", options: ["$100", "$200", "$300", "$400"], correct: "b" }, 
@@ -292,7 +326,7 @@
                 title: "The Fight Gets Worse", 
                 shortTitle: "The Fight", 
                 icon: "😡", 
-                audioUrl: "audios/ROOMMATE2.mp3", 
+                audioUrl: "../../src/assets/audio/roommate/roommate2.mp3", 
                 questions: { 
                     q1: { type: "comprehension", text: "What do Sarah and Emma do in the morning?", options: ["They talk together", "They don't talk", "They fight again", "They have breakfast together"], correct: "b" }, 
                     q2: { type: "comprehension", text: "Who does Sarah talk to about the problem?", options: ["Her sister", "Her mother", "Her friend Mike", "Her boss"], correct: "c" }, 
@@ -305,7 +339,7 @@
                 title: "The Truth Comes Out", 
                 shortTitle: "The Truth", 
                 icon: "💡", 
-                audioUrl: "audios/ROOMMATE3.mp3", 
+                audioUrl: "../../src/assets/audio/roommate/roommate3.mp3", 
                 questions: { 
                     q1: { type: "comprehension", text: "Where does Sarah find the money?", options: ["In her bedroom", "In the kitchen", "In the laundry room", "In the living room"], correct: "c" }, 
                     q2: { type: "comprehension", text: "When did Sarah put the money there?", options: ["Yesterday", "Last week", "This morning", "Two days ago"], correct: "b" }, 
@@ -640,18 +674,26 @@
             if (currentChapter < 3) {
                 switchToChapter(currentChapter + 1);
             } else {
-                alert('🎉 Parabéns! Você terminou "The Roommate Problem"! 🏆🏠');
+                alert('🎉 Parabéns! Você terminou "The Roommate Problem"! 🏆🏠\n\nAgora você pode voltar ao hub para explorar mais histórias!');
+                setTimeout(() => {
+                    window.location.href = '../hubs/graded-readers-hub.html';
+                }, 2000);
             }
         }
         
         // ===== INICIALIZAÇÃO =====
         document.addEventListener('DOMContentLoaded', function() {
             const studentName = getStudentName();
-            document.getElementById('userName').textContent = studentName;
+            
+            // Update user info
+            document.querySelector('[data-user-name]').textContent = 
+                studentName.charAt(0).toUpperCase() + studentName.slice(1).toLowerCase();
+            document.querySelector('[data-user-avatar]').textContent = studentName.charAt(0).toUpperCase();
             
             console.log(`🏠 The Roommate Problem carregado - usuário: ${studentName}`);
             console.log('💾 Sistema localStorage puro - Firebase EXTERMINADO!');
             console.log('🎧 3 capítulos A1 com áudio preservados');
+            console.log('🔗 TODOS OS LINKS CORRIGIDOS!');
             
             createChapterCards();
             loadChapter(currentChapter);
