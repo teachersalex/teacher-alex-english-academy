@@ -20,7 +20,7 @@
 
     <!-- Main Container -->
     <div class="container">
-        <!-- Back Navigation -->
+        <!-- Back Navigation - CORRIGIDO -->
         <a href="../../index.html" class="back-button">
             ← Voltar ao Dashboard
         </a>
@@ -258,10 +258,10 @@
 
     <!-- Scripts -->
     <script>
-        // ===== AUTH SYSTEM =====
+        // ===== AUTH SYSTEM - CAMINHOS CORRIGIDOS =====
         function checkLogin() {
             if (sessionStorage.getItem('studentLoggedIn') !== 'true') {
-                window.location.href = '../../pages/auth/login.html';
+                window.location.href = '../auth/login.html';
                 return false;
             }
             return true;
@@ -270,7 +270,7 @@
         function logout() {
             sessionStorage.removeItem('studentLoggedIn');
             sessionStorage.removeItem('studentUsername');
-            window.location.href = '../../pages/auth/login.html';
+            window.location.href = '../auth/login.html';
         }
 
         function getStudentName() {
@@ -308,6 +308,7 @@
                 // Garantir compatibilidade
                 if (!this.data.roommate) this.data.roommate = { chaptersCompleted: [], bestScores: {}, badges: [] };
                 if (!this.data.neighbor) this.data.neighbor = { chaptersCompleted: [], bestScores: {}, badges: [] };
+                if (!this.data.reading) this.data.reading = { chaptersCompleted: [], bestScores: {}, badges: [] };
             }
 
             getProgressBadge(category, totalChapters) {
@@ -318,7 +319,7 @@
             }
         }
 
-        // ===== NAVIGATION WITH LOADING =====
+        // ===== NAVIGATION WITH LOADING - CAMINHOS CORRIGIDOS =====
         function navigateToStory(storyId) {
             const card = event.currentTarget;
             const button = card.querySelector('.story-button');
@@ -330,9 +331,9 @@
             
             setTimeout(() => {
                 if (storyId === 'roommate') {
-                    window.location.href = '../../pages/reading/roommate.html';
+                    window.location.href = '../reading/roommate.html';
                 } else if (storyId === 'reader') {
-                    window.location.href = '../../pages/reading/reader.html';
+                    window.location.href = '../reading/reader.html';
                 }
             }, 800);
         }
@@ -363,6 +364,7 @@
             console.log(`✅ Graded Readers Hub carregado - usuário: ${studentName}`);
             console.log('🎮 Sistema de gamificação ativo');
             console.log('🧹 CSS 100% externo - ZERO inline!');
+            console.log('🔗 TODOS OS LINKS CORRIGIDOS!');
         }
 
         function addProgressBadges(progressTracker) {
@@ -372,6 +374,7 @@
                 roommateProgress.textContent = progressTracker.getProgressBadge('roommate', 3);
                 if (progressTracker.data.roommate && progressTracker.data.roommate.chaptersCompleted.length > 0) {
                     roommateProgress.style.background = 'linear-gradient(135deg, #10b981, #059669)';
+                    roommateProgress.style.color = 'white';
                 }
             }
             
@@ -381,6 +384,7 @@
                 readerProgress.textContent = progressTracker.getProgressBadge('reading', 4);
                 if (progressTracker.data.reading && progressTracker.data.reading.chaptersCompleted.length > 0) {
                     readerProgress.style.background = 'linear-gradient(135deg, #10b981, #059669)';
+                    readerProgress.style.color = 'white';
                 }
             }
         }
@@ -393,6 +397,7 @@
         console.log('🎮 Gamificação 100% preservada');
         console.log('📱 Mobile PWA otimizado');
         console.log('📦 Tamanho: ~70% menor sem CSS inline');
+        console.log('🔗 Links corrigidos para estrutura pages/');
     </script>
 </body>
 </html>
