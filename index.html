@@ -182,6 +182,9 @@
         // ===== INITIALIZATION =====
         const studentName = sessionStorage.getItem('studentUsername') || 'Student';
         
+        // Clear any existing timers on page load
+        clearAllTimers();
+        
         // Store previous stats for comparison
         let previousStats = JSON.parse(localStorage.getItem(`previousStats_${studentName}`)) || {
             lessons: 0, chapters: 0, badges: 0, time: 0
@@ -192,8 +195,29 @@
         document.getElementById('userAvatar').textContent = studentName.charAt(0).toUpperCase();
         document.getElementById('welcomeMsg').textContent = `Bem-vindo de volta, ${studentName}!`;
 
+        // ===== EMERGENCY FUNCTIONS =====
+        window.clearStatsAnimations = function() {
+            clearAllTimers();
+            setDefaultStats();
+            console.log('🆘 Animações de stats resetadas com sucesso!');
+        };
+
+        window.debugStats = function() {
+            const progressKey = `progress_${studentName}`;
+            const saved = localStorage.getItem(progressKey);
+            console.log('🔍 Debug Stats:', {
+                studentName,
+                savedData: saved ? JSON.parse(saved) : null,
+                previousStats,
+                activeTimers: activeTimers.length
+            });
+        };
+
         // ===== STATS DASHBOARD =====
         function loadStats() {
+            // Clear any existing timers first
+            clearAllTimers();
+            
             const progressKey = `progress_${studentName}`;
             const saved = localStorage.getItem(progressKey);
             
@@ -455,11 +479,13 @@
                 });
         }
 
-        // ===== STUDY TIME TRACKING =====
+        // ===== PAGE CLEANUP =====
         let sessionStartTime = Date.now();
         
-        // Track study time when user leaves
         window.addEventListener('beforeunload', () => {
+            // Clean up any running timers
+            clearAllTimers();
+            
             const sessionTime = Date.now() - sessionStartTime;
             const progressKey = `progress_${studentName}`;
             const saved = localStorage.getItem(progressKey);
@@ -475,6 +501,13 @@
             }
         });
 
+        // Also cleanup on page hide (mobile browsers)
+        document.addEventListener('visibilitychange', () => {
+            if (document.hidden) {
+                clearAllTimers();
+            }
+        });
+
         // ===== INITIALIZATION =====
         loadStats();
         
@@ -483,6 +516,10 @@
         console.log('📊 STATS PREMIUM ativado: gradientes, animações, tendências, conquistas');
         console.log('✨ Recursos especiais: high-achiever effects, celebration messages, trend indicators');
         console.log('🎯 Sistema de motivação completo para alunos adultos!');
+        console.log('');
+        console.log('🆘 FUNÇÕES DE EMERGÊNCIA:');
+        console.log('   clearStatsAnimations() - Para parar animações infinitas');
+        console.log('   debugStats() - Para debugar dados do localStorage');
     </script>
 </body>
 </html>
