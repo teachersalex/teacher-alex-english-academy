@@ -3,22 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pure Reading Hub - Teacher Alex English Academy BETA</title>
+    <title>Pure Reading Hub - Teacher Alex English Academy</title>
     
-    <!-- CSS - CAMINHOS CORRETOS PARA pages/hubs/ -->
+    <!-- CSS Simplificado -->
     <link rel="stylesheet" href="../../src/styles/base.css">
     <link rel="stylesheet" href="../../src/styles/layout.css">
     <link rel="stylesheet" href="../../src/styles/theme-patriot.css">
 </head>
 <body>
-    <!-- User Widget Moderno -->
-    <aside class="user-widget" aria-label="Informações do Usuário">
-        <div class="user-avatar" data-user-avatar>A</div>
-        <span class="user-name" data-user-name>Aluno</span>
-        <button class="logout-btn" onclick="logout()">🚪 Sair</button>
-    </aside>
+    <!-- User Widget -->
+    <div class="user-widget">
+        <div class="user-avatar" id="userAvatar">A</div>
+        <span class="user-name" id="userName">Aluno</span>
+        <button class="logout-btn" onclick="logout()">Sair</button>
+    </div>
 
-    <!-- Main Container -->
     <div class="container">
         <!-- Back Navigation -->
         <a href="../../index.html" class="back-button">
@@ -27,17 +26,15 @@
         
         <!-- Header -->
         <header class="header">
-            <h1 class="logo">
-                Teacher Alex <span class="logo-highlight">English Academy</span> BETA
-            </h1>
+            <h1 class="logo">Teacher Alex <span class="logo-highlight">English Academy</span></h1>
             <h2 class="hub-title">📖 Pure Reading Hub</h2>
             <p class="hub-subtitle">Sistema completo para dominar a interpretação textual pura</p>
         </header>
 
-        <!-- Reading Overview -->
-        <section class="reading-overview">
-            <h3 style="color: var(--primary-blue); font-size: 1.3em; margin-bottom: 1rem;">📊 Seu Progresso de Leitura</h3>
-            <div class="overview-stats">
+        <!-- Progress Overview -->
+        <section class="stats-section">
+            <h2 class="stats-title">📊 Seu Progresso de Leitura</h2>
+            <div class="stats-grid">
                 <div class="stat-card">
                     <div class="stat-number" id="totalCompleted">0</div>
                     <div class="stat-label">Histórias Concluídas</div>
@@ -58,213 +55,167 @@
         </section>
 
         <!-- Level Sections -->
-        <main class="level-sections">
+        <main class="stories-grid">
             <!-- A2 Low Level -->
-            <section class="level-section level-a2-low">
-                <header class="level-header">
-                    <div class="level-badge">🟢 A2 Low</div>
-                    <div class="level-info">
-                        <h2 class="level-title">Nível Elementar Inicial</h2>
-                        <p class="level-description">Interpretação textual pura para desenvolver autonomia de leitura</p>
-                        <div class="level-stories">4 histórias disponíveis • Perfect Neighbor já liberada</div>
-                    </div>
-                </header>
-                
-                <div class="progress-section">
-                    <div class="progress-bar">
-                        <div class="progress-fill" id="a2LowProgress" style="width: 0%"></div>
-                    </div>
-                    <div class="progress-text" id="a2LowText">0/4 Concluídas</div>
+            <div class="story-card" onclick="navigateToLevel('a2-low')">
+                <div class="story-header">
+                    <div class="story-icon">🟢</div>
+                    <h3 class="story-title">A2 Low</h3>
+                    <p class="story-description">Nível Elementar Inicial</p>
                 </div>
-                
-                <ul class="level-features">
-                    <li>The Perfect Neighbor - thriller psicológico disponível</li>
-                    <li>The Hospital Mystery - mistério médico</li>
-                    <li>The New Teacher - drama escolar</li>
-                    <li>Vocabulário A2 estruturado e controlado</li>
-                </ul>
-                
-                <button class="level-button" onclick="goToLevel('a2-low')">📖 Começar Leitura</button>
-            </section>
+                <div class="story-content">
+                    <p>Interpretação textual pura para desenvolver autonomia de leitura</p>
+                    <ul class="story-features">
+                        <li>The Perfect Neighbor disponível</li>
+                        <li>4 histórias no total</li>
+                        <li>Vocabulário A2 controlado</li>
+                        <li>Leitura pura sem áudio</li>
+                    </ul>
+                    <div class="progress-section">
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="a2LowProgress"></div>
+                        </div>
+                        <div class="progress-text" id="a2LowText">0/4 Concluídas</div>
+                    </div>
+                </div>
+                <div class="story-footer">
+                    <button class="story-button">📖 Começar Leitura</button>
+                </div>
+            </div>
 
             <!-- A2 Mid Level -->
-            <section class="level-section level-a2-mid">
-                <header class="level-header">
-                    <div class="level-badge">🔵 A2 Mid</div>
-                    <div class="level-info">
-                        <h2 class="level-title">Nível Elementar Avançado</h2>
-                        <p class="level-description">Textos mais complexos para consolidar autonomia de leitura</p>
-                        <div class="level-stories">4 histórias • City of Secrets, Last Library, Island Dreams</div>
-                    </div>
-                </header>
-                
-                <div class="progress-section">
-                    <div class="progress-bar">
-                        <div class="progress-fill" id="a2MidProgress" style="width: 0%"></div>
-                    </div>
-                    <div class="progress-text" id="a2MidText">0/4 Concluídas</div>
+            <div class="story-card" onclick="navigateToLevel('a2-mid')">
+                <div class="story-header">
+                    <div class="story-icon">🔵</div>
+                    <h3 class="story-title">A2 Mid</h3>
+                    <p class="story-description">Nível Elementar Avançado</p>
                 </div>
-                
-                <ul class="level-features">
-                    <li>City of Secrets - jornalismo investigativo</li>
-                    <li>The Last Library - ficção científica distópica</li>
-                    <li>Island of Lost Dreams - fantasia psicológica</li>
-                    <li>Interpretação complexa e leitura crítica</li>
-                </ul>
-                
-                <button class="level-button" onclick="goToLevel('a2-mid')">🌟 Avançar Leitura</button>
-            </section>
+                <div class="story-content">
+                    <p>Textos mais complexos para consolidar autonomia de leitura</p>
+                    <ul class="story-features">
+                        <li>City of Secrets</li>
+                        <li>The Last Library</li>
+                        <li>Island Dreams</li>
+                        <li>Interpretação complexa</li>
+                    </ul>
+                    <div class="progress-section">
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="a2MidProgress"></div>
+                        </div>
+                        <div class="progress-text" id="a2MidText">0/4 Concluídas</div>
+                    </div>
+                </div>
+                <div class="story-footer">
+                    <button class="story-button" id="a2MidBtn">🌟 Avançar Leitura</button>
+                </div>
+            </div>
 
             <!-- B1 Level -->
-            <section class="level-section level-b1">
-                <header class="level-header">
-                    <div class="level-badge">🟣 B1</div>
-                    <div class="level-info">
-                        <h2 class="level-title">Nível Intermediário</h2>
-                        <p class="level-description">Para alunos avançados - leitura autônoma complexa</p>
-                        <div class="level-stories">4 histórias • Digital Detective, Climate Warrior</div>
-                    </div>
-                </header>
-                
-                <div class="progress-section">
-                    <div class="progress-bar">
-                        <div class="progress-fill" id="b1Progress" style="width: 0%"></div>
-                    </div>
-                    <div class="progress-text" id="b1Text">0/4 Concluídas</div>
+            <div class="story-card" onclick="navigateToLevel('b1')">
+                <div class="story-header">
+                    <div class="story-icon">🟣</div>
+                    <h3 class="story-title">B1</h3>
+                    <p class="story-description">Nível Intermediário</p>
                 </div>
-                
-                <ul class="level-features">
-                    <li>The Digital Detective - crimes cibernéticos</li>
-                    <li>The Climate Warrior - ativismo ambiental</li>
-                    <li>Vocabulário técnico avançado</li>
-                    <li>Interpretação crítica e análise profunda</li>
-                </ul>
-                
-                <button class="level-button" onclick="goToLevel('b1')">🏆 Desafio Expert</button>
-            </section>
+                <div class="story-content">
+                    <p>Para alunos avançados - leitura autônoma complexa</p>
+                    <ul class="story-features">
+                        <li>The Digital Detective</li>
+                        <li>The Climate Warrior</li>
+                        <li>Vocabulário técnico avançado</li>
+                        <li>Análise crítica profunda</li>
+                    </ul>
+                    <div class="progress-section">
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="b1Progress"></div>
+                        </div>
+                        <div class="progress-text" id="b1Text">0/4 Concluídas</div>
+                    </div>
+                </div>
+                <div class="story-footer">
+                    <button class="story-button" id="b1Btn">🏆 Desafio Expert</button>
+                </div>
+            </div>
         </main>
+        
+        <!-- Footer -->
+        <footer class="footer">
+            <h3>📖 Pure Reading Hub</h3>
+            <p>Desenvolva autonomia de leitura sem apoio de áudio</p>
+        </footer>
     </div>
 
-    <!-- Scripts -->
     <script>
-        // ===== AUTH SYSTEM =====
-        function checkLogin() {
-            if (sessionStorage.getItem('studentLoggedIn') !== 'true') {
-                window.location.href = '../../pages/auth/login.html';
-                return false;
-            }
-            return true;
-        }
-
-        function logout() {
-            sessionStorage.removeItem('studentLoggedIn');
-            sessionStorage.removeItem('studentUsername');
+        // ===== AUTH CHECK =====
+        if (sessionStorage.getItem('studentLoggedIn') !== 'true') {
             window.location.href = '../../pages/auth/login.html';
         }
 
-        function getStudentName() {
-            return sessionStorage.getItem('studentUsername') || 'Student';
-        }
+        // ===== INITIALIZATION =====
+        const studentName = sessionStorage.getItem('studentUsername') || 'Student';
+        
+        // Update UI
+        document.getElementById('userName').textContent = studentName;
+        document.getElementById('userAvatar').textContent = studentName.charAt(0).toUpperCase();
 
-        // Immediate protection
-        if (!checkLogin()) {
-            document.body.innerHTML = '<div style="text-align:center;padding:50px;"><h1>Redirecionando...</h1></div>';
-            throw new Error('Access denied');
-        }
+        // ===== PROGRESS LOADING =====
+        function loadProgress() {
+            const progressKey = `progress_${studentName}`;
+            const saved = localStorage.getItem(progressKey);
+            
+            if (saved) {
+                try {
+                    const data = JSON.parse(saved);
+                    
+                    // Calculate stats
+                    const neighbor = data.neighbor || { chaptersCompleted: [], bestScores: {}, badges: [] };
+                    const reading = data.reading || { chaptersCompleted: [], bestScores: {}, badges: [] };
+                    
+                    const totalCompleted = neighbor.chaptersCompleted.length + reading.chaptersCompleted.length;
+                    const totalBadges = neighbor.badges.length + reading.badges.length;
+                    
+                    // Average score
+                    const allScores = { ...neighbor.bestScores, ...reading.bestScores };
+                    const scores = Object.values(allScores);
+                    const averageScore = scores.length > 0 ? 
+                        (scores.reduce((a, b) => a + b, 0) / scores.length).toFixed(1) : 0;
 
-        // ===== PROGRESS SYSTEM - GAMIFICAÇÃO =====
-        class ReadingHubProgress {
-            constructor() {
-                this.studentId = sessionStorage.getItem('studentUsername') || 'student';
-                this.progressKey = `progress_${this.studentId}`;
-                this.loadProgress();
-            }
-
-            loadProgress() {
-                const saved = localStorage.getItem(this.progressKey);
-                if (saved) {
-                    this.data = JSON.parse(saved);
-                } else {
-                    this.data = {
-                        listening: { lessonsCompleted: [], bestScores: {}, badges: [] },
-                        reading: { chaptersCompleted: [], bestScores: {}, badges: [] },
-                        roommate: { chaptersCompleted: [], bestScores: {}, badges: [] },
-                        neighbor: { chaptersCompleted: [], bestScores: {}, badges: [] },
-                        globalBadges: [],
-                        totalStudyTime: 0
-                    };
+                    // Update UI
+                    document.getElementById('totalCompleted').textContent = totalCompleted;
+                    document.getElementById('totalBadges').textContent = totalBadges;
+                    document.getElementById('averageScore').textContent = averageScore;
+                    
+                    // Level progress
+                    const a2LowCompleted = neighbor.chaptersCompleted.length;
+                    const a2MidCompleted = 0; // Future
+                    const b1Completed = 0; // Future
+                    
+                    updateProgress('a2Low', a2LowCompleted, 4);
+                    updateProgress('a2Mid', a2MidCompleted, 4);
+                    updateProgress('b1', b1Completed, 4);
+                    
+                    // Lock/unlock levels
+                    const canAccessA2Mid = a2LowCompleted >= 3;
+                    const canAccessB1 = a2LowCompleted >= 3 && a2MidCompleted >= 2;
+                    
+                    if (!canAccessA2Mid) {
+                        document.getElementById('a2MidBtn').textContent = '🔒 Bloqueado';
+                        document.getElementById('a2MidBtn').disabled = true;
+                    }
+                    
+                    if (!canAccessB1) {
+                        document.getElementById('b1Btn').textContent = '🔒 Expert Bloqueado';
+                        document.getElementById('b1Btn').disabled = true;
+                    }
+                    
+                } catch (e) {
+                    console.error('Erro ao carregar progresso:', e);
                 }
             }
-
-            getReadingStats() {
-                // Neighbor é A2-Low disponível (Perfect Neighbor)
-                const neighbor = this.data.neighbor || { chaptersCompleted: [], bestScores: {}, badges: [] };
-                const reading = this.data.reading || { chaptersCompleted: [], bestScores: {}, badges: [] };
-                
-                const totalCompleted = neighbor.chaptersCompleted.length + reading.chaptersCompleted.length;
-                const totalBadges = neighbor.badges.length + reading.badges.length;
-                
-                // Calcular pontuação média
-                const allScores = { ...neighbor.bestScores, ...reading.bestScores };
-                const scores = Object.values(allScores);
-                const averageScore = scores.length > 0 ? 
-                    (scores.reduce((a, b) => a + b, 0) / scores.length).toFixed(1) : 0;
-
-                // Progresso por nível
-                const a2LowCompleted = neighbor.chaptersCompleted.length; // Perfect Neighbor tem 5 capítulos
-                const a2MidCompleted = 0; // Em breve
-                const b1Completed = 0; // Em breve
-
-                return {
-                    totalCompleted,
-                    totalBadges,
-                    averageScore,
-                    a2Low: { completed: a2LowCompleted, total: 4 },
-                    a2Mid: { completed: a2MidCompleted, total: 4 },
-                    b1: { completed: b1Completed, total: 4 },
-                    // Verificações de acesso
-                    canAccessA2Mid: a2LowCompleted >= 3,
-                    canAccessB1: a2LowCompleted >= 3 && a2MidCompleted >= 2
-                };
-            }
         }
 
-        // ===== NAVIGATION WITH GAMIFICATION =====
-        function goToLevel(level) {
-            const button = event.target;
-            const originalText = button.textContent;
-            
-            // Verificar pré-requisitos
-            const progressTracker = new ReadingHubProgress();
-            const stats = progressTracker.getReadingStats();
-            
-            if (level === 'a2-mid' && !stats.canAccessA2Mid) {
-                alert('🔒 ACESSO BLOQUEADO!\n\nPara acessar o A2 Mid Level, você precisa completar pelo menos 3 histórias do A2 Low Level primeiro.\n\nProgresso atual: ' + stats.a2Low.completed + '/4 histórias A2 Low concluídas.');
-                return;
-            }
-            
-            if (level === 'b1' && !stats.canAccessB1) {
-                alert('🔒 NÍVEL EXPERT BLOQUEADO!\n\nPara acessar o B1 Level, você precisa:\n• Completar pelo menos 3 histórias A2 Low\n• Completar pelo menos 2 histórias A2 Mid\n\nEste nível é apenas para alunos experientes!');
-                return;
-            }
-            
-            // Loading state
-            button.textContent = 'Carregando...';
-            button.style.background = '#6b7280';
-            button.style.opacity = '0.7';
-            
-            setTimeout(() => {
-                if (level === 'a2-low') {
-                    window.location.href = '../../pages/reading/pure-reading-a2-low.html';
-                } else if (level === 'a2-mid') {
-                    window.location.href = '../../pages/reading/pure-reading-a2-mid.html';
-                } else if (level === 'b1') {
-                    window.location.href = '../../pages/reading/pure-reading-b1.html';
-                }
-            }, 800);
-        }
-
-        function updateLevelProgress(level, completed, total) {
+        // ===== UPDATE PROGRESS =====
+        function updateProgress(level, completed, total) {
             const percentage = (completed / total) * 100;
             const progressElement = document.getElementById(`${level}Progress`);
             const textElement = document.getElementById(`${level}Text`);
@@ -275,59 +226,60 @@
             }
         }
 
-        // ===== INITIALIZATION =====
-        function initializePage() {
-            const studentName = getStudentName();
-            const progressTracker = new ReadingHubProgress();
-            const stats = progressTracker.getReadingStats();
+        // ===== NAVIGATION =====
+        function navigateToLevel(level) {
+            const progressKey = `progress_${studentName}`;
+            const saved = localStorage.getItem(progressKey);
             
-            // Update user info
-            document.querySelector('[data-user-name]').textContent = 
-                studentName.charAt(0).toUpperCase() + studentName.slice(1).toLowerCase();
-            document.querySelector('[data-user-avatar]').textContent = studentName.charAt(0).toUpperCase();
-            
-            // Update overview
-            document.getElementById('totalCompleted').textContent = stats.totalCompleted;
-            document.getElementById('totalBadges').textContent = stats.totalBadges;
-            document.getElementById('averageScore').textContent = stats.averageScore;
-            
-            // Update progress bars
-            updateLevelProgress('a2Low', stats.a2Low.completed, stats.a2Low.total);
-            updateLevelProgress('a2Mid', stats.a2Mid.completed, stats.a2Mid.total);
-            updateLevelProgress('b1', stats.b1.completed, stats.b1.total);
-            
-            // Apply locked styles
-            const a2MidButton = document.querySelector('.level-a2-mid .level-button');
-            const b1Button = document.querySelector('.level-b1 .level-button');
-            
-            if (!stats.canAccessA2Mid && a2MidButton) {
-                a2MidButton.style.background = '#9ca3af';
-                a2MidButton.style.cursor = 'not-allowed';
-                a2MidButton.textContent = '🔒 Bloqueado';
-                a2MidButton.disabled = true;
+            if (saved) {
+                const data = JSON.parse(saved);
+                const neighbor = data.neighbor || { chaptersCompleted: [] };
+                const a2LowCompleted = neighbor.chaptersCompleted.length;
+                
+                // Check prerequisites
+                if (level === 'a2-mid' && a2LowCompleted < 3) {
+                    alert('🔒 ACESSO BLOQUEADO!\n\nPara acessar o A2 Mid Level, você precisa completar pelo menos 3 histórias do A2 Low Level primeiro.\n\nProgresso atual: ' + a2LowCompleted + '/4 histórias A2 Low concluídas.');
+                    return;
+                }
+                
+                if (level === 'b1' && a2LowCompleted < 3) {
+                    alert('🔒 NÍVEL EXPERT BLOQUEADO!\n\nPara acessar o B1 Level, você precisa completar pelo menos 3 histórias A2 Low primeiro.\n\nEste nível é apenas para alunos experientes!');
+                    return;
+                }
             }
             
-            if (!stats.canAccessB1 && b1Button) {
-                b1Button.style.background = '#9ca3af';
-                b1Button.style.cursor = 'not-allowed';
-                b1Button.textContent = '🔒 Expert Bloqueado';
-                b1Button.disabled = true;
-            }
+            // Navigate to level
+            const routes = {
+                'a2-low': '../reading/pure/perfect-neighbor-story.html',
+                'a2-mid': '../reading/pure/a2-mid.html',
+                'b1': '../reading/pure/b1.html'
+            };
             
-            console.log(`✅ Pure Reading Hub carregado - usuário: ${studentName}`);
-            console.log('🎮 Sistema de gamificação ativo com acesso progressivo');
-            console.log('🧹 CSS 100% externo - ZERO inline!');
+            if (routes[level]) {
+                // Loading state
+                event.currentTarget.style.opacity = '0.7';
+                const btn = event.currentTarget.querySelector('.story-button');
+                const originalText = btn.textContent;
+                btn.textContent = 'Carregando...';
+                
+                setTimeout(() => {
+                    window.location.href = routes[level];
+                }, 500);
+            }
         }
 
-        // ===== EVENT LISTENERS =====
-        document.addEventListener('DOMContentLoaded', initializePage);
+        // ===== LOGOUT =====
+        function logout() {
+            sessionStorage.clear();
+            window.location.href = '../../pages/auth/login.html';
+        }
 
-        console.log('✅ Pure Reading Hub - CSS COMPLETAMENTE LIMPO!');
-        console.log('🎨 Usando apenas classes externas');
-        console.log('🎮 Gamificação 100% preservada com sistema de unlock');
-        console.log('📱 Mobile PWA otimizado');
-        console.log('📦 Tamanho: ~70% menor sem CSS inline');
-        console.log('🔒 Sistema de progressão por níveis funcionando');
+        // ===== LOAD DATA =====
+        loadProgress();
+        
+        console.log('📖 PURE READING HUB v3.0 CLEAN carregado!');
+        console.log('👤 Usuário:', studentName);
+        console.log('🎯 Zero CSS inline - tudo organizado!');
     </script>
 </body>
 </html>
