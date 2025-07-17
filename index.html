@@ -5,445 +5,412 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Teacher Alex English Academy BETA</title>
     
-    <!-- CSS - CAMINHOS CORRETOS -->
-    <link rel="stylesheet" href="src/styles/base.css">
-    <link rel="stylesheet" href="src/styles/layout.css">
-    <link rel="stylesheet" href="src/styles/theme-patriot.css">
-    
-    <!-- PWA Configuration -->
+    <!-- PWA -->
     <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#dc2626">
+    <meta name="theme-color" content="#2b4c7e">
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="Alex Academy">
-    <link rel="apple-touch-icon" href="src/assets/images/icons/icon-192.png">
+    
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #dce0e6;
+            color: #1f1f20;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        /* Header */
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid #606d80;
+        }
+        
+        .logo {
+            color: #2b4c7e;
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+        }
+        
+        .welcome {
+            color: #606d80;
+            font-size: 1.1rem;
+        }
+        
+        /* User Widget */
+        .user-widget {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: white;
+            padding: 10px 15px;
+            border-radius: 8px;
+            border: 1px solid #606d80;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            z-index: 100;
+        }
+        
+        .user-avatar {
+            background: #2b4c7e;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+        
+        .logout-btn {
+            background: #567ebb;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+        
+        .logout-btn:hover { background: #2b4c7e; }
+        
+        /* Stats */
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        
+        .stat-card {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            border: 1px solid #606d80;
+        }
+        
+        .stat-number {
+            font-size: 2rem;
+            color: #2b4c7e;
+            font-weight: bold;
+        }
+        
+        .stat-label {
+            color: #606d80;
+            font-size: 0.9rem;
+        }
+        
+        /* Cards Grid */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .activity-card {
+            background: white;
+            border-radius: 12px;
+            border: 1px solid #606d80;
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+        
+        .activity-card:hover {
+            transform: translateY(-2px);
+        }
+        
+        .card-header {
+            background: #2b4c7e;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .card-icon {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .card-title {
+            font-size: 1.3rem;
+            margin-bottom: 5px;
+        }
+        
+        .card-content {
+            padding: 20px;
+        }
+        
+        .card-description {
+            color: #606d80;
+            margin-bottom: 15px;
+        }
+        
+        .card-features {
+            list-style: none;
+            margin-bottom: 20px;
+        }
+        
+        .card-features li {
+            padding: 5px 0;
+            color: #1f1f20;
+            border-bottom: 1px solid #dce0e6;
+        }
+        
+        .card-features li:before {
+            content: "✓ ";
+            color: #567ebb;
+            font-weight: bold;
+        }
+        
+        .start-btn {
+            width: 100%;
+            background: #567ebb;
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 6px;
+            font-size: 1rem;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        
+        .start-btn:hover { background: #2b4c7e; }
+        .start-btn:disabled { background: #606d80; cursor: not-allowed; }
+        
+        .progress-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #567ebb;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+        
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            border: 1px solid #606d80;
+            color: #606d80;
+        }
+        
+        .footer h3 {
+            color: #2b4c7e;
+            margin-bottom: 10px;
+        }
+        
+        .contact-link {
+            color: #567ebb;
+            text-decoration: none;
+        }
+        
+        /* Mobile */
+        @media (max-width: 768px) {
+            .container { padding: 10px; }
+            .user-widget { position: static; margin-bottom: 20px; }
+            .cards-grid { grid-template-columns: 1fr; }
+            .stats { grid-template-columns: repeat(2, 1fr); }
+        }
+    </style>
 </head>
 <body>
-    <!-- User Widget Moderno -->
-    <aside class="user-widget" aria-label="Informações do Usuário">
-        <div class="user-avatar" data-user-avatar>A</div>
-        <span class="user-name" data-user-name>Aluno</span>
-        <button class="logout-btn" onclick="logout()">🚪 Sair</button>
-    </aside>
+    <!-- User Widget -->
+    <div class="user-widget">
+        <div class="user-avatar" id="userAvatar">A</div>
+        <span id="userName">Aluno</span>
+        <button class="logout-btn" onclick="logout()">Sair</button>
+    </div>
 
-    <!-- Main App Container -->
     <div class="container">
         <!-- Header -->
         <header class="header">
-            <h1 class="logo">
-                Teacher Alex <span class="logo-highlight">English Academy</span> BETA
-            </h1>
-            <p class="welcome-message" data-welcome-message>Bem-vindo de volta, teacheralex!</p>
-            <p class="subtitle">Escolha sua atividade e continue aprendendo inglês</p>
+            <h1 class="logo">Teacher Alex English Academy BETA</h1>
+            <p class="welcome" id="welcomeMsg">Bem-vindo de volta!</p>
         </header>
         
-        <!-- Progress Stats -->
-        <section class="stats-section" aria-label="Estatísticas de Progresso">
-            <h2 class="stats-title">📊 Seu Progresso</h2>
-            <div class="stats-grid">
-                <div class="stat-item">
-                    <div class="stat-number" data-stat-lessons>0</div>
-                    <div class="stat-label">Lições Concluídas</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-number" data-stat-chapters>0</div>
-                    <div class="stat-label">Capítulos Lidos</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-number" data-stat-badges>0</div>
-                    <div class="stat-label">Badges Conquistadas</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-number" data-stat-time>0h</div>
-                    <div class="stat-label">Tempo de Estudo</div>
-                </div>
+        <!-- Stats -->
+        <section class="stats">
+            <div class="stat-card">
+                <div class="stat-number" id="statLessons">0</div>
+                <div class="stat-label">Lições</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="statChapters">0</div>
+                <div class="stat-label">Capítulos</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="statBadges">0</div>
+                <div class="stat-label">Badges</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="statTime">0h</div>
+                <div class="stat-label">Tempo</div>
             </div>
         </section>
         
-        <!-- Activities Dashboard -->
-        <main class="dashboard-grid" role="main">
-            <!-- Listening Practice -->
-            <article class="activity-card" onclick="navigateToSection('listening')">
-                <div class="image-container">
-                    <img src="src/assets/images/students/listening-student.jpg" 
-                         alt="Estudante praticando listening" 
-                         class="activity-image"
-                         onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                    <div class="image-fallback" style="display:none;">
-                        <div class="activity-icon">🎧</div>
-                    </div>
-                    <div class="activity-overlay">
-                        <div class="overlay-text">🎧 Comece a Escutar!</div>
-                    </div>
+        <!-- Activities -->
+        <main class="cards-grid">
+            <div class="activity-card" onclick="navigate('listening')">
+                <div class="card-header">
+                    <div class="card-icon">🎧</div>
+                    <h3 class="card-title">Listening Practice</h3>
                 </div>
                 <div class="card-content">
-                    <h3 class="activity-title">Listening Practice</h3>
-                    <p class="activity-description">Melhore sua compreensão auditiva com diálogos autênticos</p>
-                    <ul class="activity-features">
-                        <li>23 lições interativas (12 Foundation + 11 regulares)</li>
+                    <p class="card-description">Melhore sua compreensão auditiva com diálogos autênticos</p>
+                    <ul class="card-features">
+                        <li>23 lições interativas</li>
                         <li>Áudios nativos de qualidade</li>
                         <li>Quiz de compreensão</li>
                         <li>Sistema de badges</li>
                     </ul>
-                    <button class="start-button">Começar Listening</button>
-                </div>
-            </article>
-            
-            <!-- Graded Readers Hub -->
-            <article class="activity-card" onclick="navigateToSection('graded-readers')">
-                <div class="image-container">
-                    <img src="src/assets/images/students/reading-student.jpg" 
-                         alt="Estudante praticando leitura" 
-                         class="activity-image"
-                         onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                    <div class="image-fallback" style="display:none;">
-                        <div class="activity-icon">📚</div>
-                    </div>
-                    <div class="activity-overlay">
-                        <div class="overlay-text">📚 Mergulhe nas Histórias!</div>
-                    </div>
-                </div>
-                <div class="card-content">
-                    <h3 class="activity-title">Graded Readers Hub</h3>
-                    <p class="activity-description">Hub organizado com histórias por nível para absorção de vocabulário</p>
-                    <ul class="activity-features">
-                        <li>Nível A1: Histórias para iniciantes</li>
-                        <li>Nível A2: Vocabulário intermediário</li>
-                        <li>Nível B1: Para alunos avançados</li>
-                        <li>Todas com áudio IA de qualidade</li>
-                    </ul>
-                    <button class="start-button">Explorar Hub de Leitura</button>
-                </div>
-            </article>
-            
-            <!-- Pure Reading Hub -->
-            <article class="activity-card" onclick="navigateToSection('pure-reading')">
-                <div class="image-container">
-                    <img src="src/assets/images/students/group-students.png" 
-                         alt="Grupo de estudantes" 
-                         class="activity-image"
-                         onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                    <div class="image-fallback" style="display:none;">
-                        <div class="activity-icon">📖</div>
-                    </div>
-                    <div class="activity-overlay">
-                        <div class="overlay-text">📖 Foque na Leitura!</div>
-                    </div>
-                </div>
-                <div class="card-content">
-                    <h3 class="activity-title">Pure Reading Hub</h3>
-                    <p class="activity-description">Hub focado 100% na interpretação textual</p>
-                    <ul class="activity-features">
-                        <li>A2 Low: Perfect Neighbor + mais histórias</li>
-                        <li>A2 Mid: Histórias mais complexas</li>
-                        <li>B1: Para alunos avançados</li>
-                        <li>Leitura pura sem apoio de áudio</li>
-                    </ul>
-                    <button class="start-button">Explorar Hub de Leitura</button>
-                </div>
-            </article>
-            
-            <!-- Coming Soon -->
-            <article class="activity-card coming-soon">
-                <div class="activity-icon">📖</div>
-                <div class="card-content">
-                    <h3 class="activity-title">Apostilas Em Breve</h3>
-                    <p class="activity-description">Materiais didáticos exclusivos em desenvolvimento</p>
-                    <ul class="activity-features">
-                        <li>Gramática estruturada</li>
-                        <li>Exercícios práticos</li>
-                        <li>Vocabulário essencial</li>
-                        <li>Guias de conversação</li>
-                    </ul>
-                    <button class="coming-soon-button" disabled>🚀 Em Desenvolvimento</button>
-                </div>
-            </article>
-            
-            <!-- Secret Area -->
-            <article class="activity-card secret-area">
-                <div class="activity-icon">🔒</div>
-                <div class="card-content">
-                    <h3 class="activity-title">Secret Area</h3>
-                    <p class="activity-description">Algo especial está chegando... apenas para alunos dedicados</p>
-                    <ul class="activity-features">
-                        <li>??? Área restrita em desenvolvimento</li>
-                        <li>??? Apenas para alunos excepcionais</li>
-                        <li>??? Conteúdo nunca visto antes</li>
-                        <li>??? Acesso mediante conquista</li>
-                    </ul>
-                    <button class="mystery-button">🔓 Investigar</button>
-                </div>
-            </article>
-        </main>
-        
-        <!-- Instructions -->
-        <section class="info-section">
-            <h2 class="info-title">📋 Como Usar Esta Plataforma</h2>
-            <div class="instructions">
-                <div class="instruction-item">
-                    <div class="instruction-number">1</div>
-                    <div class="instruction-text">
-                        <strong>Escolha uma Atividade:</strong> Selecione entre Listening, Graded Readers com áudio ou Pure Reading baseado no que você quer praticar hoje.
-                    </div>
-                </div>
-                <div class="instruction-item">
-                    <div class="instruction-number">2</div>
-                    <div class="instruction-text">
-                        <strong>Escute e Leia:</strong> Use fones de ouvido para atividades com áudio. Para Pure Reading, foque 100% na leitura e interpretação.
-                    </div>
-                </div>
-                <div class="instruction-item">
-                    <div class="instruction-number">3</div>
-                    <div class="instruction-text">
-                        <strong>Responda as Perguntas:</strong> Teste sua compreensão com perguntas de interpretação e gramática após cada capítulo.
-                    </div>
-                </div>
-                <div class="instruction-item">
-                    <div class="instruction-number">4</div>
-                    <div class="instruction-text">
-                        <strong>Acompanhe seu Progresso:</strong> Ganhe badges e veja suas notas melhorarem conforme você pratica mais!
-                    </div>
+                    <button class="start-btn">Começar Listening</button>
                 </div>
             </div>
-        </section>
+            
+            <div class="activity-card" onclick="navigate('graded-readers')">
+                <div class="card-header">
+                    <div class="card-icon">📚</div>
+                    <h3 class="card-title">Graded Readers</h3>
+                </div>
+                <div class="card-content">
+                    <p class="card-description">Histórias por nível para absorção de vocabulário</p>
+                    <ul class="card-features">
+                        <li>Nível A1: Para iniciantes</li>
+                        <li>Nível A2: Intermediário</li>
+                        <li>Nível B1: Avançado</li>
+                        <li>Áudios IA de qualidade</li>
+                    </ul>
+                    <button class="start-btn">Explorar Hub</button>
+                </div>
+            </div>
+            
+            <div class="activity-card" onclick="navigate('pure-reading')">
+                <div class="card-header">
+                    <div class="card-icon">📖</div>
+                    <h3 class="card-title">Pure Reading</h3>
+                </div>
+                <div class="card-content">
+                    <p class="card-description">Foco 100% na interpretação textual</p>
+                    <ul class="card-features">
+                        <li>A2 Low: Perfect Neighbor</li>
+                        <li>A2 Mid: Histórias complexas</li>
+                        <li>B1: Para avançados</li>
+                        <li>Leitura pura sem áudio</li>
+                    </ul>
+                    <button class="start-btn">Explorar Leitura</button>
+                </div>
+            </div>
+            
+            <div class="activity-card">
+                <div class="card-header">
+                    <div class="card-icon">🔒</div>
+                    <h3 class="card-title">Secret Area</h3>
+                </div>
+                <div class="card-content">
+                    <p class="card-description">Algo especial está chegando...</p>
+                    <ul class="card-features">
+                        <li>Área restrita</li>
+                        <li>Para alunos dedicados</li>
+                        <li>Conteúdo exclusivo</li>
+                        <li>Acesse conquistando badges</li>
+                    </ul>
+                    <button class="start-btn" disabled>Em Breve</button>
+                </div>
+            </div>
+        </main>
         
         <!-- Footer -->
         <footer class="footer">
-            <h3>🎓 Teacher Alex English Academy BETA</h3>
-            <p>Sua jornada para dominar o inglês começa aqui!</p>
-            <p>Dúvidas? Entre em contato: <a href="mailto:alexmg@gmail.com" class="contact-link">alexmg@gmail.com</a></p>
+            <h3>🎓 Teacher Alex English Academy</h3>
+            <p>Sua jornada para dominar o inglês!</p>
+            <p>Contato: <a href="mailto:alexmg@gmail.com" class="contact-link">alexmg@gmail.com</a></p>
         </footer>
     </div>
-    
-    <!-- Service Worker Registration -->
-    <script>
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                navigator.serviceWorker.register('./sw.js')
-                    .then(registration => console.log('✅ SW registrado:', registration.scope))
-                    .catch(error => console.log('❌ SW falhou:', error));
-            });
-        }
-    </script>
-    
-    <!-- App Logic -->
-    <script>
-        // ===== AUTH SYSTEM =====
-        function checkLogin() {
-            if (sessionStorage.getItem('studentLoggedIn') !== 'true') {
-                window.location.href = 'pages/auth/login.html';
-                return false;
-            }
-            return true;
-        }
 
-        function logout() {
-            sessionStorage.removeItem('studentLoggedIn');
-            sessionStorage.removeItem('studentUsername');
+    <script>
+        // Auth Check
+        if (sessionStorage.getItem('studentLoggedIn') !== 'true') {
             window.location.href = 'pages/auth/login.html';
         }
 
-        function getStudentName() {
-            return sessionStorage.getItem('studentUsername') || 'Student';
-        }
+        // Initialize
+        const studentName = sessionStorage.getItem('studentUsername') || 'Student';
+        document.getElementById('userName').textContent = studentName;
+        document.getElementById('userAvatar').textContent = studentName.charAt(0).toUpperCase();
+        document.getElementById('welcomeMsg').textContent = `Bem-vindo de volta, ${studentName}!`;
 
-        // Immediate protection
-        if (!checkLogin()) {
-            document.body.innerHTML = '<div style="text-align:center;padding:50px;"><h1>Redirecionando para login...</h1></div>';
-            throw new Error('Access denied - redirecting to login');
-        }
-
-        // ===== PROGRESS SYSTEM =====
-        class SimpleProgress {
-            constructor() {
-                this.studentId = sessionStorage.getItem('studentUsername') || 'student';
-                this.progressKey = `progress_${this.studentId}`;
-                this.loadProgress();
-            }
-
-            loadProgress() {
-                const saved = localStorage.getItem(this.progressKey);
-                if (saved) {
-                    this.data = JSON.parse(saved);
-                } else {
-                    this.data = {
-                        listening: { lessonsCompleted: [], bestScores: {}, badges: [] },
-                        reading: { chaptersCompleted: [], bestScores: {}, badges: [] },
-                        roommate: { chaptersCompleted: [], bestScores: {}, badges: [] },
-                        neighbor: { chaptersCompleted: [], bestScores: {}, badges: [] },
-                        globalBadges: [],
-                        totalStudyTime: 0
-                    };
-                }
-                if (!this.data.roommate) this.data.roommate = { chaptersCompleted: [], bestScores: {}, badges: [] };
-                if (!this.data.neighbor) this.data.neighbor = { chaptersCompleted: [], bestScores: {}, badges: [] };
-            }
-
-            getStats() {
-                const foundationLessons = Array.from({length: 12}, (_, i) => `f${i + 1}`);
-                const foundationCompleted = foundationLessons.filter(lesson => 
-                    this.data.listening.lessonsCompleted.includes(`lesson_${lesson}`)
-                ).length;
+        // Load Progress
+        function loadStats() {
+            const progressKey = `progress_${studentName}`;
+            const saved = localStorage.getItem(progressKey);
+            
+            if (saved) {
+                const data = JSON.parse(saved);
+                const lessons = data.listening?.lessonsCompleted?.length || 0;
+                const chapters = (data.reading?.chaptersCompleted?.length || 0) + 
+                               (data.roommate?.chaptersCompleted?.length || 0) + 
+                               (data.neighbor?.chaptersCompleted?.length || 0);
+                const badges = (data.listening?.badges?.length || 0) + 
+                              (data.reading?.badges?.length || 0) + 
+                              (data.roommate?.badges?.length || 0) + 
+                              (data.neighbor?.badges?.length || 0);
+                const time = Math.floor((data.totalStudyTime || 0) / (1000 * 60 * 60));
                 
-                const regularLessonsCompleted = this.data.listening.lessonsCompleted.filter(lesson => 
-                    !lesson.startsWith('lesson_f')
-                ).length;
-                
-                const totalListeningLessons = foundationCompleted + regularLessonsCompleted;
-                const readingChapters = this.data.reading.chaptersCompleted.length;
-                const roommateChapters = this.data.roommate.chaptersCompleted.length;
-                const neighborChapters = this.data.neighbor.chaptersCompleted.length;
-                const totalChapters = readingChapters + roommateChapters + neighborChapters;
-                const totalBadges = this.data.listening.badges.length + 
-                                  this.data.reading.badges.length + 
-                                  this.data.roommate.badges.length +
-                                  this.data.neighbor.badges.length +
-                                  this.data.globalBadges.length;
-                const studyTimeHours = Math.floor(this.data.totalStudyTime / (1000 * 60 * 60));
-
-                return {
-                    lessonsCompleted: totalListeningLessons,
-                    chaptersRead: totalChapters,
-                    totalBadges: totalBadges,
-                    studyTime: studyTimeHours
-                };
+                document.getElementById('statLessons').textContent = lessons;
+                document.getElementById('statChapters').textContent = chapters;
+                document.getElementById('statBadges').textContent = badges;
+                document.getElementById('statTime').textContent = time + 'h';
             }
         }
 
-        // ===== NAVIGATION =====
-        function navigateToSection(section) {
-            const button = event.currentTarget.querySelector('.start-button, .coming-soon-button, .mystery-button');
-            const originalText = button.textContent;
-            button.textContent = 'Carregando...';
-            button.style.background = '#6b7280';
-            event.currentTarget.style.opacity = '0.7';
+        // Navigation
+        function navigate(section) {
+            const routes = {
+                'listening': 'pages/hubs/listening-hub.html',
+                'graded-readers': 'pages/hubs/graded-readers-hub.html',
+                'pure-reading': 'pages/hubs/pure-reading-hub.html'
+            };
             
-            let destination = '';
-            switch(section) {
-                case 'listening':
-                    destination = 'pages/hubs/listening-hub.html';
-                    break;
-                case 'graded-readers':
-                    destination = 'pages/hubs/graded-readers-hub.html';
-                    break;
-                case 'pure-reading':
-                    destination = 'pages/hubs/pure-reading-hub.html';
-                    break;
-                default:
-                    alert('🚀 Esta funcionalidade está em desenvolvimento!');
-                    button.textContent = originalText;
-                    button.style.background = '';
-                    event.currentTarget.style.opacity = '1';
-                    return;
-            }
-            
-            setTimeout(() => {
-                window.location.href = destination;
-            }, 800);
-        }
-
-        // ===== INITIALIZATION =====
-        function initializePage() {
-            const studentName = getStudentName();
-            const progressTracker = new SimpleProgress();
-            const stats = progressTracker.getStats();
-            
-            document.querySelector('[data-user-name]').textContent = 
-                studentName.charAt(0).toUpperCase() + studentName.slice(1).toLowerCase();
-            document.querySelector('[data-user-avatar]').textContent = studentName.charAt(0).toUpperCase();
-            document.querySelector('[data-welcome-message]').textContent = `Bem-vindo de volta, ${studentName}!`;
-            
-            console.log(`✅ Carregado - usuário: ${studentName}`);
-            console.log(`📊 Stats:`, stats);
-            
-            document.querySelector('[data-stat-lessons]').textContent = stats.lessonsCompleted;
-            document.querySelector('[data-stat-chapters]').textContent = stats.chaptersRead;
-            document.querySelector('[data-stat-badges]').textContent = stats.totalBadges;
-            document.querySelector('[data-stat-time]').textContent = stats.studyTime + 'h';
-            
-            addProgressBadges(progressTracker);
-        }
-
-        function addProgressBadges(progressTracker) {
-            const activityCards = document.querySelectorAll('.activity-card');
-            
-            // Listening Badge
-            const listeningCard = activityCards[0];
-            const listeningCompleted = progressTracker.data.listening.lessonsCompleted.length;
-            if (listeningCompleted > 0) {
-                const badge = document.createElement('div');
-                badge.className = 'progress-badge';
-                badge.textContent = `${listeningCompleted}/23 ✓`;
-                if (listeningCompleted === 23) {
-                    badge.style.background = 'linear-gradient(135deg, #10b981, #059669)';
-                }
-                listeningCard.appendChild(badge);
-            }
-            
-            // Graded Readers Badge
-            const gradedReadersCard = activityCards[1];
-            const readingCompleted = progressTracker.data.reading.chaptersCompleted.length;
-            const roommateCompleted = progressTracker.data.roommate.chaptersCompleted.length;
-            const totalGradedReaders = readingCompleted + roommateCompleted;
-            if (totalGradedReaders > 0) {
-                const badge = document.createElement('div');
-                badge.className = 'progress-badge';
-                badge.textContent = `${totalGradedReaders}/7 ✓`;
-                if (totalGradedReaders === 7) {
-                    badge.style.background = 'linear-gradient(135deg, #10b981, #059669)';
-                }
-                gradedReadersCard.appendChild(badge);
-            }
-            
-            // Pure Reading Badge
-            const pureReadingCard = activityCards[2];
-            const neighborCompleted = progressTracker.data.neighbor.chaptersCompleted.length;
-            if (neighborCompleted > 0) {
-                const badge = document.createElement('div');
-                badge.className = 'progress-badge';
-                badge.textContent = `${neighborCompleted}/5 ✓`;
-                if (neighborCompleted === 5) {
-                    badge.style.background = 'linear-gradient(135deg, #10b981, #059669)';
-                }
-                pureReadingCard.appendChild(badge);
+            if (routes[section]) {
+                window.location.href = routes[section];
+            } else {
+                alert('🚀 Em desenvolvimento!');
             }
         }
 
-        // ===== EVENT LISTENERS =====
-        document.addEventListener('DOMContentLoaded', function() {
-            initializePage();
-            
-            // Secret Area handler
-            const secretArea = document.querySelector('.secret-area');
-            if (secretArea) {
-                secretArea.addEventListener('click', function(e) {
-                    e.stopPropagation();
-                    const secretMessages = [
-                        "🔮 O segredo será revelado quando você completar todas as histórias...",
-                        "🗝️ Alunos dedicados descobrem tesouros escondidos...",
-                        "⭐ Continue praticando... algo especial está sendo preparado para você!",
-                        "🎯 Apenas os mais persistentes descobrirão o que aguarda aqui..."
-                    ];
-                    alert(secretMessages[Math.floor(Math.random() * secretMessages.length)]);
-                });
-            }
-            
-            // Coming Soon handler
-            const comingSoon = document.querySelector('.coming-soon');
-            if (comingSoon) {
-                comingSoon.addEventListener('click', function(e) {
-                    e.stopPropagation();
-                    alert('🚀 Esta funcionalidade está em desenvolvimento!\n\nEm breve teremos materiais didáticos exclusivos!');
-                });
-            }
-        });
+        // Logout
+        function logout() {
+            sessionStorage.clear();
+            window.location.href = 'pages/auth/login.html';
+        }
 
-        console.log('✅ INDEX.HTML - CSS COMPLETAMENTE LIMPO!');
-        console.log('🎨 Usando apenas classes externas');
-        console.log('🎮 Gamificação 100% preservada');
-        console.log('📱 Mobile PWA otimizado');
-        console.log('📦 Tamanho: ~75% menor sem CSS inline');
-        console.log('🔧 Imagens com fallback garantido');
+        // PWA Service Worker
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('./sw.js');
+        }
+
+        // Initialize
+        loadStats();
     </script>
 </body>
 </html>
