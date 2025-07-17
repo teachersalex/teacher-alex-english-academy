@@ -10,57 +10,7 @@
     <link rel="stylesheet" href="../../src/styles/layout.css">
     <link rel="stylesheet" href="../../src/styles/theme-patriot.css">
     
-    <style>
-        /* 🎵 SPEED CONTROLS - ÚNICA CUSTOMIZAÇÃO NECESSÁRIA */
-        .speed-controls {
-            display: flex;
-            justify-content: center;
-            gap: 0.75rem;
-            flex-wrap: wrap;
-            margin-top: 1rem;
-        }
-        
-        .speed-btn {
-            padding: 0.5rem 1rem;
-            border: 2px solid var(--gray-200);
-            border-radius: var(--radius);
-            background: white;
-            color: var(--blue-gray);
-            font-weight: 600;
-            font-size: 0.85rem;
-            cursor: pointer;
-            transition: var(--transition);
-            min-width: 60px;
-        }
-        
-        .speed-btn.active,
-        .speed-btn:hover {
-            border-color: var(--blue-medium);
-            background: var(--blue-medium);
-            color: white;
-            transform: translateY(-1px);
-            box-shadow: 0 4px 12px rgba(86, 126, 187, 0.3);
-        }
-        
-        .audio-controls {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 1.5rem;
-        }
-        
-        @media (max-width: 768px) {
-            .speed-controls {
-                gap: 0.5rem;
-            }
-            
-            .speed-btn {
-                min-width: 50px;
-                padding: 0.4rem 0.8rem;
-                font-size: 0.8rem;
-            }
-        }
-    </style>
+    <!-- ❌ CSS INLINE DOS SPEED CONTROLS REMOVIDO! -->
 </head>
 <body class="listening-page">
     <!-- User Widget -->
@@ -129,14 +79,7 @@
                         <button class="btn btn-secondary" onclick="replayAudio()">🔄 Repetir</button>
                         <button class="btn btn-primary" onclick="pauseAudio()">⏸️ Pausar</button>
                     </div>
-                    <!-- SPEED CONTROLS - FEATURE REQUEST DOS ALUNOS -->
-                    <div class="speed-controls">
-                        <button class="speed-btn" data-speed="0.75">0.75x</button>
-                        <button class="speed-btn active" data-speed="1">1x</button>
-                        <button class="speed-btn" data-speed="1.25">1.25x</button>
-                        <button class="speed-btn" data-speed="1.5">1.5x</button>
-                        <button class="speed-btn" data-speed="2">2x</button>
-                    </div>
+                    <!-- ✅ Speed controls aparecerão AUTOMATICAMENTE aqui via script universal! -->
                 </div>
             </div>
             
@@ -317,22 +260,7 @@
         
         let currentLesson = 1, attempts = 0, lessonStartTime = Date.now(), studentProgress = new StudentProgress();
         
-        // ===== SPEED CONTROLS - FEATURE REQUEST =====
-        function initSpeedControls() {
-            document.querySelectorAll('.speed-btn').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    const speed = parseFloat(this.dataset.speed);
-                    const audio = document.getElementById('mainAudio');
-                    audio.playbackRate = speed;
-                    
-                    // Update active state
-                    document.querySelectorAll('.speed-btn').forEach(b => b.classList.remove('active'));
-                    this.classList.add('active');
-                    
-                    console.log(`🎧 Velocidade alterada para: ${speed}x`);
-                });
-            });
-        }
+        // ❌ FUNÇÃO initSpeedControls() REMOVIDA! (Agora é automática via script)
         
         // ===== LESSON CARDS - MESMO PADRÃO CHAPTER CARDS =====
         function createLessonCards() {
@@ -519,13 +447,16 @@
             console.log('✅ Visual CONSISTENTE aplicado');
             console.log('🎯 Cores patrióticas mantidas');
             console.log('📁 Estrutura igual foundation.html');
-            console.log('🎧 3 lições Beginner com speed controls');
-            console.log('⚡ Speed controls: 0.75x → 2x funcionando');
+            console.log('🎧 3 lições Beginner com speed controls UNIVERSAL');
+            console.log('⚡ Speed controls carregam automaticamente via script');
             
             createLessonCards();
             loadLesson(currentLesson);
-            initSpeedControls();
+            // ❌ initSpeedControls(); REMOVIDO! (Agora é automático)
         });
     </script>
+    
+    <!-- ✅ SPEED CONTROLS UNIVERSAL - UMA LINHA SÓ! -->
+    <script src="../../src/scripts/core/speed-controls-core.js"></script>
 </body>
 </html>
