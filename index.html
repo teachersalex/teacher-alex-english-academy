@@ -3,338 +3,154 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Teacher Alex English Academy BETA</title>
+    <title>Teacher Alex English Academy</title>
     
     <!-- PWA -->
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#2b4c7e">
     <meta name="apple-mobile-web-app-capable" content="yes">
     
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-            background: #dce0e6;
-            color: #1f1f20;
-            line-height: 1.6;
-        }
-        
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-        
-        /* Header */
-        .header {
-            text-align: center;
-            margin-bottom: 30px;
-            background: white;
-            padding: 20px;
-            border-radius: 12px;
-            border: 1px solid #606d80;
-        }
-        
-        .logo {
-            color: #2b4c7e;
-            font-size: 1.8rem;
-            margin-bottom: 10px;
-        }
-        
-        .welcome {
-            color: #606d80;
-            font-size: 1.1rem;
-        }
-        
-        /* User Widget */
-        .user-widget {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background: white;
-            padding: 10px 15px;
-            border-radius: 8px;
-            border: 1px solid #606d80;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            z-index: 100;
-        }
-        
-        .user-avatar {
-            background: #2b4c7e;
-            color: white;
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-        }
-        
-        .logout-btn {
-            background: #567ebb;
-            color: white;
-            border: none;
-            padding: 5px 10px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 0.9rem;
-        }
-        
-        .logout-btn:hover { background: #2b4c7e; }
-        
-        /* Stats */
-        .stats {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 15px;
-            margin-bottom: 30px;
-        }
-        
-        .stat-card {
-            background: white;
-            padding: 15px;
-            border-radius: 8px;
-            text-align: center;
-            border: 1px solid #606d80;
-        }
-        
-        .stat-number {
-            font-size: 2rem;
-            color: #2b4c7e;
-            font-weight: bold;
-        }
-        
-        .stat-label {
-            color: #606d80;
-            font-size: 0.9rem;
-        }
-        
-        /* Cards Grid */
-        .cards-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-            margin-bottom: 30px;
-        }
-        
-        .activity-card {
-            background: white;
-            border-radius: 12px;
-            border: 1px solid #606d80;
-            overflow: hidden;
-            cursor: pointer;
-            transition: transform 0.2s ease;
-        }
-        
-        .activity-card:hover {
-            transform: translateY(-2px);
-        }
-        
-        .card-header {
-            background: #2b4c7e;
-            color: white;
-            padding: 20px;
-            text-align: center;
-        }
-        
-        .card-icon {
-            font-size: 2.5rem;
-            margin-bottom: 10px;
-        }
-        
-        .card-title {
-            font-size: 1.3rem;
-            margin-bottom: 5px;
-        }
-        
-        .card-content {
-            padding: 20px;
-        }
-        
-        .card-description {
-            color: #606d80;
-            margin-bottom: 15px;
-        }
-        
-        .card-features {
-            list-style: none;
-            margin-bottom: 20px;
-        }
-        
-        .card-features li {
-            padding: 5px 0;
-            color: #1f1f20;
-            border-bottom: 1px solid #dce0e6;
-        }
-        
-        .card-features li:before {
-            content: "✓ ";
-            color: #567ebb;
-            font-weight: bold;
-        }
-        
-        .start-btn {
-            width: 100%;
-            background: #567ebb;
-            color: white;
-            border: none;
-            padding: 12px;
-            border-radius: 6px;
-            font-size: 1rem;
-            cursor: pointer;
-            font-weight: bold;
-        }
-        
-        .start-btn:hover { background: #2b4c7e; }
-        .start-btn:disabled { background: #606d80; cursor: not-allowed; }
-        
-        .progress-badge {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background: #567ebb;
-            color: white;
-            padding: 5px 10px;
-            border-radius: 15px;
-            font-size: 0.8rem;
-            font-weight: bold;
-        }
-        
-        /* Footer */
-        .footer {
-            text-align: center;
-            padding: 20px;
-            background: white;
-            border-radius: 8px;
-            border: 1px solid #606d80;
-            color: #606d80;
-        }
-        
-        .footer h3 {
-            color: #2b4c7e;
-            margin-bottom: 10px;
-        }
-        
-        .contact-link {
-            color: #567ebb;
-            text-decoration: none;
-        }
-        
-        /* Mobile */
-        @media (max-width: 768px) {
-            .container { padding: 10px; }
-            .user-widget { position: static; margin-bottom: 20px; }
-            .cards-grid { grid-template-columns: 1fr; }
-            .stats { grid-template-columns: repeat(2, 1fr); }
-        }
-    </style>
+    <!-- CSS Universal -->
+    <link rel="stylesheet" href="src/styles/base.css">
+    <link rel="stylesheet" href="src/styles/layout.css">
+    <link rel="stylesheet" href="src/styles/theme-patriot.css">
 </head>
 <body>
     <!-- User Widget -->
     <div class="user-widget">
         <div class="user-avatar" id="userAvatar">A</div>
-        <span id="userName">Aluno</span>
+        <span class="user-name" id="userName">Aluno</span>
         <button class="logout-btn" onclick="logout()">Sair</button>
     </div>
 
     <div class="container">
         <!-- Header -->
         <header class="header">
-            <h1 class="logo">Teacher Alex English Academy BETA</h1>
-            <p class="welcome" id="welcomeMsg">Bem-vindo de volta!</p>
+            <h1 class="logo">Teacher Alex <span class="logo-highlight">English Academy</span></h1>
+            <p class="main-subtitle" id="welcomeMsg">Bem-vindo de volta!</p>
         </header>
         
-        <!-- Stats -->
-        <section class="stats">
+        <!-- Stats Dashboard -->
+        <section class="stats-dashboard">
             <div class="stat-card">
-                <div class="stat-number" id="statLessons">0</div>
-                <div class="stat-label">Lições</div>
+                <div class="stat-icon">📚</div>
+                <div class="stat-info">
+                    <div class="stat-number" id="statLessons">0</div>
+                    <div class="stat-label">Lições Completas</div>
+                </div>
             </div>
+            
             <div class="stat-card">
-                <div class="stat-number" id="statChapters">0</div>
-                <div class="stat-label">Capítulos</div>
+                <div class="stat-icon">📖</div>
+                <div class="stat-info">
+                    <div class="stat-number" id="statChapters">0</div>
+                    <div class="stat-label">Capítulos Lidos</div>
+                </div>
             </div>
+            
             <div class="stat-card">
-                <div class="stat-number" id="statBadges">0</div>
-                <div class="stat-label">Badges</div>
+                <div class="stat-icon">🏆</div>
+                <div class="stat-info">
+                    <div class="stat-number" id="statBadges">0</div>
+                    <div class="stat-label">Badges Earned</div>
+                </div>
             </div>
+            
             <div class="stat-card">
-                <div class="stat-number" id="statTime">0h</div>
-                <div class="stat-label">Tempo</div>
+                <div class="stat-icon">⏱️</div>
+                <div class="stat-info">
+                    <div class="stat-number" id="statTime">0h</div>
+                    <div class="stat-label">Tempo de Estudo</div>
+                </div>
             </div>
         </section>
         
-        <!-- Activities -->
-        <main class="cards-grid">
-            <div class="activity-card" onclick="navigate('listening')">
-                <div class="card-header">
-                    <div class="card-icon">🎧</div>
-                    <h3 class="card-title">Listening Practice</h3>
+        <!-- Main Activities -->
+        <main class="hubs-grid">
+            <!-- Listening Hub -->
+            <div class="hub-card" onclick="navigate('listening')">
+                <div class="hub-header">
+                    <div class="hub-icon">🎧</div>
+                    <h3 class="hub-title-card">Listening Practice</h3>
+                    <p class="hub-description">Melhore sua compreensão auditiva com diálogos autênticos</p>
                 </div>
-                <div class="card-content">
-                    <p class="card-description">Melhore sua compreensão auditiva com diálogos autênticos</p>
-                    <ul class="card-features">
-                        <li>23 lições interativas</li>
-                        <li>Áudios nativos de qualidade</li>
-                        <li>Quiz de compreensão</li>
-                        <li>Sistema de badges</li>
+                <div class="hub-content">
+                    <ul class="hub-features">
+                        <li>23 lições interativas disponíveis</li>
+                        <li>Áudios nativos de alta qualidade</li>
+                        <li>Quiz de compreensão dinâmico</li>
+                        <li>Sistema de badges motivador</li>
+                        <li>Níveis: Foundation → Advanced</li>
                     </ul>
-                    <button class="start-btn">Começar Listening</button>
                 </div>
+                <div class="hub-footer">
+                    <button class="hub-button">🎧 Começar Listening</button>
+                </div>
+                <div class="progress-badge" id="listeningProgress">✨ Pronto</div>
             </div>
             
-            <div class="activity-card" onclick="navigate('graded-readers')">
-                <div class="card-header">
-                    <div class="card-icon">📚</div>
-                    <h3 class="card-title">Graded Readers</h3>
+            <!-- Graded Readers Hub -->
+            <div class="hub-card" onclick="navigate('graded-readers')">
+                <div class="hub-header">
+                    <div class="hub-icon">📚</div>
+                    <h3 class="hub-title-card">Graded Readers</h3>
+                    <p class="hub-description">Histórias organizadas por nível para absorção natural de vocabulário</p>
                 </div>
-                <div class="card-content">
-                    <p class="card-description">Histórias por nível para absorção de vocabulário</p>
-                    <ul class="card-features">
-                        <li>Nível A1: Para iniciantes</li>
-                        <li>Nível A2: Intermediário</li>
-                        <li>Nível B1: Avançado</li>
-                        <li>Áudios IA de qualidade</li>
+                <div class="hub-content">
+                    <ul class="hub-features">
+                        <li>Nível A1: The Roommate Problem</li>
+                        <li>Nível A2: The Secret House</li>
+                        <li>Nível B1: Em desenvolvimento</li>
+                        <li>Áudios IA de alta qualidade</li>
+                        <li>Progressão didática estruturada</li>
                     </ul>
-                    <button class="start-btn">Explorar Hub</button>
                 </div>
+                <div class="hub-footer">
+                    <button class="hub-button">📚 Explorar Histórias</button>
+                </div>
+                <div class="progress-badge" id="gradedProgress">✨ Pronto</div>
             </div>
             
-            <div class="activity-card" onclick="navigate('pure-reading')">
-                <div class="card-header">
-                    <div class="card-icon">📖</div>
-                    <h3 class="card-title">Pure Reading</h3>
+            <!-- Pure Reading Hub -->
+            <div class="hub-card" onclick="navigate('pure-reading')">
+                <div class="hub-header">
+                    <div class="hub-icon">📖</div>
+                    <h3 class="hub-title-card">Pure Reading</h3>
+                    <p class="hub-description">Foco 100% na interpretação textual sem distrações</p>
                 </div>
-                <div class="card-content">
-                    <p class="card-description">Foco 100% na interpretação textual</p>
-                    <ul class="card-features">
-                        <li>A2 Low: Perfect Neighbor</li>
-                        <li>A2 Mid: Histórias complexas</li>
-                        <li>B1: Para avançados</li>
-                        <li>Leitura pura sem áudio</li>
+                <div class="hub-content">
+                    <ul class="hub-features">
+                        <li>A2 Low: Perfect Neighbor Story</li>
+                        <li>A2 Mid: Histórias intermediárias</li>
+                        <li>B1: Para alunos avançados</li>
+                        <li>Leitura pura sem dependência de áudio</li>
+                        <li>Typography otimizada para leitura</li>
                     </ul>
-                    <button class="start-btn">Explorar Leitura</button>
                 </div>
+                <div class="hub-footer">
+                    <button class="hub-button">📖 Começar Leitura</button>
+                </div>
+                <div class="progress-badge" id="pureProgress">✨ Pronto</div>
             </div>
             
-            <div class="activity-card">
-                <div class="card-header">
-                    <div class="card-icon">🔒</div>
-                    <h3 class="card-title">Secret Area</h3>
+            <!-- Secret Area -->
+            <div class="hub-card coming-soon" onclick="showComingSoon()">
+                <div class="hub-header">
+                    <div class="hub-icon">🔒</div>
+                    <h3 class="hub-title-card">Secret Area</h3>
+                    <p class="hub-description">Área exclusiva para alunos dedicados e conquistadores</p>
                 </div>
-                <div class="card-content">
-                    <p class="card-description">Algo especial está chegando...</p>
-                    <ul class="card-features">
-                        <li>Área restrita</li>
-                        <li>Para alunos dedicados</li>
-                        <li>Conteúdo exclusivo</li>
-                        <li>Acesse conquistando badges</li>
+                <div class="hub-content">
+                    <ul class="hub-features">
+                        <li>Conteúdo premium exclusivo</li>
+                        <li>Desafios especiais avançados</li>
+                        <li>Certificados de conquista</li>
+                        <li>Acesso via badges earned</li>
+                        <li>Surpresas para dedicados</li>
                     </ul>
-                    <button class="start-btn" disabled>Em Breve</button>
+                </div>
+                <div class="hub-footer">
+                    <button class="hub-button" disabled>🚀 Em Breve</button>
                 </div>
             </div>
         </main>
@@ -342,75 +158,193 @@
         <!-- Footer -->
         <footer class="footer">
             <h3>🎓 Teacher Alex English Academy</h3>
-            <p>Sua jornada para dominar o inglês!</p>
-            <p>Contato: <a href="mailto:alexmg@gmail.com" class="contact-link">alexmg@gmail.com</a></p>
+            <p>Sua jornada personalizada para dominar o inglês americano!</p>
+            <p>Contato direto: <a href="mailto:alexmg@gmail.com" class="contact-link">alexmg@gmail.com</a></p>
         </footer>
     </div>
 
     <script>
-        // Auth Check
+        // ===== AUTH CHECK =====
         if (sessionStorage.getItem('studentLoggedIn') !== 'true') {
             window.location.href = 'pages/auth/login.html';
         }
 
-        // Initialize
+        // ===== INITIALIZATION =====
         const studentName = sessionStorage.getItem('studentUsername') || 'Student';
+        
+        // Update UI with student info
         document.getElementById('userName').textContent = studentName;
         document.getElementById('userAvatar').textContent = studentName.charAt(0).toUpperCase();
         document.getElementById('welcomeMsg').textContent = `Bem-vindo de volta, ${studentName}!`;
 
-        // Load Progress
+        // ===== STATS DASHBOARD =====
         function loadStats() {
             const progressKey = `progress_${studentName}`;
             const saved = localStorage.getItem(progressKey);
             
             if (saved) {
-                const data = JSON.parse(saved);
-                const lessons = data.listening?.lessonsCompleted?.length || 0;
-                const chapters = (data.reading?.chaptersCompleted?.length || 0) + 
-                               (data.roommate?.chaptersCompleted?.length || 0) + 
-                               (data.neighbor?.chaptersCompleted?.length || 0);
-                const badges = (data.listening?.badges?.length || 0) + 
-                              (data.reading?.badges?.length || 0) + 
-                              (data.roommate?.badges?.length || 0) + 
-                              (data.neighbor?.badges?.length || 0);
-                const time = Math.floor((data.totalStudyTime || 0) / (1000 * 60 * 60));
-                
-                document.getElementById('statLessons').textContent = lessons;
-                document.getElementById('statChapters').textContent = chapters;
-                document.getElementById('statBadges').textContent = badges;
-                document.getElementById('statTime').textContent = time + 'h';
+                try {
+                    const data = JSON.parse(saved);
+                    
+                    // Calculate lessons completed
+                    const listeningLessons = data.listening?.lessonsCompleted?.length || 0;
+                    const totalLessons = listeningLessons;
+                    
+                    // Calculate chapters completed
+                    const readingChapters = data.reading?.chaptersCompleted?.length || 0;
+                    const roommateChapters = data.roommate?.chaptersCompleted?.length || 0;
+                    const neighborChapters = data.neighbor?.chaptersCompleted?.length || 0;
+                    const totalChapters = readingChapters + roommateChapters + neighborChapters;
+                    
+                    // Calculate badges earned
+                    const listeningBadges = data.listening?.badges?.length || 0;
+                    const readingBadges = data.reading?.badges?.length || 0;
+                    const roommateBadges = data.roommate?.badges?.length || 0;
+                    const neighborBadges = data.neighbor?.badges?.length || 0;
+                    const totalBadges = listeningBadges + readingBadges + roommateBadges + neighborBadges;
+                    
+                    // Calculate study time (convert from milliseconds to hours)
+                    const totalStudyTime = data.totalStudyTime || 0;
+                    const studyHours = Math.floor(totalStudyTime / (1000 * 60 * 60));
+                    
+                    // Update UI
+                    document.getElementById('statLessons').textContent = totalLessons;
+                    document.getElementById('statChapters').textContent = totalChapters;
+                    document.getElementById('statBadges').textContent = totalBadges;
+                    document.getElementById('statTime').textContent = studyHours + 'h';
+                    
+                    // Update progress badges based on completion
+                    updateProgressBadges(data);
+                    
+                } catch (e) {
+                    console.error('Erro ao carregar estatísticas:', e);
+                    // Set default values if there's an error
+                    setDefaultStats();
+                }
+            } else {
+                // Set default values for new users
+                setDefaultStats();
             }
         }
 
-        // Navigation
+        function setDefaultStats() {
+            document.getElementById('statLessons').textContent = '0';
+            document.getElementById('statChapters').textContent = '0';
+            document.getElementById('statBadges').textContent = '0';
+            document.getElementById('statTime').textContent = '0h';
+        }
+
+        function updateProgressBadges(data) {
+            // Listening progress
+            const listeningCompleted = data.listening?.lessonsCompleted?.length || 0;
+            const listeningBadge = document.getElementById('listeningProgress');
+            if (listeningCompleted > 0) {
+                listeningBadge.textContent = `${listeningCompleted} ✓`;
+                listeningBadge.style.background = 'var(--success)';
+            }
+            
+            // Graded readers progress
+            const roommateCompleted = data.roommate?.chaptersCompleted?.length || 0;
+            const readingCompleted = data.reading?.chaptersCompleted?.length || 0;
+            const gradedBadge = document.getElementById('gradedProgress');
+            const totalGradedChapters = roommateCompleted + readingCompleted;
+            if (totalGradedChapters > 0) {
+                gradedBadge.textContent = `${totalGradedChapters} ✓`;
+                gradedBadge.style.background = 'var(--success)';
+            }
+            
+            // Pure reading progress
+            const neighborCompleted = data.neighbor?.chaptersCompleted?.length || 0;
+            const pureBadge = document.getElementById('pureProgress');
+            if (neighborCompleted > 0) {
+                pureBadge.textContent = `${neighborCompleted} ✓`;
+                pureBadge.style.background = 'var(--success)';
+            }
+        }
+
+        // ===== NAVIGATION SYSTEM =====
         function navigate(section) {
+            const card = event.currentTarget;
+            const button = card.querySelector('.hub-button');
+            const originalText = button.textContent;
+            
+            // Loading state
+            button.textContent = 'Carregando...';
+            card.style.opacity = '0.7';
+            
             const routes = {
                 'listening': 'pages/hubs/listening-hub.html',
                 'graded-readers': 'pages/hubs/graded-readers-hub.html',
                 'pure-reading': 'pages/hubs/pure-reading-hub.html'
             };
             
-            if (routes[section]) {
-                window.location.href = routes[section];
-            } else {
-                alert('🚀 Em desenvolvimento!');
+            setTimeout(() => {
+                if (routes[section]) {
+                    window.location.href = routes[section];
+                } else {
+                    // Restore button if route doesn't exist
+                    button.textContent = originalText;
+                    card.style.opacity = '1';
+                    alert('🚀 Seção em desenvolvimento!');
+                }
+            }, 500);
+        }
+
+        function showComingSoon() {
+            const messages = [
+                '🔒 A Secret Area está sendo preparada especialmente para vocês!',
+                '🏆 Continue ganhando badges para desbloquear conteúdo exclusivo!',
+                '⭐ Algo incrível está vindo para os alunos mais dedicados!',
+                '🎯 Mantenha o foco nos estudos - surpresas estão chegando!'
+            ];
+            alert(messages[Math.floor(Math.random() * messages.length)]);
+        }
+
+        // ===== LOGOUT FUNCTION =====
+        function logout() {
+            if (confirm('Tem certeza que deseja sair?')) {
+                sessionStorage.clear();
+                window.location.href = 'pages/auth/login.html';
             }
         }
 
-        // Logout
-        function logout() {
-            sessionStorage.clear();
-            window.location.href = 'pages/auth/login.html';
-        }
-
-        // PWA Service Worker
+        // ===== PWA SERVICE WORKER =====
         if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('./sw.js');
+            navigator.serviceWorker.register('./sw.js')
+                .then(registration => {
+                    console.log('🔧 Service Worker registrado com sucesso:', registration);
+                })
+                .catch(error => {
+                    console.log('❌ Falha ao registrar Service Worker:', error);
+                });
         }
 
-        // Initialize
+        // ===== STUDY TIME TRACKING =====
+        let sessionStartTime = Date.now();
+        
+        // Track study time when user leaves
+        window.addEventListener('beforeunload', () => {
+            const sessionTime = Date.now() - sessionStartTime;
+            const progressKey = `progress_${studentName}`;
+            const saved = localStorage.getItem(progressKey);
+            
+            if (saved) {
+                try {
+                    const data = JSON.parse(saved);
+                    data.totalStudyTime = (data.totalStudyTime || 0) + sessionTime;
+                    localStorage.setItem(progressKey, JSON.stringify(data));
+                } catch (e) {
+                    console.error('Erro ao salvar tempo de estudo:', e);
+                }
+            }
+        });
+
+        // ===== INITIALIZATION =====
         loadStats();
+        
+        console.log('🎓 TEACHER ALEX ENGLISH ACADEMY carregado!');
+        console.log('👤 Usuário logado:', studentName);
+        console.log('📊 Dashboard inicializado com sucesso!');
     </script>
 </body>
 </html>
