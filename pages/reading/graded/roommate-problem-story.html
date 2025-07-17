@@ -174,12 +174,13 @@
             throw new Error('Access denied');
         }
 
-        // ===== PROGRESS SYSTEM OTIMIZADO =====
+        // ===== PROGRESS SYSTEM CORRIGIDO =====
         class StudentProgress {
             constructor() {
                 this.studentId = sessionStorage.getItem('studentUsername') || 'student';
                 this.progressKey = `progress_${this.studentId}`;
                 this.loadProgress();
+                this.ensureRoommateStructure(); // ✅ NOVO: Garante estrutura
             }
 
             loadProgress() {
@@ -191,13 +192,30 @@
                         listening: { lessonsCompleted: [], bestScores: {}, badges: [] },
                         reading: { chaptersCompleted: [], bestScores: {}, badges: [] },
                         roommate: { chaptersCompleted: [], bestScores: {}, badges: [] },
-                        globalBadges: [], totalStudyTime: 0
+                        globalBadges: [], 
+                        totalStudyTime: 0
                     };
                 }
-                // Ensure compatibility
+            }
+
+            // ✅ NOVO: Garantir estrutura roommate
+            ensureRoommateStructure() {
                 if (!this.data.roommate) {
                     this.data.roommate = { chaptersCompleted: [], bestScores: {}, badges: [] };
                 }
+                if (!this.data.roommate.chaptersCompleted) {
+                    this.data.roommate.chaptersCompleted = [];
+                }
+                if (!this.data.roommate.bestScores) {
+                    this.data.roommate.bestScores = {};
+                }
+                if (!this.data.roommate.badges) {
+                    this.data.roommate.badges = [];
+                }
+                
+                // Salvar estrutura se foi corrigida
+                this.saveProgress();
+                console.log('✅ Estrutura roommate garantida:', this.data.roommate);
             }
 
             saveProgress() { 
@@ -254,7 +272,9 @@
                 }, 3000);
             }
 
-            updateChapterCards() { createChapterCards(); }
+            updateChapterCards() { 
+                createChapterCards(); 
+            }
         }
 
         // ===== CAPÍTULOS A1 - AUDIO PATHS CORRETOS =====
@@ -296,15 +316,26 @@
         
         let currentChapter = 1, attempts = 0, chapterStartTime = Date.now(), studentProgress = new StudentProgress();
         
-        // ===== NAVEGAÇÃO DE CAPÍTULOS =====
+        // ===== NAVEGAÇÃO DE CAPÍTULOS - CORRIGIDA =====
         function createChapterCards() {
             const cardsContainer = document.getElementById('chapterCards');
+            if (!cardsContainer) {
+                console.error('❌ Container chapterCards não encontrado');
+                return;
+            }
+            
             cardsContainer.innerHTML = '';
             
             for (let i = 1; i <= 3; i++) {
                 const chapter = chapters[i];
+                if (!chapter) {
+                    console.error(`❌ Capítulo ${i} não encontrado`);
+                    continue;
+                }
+                
+                // ✅ SAFE ACCESS - evita erro se bestScores for undefined
                 const isCompleted = studentProgress.data.roommate.chaptersCompleted.includes(`chapter_${i}`);
-                const bestScore = studentProgress.data.roommate.bestScores[`chapter_${i}`] || 0;
+                const bestScore = (studentProgress.data.roommate.bestScores && studentProgress.data.roommate.bestScores[`chapter_${i}`]) || 0;
                 const isActive = i === currentChapter;
                 
                 const card = document.createElement('div');
@@ -320,6 +351,8 @@
                 
                 cardsContainer.appendChild(card);
             }
+            
+            console.log('✅ Chapter cards criados com sucesso');
         }
         
         function switchToChapter(chapterNumber) {
