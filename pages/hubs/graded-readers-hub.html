@@ -3,53 +3,51 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Graded Readers Hub - Teacher Alex English Academy BETA</title>
+    <title>Graded Readers Hub - Teacher Alex English Academy</title>
     
-    <!-- CSS - CAMINHOS CORRETOS PARA pages/hubs/ -->
+    <!-- CSS Simplificado -->
     <link rel="stylesheet" href="../../src/styles/base.css">
     <link rel="stylesheet" href="../../src/styles/layout.css">
     <link rel="stylesheet" href="../../src/styles/theme-patriot.css">
 </head>
 <body>
-    <!-- User Widget Moderno -->
-    <aside class="user-widget" aria-label="Informações do Usuário">
-        <div class="user-avatar" data-user-avatar>A</div>
-        <span class="user-name" data-user-name>Aluno</span>
-        <button class="logout-btn" onclick="logout()">🚪 Sair</button>
-    </aside>
+    <!-- User Widget -->
+    <div class="user-widget">
+        <div class="user-avatar" id="userAvatar">A</div>
+        <span class="user-name" id="userName">Aluno</span>
+        <button class="logout-btn" onclick="logout()">Sair</button>
+    </div>
 
-    <!-- Main Container -->
     <div class="container">
-        <!-- Back Navigation - CORRIGIDO -->
+        <!-- Back Navigation -->
         <a href="../../index.html" class="back-button">
             ← Voltar ao Dashboard
         </a>
         
         <!-- Header -->
         <header class="header">
-            <h1 class="logo">
-                Teacher Alex <span class="logo-highlight">English Academy</span> BETA
-            </h1>
+            <h1 class="logo">Teacher Alex <span class="logo-highlight">English Academy</span></h1>
             <h2 class="hub-title">📚 Graded Readers Hub</h2>
             <p class="hub-subtitle">Hub organizado com histórias por nível para absorção de vocabulário</p>
         </header>
 
         <!-- A1 Level -->
-        <section class="level-section level-a1">
-            <header class="level-header">
+        <section class="level-section">
+            <div class="level-header">
                 <div class="level-badge">A1 - Beginner</div>
                 <div class="level-info">
                     <h2 class="level-title">Nível Iniciante</h2>
                     <p class="level-description">Vocabulário básico e gramática simples para começar sua jornada no inglês</p>
                 </div>
-            </header>
+            </div>
             
             <div class="stories-grid">
-                <article class="story-card" onclick="navigateToStory('roommate')">
+                <!-- The Roommate Problem - DISPONÍVEL -->
+                <div class="story-card" onclick="navigateToStory('roommate')">
                     <div class="story-header">
                         <div class="story-icon">🏠</div>
                         <h3 class="story-title">The Roommate Problem</h3>
-                        <p class="story-description">Sarah e Emma enfrentam problemas de convivência que testam sua amizade e ensinam lições valiosas</p>
+                        <p class="story-description">Sarah e Emma enfrentam problemas de convivência que testam sua amizade</p>
                     </div>
                     <div class="story-content">
                         <ul class="story-features">
@@ -64,13 +62,14 @@
                         <button class="story-button">Começar História A1</button>
                     </div>
                     <div class="progress-badge" id="roommateProgress">✅ Disponível</div>
-                </article>
+                </div>
 
-                <article class="story-card coming-soon" onclick="showComingSoon('New Friends at School')">
+                <!-- New Friends at School - EM BREVE -->
+                <div class="story-card coming-soon" onclick="showComingSoon('New Friends at School')">
                     <div class="story-header">
                         <div class="story-icon">🌟</div>
                         <h3 class="story-title">New Friends at School</h3>
-                        <p class="story-description">Uma história tocante sobre fazer novos amigos e superar a timidez no ambiente escolar</p>
+                        <p class="story-description">Uma história tocante sobre fazer novos amigos e superar a timidez</p>
                     </div>
                     <div class="story-content">
                         <ul class="story-features">
@@ -82,11 +81,12 @@
                         </ul>
                     </div>
                     <div class="story-footer">
-                        <button class="story-button coming-soon-button">🚀 Em Breve</button>
+                        <button class="story-button" disabled>🚀 Em Breve</button>
                     </div>
-                </article>
+                </div>
 
-                <article class="story-card coming-soon" onclick="showComingSoon('The Pizza Restaurant')">
+                <!-- The Pizza Restaurant - EM BREVE -->
+                <div class="story-card coming-soon" onclick="showComingSoon('The Pizza Restaurant')">
                     <div class="story-header">
                         <div class="story-icon">🍕</div>
                         <h3 class="story-title">The Pizza Restaurant</h3>
@@ -95,40 +95,41 @@
                     <div class="story-content">
                         <ul class="story-features">
                             <li>3 capítulos cheios de humor</li>
-                            <li>Vocabulário de comida e restaurante</li>
-                            <li>Situações práticas do dia a dia</li>
+                            <li>Vocabulário de comida</li>
+                            <li>Situações práticas</li>
                             <li>Áudio IA expressivo</li>
                             <li>Cultura italiana básica</li>
                         </ul>
                     </div>
                     <div class="story-footer">
-                        <button class="story-button coming-soon-button">🚀 Em Breve</button>
+                        <button class="story-button" disabled>🚀 Em Breve</button>
                     </div>
-                </article>
+                </div>
             </div>
         </section>
 
         <!-- A2 Level -->
-        <section class="level-section level-a2">
-            <header class="level-header">
+        <section class="level-section">
+            <div class="level-header">
                 <div class="level-badge">A2 - Elementary</div>
                 <div class="level-info">
                     <h2 class="level-title">Nível Elementar</h2>
                     <p class="level-description">Expansão vocabular e estruturas mais complexas para consolidar o aprendizado</p>
                 </div>
-            </header>
+            </div>
             
             <div class="stories-grid">
-                <article class="story-card" onclick="navigateToStory('reader')">
+                <!-- The Secret in the Old House - DISPONÍVEL -->
+                <div class="story-card" onclick="navigateToStory('secret-house')">
                     <div class="story-header">
                         <div class="story-icon">🏚️</div>
                         <h3 class="story-title">The Secret in the Old House</h3>
-                        <p class="story-description">Emma descobre mistérios fascinantes escondidos na casa antiga de sua nova vizinha Mrs. Peterson</p>
+                        <p class="story-description">Emma descobre mistérios fascinantes escondidos na casa antiga de sua vizinha</p>
                     </div>
                     <div class="story-content">
                         <ul class="story-features">
-                            <li>4 capítulos de mistério envolvente</li>
-                            <li>Vocabulário intermediário rico</li>
+                            <li>4 capítulos de mistério</li>
+                            <li>Vocabulário intermediário</li>
                             <li>Gramática A2 estruturada</li>
                             <li>Áudio IA dramatizado</li>
                             <li>Narrativa cativante</li>
@@ -137,207 +138,215 @@
                     <div class="story-footer">
                         <button class="story-button">Começar História A2</button>
                     </div>
-                    <div class="progress-badge" id="readerProgress">✅ Disponível</div>
-                </article>
+                    <div class="progress-badge" id="secretProgress">✅ Disponível</div>
+                </div>
 
-                <article class="story-card coming-soon" onclick="showComingSoon('The School Play')">
+                <!-- The School Play - EM BREVE -->
+                <div class="story-card coming-soon" onclick="showComingSoon('The School Play')">
                     <div class="story-header">
                         <div class="story-icon">🎭</div>
                         <h3 class="story-title">The School Play</h3>
-                        <p class="story-description">Drama e comédia nos bastidores de uma peça teatral escolar cheia de emoções</p>
+                        <p class="story-description">Drama e comédia nos bastidores de uma peça teatral escolar</p>
                     </div>
                     <div class="story-content">
                         <ul class="story-features">
                             <li>5 capítulos dramáticos</li>
-                            <li>Vocabulário artístico e teatral</li>
-                            <li>Expressões emotivas avançadas</li>
+                            <li>Vocabulário artístico</li>
+                            <li>Expressões emotivas</li>
                             <li>Áudio IA dramatizado</li>
                             <li>Cultura teatral básica</li>
                         </ul>
                     </div>
                     <div class="story-footer">
-                        <button class="story-button coming-soon-button">🚀 Em Breve</button>
+                        <button class="story-button" disabled>🚀 Em Breve</button>
                     </div>
-                </article>
+                </div>
 
-                <article class="story-card coming-soon" onclick="showComingSoon('Summer Beach Adventure')">
+                <!-- Summer Beach Adventure - EM BREVE -->
+                <div class="story-card coming-soon" onclick="showComingSoon('Summer Beach Adventure')">
                     <div class="story-header">
                         <div class="story-icon">🌊</div>
                         <h3 class="story-title">Summer Beach Adventure</h3>
-                        <p class="story-description">Férias de verão cheias de aventura, descobertas e amizades na costa californiana</p>
+                        <p class="story-description">Férias de verão cheias de aventura, descobertas e amizades</p>
                     </div>
                     <div class="story-content">
                         <ul class="story-features">
                             <li>4 capítulos de aventura</li>
-                            <li>Vocabulário de viagem e praia</li>
+                            <li>Vocabulário de viagem</li>
                             <li>Tempos verbais variados</li>
                             <li>Áudio IA relaxante</li>
-                            <li>Cultura americana costeira</li>
+                            <li>Cultura americana</li>
                         </ul>
                     </div>
                     <div class="story-footer">
-                        <button class="story-button coming-soon-button">🚀 Em Breve</button>
+                        <button class="story-button" disabled>🚀 Em Breve</button>
                     </div>
-                </article>
+                </div>
 
-                <article class="story-card coming-soon" onclick="showComingSoon('The Science Competition')">
+                <!-- The Science Competition - EM BREVE -->
+                <div class="story-card coming-soon" onclick="showComingSoon('The Science Competition')">
                     <div class="story-header">
                         <div class="story-icon">🔬</div>
                         <h3 class="story-title">The Science Competition</h3>
-                        <p class="story-description">Rivalidade saudável e parceria inesperada em uma competição científica estudantil</p>
+                        <p class="story-description">Rivalidade saudável e parceria inesperada em uma competição científica</p>
                     </div>
                     <div class="story-content">
                         <ul class="story-features">
                             <li>4 capítulos educativos</li>
-                            <li>Vocabulário científico básico</li>
+                            <li>Vocabulário científico</li>
                             <li>Estruturas comparativas</li>
                             <li>Áudio IA educativo</li>
-                            <li>Método científico simplificado</li>
+                            <li>Método científico</li>
                         </ul>
                     </div>
                     <div class="story-footer">
-                        <button class="story-button coming-soon-button">🚀 Em Breve</button>
+                        <button class="story-button" disabled>🚀 Em Breve</button>
                     </div>
-                </article>
+                </div>
             </div>
         </section>
 
         <!-- B1 Level -->
-        <section class="level-section level-b1">
-            <header class="level-header">
+        <section class="level-section">
+            <div class="level-header">
                 <div class="level-badge">B1 - Intermediate</div>
                 <div class="level-info">
                     <h2 class="level-title">Nível Intermediário</h2>
                     <p class="level-description">Para seus poucos alunos avançados - preparação séria para fluência</p>
                 </div>
-            </header>
+            </div>
             
             <div class="stories-grid">
-                <article class="story-card coming-soon" onclick="showComingSoon('The Job Interview')">
+                <!-- The Job Interview - EM BREVE -->
+                <div class="story-card coming-soon" onclick="showComingSoon('The Job Interview')">
                     <div class="story-header">
                         <div class="story-icon">💼</div>
                         <h3 class="story-title">The Job Interview</h3>
-                        <p class="story-description">Preparação profissional intensa e desafios reais do mundo corporativo moderno</p>
+                        <p class="story-description">Preparação profissional intensa e desafios reais do mundo corporativo</p>
                     </div>
                     <div class="story-content">
                         <ul class="story-features">
                             <li>5 capítulos profissionais</li>
-                            <li>Vocabulário corporativo avançado</li>
+                            <li>Vocabulário corporativo</li>
                             <li>Gramática B1 complexa</li>
                             <li>Áudio IA profissional</li>
-                            <li>Situações de trabalho reais</li>
+                            <li>Situações de trabalho</li>
                         </ul>
                     </div>
                     <div class="story-footer">
-                        <button class="story-button coming-soon-button">🚀 Em Breve</button>
+                        <button class="story-button" disabled>🚀 Em Breve</button>
                     </div>
-                </article>
+                </div>
 
-                <article class="story-card coming-soon" onclick="showComingSoon('Around the World')">
+                <!-- Around the World - EM BREVE -->
+                <div class="story-card coming-soon" onclick="showComingSoon('Around the World')">
                     <div class="story-header">
                         <div class="story-icon">🌍</div>
                         <h3 class="story-title">Around the World</h3>
-                        <p class="story-description">Viagem cultural fascinante pelos continentes e suas tradições únicas</p>
+                        <p class="story-description">Viagem cultural fascinante pelos continentes e suas tradições</p>
                     </div>
                     <div class="story-content">
                         <ul class="story-features">
                             <li>6 capítulos globais</li>
-                            <li>Vocabulário cultural diversificado</li>
-                            <li>Estruturas linguísticas complexas</li>
+                            <li>Vocabulário cultural</li>
+                            <li>Estruturas complexas</li>
                             <li>Áudio IA multicultural</li>
-                            <li>Geografia e história mundial</li>
+                            <li>Geografia mundial</li>
                         </ul>
                     </div>
                     <div class="story-footer">
-                        <button class="story-button coming-soon-button">🚀 Em Breve</button>
+                        <button class="story-button" disabled>🚀 Em Breve</button>
                     </div>
-                </article>
+                </div>
             </div>
         </section>
+        
+        <!-- Footer -->
+        <footer class="footer">
+            <h3>📚 Graded Readers Hub</h3>
+            <p>Histórias organizadas por nível para absorção natural de vocabulário</p>
+        </footer>
     </div>
 
-    <!-- Scripts -->
     <script>
-        // ===== AUTH SYSTEM - CAMINHOS CORRIGIDOS =====
-        function checkLogin() {
-            if (sessionStorage.getItem('studentLoggedIn') !== 'true') {
-                window.location.href = '../auth/login.html';
-                return false;
-            }
-            return true;
-        }
-
-        function logout() {
-            sessionStorage.removeItem('studentLoggedIn');
-            sessionStorage.removeItem('studentUsername');
+        // ===== AUTH CHECK =====
+        if (sessionStorage.getItem('studentLoggedIn') !== 'true') {
             window.location.href = '../auth/login.html';
         }
 
-        function getStudentName() {
-            return sessionStorage.getItem('studentUsername') || 'Student';
-        }
+        // ===== INITIALIZATION =====
+        const studentName = sessionStorage.getItem('studentUsername') || 'Student';
+        
+        // Update UI
+        document.getElementById('userName').textContent = studentName;
+        document.getElementById('userAvatar').textContent = studentName.charAt(0).toUpperCase();
 
-        // Immediate protection
-        if (!checkLogin()) {
-            document.body.innerHTML = '<div style="text-align:center;padding:50px;"><h1>Redirecionando...</h1></div>';
-            throw new Error('Access denied');
-        }
-
-        // ===== PROGRESS SYSTEM - GAMIFICAÇÃO =====
-        class ProgressTracker {
-            constructor() {
-                this.studentId = sessionStorage.getItem('studentUsername') || 'student';
-                this.progressKey = `progress_${this.studentId}`;
-                this.loadProgress();
-            }
-
-            loadProgress() {
-                const saved = localStorage.getItem(this.progressKey);
-                if (saved) {
-                    this.data = JSON.parse(saved);
-                } else {
-                    this.data = {
-                        listening: { lessonsCompleted: [], bestScores: {}, badges: [] },
-                        reading: { chaptersCompleted: [], bestScores: {}, badges: [] },
-                        roommate: { chaptersCompleted: [], bestScores: {}, badges: [] },
-                        neighbor: { chaptersCompleted: [], bestScores: {}, badges: [] },
-                        globalBadges: [],
-                        totalStudyTime: 0
-                    };
+        // ===== PROGRESS LOADING =====
+        function loadProgress() {
+            const progressKey = `progress_${studentName}`;
+            const saved = localStorage.getItem(progressKey);
+            
+            if (saved) {
+                try {
+                    const data = JSON.parse(saved);
+                    
+                    // Roommate progress
+                    const roommate = data.roommate || { chaptersCompleted: [] };
+                    const roommateCompleted = roommate.chaptersCompleted.length;
+                    
+                    const roommateProgress = document.getElementById('roommateProgress');
+                    if (roommateCompleted === 0) {
+                        roommateProgress.textContent = '✅ Disponível';
+                    } else if (roommateCompleted === 3) {
+                        roommateProgress.textContent = '🏆 Completo';
+                        roommateProgress.style.background = 'var(--success)';
+                        roommateProgress.style.color = 'white';
+                    } else {
+                        roommateProgress.textContent = `${roommateCompleted}/3 ✓`;
+                        roommateProgress.style.background = 'var(--success)';
+                        roommateProgress.style.color = 'white';
+                    }
+                    
+                    // Secret House progress
+                    const reading = data.reading || { chaptersCompleted: [] };
+                    const readingCompleted = reading.chaptersCompleted.length;
+                    
+                    const secretProgress = document.getElementById('secretProgress');
+                    if (readingCompleted === 0) {
+                        secretProgress.textContent = '✅ Disponível';
+                    } else if (readingCompleted === 4) {
+                        secretProgress.textContent = '🏆 Completo';
+                        secretProgress.style.background = 'var(--success)';
+                        secretProgress.style.color = 'white';
+                    } else {
+                        secretProgress.textContent = `${readingCompleted}/4 ✓`;
+                        secretProgress.style.background = 'var(--success)';
+                        secretProgress.style.color = 'white';
+                    }
+                    
+                } catch (e) {
+                    console.error('Erro ao carregar progresso:', e);
                 }
-                // Garantir compatibilidade
-                if (!this.data.roommate) this.data.roommate = { chaptersCompleted: [], bestScores: {}, badges: [] };
-                if (!this.data.neighbor) this.data.neighbor = { chaptersCompleted: [], bestScores: {}, badges: [] };
-                if (!this.data.reading) this.data.reading = { chaptersCompleted: [], bestScores: {}, badges: [] };
-            }
-
-            getProgressBadge(category, totalChapters) {
-                const completed = this.data[category] ? this.data[category].chaptersCompleted.length : 0;
-                if (completed === 0) return '✅ Disponível';
-                if (completed === totalChapters) return '🏆 Completo';
-                return `${completed}/${totalChapters} ✓`;
             }
         }
 
-        // ===== NAVIGATION - LINKS PARA OS ARQUIVOS QUE REALMENTE EXISTEM! =====
+        // ===== NAVIGATION =====
         function navigateToStory(storyId) {
             const card = event.currentTarget;
             const button = card.querySelector('.story-button');
             const originalText = button.textContent;
             
+            // Loading state
             button.textContent = 'Carregando...';
-            button.style.background = '#6b7280';
             card.style.opacity = '0.7';
             
             setTimeout(() => {
                 if (storyId === 'roommate') {
-                    // ✅ CORRETO: vai para o arquivo que EXISTE
                     window.location.href = '../reading/graded/roommate-problem-story.html';
-                } else if (storyId === 'reader') {
-                    // ✅ CORRETO: vai para o arquivo que EXISTE  
+                } else if (storyId === 'secret-house') {
                     window.location.href = '../reading/graded/secret-house-story.html';
                 }
-            }, 800);
+            }, 500);
         }
 
         function showComingSoon(storyTitle) {
@@ -350,54 +359,18 @@
             alert(messages[Math.floor(Math.random() * messages.length)]);
         }
 
-        // ===== INITIALIZATION =====
-        function initializePage() {
-            const studentName = getStudentName();
-            const progressTracker = new ProgressTracker();
-            
-            // Update user info
-            document.querySelector('[data-user-name]').textContent = 
-                studentName.charAt(0).toUpperCase() + studentName.slice(1).toLowerCase();
-            document.querySelector('[data-user-avatar]').textContent = studentName.charAt(0).toUpperCase();
-            
-            // Add progress badges - GAMIFICAÇÃO
-            addProgressBadges(progressTracker);
-            
-            console.log(`✅ Graded Readers Hub carregado - usuário: ${studentName}`);
-            console.log('🎮 Sistema de gamificação ativo');
-            console.log('🧹 CSS 100% externo - ZERO inline!');
-            console.log('🔗 LINKS DEFINITIVAMENTE CORRETOS!');
+        // ===== LOGOUT =====
+        function logout() {
+            sessionStorage.clear();
+            window.location.href = '../auth/login.html';
         }
 
-        function addProgressBadges(progressTracker) {
-            // Roommate Progress Badge
-            const roommateProgress = document.getElementById('roommateProgress');
-            if (roommateProgress) {
-                roommateProgress.textContent = progressTracker.getProgressBadge('roommate', 3);
-                if (progressTracker.data.roommate && progressTracker.data.roommate.chaptersCompleted.length > 0) {
-                    roommateProgress.style.background = 'linear-gradient(135deg, #10b981, #059669)';
-                    roommateProgress.style.color = 'white';
-                }
-            }
-            
-            // Reader Progress Badge  
-            const readerProgress = document.getElementById('readerProgress');
-            if (readerProgress) {
-                readerProgress.textContent = progressTracker.getProgressBadge('reading', 4);
-                if (progressTracker.data.reading && progressTracker.data.reading.chaptersCompleted.length > 0) {
-                    readerProgress.style.background = 'linear-gradient(135deg, #10b981, #059669)';
-                    readerProgress.style.color = 'white';
-                }
-            }
-        }
-
-        // ===== EVENT LISTENERS =====
-        document.addEventListener('DOMContentLoaded', initializePage);
-
-        console.log('✅ Graded Readers Hub - NAVEGAÇÃO CORRIGIDA!');
-        console.log('🎯 roommate → roommate-problem-story.html');
-        console.log('🎯 reader → secret-house-story.html');
-        console.log('📁 Estrutura: pages/reading/graded/');
+        // ===== LOAD DATA =====
+        loadProgress();
+        
+        console.log('📚 GRADED READERS HUB v3.0 CLEAN carregado!');
+        console.log('👤 Usuário:', studentName);
+        console.log('🎯 Navegação: roommate + secret-house funcionando!');
     </script>
 </body>
 </html>
