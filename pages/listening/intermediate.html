@@ -1,383 +1,531 @@
-// Intermediate progress - SAFE ACCESS
-                    const intermediateCompleted = lessonsCompleted.filter(lesson => lesson.startsWith('intermediate')).length;
-                    
-                    const intermediateProgress = document.getElementById('intermediateProgress');
-                    if (intermediateProgress) {
-                        if (intermediateCompleted === 0) {
-                            intermediateProgress.textContent = '✅ Disponível';
-                        } else {
-                            intermediateProgress.textContent = `${intermediateCompleted} ✓`;
-                            intermediateProgress.style.background = 'var(--success)';
-                            intermediateProgress.style.color = 'white';
-                        }
-                    }<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Listening Hub - Teacher Alex English Academy</title>
+    <title>Intermediate Level - Teacher Alex English Academy</title>
     
     <!-- CSS Universal - MESMO PADRÃO DOS OUTROS -->
     <link rel="stylesheet" href="../../src/styles/base.css">
     <link rel="stylesheet" href="../../src/styles/layout.css">
     <link rel="stylesheet" href="../../src/styles/theme-patriot.css">
+    
+    <style>
+        /* 🎵 SPEED CONTROLS - ÚNICA CUSTOMIZAÇÃO NECESSÁRIA */
+        .speed-controls {
+            display: flex;
+            justify-content: center;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+            margin-top: 1rem;
+        }
+        
+        .speed-btn {
+            padding: 0.5rem 1rem;
+            border: 2px solid var(--gray-200);
+            border-radius: var(--radius);
+            background: white;
+            color: var(--blue-gray);
+            font-weight: 600;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: var(--transition);
+            min-width: 60px;
+        }
+        
+        .speed-btn.active,
+        .speed-btn:hover {
+            border-color: var(--blue-medium);
+            background: var(--blue-medium);
+            color: white;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(86, 126, 187, 0.3);
+        }
+        
+        .audio-controls {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.5rem;
+        }
+        
+        @media (max-width: 768px) {
+            .speed-controls {
+                gap: 0.5rem;
+            }
+            
+            .speed-btn {
+                min-width: 50px;
+                padding: 0.4rem 0.8rem;
+                font-size: 0.8rem;
+            }
+        }
+    </style>
 </head>
-<body>
-    <!-- User Widget - MESMO PADRÃO -->
+<body class="listening-page">
+    <!-- User Widget -->
     <div class="user-widget">
         <div class="user-avatar" id="userAvatar">A</div>
         <span class="user-name" id="userName">Aluno</span>
         <button class="logout-btn" onclick="logout()">Sair</button>
     </div>
-
-    <div class="container">
-        <!-- Back Navigation - MESMO PADRÃO -->
-        <a href="../../index.html" class="back-button">
-            ← Voltar ao Dashboard
+    
+    <div class="container listening-page">
+        <!-- Back Navigation -->
+        <a href="../hubs/listening-hub.html" class="back-button">
+            ← Voltar ao Listening Hub
         </a>
         
-        <!-- Header - MESMO PADRÃO DO GRADED-READERS -->
-        <header class="header">
-            <h1 class="logo">Teacher Alex <span class="logo-highlight">English Academy</span></h1>
-            <h2 class="hub-title">🎧 Listening Practice Hub</h2>
-            <p class="hub-subtitle">Desenvolva sua compreensão auditiva com diálogos autênticos e progressivos</p>
-        </header>
-
-        <!-- Foundation Level -->
-        <section class="level-section">
-            <div class="level-header">
-                <div class="level-badge">Foundation - A1</div>
-                <div class="level-info">
-                    <h2 class="level-title">Foundation Level</h2>
-                    <p class="level-description">Base sólida com vocabulário essencial e estruturas fundamentais para construir confiança auditiva</p>
+        <!-- Header - MESMO PADRÃO DOS OUTROS -->
+        <div class="header">
+            <a href="../../index.html" style="text-decoration: none; color: inherit;">
+                <div class="logo">
+                    Teacher Alex <span class="logo-highlight">English Academy</span>
                 </div>
-            </div>
-            
-            <div class="stories-grid">
-                <!-- Foundation Audio -->
-                <div class="story-card" onclick="navigateToStory('foundation')">
-                    <div class="story-header">
-                        <div class="story-icon">👋</div>
-                        <h3 class="story-title">Foundation Survival Kit</h3>
-                        <p class="story-description">Primeiras apresentações e vocabulário essencial</p>
-                    </div>
-                    <div class="story-content">
-                        <ul class="story-features">
-                            <li>Vocabulário de sobrevivência</li>
-                            <li>Frases de emergência</li>
-                            <li>Conversas básicas do dia a dia</li>
-                            <li>Áudio IA de alta qualidade</li>
-                            <li>Sistema de badges motivador</li>
-                        </ul>
-                    </div>
-                    <div class="story-footer">
-                        <button class="story-button">Começar Foundation</button>
-                    </div>
-                    <div class="progress-badge" id="foundationProgress">✅ Disponível</div>
-                </div>
-
-                <!-- Daily Essentials -->
-                <div class="story-card coming-soon" onclick="showComingSoon('Daily Essentials')">
-                    <div class="story-header">
-                        <div class="story-icon">🏠</div>
-                        <h3 class="story-title">Daily Essentials</h3>
-                        <p class="story-description">Família, casa e rotina doméstica</p>
-                    </div>
-                    <div class="story-content">
-                        <ul class="story-features">
-                            <li>Membros da família</li>
-                            <li>Cômodos e objetos da casa</li>
-                            <li>Rotina diária básica</li>
-                            <li>Áudio IA naturalizado</li>
-                            <li>Situações do cotidiano</li>
-                        </ul>
-                    </div>
-                    <div class="story-footer">
-                        <button class="story-button" disabled>🚀 Em Breve</button>
-                    </div>
-                </div>
-
-                <!-- Emergency English -->
-                <div class="story-card coming-soon" onclick="showComingSoon('Emergency English')">
-                    <div class="story-header">
-                        <div class="story-icon">🚨</div>
-                        <h3 class="story-title">Emergency English</h3>
-                        <p class="story-description">Situações de emergência e ajuda</p>
-                    </div>
-                    <div class="story-content">
-                        <ul class="story-features">
-                            <li>Pedindo ajuda e direções</li>
-                            <li>Situações de emergência</li>
-                            <li>Frases de cortesia</li>
-                            <li>Áudio IA expressivo</li>
-                            <li>Vocabulário essencial</li>
-                        </ul>
-                    </div>
-                    <div class="story-footer">
-                        <button class="story-button" disabled>🚀 Em Breve</button>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Beginner Level -->
-        <section class="level-section">
-            <div class="level-header">
-                <div class="level-badge">Beginner - A2</div>
-                <div class="level-info">
-                    <h2 class="level-title">Beginner Level</h2>
-                    <p class="level-description">Expanda seu vocabulário com diálogos mais longos e situações cotidianas reais</p>
-                </div>
-            </div>
-            
-            <div class="stories-grid">
-                <!-- Personal Introduction -->
-                <div class="story-card" onclick="navigateToStory('beginner')">
-                    <div class="story-header">
-                        <div class="story-icon">🇺🇸</div>
-                        <h3 class="story-title">Personal Introduction</h3>
-                        <p class="story-description">Apresentações pessoais em contexto americano</p>
-                    </div>
-                    <div class="story-content">
-                        <ul class="story-features">
-                            <li>Conversas profissionais</li>
-                            <li>Networking e apresentações</li>
-                            <li>Cultura americana básica</li>
-                            <li>Áudio IA naturalizado</li>
-                            <li>Speed controls disponíveis</li>
-                        </ul>
-                    </div>
-                    <div class="story-footer">
-                        <button class="story-button">Começar Beginner</button>
-                    </div>
-                    <div class="progress-badge" id="beginnerProgress">✅ Disponível</div>
-                </div>
-
-                <!-- Travel & Transport -->
-                <div class="story-card coming-soon" onclick="showComingSoon('Travel & Transport')">
-                    <div class="story-header">
-                        <div class="story-icon">✈️</div>
-                        <h3 class="story-title">Travel & Transport</h3>
-                        <p class="story-description">Viagens, aeroportos e transporte público</p>
-                    </div>
-                    <div class="story-content">
-                        <ul class="story-features">
-                            <li>Check-in e aeroportos</li>
-                            <li>Transporte público</li>
-                            <li>Hotéis e reservas</li>
-                            <li>Áudio IA profissional</li>
-                            <li>Situações práticas</li>
-                        </ul>
-                    </div>
-                    <div class="story-footer">
-                        <button class="story-button" disabled>🚀 Em Breve</button>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Intermediate Level -->
-        <section class="level-section">
-            <div class="level-header">
-                <div class="level-badge">Intermediate - B1</div>
-                <div class="level-info">
-                    <h2 class="level-title">Intermediate Level</h2>
-                    <p class="level-description">Domine conversas complexas com múltiplos interlocutores e contextos variados</p>
-                </div>
-            </div>
-            
-            <div class="stories-grid">
-                <!-- Advanced Conversations -->
-                <div class="story-card" onclick="navigateToStory('intermediate')">
-                    <div class="story-header">
-                        <div class="story-icon">⚡</div>
-                        <h3 class="story-title">Advanced Conversations</h3>
-                        <p class="story-description">Conversas complexas e situações avançadas</p>
-                    </div>
-                    <div class="story-content">
-                        <ul class="story-features">
-                            <li>Diálogos profissionais complexos</li>
-                            <li>Networking e negociações</li>
-                            <li>Resolução de problemas</li>
-                            <li>Áudio IA avançado</li>
-                            <li>Speed controls disponíveis</li>
-                        </ul>
-                    </div>
-                    <div class="story-footer">
-                        <button class="story-button">Começar Intermediate</button>
-                    </div>
-                    <div class="progress-badge" id="intermediateProgress">✅ Disponível</div>
-                </div>
-
-                <!-- Work & Business -->
-                <div class="story-card coming-soon" onclick="showComingSoon('Work & Business')">
-                    <div class="story-header">
-                        <div class="story-icon">💼</div>
-                        <h3 class="story-title">Work & Business</h3>
-                        <p class="story-description">Ambiente profissional e entrevistas</p>
-                    </div>
-                    <div class="story-content">
-                        <ul class="story-features">
-                            <li>Entrevistas de emprego</li>
-                            <li>Reuniões de trabalho</li>
-                            <li>Apresentações profissionais</li>
-                            <li>Áudio IA corporativo</li>
-                            <li>Vocabulário técnico</li>
-                        </ul>
-                    </div>
-                    <div class="story-footer">
-                        <button class="story-button" disabled>🚀 Em Breve</button>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Advanced Level -->
-        <section class="level-section">
-            <div class="level-header">
-                <div class="level-badge">Advanced - B2</div>
-                <div class="level-info">
-                    <h2 class="level-title">Advanced Level</h2>
-                    <p class="level-description">Desafie-se com conteúdo nativo, gírias e expressões complexas em situações profissionais</p>
-                </div>
-            </div>
-            
-            <div class="stories-grid">
-                <!-- Real Estate & Moving -->
-                <div class="story-card coming-soon" onclick="showComingSoon('Real Estate & Moving')">
-                    <div class="story-header">
-                        <div class="story-icon">🏠</div>
-                        <h3 class="story-title">Real Estate & Moving</h3>
-                        <p class="story-description">Mudanças, imóveis e novos vizinhos</p>
-                    </div>
-                    <div class="story-content">
-                        <ul class="story-features">
-                            <li>Aluguel e compra de imóveis</li>
-                            <li>Empresas de mudança</li>
-                            <li>Integração em novos bairros</li>
-                            <li>Áudio IA nativo</li>
-                            <li>Expressões coloquiais</li>
-                        </ul>
-                    </div>
-                    <div class="story-footer">
-                        <button class="story-button" disabled>🚀 Em Breve</button>
-                    </div>
-                </div>
-            </div>
-        </section>
+            </a>
+            <div class="story-title">⚡ Intermediate Level</div>
+            <div class="level-badge">🎧 Listening B1 - English Skill Builder</div>
+        </div>
         
-        <!-- Footer -->
-        <footer class="footer">
-            <h3>🎧 Listening Practice Hub</h3>
-            <p>Desenvolva sua compreensão auditiva com diálogos autênticos e progressivos</p>
-        </footer>
+        <!-- NAVEGAÇÃO DE LIÇÕES - MESMO PADRÃO CHAPTERS -->
+        <div class="chapter-navigation">
+            <div class="chapter-nav-title">🎧 Escolha sua Lição Intermediate</div>
+            <div class="chapter-grid" id="lessonCards">
+                <!-- Cards serão gerados dinamicamente -->
+            </div>
+        </div>
+        
+        <div class="chapter-container" id="lessonContainer">
+            <div class="current-chapter">
+                <div class="current-chapter-title" id="lessonTitle">Advanced Conversations</div>
+                <div class="current-chapter-subtitle" id="lessonSubtitle">Lição 1 - Conversas complexas e situações avançadas</div>
+                
+                <div class="chapter-progress">
+                    <div class="progress-bar-container">
+                        <div class="progress-bar-fill" id="progressBar"></div>
+                    </div>
+                    <div class="progress-text" id="progressText">0%</div>
+                </div>
+            </div>
+            
+            <div class="progress-section">
+                <div class="badges">
+                    <div class="badge" id="badge1">🎯 Primeira Tentativa</div>
+                    <div class="badge" id="badge2">⭐ Boa Pontuação</div>
+                    <div class="badge" id="badge3">🏆 Perfeito</div>
+                    <div class="badge" id="badge4">⚡ Intermediate Expert</div>
+                </div>
+            </div>
+            
+            <div class="audio-section">
+                <div class="audio-title" id="audioTitle">🎧 Escute a Lição: Advanced Conversations</div>
+                <audio id="mainAudio" controls>
+                    <source src="../../src/assets/audio/listening/audio7.mp3" type="audio/mpeg">
+                    Seu navegador não suporta o elemento de áudio.
+                </audio>
+                <div class="audio-controls">
+                    <div class="play-buttons">
+                        <button class="btn btn-primary" onclick="playAudio()">▶️ Reproduzir</button>
+                        <button class="btn btn-secondary" onclick="replayAudio()">🔄 Repetir</button>
+                        <button class="btn btn-primary" onclick="pauseAudio()">⏸️ Pausar</button>
+                    </div>
+                    <!-- SPEED CONTROLS - FEATURE REQUEST DOS ALUNOS -->
+                    <div class="speed-controls">
+                        <button class="speed-btn" data-speed="0.75">0.75x</button>
+                        <button class="speed-btn active" data-speed="1">1x</button>
+                        <button class="speed-btn" data-speed="1.25">1.25x</button>
+                        <button class="speed-btn" data-speed="1.5">1.5x</button>
+                        <button class="speed-btn" data-speed="2">2x</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="questions-section" id="questionsContainer"></div>
+            
+            <div class="chapter-controls">
+                <button class="nav-button" onclick="checkAnswers()">✅ Verificar Respostas</button>
+                <button class="nav-button secondary" onclick="resetQuiz()">🔄 Reiniciar Lição</button>
+                <button class="nav-button" onclick="nextLesson()">➡️ Próxima Lição</button>
+            </div>
+            
+            <div id="scoreSection" class="score" style="display: none;">
+                Sua Pontuação: <span id="scoreValue">0</span>/5 🎯
+            </div>
+            
+            <div id="feedback" class="feedback" style="display: none;"></div>
+        </div>
     </div>
-
+    
     <script>
-        // ===== AUTH CHECK =====
-        if (sessionStorage.getItem('studentLoggedIn') !== 'true') {
+        // ===== AUTH SYSTEM =====
+        function checkLogin() {
+            if (sessionStorage.getItem('studentLoggedIn') !== 'true') {
+                window.location.href = '../auth/login.html';
+                return false;
+            }
+            return true;
+        }
+
+        function logout() {
+            sessionStorage.removeItem('studentLoggedIn');
+            sessionStorage.removeItem('studentUsername');
             window.location.href = '../auth/login.html';
         }
 
-        // ===== INITIALIZATION =====
-        const studentName = sessionStorage.getItem('studentUsername') || 'Student';
-        
-        // Update UI
-        document.getElementById('userName').textContent = studentName;
-        document.getElementById('userAvatar').textContent = studentName.charAt(0).toUpperCase();
+        function getStudentName() {
+            return sessionStorage.getItem('studentUsername') || 'Student';
+        }
 
-        // ===== PROGRESS LOADING - BUG CORRIGIDO =====
-        function loadProgress() {
-            const progressKey = `progress_${studentName}`;
-            const saved = localStorage.getItem(progressKey);
-            
-            if (saved) {
-                try {
-                    const data = JSON.parse(saved);
-                    
-                    // Foundation progress - SAFE ACCESS
-                    const listening = data.listening || { lessonsCompleted: [] };
-                    const lessonsCompleted = listening.lessonsCompleted || [];
-                    const foundationCompleted = lessonsCompleted.filter(lesson => lesson.startsWith('foundation')).length;
-                    
-                    const foundationProgress = document.getElementById('foundationProgress');
-                    if (foundationCompleted === 0) {
-                        foundationProgress.textContent = '✅ Disponível';
-                    } else {
-                        foundationProgress.textContent = `${foundationCompleted} ✓`;
-                        foundationProgress.style.background = 'var(--success)';
-                        foundationProgress.style.color = 'white';
-                    }
-                    
-                    // Beginner progress - SAFE ACCESS
-                    const beginnerCompleted = lessonsCompleted.filter(lesson => lesson.startsWith('beginner')).length;
-                    
-                    const beginnerProgress = document.getElementById('beginnerProgress');
-                    if (beginnerProgress) {
-                        if (beginnerCompleted === 0) {
-                            beginnerProgress.textContent = '✅ Disponível';
-                        } else {
-                            beginnerProgress.textContent = `${beginnerCompleted} ✓`;
-                            beginnerProgress.style.background = 'var(--success)';
-                            beginnerProgress.style.color = 'white';
-                        }
-                    }
-                    
-                } catch (e) {
-                    console.error('Erro ao carregar progresso:', e);
+        // Immediate protection
+        if (!checkLogin()) {
+            document.body.innerHTML = '<div style="text-align:center;padding:50px;"><h1>Redirecionando...</h1></div>';
+            throw new Error('Access denied');
+        }
+
+        // ===== PROGRESS SYSTEM - MESMO PADRÃO DOS OUTROS =====
+        class StudentProgress {
+            constructor() {
+                this.studentId = sessionStorage.getItem('studentUsername') || 'student';
+                this.progressKey = `progress_${this.studentId}`;
+                this.loadProgress();
+                this.ensureListeningStructure();
+            }
+
+            loadProgress() {
+                const saved = localStorage.getItem(this.progressKey);
+                if (saved) {
+                    this.data = JSON.parse(saved);
+                } else {
+                    this.data = {
+                        listening: { lessonsCompleted: [], bestScores: {}, badges: [] },
+                        reading: { chaptersCompleted: [], bestScores: {}, badges: [] },
+                        roommate: { chaptersCompleted: [], bestScores: {}, badges: [] },
+                        neighbor: { chaptersCompleted: [], bestScores: {}, badges: [] },
+                        globalBadges: [], 
+                        totalStudyTime: 0
+                    };
                 }
+            }
+
+            ensureListeningStructure() {
+                if (!this.data.listening) {
+                    this.data.listening = { lessonsCompleted: [], bestScores: {}, badges: [] };
+                }
+                this.saveProgress();
+            }
+
+            saveProgress() { 
+                localStorage.setItem(this.progressKey, JSON.stringify(this.data));
+                console.log(`💾 Progresso salvo para ${this.studentId}`);
+            }
+
+            completeListeningLesson(lessonNumber, score, timeSpent) {
+                const lesson = `intermediate_lesson_${lessonNumber}`;
+                if (!this.data.listening.lessonsCompleted.includes(lesson)) {
+                    this.data.listening.lessonsCompleted.push(lesson);
+                }
+                this.data.listening.bestScores[lesson] = Math.max(
+                    this.data.listening.bestScores[lesson] || 0, score
+                );
+                this.data.totalStudyTime += timeSpent;
+                this.checkListeningBadges(lessonNumber, score);
+                this.saveProgress();
+                this.updateLessonCards();
+            }
+
+            checkListeningBadges(lessonNumber, score) {
+                const badges = this.data.listening.badges;
+                if (!badges.includes('intermediate_pioneer')) {
+                    badges.push('intermediate_pioneer');
+                    this.showBadgeNotification('⚡ Intermediate Pioneer!', 'Nível intermediário desbloqueado!');
+                }
+                if (score === 5 && !badges.includes('perfect_intermediate_lesson')) {
+                    badges.push('perfect_intermediate_lesson');
+                    this.showBadgeNotification('🏆 Perfect Intermediate!', 'Pontuação perfeita no nível B1!');
+                }
+                if (this.data.listening.lessonsCompleted.filter(l => l.startsWith('intermediate')).length >= 3 && !badges.includes('intermediate_master')) {
+                    badges.push('intermediate_master');
+                    this.showBadgeNotification('⚡ Intermediate Master!', 'Todas as lições Intermediate completas!');
+                }
+            }
+
+            showBadgeNotification(title, message) {
+                const notification = document.createElement('div');
+                notification.style.cssText = `
+                    position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
+                    background: linear-gradient(45deg, var(--blue-dark), var(--blue-medium)); color: white;
+                    padding: 25px 35px; border-radius: 20px; z-index: 10000; text-align: center;
+                    box-shadow: 0 15px 40px rgba(0,0,0,0.3); backdrop-filter: blur(10px);
+                `;
+                notification.innerHTML = `<div style="font-size: 1.8em; font-weight: bold; margin-bottom: 15px;">${title}</div><div style="font-size: 1.1em;">${message}</div>`;
+                document.body.appendChild(notification);
+                setTimeout(() => { 
+                    if (document.body.contains(notification)) document.body.removeChild(notification); 
+                }, 3000);
+            }
+
+            updateLessonCards() { 
+                createLessonCards(); 
             }
         }
 
-        // ===== NAVIGATION - BEGINNER ADICIONADO =====
-        function navigateToStory(storyId) {
-            const card = event.currentTarget;
-            const button = card.querySelector('.story-button');
-            const originalText = button.textContent;
-            
-            // Loading state
-            button.textContent = 'Carregando...';
-            card.style.opacity = '0.7';
-            
-            setTimeout(() => {
-                if (storyId === 'foundation') {
-                    window.location.href = '../listening/foundation.html';
-                } else if (storyId === 'beginner') {
-                    window.location.href = '../listening/beginner.html';
-                } else if (storyId === 'intermediate') {
-                    window.location.href = '../listening/intermediate.html';
-                }
-            }, 500);
-        }
-
-        function showComingSoon(storyTitle) {
-            const messages = [
-                `🚀 "${storyTitle}" está em desenvolvimento!`,
-                `🎧 Em breve teremos este listening incrível!`,
-                `⭐ Continue praticando Foundation, Beginner e Intermediate enquanto preparamos "${storyTitle}"!`,
-                `🎯 Sua dedicação será recompensada quando "${storyTitle}" for lançada!`
-            ];
-            alert(messages[Math.floor(Math.random() * messages.length)]);
-        }
-
-        // ===== LOGOUT =====
-        function logout() {
-            sessionStorage.clear();
-            window.location.href = '../auth/login.html';
-        }
-
-        // ===== LOAD DATA =====
-        loadProgress();
+        // ===== INTERMEDIATE LESSONS DATA =====
+        const intermediateLessons = {
+            1: { 
+                title: "Advanced Conversations", 
+                shortTitle: "Advanced Talk", 
+                icon: "⚡", 
+                audioUrl: "../../src/assets/audio/listening/audio7.mp3", 
+                description: "Conversas complexas e situações avançadas",
+                questions: { 
+                    q1: { text: "What is the main topic of the conversation?", options: ["Work problems", "Family issues", "Travel plans", "Career opportunities"], correct: "d" }, 
+                    q2: { text: "How does the speaker feel about the situation?", options: ["Excited", "Worried", "Confident", "Confused"], correct: "a" }, 
+                    q3: { text: "What decision needs to be made?", options: ["Where to live", "What job to take", "When to travel", "How to invest"], correct: "b" }, 
+                    q4: { text: "What factors are being considered?", options: ["Salary only", "Location only", "Work-life balance", "All aspects"], correct: "d" }, 
+                    q5: { text: "What is the speaker's conclusion?", options: ["Take time to decide", "Accept immediately", "Reject the offer", "Ask for more money"], correct: "a" } 
+                } 
+            },
+            2: { 
+                title: "Professional Networking", 
+                shortTitle: "Networking", 
+                icon: "🤝", 
+                audioUrl: "../../src/assets/audio/listening/audio8.mp3", 
+                description: "Networking profissional e negócios",
+                questions: { 
+                    q1: { text: "What type of event is being described?", options: ["Social party", "Business conference", "Family gathering", "School reunion"], correct: "b" }, 
+                    q2: { text: "What is the speaker's main goal?", options: ["Make friends", "Find clients", "Learn skills", "Have fun"], correct: "b" }, 
+                    q3: { text: "How does the speaker approach networking?", options: ["Aggressively", "Naturally", "Shyly", "Professionally"], correct: "d" }, 
+                    q4: { text: "What strategy does the speaker recommend?", options: ["Talk to everyone", "Focus on quality connections", "Collect business cards", "Give presentations"], correct: "b" }, 
+                    q5: { text: "What is the key to successful networking?", options: ["Being pushy", "Giving value first", "Talking about yourself", "Selling immediately"], correct: "b" } 
+                } 
+            },
+            3: { 
+                title: "Complex Problem Solving", 
+                shortTitle: "Problem Solving", 
+                icon: "🧠", 
+                audioUrl: "../../src/assets/audio/listening/audio9.mp3", 
+                description: "Resolução de problemas complexos",
+                questions: { 
+                    q1: { text: "What is the main problem being discussed?", options: ["Technical issue", "Management conflict", "Budget constraint", "Timeline pressure"], correct: "c" }, 
+                    q2: { text: "How many solutions are proposed?", options: ["One", "Two", "Three", "Four"], correct: "c" }, 
+                    q3: { text: "What is the preferred solution?", options: ["Cut costs", "Extend timeline", "Hybrid approach", "Cancel project"], correct: "c" }, 
+                    q4: { text: "What are the main concerns?", options: ["Quality", "Speed", "Cost", "All three"], correct: "d" }, 
+                    q5: { text: "What is the final decision?", options: ["Immediate action", "Further analysis", "Team meeting", "External consultation"], correct: "b" } 
+                } 
+            }
+        };
         
-        console.log('🎧 LISTENING HUB v3.0 - PADRÃO UNIVERSAL + 3 NÍVEIS FUNCIONANDO!');
-        console.log('👤 Usuário:', studentName);
-        console.log('✅ Visual CONSISTENTE com graded-readers-hub');
-        console.log('🎯 Cores: theme-patriot.css universal');
-        console.log('📁 Navegação funcionando:');
-        console.log('   → ../listening/foundation.html ✅');
-        console.log('   → ../listening/beginner.html ✅');
-        console.log('   → ../listening/intermediate.html ✅');
-        console.log('🐛 Bug lessonsCompleted undefined CORRIGIDO!');
+        let currentLesson = 1, attempts = 0, lessonStartTime = Date.now(), studentProgress = new StudentProgress();
+        
+        // ===== SPEED CONTROLS - FEATURE REQUEST =====
+        function initSpeedControls() {
+            document.querySelectorAll('.speed-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const speed = parseFloat(this.dataset.speed);
+                    const audio = document.getElementById('mainAudio');
+                    audio.playbackRate = speed;
+                    
+                    // Update active state
+                    document.querySelectorAll('.speed-btn').forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    console.log(`⚡ Velocidade alterada para: ${speed}x`);
+                });
+            });
+        }
+        
+        // ===== LESSON CARDS - MESMO PADRÃO CHAPTER CARDS =====
+        function createLessonCards() {
+            const cardsContainer = document.getElementById('lessonCards');
+            if (!cardsContainer) return;
+            
+            cardsContainer.innerHTML = '';
+            
+            for (let i = 1; i <= 3; i++) {
+                const lesson = intermediateLessons[i];
+                if (!lesson) continue;
+                
+                const isCompleted = studentProgress.data.listening.lessonsCompleted.includes(`intermediate_lesson_${i}`);
+                const bestScore = studentProgress.data.listening.bestScores[`intermediate_lesson_${i}`] || 0;
+                const isActive = i === currentLesson;
+                
+                const card = document.createElement('div');
+                card.className = `chapter-card ${isActive ? 'current' : ''} ${isCompleted ? 'completed' : ''}`;
+                card.onclick = () => switchToLesson(i);
+                
+                card.innerHTML = `
+                    <div class="chapter-icon">${lesson.icon}</div>
+                    <div class="chapter-info">
+                        <div class="chapter-number">Lição ${i}</div>
+                        <div class="chapter-title">${lesson.shortTitle}</div>
+                    </div>
+                    ${isCompleted ? `<div class="chapter-status">${bestScore}/5</div>` : '<div class="chapter-status">Novo</div>'}
+                `;
+                
+                cardsContainer.appendChild(card);
+            }
+        }
+        
+        function switchToLesson(lessonNumber) {
+            if (lessonNumber === currentLesson) return;
+            currentLesson = lessonNumber;
+            loadLesson(currentLesson);
+            createLessonCards();
+        }
+        
+        function loadLesson(lessonNumber) {
+            if (!intermediateLessons[lessonNumber]) return;
+            const lesson = intermediateLessons[lessonNumber];
+            
+            document.getElementById('lessonTitle').textContent = lesson.title;
+            document.getElementById('lessonSubtitle').textContent = `Lição ${lessonNumber} - ${lesson.description}`;
+            document.getElementById('audioTitle').textContent = `🎧 Escute a Lição: ${lesson.title}`;
+            document.getElementById('mainAudio').src = lesson.audioUrl;
+            loadQuestions(lesson.questions);
+            resetQuiz();
+        }
+        
+        function loadQuestions(questions) {
+            const container = document.getElementById('questionsContainer');
+            container.innerHTML = '';
+            Object.keys(questions).forEach((key, index) => {
+                const q = questions[key];
+                const div = document.createElement('div');
+                div.className = 'question';
+                div.innerHTML = `
+                    <div class="question-text">${index + 1}. ${q.text}</div>
+                    <div class="options">
+                        ${q.options.map((opt, i) => `
+                            <div class="option" data-value="${String.fromCharCode(97 + i)}">
+                                <input type="radio" name="${key}" value="${String.fromCharCode(97 + i)}" id="${key}_${i}">
+                                <label for="${key}_${i}">${String.fromCharCode(97 + i).toUpperCase()}) ${opt}</label>
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
+                container.appendChild(div);
+            });
+            addOptionEventListeners();
+        }
+        
+        function addOptionEventListeners() {
+            document.querySelectorAll('.option').forEach(option => {
+                option.addEventListener('click', function() {
+                    const radio = this.querySelector('input[type="radio"]');
+                    radio.checked = true;
+                    const name = radio.name;
+                    document.querySelectorAll(`input[name="${name}"]`).forEach(opt => {
+                        opt.closest('.option').classList.remove('selected');
+                    });
+                    this.classList.add('selected');
+                });
+            });
+        }
+        
+        // ===== ÁUDIO =====
+        function playAudio() { document.getElementById('mainAudio').play(); }
+        function replayAudio() { const audio = document.getElementById('mainAudio'); audio.currentTime = 0; audio.play(); }
+        function pauseAudio() { document.getElementById('mainAudio').pause(); }
+        
+        // ===== VERIFICAR RESPOSTAS =====
+        function checkAnswers() {
+            const lesson = intermediateLessons[currentLesson];
+            const questions = Object.keys(lesson.questions);
+            let score = 0, detailedResults = [];
+            attempts++;
+            
+            questions.forEach((key, index) => {
+                const selected = document.querySelector(`input[name="${key}"]:checked`);
+                const correct = lesson.questions[key].correct;
+                const allOptions = document.querySelectorAll(`input[name="${key}"]`);
+                
+                allOptions.forEach(opt => {
+                    opt.closest('.option').classList.remove('correct-answer', 'wrong-answer');
+                });
+                
+                const correctOption = document.querySelector(`input[name="${key}"][value="${correct}"]`);
+                correctOption.closest('.option').classList.add('correct-answer');
+                
+                if (selected && selected.value !== correct) {
+                    selected.closest('.option').classList.add('wrong-answer');
+                }
+                
+                const correctOptionText = lesson.questions[key].options[correct.charCodeAt(0) - 97];
+                const selectedOptionText = selected ? lesson.questions[key].options[selected.value.charCodeAt(0) - 97] : "Não respondida";
+                
+                if (selected && selected.value === correct) {
+                    score++;
+                    detailedResults.push(`✅ Questão ${index + 1}: CORRETO! 🎯`);
+                } else {
+                    detailedResults.push(`❌ Questão ${index + 1}: ${selectedOptionText} → Correto: ${correctOptionText}`);
+                }
+            });
+            
+            studentProgress.completeListeningLesson(currentLesson, score, Date.now() - lessonStartTime);
+            
+            document.getElementById('progressBar').style.width = (score / 5) * 100 + '%';
+            document.getElementById('progressText').textContent = `${(score / 5) * 100}%`;
+            document.getElementById('scoreValue').textContent = score;
+            document.getElementById('scoreSection').style.display = 'block';
+            
+            if (attempts === 1) document.getElementById('badge1').classList.add('earned');
+            if (score >= 4) document.getElementById('badge2').classList.add('earned');
+            if (score === 5) document.getElementById('badge3').classList.add('earned');
+            if (score >= 4) document.getElementById('badge4').classList.add('earned');
+            
+            const feedback = document.getElementById('feedback');
+            let feedbackHeader = score === 5 ? 
+                '<div style="text-align: center; background: linear-gradient(45deg, var(--blue-dark), var(--blue-medium)); color: white; padding: 25px; border-radius: 15px; margin-bottom: 25px; font-size: 1.3em; font-weight: 800;">⚡ INTERMEDIATE PERFECT! 🎯</div>' :
+                '<div style="text-align: center; background: linear-gradient(45deg, var(--blue-medium), var(--blue-gray)); color: white; padding: 25px; border-radius: 15px; margin-bottom: 25px; font-size: 1.2em; font-weight: 800;">💪 CONTINUE PRATICANDO! 🎧</div>';
+            
+            feedback.innerHTML = feedbackHeader + detailedResults.map(result => `<div style="margin: 1rem 0; padding: 1.25rem; background: #f8fafc; border-radius: 12px; border-left: 4px solid var(--blue-dark);">${result}</div>`).join('');
+            feedback.style.display = 'block';
+        }
+        
+        function resetQuiz() {
+            document.querySelectorAll('input[type="radio"]').forEach(radio => {
+                radio.checked = false;
+                radio.closest('.option').classList.remove('selected', 'correct-answer', 'wrong-answer');
+            });
+            document.getElementById('scoreSection').style.display = 'none';
+            document.getElementById('feedback').style.display = 'none';
+            document.getElementById('progressBar').style.width = '0%';
+            document.getElementById('progressText').textContent = '0%';
+            document.querySelectorAll('.badge').forEach(badge => badge.classList.remove('earned'));
+            attempts = 0; lessonStartTime = Date.now();
+        }
+        
+        function nextLesson() {
+            if (currentLesson < 3) {
+                switchToLesson(currentLesson + 1);
+            } else {
+                alert('⚡ Parabéns! Intermediate Level completo!\nAgora você pode partir para o Advanced Level! 🚀');
+                setTimeout(() => {
+                    window.location.href = '../hubs/listening-hub.html';
+                }, 2000);
+            }
+        }
+        
+        // ===== INICIALIZAÇÃO =====
+        document.addEventListener('DOMContentLoaded', function() {
+            const studentName = getStudentName();
+            
+            // Update user info
+            document.getElementById('userName').textContent = 
+                studentName.charAt(0).toUpperCase() + studentName.slice(1).toLowerCase();
+            document.getElementById('userAvatar').textContent = studentName.charAt(0).toUpperCase();
+            
+            console.log(`⚡ Intermediate Level - usuário: ${studentName}`);
+            console.log('✅ Visual CONSISTENTE aplicado');
+            console.log('🎯 Cores patrióticas mantidas');
+            console.log('📁 Estrutura igual foundation/beginner.html');
+            console.log('🎧 3 lições Intermediate com speed controls');
+            console.log('⚡ Speed controls: 0.75x → 2x funcionando');
+            
+            createLessonCards();
+            loadLesson(currentLesson);
+            initSpeedControls();
+        });
     </script>
 </body>
 </html>
