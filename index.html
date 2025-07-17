@@ -339,15 +339,8 @@
             
             // Update progress badges based on completion
             updateProgressBadges(stats.raw);
-            
-            // Welcome message for new users
-            if (stats.lessons === 0 && stats.chapters === 0 && stats.badges === 0) {
-                setTimeout(() => {
-                    if (confirm('🎉 Bem-vindo ao Teacher Alex English Academy!\n\nVocê está pronto para começar sua jornada de aprendizado?\n\nClique OK para conhecer nossas atividades!')) {
-                        document.querySelector('.hubs-grid').scrollIntoView({ behavior: 'smooth' });
-                    }
-                }, 1000);
-            }
+      
+
         }
 
         function animateStatWithTrend(elementId, targetValue, previousValue, suffix = '') {
