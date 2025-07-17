@@ -30,38 +30,48 @@
             <p class="main-subtitle" id="welcomeMsg">Bem-vindo de volta!</p>
         </header>
         
+        <!-- Stats Section Title -->
+        <section class="stats-section">
+            <h2 class="stats-title">📊 Seu Progresso Acadêmico</h2>
+            <p class="stats-subtitle">Acompanhe sua jornada de aprendizado em tempo real</p>
+        </section>
+        
         <!-- Stats Dashboard -->
         <section class="stats-dashboard">
-            <div class="stat-card">
+            <div class="stat-card lessons">
                 <div class="stat-icon">📚</div>
                 <div class="stat-info">
                     <div class="stat-number" id="statLessons">0</div>
                     <div class="stat-label">Lições Completas</div>
                 </div>
+                <div class="stat-trend" id="lessonsTrend">📈 +1</div>
             </div>
             
-            <div class="stat-card">
+            <div class="stat-card chapters">
                 <div class="stat-icon">📖</div>
                 <div class="stat-info">
                     <div class="stat-number" id="statChapters">0</div>
                     <div class="stat-label">Capítulos Lidos</div>
                 </div>
+                <div class="stat-trend" id="chaptersTrend">📈 +1</div>
             </div>
             
-            <div class="stat-card">
+            <div class="stat-card badges">
                 <div class="stat-icon">🏆</div>
                 <div class="stat-info">
                     <div class="stat-number" id="statBadges">0</div>
                     <div class="stat-label">Badges Earned</div>
                 </div>
+                <div class="stat-trend" id="badgesTrend">📈 +1</div>
             </div>
             
-            <div class="stat-card">
+            <div class="stat-card time">
                 <div class="stat-icon">⏱️</div>
                 <div class="stat-info">
                     <div class="stat-number" id="statTime">0h</div>
                     <div class="stat-label">Tempo de Estudo</div>
                 </div>
+                <div class="stat-trend" id="timeTrend">📈 +1h</div>
             </div>
         </section>
         
@@ -172,6 +182,11 @@
         // ===== INITIALIZATION =====
         const studentName = sessionStorage.getItem('studentUsername') || 'Student';
         
+        // Store previous stats for comparison
+        let previousStats = JSON.parse(localStorage.getItem(`previousStats_${studentName}`)) || {
+            lessons: 0, chapters: 0, badges: 0, time: 0
+        };
+        
         // Update UI with student info
         document.getElementById('userName').textContent = studentName;
         document.getElementById('userAvatar').textContent = studentName.charAt(0).toUpperCase();
@@ -207,11 +222,29 @@
                     const totalStudyTime = data.totalStudyTime || 0;
                     const studyHours = Math.floor(totalStudyTime / (1000 * 60 * 60));
                     
-                    // Update UI
-                    document.getElementById('statLessons').textContent = totalLessons;
-                    document.getElementById('statChapters').textContent = totalChapters;
-                    document.getElementById('statBadges').textContent = totalBadges;
-                    document.getElementById('statTime').textContent = studyHours + 'h';
+                    // Compare with previous stats for trend indicators
+                    const currentStats = { lessons: totalLessons, chapters: totalChapters, badges: totalBadges, time: studyHours };
+                    
+                    // Animate numbers updating with trend comparison
+                    animateStatWithTrend('statLessons', totalLessons, previousStats.lessons);
+                    animateStatWithTrend('statChapters', totalChapters, previousStats.chapters);
+                    animateStatWithTrend('statBadges', totalBadges, previousStats.badges);
+                    animateStatWithTrend('statTime', studyHours, previousStats.time, 'h');
+                    
+                    // Store current stats as previous for next time
+                    localStorage.setItem(`previousStats_${studentName}`, JSON.stringify(currentStats));
+                    
+                    // Debug info
+                    console.log('📊 Stats calculados:', currentStats);
+                    console.log('📈 Progresso desde última sessão:', {
+                        lessons: totalLessons - previousStats.lessons,
+                        chapters: totalChapters - previousStats.chapters,
+                        badges: totalBadges - previousStats.badges,
+                        time: studyHours - previousStats.time
+                    });
+                    
+                    // Add special effects for high achievers
+                    checkHighAchievements(totalLessons, totalChapters, totalBadges, studyHours);
                     
                     // Update progress badges based on completion
                     updateProgressBadges(data);
@@ -220,6 +253,7 @@
                     console.error('Erro ao carregar estatísticas:', e);
                     // Set default values if there's an error
                     setDefaultStats();
+                    updateProgressBadges({});
                 }
             } else {
                 // Set default values for new users
@@ -227,38 +261,140 @@
             }
         }
 
+        function animateStatNumber(elementId, targetValue, suffix = '') {
+            const element = document.getElementById(elementId);
+            const startValue = parseInt(element.textContent) || 0;
+            const increment = targetValue > startValue ? 1 : -1;
+            const stepTime = Math.abs(Math.floor(300 / (targetValue - startValue)));
+            
+            // Show trend indicator if increasing
+            if (targetValue > startValue) {
+                element.classList.add('achievement');
+                setTimeout(() => element.classList.remove('achievement'), 2000);
+                
+                // Show trend indicator
+                const trendMap = {
+                    'statLessons': 'lessonsTrend',
+                    'statChapters': 'chaptersTrend',
+                    'statBadges': 'badgesTrend',
+                    'statTime': 'timeTrend'
+                };
+                
+                const trendElement = document.getElementById(trendMap[elementId]);
+                if (trendElement) {
+                    const difference = targetValue - startValue;
+                    trendElement.textContent = `📈 +${difference}${suffix}`;
+                    trendElement.classList.add('growing');
+                    setTimeout(() => trendElement.classList.remove('growing'), 4000);
+                }
+            }
+            
+            let currentValue = startValue;
+            const timer = setInterval(() => {
+                currentValue += increment;
+                element.textContent = currentValue + suffix;
+                
+                if (currentValue === targetValue) {
+                    clearInterval(timer);
+                }
+            }, stepTime);
+        }
+
+        function checkHighAchievements(lessons, chapters, badges, hours) {
+            // Remove any existing high-achiever classes
+            document.querySelectorAll('.stat-card').forEach(card => {
+                card.classList.remove('high-achiever');
+            });
+            
+            // Add high-achiever effect for significant milestones
+            const lessonsCard = document.querySelector('.stat-card.lessons');
+            const chaptersCard = document.querySelector('.stat-card.chapters');
+            const badgesCard = document.querySelector('.stat-card.badges');
+            const timeCard = document.querySelector('.stat-card.time');
+            
+            if (lessons >= 5 && lessonsCard) {
+                lessonsCard.classList.add('high-achiever');
+            }
+            if (chapters >= 3 && chaptersCard) {
+                chaptersCard.classList.add('high-achiever');
+            }
+            if (badges >= 3 && badgesCard) {
+                badgesCard.classList.add('high-achiever');
+            }
+            if (hours >= 2 && timeCard) {
+                timeCard.classList.add('high-achiever');
+            }
+            
+            // Special celebration for exceptional achievements
+            if (lessons >= 10 || chapters >= 8 || badges >= 5 || hours >= 5) {
+                showCelebrationMessage();
+            }
+        }
+
+        function showCelebrationMessage() {
+            const messages = [
+                '🎉 Parabéns! Você é um aluno excepcional!',
+                '⭐ Seu progresso está impressionante!',
+                '🏆 Continue assim - você está indo muito bem!',
+                '🔥 Dedicação exemplar! Keep it up!'
+            ];
+            
+            setTimeout(() => {
+                const randomMessage = messages[Math.floor(Math.random() * messages.length)];
+                if (confirm(randomMessage + '\n\nQuer continuar estudando?')) {
+                    // User clicked OK, they want to continue
+                    console.log('Aluno motivado a continuar!');
+                }
+            }, 2000);
+        }
+
         function setDefaultStats() {
-            document.getElementById('statLessons').textContent = '0';
-            document.getElementById('statChapters').textContent = '0';
-            document.getElementById('statBadges').textContent = '0';
-            document.getElementById('statTime').textContent = '0h';
+            animateStatNumber('statLessons', 0);
+            animateStatNumber('statChapters', 0);
+            animateStatNumber('statBadges', 0);
+            animateStatNumber('statTime', 0, 'h');
         }
 
         function updateProgressBadges(data) {
             // Listening progress
             const listeningCompleted = data.listening?.lessonsCompleted?.length || 0;
             const listeningBadge = document.getElementById('listeningProgress');
-            if (listeningCompleted > 0) {
-                listeningBadge.textContent = `${listeningCompleted} ✓`;
-                listeningBadge.style.background = 'var(--success)';
+            if (listeningBadge) {
+                if (listeningCompleted > 0) {
+                    listeningBadge.textContent = `${listeningCompleted} ✓`;
+                    listeningBadge.style.background = 'var(--success)';
+                } else {
+                    listeningBadge.textContent = '✨ Pronto';
+                    listeningBadge.style.background = 'var(--blue-medium)';
+                }
             }
             
             // Graded readers progress
             const roommateCompleted = data.roommate?.chaptersCompleted?.length || 0;
             const readingCompleted = data.reading?.chaptersCompleted?.length || 0;
             const gradedBadge = document.getElementById('gradedProgress');
-            const totalGradedChapters = roommateCompleted + readingCompleted;
-            if (totalGradedChapters > 0) {
-                gradedBadge.textContent = `${totalGradedChapters} ✓`;
-                gradedBadge.style.background = 'var(--success)';
+            if (gradedBadge) {
+                const totalGradedChapters = roommateCompleted + readingCompleted;
+                if (totalGradedChapters > 0) {
+                    gradedBadge.textContent = `${totalGradedChapters} ✓`;
+                    gradedBadge.style.background = 'var(--success)';
+                } else {
+                    gradedBadge.textContent = '✨ Pronto';
+                    gradedBadge.style.background = 'var(--blue-medium)';
+                }
             }
             
             // Pure reading progress
             const neighborCompleted = data.neighbor?.chaptersCompleted?.length || 0;
             const pureBadge = document.getElementById('pureProgress');
-            if (neighborCompleted > 0) {
-                pureBadge.textContent = `${neighborCompleted} ✓`;
-                pureBadge.style.background = 'var(--success)';
+            if (pureBadge) {
+                if (neighborCompleted > 0) {
+                    pureBadge.textContent = `${neighborCompleted} ✓`;
+                    pureBadge.style.background = 'var(--success)';
+                } else {
+                    pureBadge.textContent = '✨ Pronto';
+                    pureBadge.style.background = 'var(--blue-medium)';
+                }
             }
         }
 
@@ -344,7 +480,9 @@
         
         console.log('🎓 TEACHER ALEX ENGLISH ACADEMY carregado!');
         console.log('👤 Usuário logado:', studentName);
-        console.log('📊 Dashboard inicializado com sucesso!');
+        console.log('📊 STATS PREMIUM ativado: gradientes, animações, tendências, conquistas');
+        console.log('✨ Recursos especiais: high-achiever effects, celebration messages, trend indicators');
+        console.log('🎯 Sistema de motivação completo para alunos adultos!');
     </script>
 </body>
 </html>
