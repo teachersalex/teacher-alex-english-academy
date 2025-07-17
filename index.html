@@ -174,13 +174,127 @@
     </div>
 
     <script>
+        // ===== UNIVERSAL PROGRESS SYSTEM =====
+        class ProgressManager {
+            constructor() {
+                this.studentName = sessionStorage.getItem('studentUsername') || 'Student';
+                this.progressKey = `progress_${this.studentName}`;
+                this.init();
+            }
+
+            init() {
+                this.ensureProgressStructure();
+                console.log('📊 Progress Manager initialized for:', this.studentName);
+            }
+
+            ensureProgressStructure() {
+                const data = this.getAllProgress();
+                let updated = false;
+
+                const sections = ['listening', 'reading', 'roommate', 'neighbor'];
+                sections.forEach(section => {
+                    if (!data[section]) {
+                        data[section] = {
+                            chaptersCompleted: [],
+                            badges: [],
+                            lastAccessed: Date.now()
+                        };
+                        updated = true;
+                    }
+                });
+
+                if (!data.totalStudyTime) {
+                    data.totalStudyTime = 0;
+                    updated = true;
+                }
+
+                if (updated) {
+                    this.saveAllProgress(data);
+                    console.log('✅ Progress structure created/updated');
+                }
+            }
+
+            getAllProgress() {
+                const saved = localStorage.getItem(this.progressKey);
+                if (saved) {
+                    try {
+                        return JSON.parse(saved);
+                    } catch (e) {
+                        console.error('❌ Error parsing progress data:', e);
+                        return {};
+                    }
+                }
+                return {};
+            }
+
+            saveAllProgress(data) {
+                localStorage.setItem(this.progressKey, JSON.stringify(data));
+                console.log('💾 Progress saved:', data);
+            }
+
+            getStatistics() {
+                const data = this.getAllProgress();
+                
+                let totalLessons = 0;
+                let totalChapters = 0;
+                let totalBadges = 0;
+                
+                Object.keys(data).forEach(key => {
+                    if (data[key] && data[key].chaptersCompleted) {
+                        if (key === 'listening') {
+                            totalLessons += data[key].chaptersCompleted.length;
+                        } else {
+                            totalChapters += data[key].chaptersCompleted.length;
+                        }
+                    }
+                    
+                    if (data[key] && data[key].badges) {
+                        totalBadges += data[key].badges.length;
+                    }
+                });
+                
+                const studyHours = Math.floor((data.totalStudyTime || 0) / (1000 * 60 * 60));
+                
+                return {
+                    lessons: Math.min(50, Math.max(0, totalLessons)),
+                    chapters: Math.min(100, Math.max(0, totalChapters)),
+                    badges: Math.min(50, Math.max(0, totalBadges)),
+                    studyHours: Math.min(999, Math.max(0, studyHours)),
+                    raw: data
+                };
+            }
+
+            debugProgress() {
+                const data = this.getAllProgress();
+                const stats = this.getStatistics();
+                
+                console.log('🔍 PROGRESS DEBUG:', {
+                    studentName: this.studentName,
+                    progressKey: this.progressKey,
+                    rawData: data,
+                    statistics: stats
+                });
+                
+                return { data, stats };
+            }
+        }
+
         // ===== AUTH CHECK =====
         if (sessionStorage.getItem('studentLoggedIn') !== 'true') {
             window.location.href = 'pages/auth/login.html';
         }
 
+        // ===== EMERGENCY TIMER CLEANUP =====
+        let activeTimers = [];
+        
+        function clearAllTimers() {
+            activeTimers.forEach(timer => clearInterval(timer));
+            activeTimers = [];
+        }
+
         // ===== INITIALIZATION =====
         const studentName = sessionStorage.getItem('studentUsername') || 'Student';
+        const progressManager = new ProgressManager();
         
         // Clear any existing timers on page load
         clearAllTimers();
@@ -195,199 +309,63 @@
         document.getElementById('userAvatar').textContent = studentName.charAt(0).toUpperCase();
         document.getElementById('welcomeMsg').textContent = `Bem-vindo de volta, ${studentName}!`;
 
-        // ===== EMERGENCY FUNCTIONS =====
-        window.clearStatsAnimations = function() {
+        // ===== STATS DASHBOARD - IMPROVED VERSION =====
+        function loadStats() {
             clearAllTimers();
-            setDefaultStats();
-            console.log('🆘 Animações de stats resetadas com sucesso!');
-        };
-
-        window.debugStats = function() {
-            const progressKey = `progress_${studentName}`;
-            const saved = localStorage.getItem(progressKey);
-            console.log('🔍 Debug Stats:', {
-                studentName,
-                savedData: saved ? JSON.parse(saved) : null,
-                previousStats,
-                activeTimers: activeTimers.length
-            });
-        };
-
-        // ===== PROGRESS DEBUG FUNCTIONS =====
-        window.checkProgress = function() {
-            const progressKey = `progress_${studentName}`;
-            const saved = localStorage.getItem(progressKey);
             
-            console.log('📊 DIAGNÓSTICO COMPLETO DE PROGRESSO:');
-            console.log('👤 Aluno:', studentName);
-            console.log('🔑 Chave localStorage:', progressKey);
+            const stats = progressManager.getStatistics();
             
-            if (saved) {
-                try {
-                    const data = JSON.parse(saved);
-                    console.log('💾 Dados salvos:', data);
-                    
-                    // Verificar cada seção
-                    console.log('🎧 Listening:', data.listening || 'Não encontrado');
-                    console.log('📖 Reading:', data.reading || 'Não encontrado');
-                    console.log('🏠 Roommate:', data.roommate || 'Não encontrado');
-                    console.log('🤝 Neighbor:', data.neighbor || 'Não encontrado');
-                    
-                    // Calcular totais
-                    const listeningLessons = data.listening?.lessonsCompleted?.length || 0;
-                    const readingChapters = data.reading?.chaptersCompleted?.length || 0;
-                    const roommateChapters = data.roommate?.chaptersCompleted?.length || 0;
-                    const neighborChapters = data.neighbor?.chaptersCompleted?.length || 0;
-                    
-                    console.log('📈 TOTAIS CALCULADOS:');
-                    console.log('   Listening Lessons:', listeningLessons);
-                    console.log('   Reading Chapters:', readingChapters);
-                    console.log('   Roommate Chapters:', roommateChapters);
-                    console.log('   Neighbor Chapters:', neighborChapters);
-                    console.log('   TOTAL CHAPTERS:', readingChapters + roommateChapters + neighborChapters);
-                    
-                } catch (e) {
-                    console.error('❌ Erro ao ler dados:', e);
-                }
-            } else {
-                console.log('❌ Nenhum dado encontrado no localStorage');
-            }
-        };
-
-        window.forceRefreshStats = function() {
-            console.log('🔄 Forçando atualização de stats...');
-            clearAllTimers();
-            loadStats();
-        };
-
-        window.showAllLocalStorage = function() {
-            console.log('💾 TODOS OS DADOS DO LOCALSTORAGE:');
-            for (let i = 0; i < localStorage.length; i++) {
-                const key = localStorage.key(i);
-                const value = localStorage.getItem(key);
-                console.log(`${key}:`, value);
-            }
-        };
-
-        // ===== TESTE DE PROGRESSO =====
-        window.simulateProgress = function() {
-            const progressKey = `progress_${studentName}`;
-            const testData = {
-                listening: {
-                    lessonsCompleted: [1, 2, 3],
-                    badges: ['beginner', 'intermediate']
-                },
-                reading: {
-                    chaptersCompleted: [1, 2],
-                    badges: ['reader']
-                },
-                roommate: {
-                    chaptersCompleted: [1, 2, 3],
-                    badges: ['story-lover']
-                },
-                neighbor: {
-                    chaptersCompleted: [1],
-                    badges: ['neighbor-friend']
-                },
-                totalStudyTime: 7200000 // 2 hours in milliseconds
+            console.log('📊 Stats from Progress Manager:', stats);
+            
+            // Compare with previous stats for trend indicators
+            const currentStats = { 
+                lessons: stats.lessons, 
+                chapters: stats.chapters, 
+                badges: stats.badges, 
+                time: stats.studyHours 
             };
             
-            localStorage.setItem(progressKey, JSON.stringify(testData));
-            console.log('✅ Dados de teste salvos!');
-            console.log('🔄 Recarregando stats...');
-            forceRefreshStats();
-        };
-
-        window.clearAllProgress = function() {
-            if (confirm('⚠️ Isso vai apagar TODO o progresso! Tem certeza?')) {
-                const progressKey = `progress_${studentName}`;
-                localStorage.removeItem(progressKey);
-                localStorage.removeItem(`previousStats_${studentName}`);
-                console.log('🗑️ Progresso limpo!');
-                forceRefreshStats();
-            }
-        };
-
-        // ===== STATS DASHBOARD =====
-        function loadStats() {
-            // Clear any existing timers first
-            clearAllTimers();
+            // Animate with safety checks
+            animateStatWithTrend('statLessons', stats.lessons, previousStats.lessons);
+            animateStatWithTrend('statChapters', stats.chapters, previousStats.chapters);
+            animateStatWithTrend('statBadges', stats.badges, previousStats.badges);
+            animateStatWithTrend('statTime', stats.studyHours, previousStats.time, 'h');
             
-            const progressKey = `progress_${studentName}`;
-            const saved = localStorage.getItem(progressKey);
+            // Store current stats as previous for next time
+            localStorage.setItem(`previousStats_${studentName}`, JSON.stringify(currentStats));
             
-            if (saved) {
-                try {
-                    const data = JSON.parse(saved);
-                    
-                    // Calculate lessons completed
-                    const listeningLessons = data.listening?.lessonsCompleted?.length || 0;
-                    const totalLessons = listeningLessons;
-                    
-                    // Calculate chapters completed
-                    const readingChapters = data.reading?.chaptersCompleted?.length || 0;
-                    const roommateChapters = data.roommate?.chaptersCompleted?.length || 0;
-                    const neighborChapters = data.neighbor?.chaptersCompleted?.length || 0;
-                    const totalChapters = readingChapters + roommateChapters + neighborChapters;
-                    
-                    // Calculate badges earned
-                    const listeningBadges = data.listening?.badges?.length || 0;
-                    const readingBadges = data.reading?.badges?.length || 0;
-                    const roommateBadges = data.roommate?.badges?.length || 0;
-                    const neighborBadges = data.neighbor?.badges?.length || 0;
-                    const totalBadges = listeningBadges + readingBadges + roommateBadges + neighborBadges;
-                    
-                    // Calculate study time (convert from milliseconds to hours)
-                    const totalStudyTime = data.totalStudyTime || 0;
-                    const studyHours = Math.floor(totalStudyTime / (1000 * 60 * 60));
-                    
-                    // Compare with previous stats for trend indicators
-                    const currentStats = { lessons: totalLessons, chapters: totalChapters, badges: totalBadges, time: studyHours };
-                    
-                    // Animate numbers updating with trend comparison
-                    animateStatWithTrend('statLessons', totalLessons, previousStats.lessons);
-                    animateStatWithTrend('statChapters', totalChapters, previousStats.chapters);
-                    animateStatWithTrend('statBadges', totalBadges, previousStats.badges);
-                    animateStatWithTrend('statTime', studyHours, previousStats.time, 'h');
-                    
-                    // Store current stats as previous for next time
-                    localStorage.setItem(`previousStats_${studentName}`, JSON.stringify(currentStats));
-                    
-                    // Debug info
-                    console.log('📊 Stats calculados:', currentStats);
-                    console.log('📈 Progresso desde última sessão:', {
-                        lessons: totalLessons - previousStats.lessons,
-                        chapters: totalChapters - previousStats.chapters,
-                        badges: totalBadges - previousStats.badges,
-                        time: studyHours - previousStats.time
-                    });
-                    
-                    // Add special effects for high achievers
-                    checkHighAchievements(totalLessons, totalChapters, totalBadges, studyHours);
-                    
-                    // Update progress badges based on completion
-                    updateProgressBadges(data);
-                    
-                } catch (e) {
-                    console.error('Erro ao carregar estatísticas:', e);
-                    // Set default values if there's an error
-                    setDefaultStats();
-                    updateProgressBadges({});
-                }
-            } else {
-                // Set default values for new users
-                setDefaultStats();
+            // Add special effects for high achievers
+            checkHighAchievements(stats.lessons, stats.chapters, stats.badges, stats.studyHours);
+            
+            // Update progress badges based on completion
+            updateProgressBadges(stats.raw);
+            
+            // Welcome message for new users
+            if (stats.lessons === 0 && stats.chapters === 0 && stats.badges === 0) {
+                setTimeout(() => {
+                    if (confirm('🎉 Bem-vindo ao Teacher Alex English Academy!\n\nVocê está pronto para começar sua jornada de aprendizado?\n\nClique OK para conhecer nossas atividades!')) {
+                        document.querySelector('.hubs-grid').scrollIntoView({ behavior: 'smooth' });
+                    }
+                }, 1000);
             }
         }
 
-        function animateStatNumber(elementId, targetValue, suffix = '') {
+        function animateStatWithTrend(elementId, targetValue, previousValue, suffix = '') {
             const element = document.getElementById(elementId);
-            const startValue = parseInt(element.textContent) || 0;
-            const increment = targetValue > startValue ? 1 : -1;
-            const stepTime = Math.abs(Math.floor(300 / (targetValue - startValue)));
+            if (!element) return;
             
-            // Show trend indicator if increasing
-            if (targetValue > startValue) {
+            // Convert to numbers safely
+            const startValue = parseInt(element.textContent.replace(/[^0-9]/g, '')) || 0;
+            const target = parseInt(targetValue) || 0;
+            
+            // Skip animation if no change or invalid values
+            if (target === startValue || target < 0 || target > 1000) {
+                element.textContent = target + suffix;
+                return;
+            }
+            
+            // Show trend indicator based on comparison with previous session
+            if (target > previousValue) {
                 element.classList.add('achievement');
                 setTimeout(() => element.classList.remove('achievement'), 2000);
                 
@@ -401,31 +379,55 @@
                 
                 const trendElement = document.getElementById(trendMap[elementId]);
                 if (trendElement) {
-                    const difference = targetValue - startValue;
+                    const difference = target - previousValue;
                     trendElement.textContent = `📈 +${difference}${suffix}`;
                     trendElement.classList.add('growing');
                     setTimeout(() => trendElement.classList.remove('growing'), 4000);
                 }
             }
             
+            // Simple animation with safety checks
+            const difference = Math.abs(target - startValue);
+            const increment = target > startValue ? 1 : -1;
+            const stepTime = Math.max(50, Math.floor(1000 / difference));
+            
             let currentValue = startValue;
+            let steps = 0;
+            const maxSteps = difference;
+            
             const timer = setInterval(() => {
+                steps++;
                 currentValue += increment;
                 element.textContent = currentValue + suffix;
                 
-                if (currentValue === targetValue) {
+                // Multiple safety conditions
+                if (currentValue === target || steps >= maxSteps || steps > 50) {
                     clearInterval(timer);
+                    element.textContent = target + suffix;
+                    // Remove from active timers
+                    const index = activeTimers.indexOf(timer);
+                    if (index > -1) activeTimers.splice(index, 1);
                 }
             }, stepTime);
+            
+            // Track active timer
+            activeTimers.push(timer);
+        }
+
+        function setDefaultStats() {
+            clearAllTimers();
+            
+            document.getElementById('statLessons').textContent = '0';
+            document.getElementById('statChapters').textContent = '0';
+            document.getElementById('statBadges').textContent = '0';
+            document.getElementById('statTime').textContent = '0h';
         }
 
         function checkHighAchievements(lessons, chapters, badges, hours) {
-            // Remove any existing high-achiever classes
             document.querySelectorAll('.stat-card').forEach(card => {
                 card.classList.remove('high-achiever');
             });
             
-            // Add high-achiever effect for significant milestones
             const lessonsCard = document.querySelector('.stat-card.lessons');
             const chaptersCard = document.querySelector('.stat-card.chapters');
             const badgesCard = document.querySelector('.stat-card.badges');
@@ -444,7 +446,6 @@
                 timeCard.classList.add('high-achiever');
             }
             
-            // Special celebration for exceptional achievements
             if (lessons >= 10 || chapters >= 8 || badges >= 5 || hours >= 5) {
                 showCelebrationMessage();
             }
@@ -461,22 +462,13 @@
             setTimeout(() => {
                 const randomMessage = messages[Math.floor(Math.random() * messages.length)];
                 if (confirm(randomMessage + '\n\nQuer continuar estudando?')) {
-                    // User clicked OK, they want to continue
                     console.log('Aluno motivado a continuar!');
                 }
             }, 2000);
         }
 
-        function setDefaultStats() {
-            animateStatNumber('statLessons', 0);
-            animateStatNumber('statChapters', 0);
-            animateStatNumber('statBadges', 0);
-            animateStatNumber('statTime', 0, 'h');
-        }
-
         function updateProgressBadges(data) {
-            // Listening progress
-            const listeningCompleted = data.listening?.lessonsCompleted?.length || 0;
+            const listeningCompleted = data.listening?.chaptersCompleted?.length || 0;
             const listeningBadge = document.getElementById('listeningProgress');
             if (listeningBadge) {
                 if (listeningCompleted > 0) {
@@ -488,7 +480,6 @@
                 }
             }
             
-            // Graded readers progress
             const roommateCompleted = data.roommate?.chaptersCompleted?.length || 0;
             const readingCompleted = data.reading?.chaptersCompleted?.length || 0;
             const gradedBadge = document.getElementById('gradedProgress');
@@ -503,7 +494,6 @@
                 }
             }
             
-            // Pure reading progress
             const neighborCompleted = data.neighbor?.chaptersCompleted?.length || 0;
             const pureBadge = document.getElementById('pureProgress');
             if (pureBadge) {
@@ -537,7 +527,6 @@
                 if (routes[section]) {
                     window.location.href = routes[section];
                 } else {
-                    // Restore button if route doesn't exist
                     button.textContent = originalText;
                     card.style.opacity = '1';
                     alert('🚀 Seção em desenvolvimento!');
@@ -578,29 +567,72 @@
         let sessionStartTime = Date.now();
         
         window.addEventListener('beforeunload', () => {
-            // Clean up any running timers
             clearAllTimers();
             
             const sessionTime = Date.now() - sessionStartTime;
-            const progressKey = `progress_${studentName}`;
-            const saved = localStorage.getItem(progressKey);
-            
-            if (saved) {
-                try {
-                    const data = JSON.parse(saved);
-                    data.totalStudyTime = (data.totalStudyTime || 0) + sessionTime;
-                    localStorage.setItem(progressKey, JSON.stringify(data));
-                } catch (e) {
-                    console.error('Erro ao salvar tempo de estudo:', e);
-                }
+            if (sessionTime > 0) {
+                const data = progressManager.getAllProgress();
+                data.totalStudyTime = (data.totalStudyTime || 0) + sessionTime;
+                progressManager.saveAllProgress(data);
             }
         });
 
-        // Also cleanup on page hide (mobile browsers)
         document.addEventListener('visibilitychange', () => {
             if (document.hidden) {
                 clearAllTimers();
             }
+        });
+
+        // ===== GLOBAL FUNCTIONS FOR DEBUGGING =====
+        window.progressManager = progressManager;
+        window.clearStatsAnimations = function() {
+            clearAllTimers();
+            setDefaultStats();
+            console.log('🆘 Animações de stats resetadas com sucesso!');
+        };
+
+        window.debugProgress = function() {
+            return progressManager.debugProgress();
+        };
+
+        window.forceRefreshStats = function() {
+            console.log('🔄 Forçando atualização de stats...');
+            clearAllTimers();
+            loadStats();
+        };
+
+        window.simulateProgress = function() {
+            const testData = {
+                listening: {
+                    chaptersCompleted: [1, 2, 3],
+                    badges: ['beginner', 'intermediate']
+                },
+                reading: {
+                    chaptersCompleted: [1, 2],
+                    badges: ['reader']
+                },
+                roommate: {
+                    chaptersCompleted: [1, 2, 3],
+                    badges: ['story-lover']
+                },
+                neighbor: {
+                    chaptersCompleted: [1],
+                    badges: ['neighbor-friend']
+                },
+                totalStudyTime: 7200000
+            };
+            
+            progressManager.saveAllProgress(testData);
+            console.log('✅ Dados de teste salvos!');
+            forceRefreshStats();
+        };
+
+        // ===== LISTEN FOR PROGRESS UPDATES =====
+        window.addEventListener('progressUpdated', (event) => {
+            console.log('📊 Progress update received:', event.detail);
+            setTimeout(() => {
+                forceRefreshStats();
+            }, 500);
         });
 
         // ===== INITIALIZATION =====
@@ -608,34 +640,13 @@
         
         console.log('🎓 TEACHER ALEX ENGLISH ACADEMY carregado!');
         console.log('👤 Usuário logado:', studentName);
-        console.log('📊 STATS PREMIUM ativado: gradientes, animações, tendências, conquistas');
-        console.log('✨ Recursos especiais: high-achiever effects, celebration messages, trend indicators');
-        console.log('🎯 Sistema de motivação completo para alunos adultos!');
+        console.log('📊 PROGRESS MANAGER ativo - Sistema universal de progresso!');
         console.log('');
-        console.log('🆘 FUNÇÕES DE EMERGÊNCIA:');
-        console.log('   clearStatsAnimations() - Para parar animações infinitas');
-        console.log('   debugStats() - Para debugar dados do localStorage');
-        console.log('');
-        console.log('🔍 FUNÇÕES DE DEBUG DE PROGRESSO:');
-        console.log('   checkProgress() - Diagnóstico completo do progresso');
-        console.log('   forceRefreshStats() - Forçar atualização dos stats');
-        console.log('   showAllLocalStorage() - Ver todos os dados salvos');
-        console.log('');
-        console.log('💡 PARA RESOLVER PROBLEMA DE PROGRESSO:');
-        console.log('   1. Digite: checkProgress()');
-        console.log('   2. Veja se os dados estão sendo salvos corretamente');
-        console.log('   3. Se não, me informe o que aparece no console!');
-        console.log('');
-        console.log('🧪 FUNÇÕES DE TESTE:');
-        console.log('   simulateProgress() - Criar dados de teste');
-        console.log('   clearAllProgress() - Limpar todo o progresso');
-        console.log('   showAllLocalStorage() - Ver todos os dados');
-        console.log('');
-        console.log('🔥 ALEX, SIGA ESTES PASSOS:');
-        console.log('   1. Complete um capítulo no graded reader');
-        console.log('   2. Volte para o dashboard');
-        console.log('   3. Digite: checkProgress()');
-        console.log('   4. Me envie a saída do console!');
+        console.log('🔥 ALEX, PARA TESTAR O PROGRESSO:');
+        console.log('   1. Digite: simulateProgress() para criar dados de teste');
+        console.log('   2. Digite: debugProgress() para ver dados atuais');
+        console.log('   3. Digite: forceRefreshStats() para atualizar dashboard');
+        console.log('   4. Complete um capítulo e volte - progresso deve aparecer!');
     </script>
 </body>
 </html>
