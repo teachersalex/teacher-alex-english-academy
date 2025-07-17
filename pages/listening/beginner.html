@@ -3,359 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Listening Beginner - Teacher Alex English Academy BETA</title>
+    <title>Beginner Level - Teacher Alex English Academy</title>
     
-    <!-- CSS EXTERNOS - PATHS CORRETOS -->
+    <!-- CSS Universal - MESMO PADRÃO DOS OUTROS -->
     <link rel="stylesheet" href="../../src/styles/base.css">
     <link rel="stylesheet" href="../../src/styles/layout.css">
     <link rel="stylesheet" href="../../src/styles/theme-patriot.css">
     
     <style>
-        /* BEGINNER SPECIFIC - PATRIOTIC COLORS */
-        .beginner-hero {
-            background: linear-gradient(135deg, #1e3a8a 0%, #dc2626 50%, #1e40af 100%);
-            border-radius: 20px;
-            padding: 3rem;
-            margin-bottom: 3rem;
-            position: relative;
-            overflow: hidden;
-            border: 1px solid rgba(255,255,255,0.1);
-            box-shadow: 0 25px 80px rgba(30, 58, 138, 0.15);
-        }
-        
-        .beginner-hero::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.03) 50%, transparent 70%);
-            pointer-events: none;
-        }
-        
-        .hero-content {
-            position: relative;
-            z-index: 2;
-            text-align: center;
-            color: white;
-        }
-        
-        .beginner-title {
-            font-size: 3em;
-            font-weight: 800;
-            margin-bottom: 0.75rem;
-            color: white;
-            text-shadow: 0 4px 20px rgba(0,0,0,0.3);
-            letter-spacing: -0.02em;
-        }
-        
-        .beginner-subtitle {
-            font-size: 1.25em;
-            font-weight: 500;
-            margin-bottom: 2.5rem;
-            opacity: 0.9;
-            color: #e2e8f0;
-        }
-        
-        .beginner-stats {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
-            gap: 1.5rem;
-            max-width: 450px;
-            margin: 0 auto;
-        }
-        
-        .beginner-stat {
-            background: rgba(255,255,255,0.12);
-            backdrop-filter: blur(20px);
-            padding: 1.5rem 1rem;
-            border-radius: 16px;
-            border: 1px solid rgba(255,255,255,0.2);
-            text-align: center;
-            transition: all 0.3s ease;
-        }
-        
-        .beginner-stat:hover {
-            transform: translateY(-2px);
-            background: rgba(255,255,255,0.15);
-        }
-        
-        .stat-number {
-            font-size: 2em;
-            font-weight: 800;
-            display: block;
-            margin-bottom: 0.5rem;
-            color: white;
-        }
-        
-        .stat-label {
-            font-size: 0.9em;
-            opacity: 0.85;
-            font-weight: 600;
-            color: #cbd5e1;
-        }
-        
-        /* Lessons section com cores patrióticas */
-        .lessons-section {
-            background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
-            border-radius: 20px;
-            padding: 3rem;
-            border: 1px solid #e2e8f0;
-            box-shadow: 0 20px 60px rgba(15, 23, 42, 0.08);
-            margin-bottom: 3rem;
-            position: relative;
-        }
-        
-        .lessons-section::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0;
-            height: 4px;
-            background: linear-gradient(90deg, #1e3a8a, #dc2626);
-            border-radius: 20px 20px 0 0;
-        }
-        
-        .section-title {
-            text-align: center;
-            font-size: 1.75em;
-            font-weight: 800;
-            color: #1e293b;
-            margin-bottom: 2.5rem;
-        }
-        
-        .lessons-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-bottom: 2rem;
-        }
-        
-        /* Lesson cards patrióticas */
-        .lesson-card {
-            background: white;
-            border-radius: 16px;
-            padding: 2rem 1.5rem;
-            text-align: center;
-            cursor: pointer;
-            border: 2px solid #f1f5f9;
-            min-height: 220px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .lesson-card::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: linear-gradient(135deg, transparent 0%, rgba(30, 58, 138, 0.02) 100%);
-            transition: all 0.4s ease;
-            opacity: 0;
-        }
-        
-        .lesson-card:hover {
-            transform: translateY(-8px) scale(1.02);
-            box-shadow: 0 25px 50px rgba(30, 58, 138, 0.15);
-            border-color: #cbd5e1;
-        }
-        
-        .lesson-card:hover::before {
-            opacity: 1;
-        }
-        
-        .lesson-card.active {
-            background: linear-gradient(135deg, #1e3a8a 0%, #dc2626 100%);
-            color: white;
-            border-color: #1e3a8a;
-            transform: translateY(-4px) scale(1.05);
-            box-shadow: 0 25px 50px rgba(30, 58, 138, 0.25);
-        }
-        
-        .lesson-card.completed {
-            background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
-            color: white;
-            border-color: #1e293b;
-            transform: translateY(-2px);
-        }
-        
-        .lesson-header {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 1rem;
-            margin-bottom: 1.5rem;
-            position: relative;
-            z-index: 2;
-        }
-        
-        .lesson-icon {
-            font-size: 3em;
-            margin-bottom: 0.5rem;
-            transition: all 0.3s ease;
-        }
-        
-        .lesson-card:hover .lesson-icon {
-            transform: scale(1.1) rotate(5deg);
-        }
-        
-        .lesson-number {
-            background: linear-gradient(135deg, #1e3a8a, #dc2626);
-            color: white;
-            width: 50px;
-            height: 50px;
-            border-radius: 25px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 800;
-            font-size: 1.1em;
-            box-shadow: 0 8px 25px rgba(30, 58, 138, 0.3);
-            transition: all 0.3s ease;
-        }
-        
-        .lesson-card.active .lesson-number,
-        .lesson-card.completed .lesson-number {
-            background: rgba(255, 255, 255, 0.25);
-            transform: scale(1.1);
-        }
-        
-        .lesson-title {
-            font-size: 1.2em;
-            font-weight: 700;
-            color: #1e293b;
-            margin-bottom: 0.75rem;
-            position: relative;
-            z-index: 2;
-        }
-        
-        .lesson-card.active .lesson-title,
-        .lesson-card.completed .lesson-title {
-            color: rgba(255, 255, 255, 0.95);
-        }
-        
-        .lesson-description {
-            font-size: 0.95em;
-            color: #64748b;
-            line-height: 1.5;
-            position: relative;
-            z-index: 2;
-        }
-        
-        .lesson-card.active .lesson-description,
-        .lesson-card.completed .lesson-description {
-            color: rgba(255, 255, 255, 0.8);
-        }
-        
-        .completion-badge {
-            position: absolute;
-            top: -10px;
-            right: -10px;
-            width: 36px;
-            height: 36px;
-            background: linear-gradient(135deg, #1e293b, #334155);
-            border-radius: 50%;
-            color: white;
-            font-size: 0.85em;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 800;
-            border: 3px solid white;
-            box-shadow: 0 8px 25px rgba(30, 41, 59, 0.3);
-            z-index: 5;
-            animation: badgePulse 2s ease-in-out infinite;
-        }
-        
-        @keyframes badgePulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-        }
-        
-        /* Current lesson container */
-        .current-lesson {
-            background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
-            border-radius: 20px;
-            padding: 3rem;
-            border: 1px solid #e2e8f0;
-            box-shadow: 0 20px 60px rgba(15, 23, 42, 0.08);
-            margin-bottom: 3rem;
-            position: relative;
-        }
-        
-        .current-lesson::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0;
-            height: 4px;
-            background: linear-gradient(90deg, #1e3a8a, #dc2626);
-            border-radius: 20px 20px 0 0;
-        }
-        
-        .current-lesson-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 2.5rem;
-            padding-bottom: 2rem;
-            border-bottom: 2px solid #f1f5f9;
-        }
-        
-        .current-lesson-title {
-            font-size: 2.2em;
-            font-weight: 800;
-            color: #1e293b;
-        }
-        
-        .lesson-number-display {
-            background: linear-gradient(135deg, #1e3a8a, #dc2626);
-            color: white;
-            padding: 1rem 2rem;
-            border-radius: 12px;
-            font-weight: 700;
-            font-size: 1.1em;
-            box-shadow: 0 8px 25px rgba(30, 58, 138, 0.3);
-        }
-        
-        /* Audio section com speed controls */
-        .audio-section {
-            background: linear-gradient(135deg, #f8fafc, #f1f5f9);
-            border-radius: 16px;
-            padding: 2.5rem;
-            margin-bottom: 2.5rem;
-            border: 1px solid #e2e8f0;
-            text-align: center;
-        }
-        
-        .audio-title {
-            font-size: 1.4em;
-            font-weight: 700;
-            color: #1e3a8a;
-            margin-bottom: 2rem;
-        }
-        
-        audio {
-            width: 100%;
-            max-width: 450px;
-            margin-bottom: 2rem;
-            border-radius: 8px;
-        }
-        
-        .audio-controls {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 1.5rem;
-        }
-        
-        .play-buttons {
-            display: flex;
-            justify-content: center;
-            gap: 1.5rem;
-            flex-wrap: wrap;
-        }
-        
-        /* SPEED CONTROLS - FEATURE REQUEST DOS ALUNOS */
+        /* 🎵 SPEED CONTROLS - ÚNICA CUSTOMIZAÇÃO NECESSÁRIA */
         .speed-controls {
             display: flex;
             justify-content: center;
@@ -366,411 +22,93 @@
         
         .speed-btn {
             padding: 0.5rem 1rem;
-            border: 2px solid #e2e8f0;
-            border-radius: 8px;
+            border: 2px solid var(--gray-200);
+            border-radius: var(--radius);
             background: white;
-            color: #64748b;
+            color: var(--blue-gray);
             font-weight: 600;
-            font-size: 0.85em;
+            font-size: 0.85rem;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: var(--transition);
             min-width: 60px;
         }
         
         .speed-btn.active,
         .speed-btn:hover {
-            border-color: #1e3a8a;
-            background: #1e3a8a;
+            border-color: var(--blue-medium);
+            background: var(--blue-medium);
             color: white;
             transform: translateY(-1px);
-            box-shadow: 0 4px 12px rgba(30, 58, 138, 0.3);
+            box-shadow: 0 4px 12px rgba(86, 126, 187, 0.3);
         }
         
-        .btn {
-            padding: 0.875rem 2rem;
-            border: none;
-            border-radius: 12px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            font-size: 0.95em;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .btn::before {
-            content: '';
-            position: absolute;
-            top: 0; left: -100%;
-            width: 100%; height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-            transition: left 0.5s ease;
-        }
-        
-        .btn:hover::before {
-            left: 100%;
-        }
-        
-        .btn-primary {
-            background: linear-gradient(135deg, #1e3a8a, #dc2626);
-            color: white;
-            box-shadow: 0 4px 15px rgba(30, 58, 138, 0.3);
-        }
-        
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(30, 58, 138, 0.4);
-        }
-        
-        .btn-secondary {
-            background: linear-gradient(135deg, #f1f5f9, #e2e8f0);
-            color: #1e3a8a;
-            box-shadow: 0 4px 15px rgba(203, 213, 225, 0.3);
-        }
-        
-        .btn-secondary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(203, 213, 225, 0.5);
-        }
-        
-        /* Progress section patriótica */
-        .progress-section {
-            background: linear-gradient(135deg, #f8fafc, #f1f5f9);
-            border-radius: 16px;
-            padding: 2rem;
-            margin-bottom: 2.5rem;
-            border: 1px solid #e2e8f0;
-        }
-        
-        .progress-bar {
-            width: 100%;
-            height: 12px;
-            background: #e2e8f0;
-            border-radius: 6px;
-            overflow: hidden;
-            margin-bottom: 2rem;
-            box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
-        }
-        
-        .progress-fill {
-            height: 100%;
-            background: linear-gradient(90deg, #1e3a8a, #dc2626);
-            width: 0%;
-            transition: width 1.5s cubic-bezier(0.4, 0, 0.2, 1);
-            border-radius: 6px;
-            position: relative;
-        }
-        
-        .progress-fill::after {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
-            animation: shimmer 2s ease-in-out infinite;
-        }
-        
-        @keyframes shimmer {
-            0% { transform: translateX(-100%); }
-            100% { transform: translateX(100%); }
-        }
-        
-        .badges {
+        .audio-controls {
             display: flex;
-            justify-content: center;
-            gap: 1rem;
-            flex-wrap: wrap;
-        }
-        
-        .badge {
-            background: white;
-            border: 2px solid #e2e8f0;
-            border-radius: 25px;
-            padding: 0.75rem 1.5rem;
-            font-size: 0.85em;
-            font-weight: 600;
-            color: #64748b;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        
-        .badge.earned {
-            background: linear-gradient(135deg, #1e3a8a, #dc2626);
-            color: white;
-            border-color: #1e3a8a;
-            transform: scale(1.05);
-            box-shadow: 0 8px 25px rgba(30, 58, 138, 0.3);
-        }
-        
-        /* Questions section */
-        .questions-section {
-            margin-bottom: 2.5rem;
-        }
-        
-        .question {
-            background: white;
-            border-radius: 16px;
-            padding: 2rem;
-            margin-bottom: 2rem;
-            border: 2px solid #f1f5f9;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(15, 23, 42, 0.05);
-        }
-        
-        .question:hover {
-            border-color: #e2e8f0;
-            box-shadow: 0 8px 25px rgba(15, 23, 42, 0.08);
-            transform: translateY(-2px);
-        }
-        
-        .question-text {
-            font-size: 1.15em;
-            font-weight: 600;
-            color: #1e293b;
-            margin-bottom: 1.5rem;
-        }
-        
-        .options {
-            display: grid;
-            gap: 1rem;
-        }
-        
-        .option {
-            display: flex;
+            flex-direction: column;
             align-items: center;
-            padding: 1rem 1.25rem;
-            background: linear-gradient(135deg, #f8fafc, #f1f5f9);
-            border: 2px solid #f1f5f9;
-            border-radius: 12px;
-            cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        
-        .option:hover {
-            border-color: #cbd5e1;
-            background: linear-gradient(135deg, #f1f5f9, #e2e8f0);
-            transform: translateX(4px);
-        }
-        
-        .option.selected {
-            border-color: #1e3a8a;
-            background: linear-gradient(135deg, rgba(30, 58, 138, 0.1), rgba(30, 58, 138, 0.05));
-            transform: translateX(8px);
-        }
-        
-        .option.correct-answer {
-            background: linear-gradient(135deg, rgba(30, 41, 59, 0.1), rgba(30, 41, 59, 0.05));
-            border-color: #1e293b;
-        }
-        
-        .option.wrong-answer {
-            background: linear-gradient(135deg, rgba(239, 68, 68, 0.1), rgba(239, 68, 68, 0.05));
-            border-color: #ef4444;
-        }
-        
-        .option input[type="radio"] {
-            margin-right: 1rem;
-            transform: scale(1.3);
-            accent-color: #1e3a8a;
-        }
-        
-        .option label {
-            font-weight: 500;
-            color: #374155;
-            cursor: pointer;
-            flex: 1;
-        }
-        
-        .controls {
-            display: flex;
-            justify-content: center;
             gap: 1.5rem;
-            margin-bottom: 2.5rem;
-            flex-wrap: wrap;
         }
         
-        .score {
-            text-align: center;
-            background: linear-gradient(135deg, #1e3a8a, #dc2626);
-            color: white;
-            padding: 2rem;
-            border-radius: 16px;
-            font-size: 1.3em;
-            font-weight: 700;
-            margin-bottom: 2rem;
-            box-shadow: 0 15px 35px rgba(30, 58, 138, 0.3);
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .score::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.1) 50%, transparent 70%);
-            animation: scoreShimmer 3s ease-in-out infinite;
-        }
-        
-        @keyframes scoreShimmer {
-            0%, 100% { opacity: 0; }
-            50% { opacity: 1; }
-        }
-        
-        .feedback {
-            background: white;
-            border-radius: 16px;
-            padding: 2rem;
-            border: 2px solid #e2e8f0;
-            max-height: 450px;
-            overflow-y: auto;
-            box-shadow: 0 8px 25px rgba(15, 23, 42, 0.08);
-        }
-        
-        .back-to-hub {
-            background: linear-gradient(135deg, #6b7280, #4b5563);
-            color: white;
-            padding: 1rem 2rem;
-            border: none;
-            border-radius: 12px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            margin-bottom: 2rem;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.75rem;
-            box-shadow: 0 4px 15px rgba(107, 114, 128, 0.3);
-        }
-        
-        .back-to-hub:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(107, 114, 128, 0.4);
-        }
-        
-        /* Mobile responsiveness */
         @media (max-width: 768px) {
-            .beginner-hero {
-                padding: 2rem;
-                margin-bottom: 2rem;
-            }
-            
-            .beginner-title {
-                font-size: 2.4em;
-            }
-            
-            .beginner-stats {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 1rem;
-            }
-            
-            .lessons-section {
-                padding: 2rem;
-                margin-bottom: 2rem;
-            }
-            
-            .lessons-grid {
-                grid-template-columns: 1fr;
-                gap: 1.5rem;
-            }
-            
-            .lesson-card {
-                min-height: 200px;
-                padding: 1.5rem;
-            }
-            
-            .current-lesson {
-                padding: 2rem;
-                margin-bottom: 2rem;
-            }
-            
-            .current-lesson-header {
-                flex-direction: column;
-                gap: 1.5rem;
-                text-align: center;
-            }
-            
-            .current-lesson-title {
-                font-size: 1.8em;
-            }
-            
-            .controls {
-                flex-direction: column;
-                align-items: center;
-            }
-            
-            .play-buttons {
-                flex-direction: column;
-                align-items: center;
-                gap: 1rem;
-            }
-            
             .speed-controls {
                 gap: 0.5rem;
             }
             
-            .btn {
-                min-width: 200px;
+            .speed-btn {
+                min-width: 50px;
+                padding: 0.4rem 0.8rem;
+                font-size: 0.8rem;
             }
         }
     </style>
 </head>
 <body class="listening-page">
     <!-- User Widget -->
-    <aside class="user-widget" aria-label="Informações do Usuário">
-        <div class="user-avatar" data-user-avatar>A</div>
-        <span class="user-name" data-user-name>Aluno</span>
-        <button class="logout-btn" onclick="logout()">🚪 Sair</button>
-    </aside>
+    <div class="user-widget">
+        <div class="user-avatar" id="userAvatar">A</div>
+        <span class="user-name" id="userName">Aluno</span>
+        <button class="logout-btn" onclick="logout()">Sair</button>
+    </div>
     
-    <div class="container">
+    <div class="container listening-page">
         <!-- Back Navigation -->
-        <a href="../hubs/listening-hub.html" class="back-to-hub">
-            ← Voltar ao Hub Listening
+        <a href="../hubs/listening-hub.html" class="back-button">
+            ← Voltar ao Listening Hub
         </a>
         
-        <!-- Beginner Hero -->
-        <section class="beginner-hero">
-            <div class="hero-content">
-                <h1 class="beginner-title">🇺🇸 Beginner Level</h1>
-                <p class="beginner-subtitle">English Confidence Builder • 3 Lições Patrióticas</p>
-                
-                <div class="beginner-stats">
-                    <div class="beginner-stat">
-                        <span class="stat-number" data-completed>0/3</span>
-                        <span class="stat-label">Concluídas</span>
-                    </div>
-                    <div class="beginner-stat">
-                        <span class="stat-number" data-average>0%</span>
-                        <span class="stat-label">Média</span>
-                    </div>
-                    <div class="beginner-stat">
-                        <span class="stat-number" data-badges>0</span>
-                        <span class="stat-label">Badges</span>
-                    </div>
+        <!-- Header - MESMO PADRÃO DOS OUTROS -->
+        <div class="header">
+            <a href="../../index.html" style="text-decoration: none; color: inherit;">
+                <div class="logo">
+                    Teacher Alex <span class="logo-highlight">English Academy</span>
                 </div>
-            </div>
-        </section>
-
-        <!-- Lessons Section -->
-        <div class="lessons-section">
-            <h2 class="section-title">🎯 Beginner Lessons</h2>
-            
-            <div class="lessons-grid" id="lessonsGrid">
-                <!-- Lessons geradas dinamicamente -->
+            </a>
+            <div class="story-title">🇺🇸 Beginner Level</div>
+            <div class="level-badge">🎧 Listening A2 - English Confidence Builder</div>
+        </div>
+        
+        <!-- NAVEGAÇÃO DE LIÇÕES - MESMO PADRÃO CHAPTERS -->
+        <div class="chapter-navigation">
+            <div class="chapter-nav-title">🎧 Escolha sua Lição Beginner</div>
+            <div class="chapter-grid" id="lessonCards">
+                <!-- Cards serão gerados dinamicamente -->
             </div>
         </div>
         
-        <!-- Current Lesson Container -->
-        <div class="current-lesson" id="lessonContainer">
-            <div class="current-lesson-header">
-                <h2 class="current-lesson-title" id="lessonTitle">Personal Introduction</h2>
-                <div class="lesson-number-display" id="lessonNumber">Lição 1</div>
+        <div class="chapter-container" id="lessonContainer">
+            <div class="current-chapter">
+                <div class="current-chapter-title" id="lessonTitle">Personal Introduction</div>
+                <div class="current-chapter-subtitle" id="lessonSubtitle">Lição 1 - Apresentações pessoais em contexto americano</div>
+                
+                <div class="chapter-progress">
+                    <div class="progress-bar-container">
+                        <div class="progress-bar-fill" id="progressBar"></div>
+                    </div>
+                    <div class="progress-text" id="progressText">0%</div>
+                </div>
             </div>
             
             <div class="progress-section">
-                <div class="progress-bar">
-                    <div class="progress-fill" id="progressBar"></div>
-                </div>
-                
                 <div class="badges">
                     <div class="badge" id="badge1">🎯 Primeira Tentativa</div>
                     <div class="badge" id="badge2">⭐ Boa Pontuação</div>
@@ -780,7 +118,7 @@
             </div>
             
             <div class="audio-section">
-                <h3 class="audio-title" id="audioTitle">🎧 Escute a Lição: Personal Introduction</h3>
+                <div class="audio-title" id="audioTitle">🎧 Escute a Lição: Personal Introduction</div>
                 <audio id="mainAudio" controls>
                     <source src="../../src/assets/audio/listening/audio4.mp3" type="audio/mpeg">
                     Seu navegador não suporta o elemento de áudio.
@@ -804,10 +142,10 @@
             
             <div class="questions-section" id="questionsContainer"></div>
             
-            <div class="controls">
-                <button class="btn btn-primary" onclick="checkAnswers()">✅ Verificar Respostas</button>
-                <button class="btn btn-secondary" onclick="resetQuiz()">🔄 Reiniciar Quiz</button>
-                <button class="btn btn-primary" onclick="nextLesson()">➡️ Próxima Lição</button>
+            <div class="chapter-controls">
+                <button class="nav-button" onclick="checkAnswers()">✅ Verificar Respostas</button>
+                <button class="nav-button secondary" onclick="resetQuiz()">🔄 Reiniciar Lição</button>
+                <button class="nav-button" onclick="nextLesson()">➡️ Próxima Lição</button>
             </div>
             
             <div id="scoreSection" class="score" style="display: none;">
@@ -844,12 +182,13 @@
             throw new Error('Access denied');
         }
 
-        // ===== BEGINNER PROGRESS SYSTEM =====
-        class BeginnerProgress {
+        // ===== PROGRESS SYSTEM - MESMO PADRÃO DOS OUTROS =====
+        class StudentProgress {
             constructor() {
                 this.studentId = sessionStorage.getItem('studentUsername') || 'student';
                 this.progressKey = `progress_${this.studentId}`;
                 this.loadProgress();
+                this.ensureListeningStructure();
             }
 
             loadProgress() {
@@ -858,82 +197,55 @@
                     this.data = JSON.parse(saved);
                 } else {
                     this.data = {
-                        listening: { 
-                            levelsCompleted: [],
-                            currentLevel: 'beginner',
-                            bestScores: {
-                                foundation: 0,
-                                beginner: 0,
-                                intermediate: 0,
-                                advanced: 0
-                            },
-                            beginnerLessons: {
-                                completed: [],
-                                scores: {}
-                            },
-                            badges: [] 
-                        },
+                        listening: { lessonsCompleted: [], bestScores: {}, badges: [] },
                         reading: { chaptersCompleted: [], bestScores: {}, badges: [] },
-                        globalBadges: [],
+                        roommate: { chaptersCompleted: [], bestScores: {}, badges: [] },
+                        neighbor: { chaptersCompleted: [], bestScores: {}, badges: [] },
+                        globalBadges: [], 
                         totalStudyTime: 0
                     };
                 }
             }
 
+            ensureListeningStructure() {
+                if (!this.data.listening) {
+                    this.data.listening = { lessonsCompleted: [], bestScores: {}, badges: [] };
+                }
+                this.saveProgress();
+            }
+
             saveProgress() { 
                 localStorage.setItem(this.progressKey, JSON.stringify(this.data));
+                console.log(`💾 Progresso salvo para ${this.studentId}`);
             }
 
-            completeBeginnerLesson(lessonNumber, score, timeSpent) {
-                const lesson = `beginner_${lessonNumber}`;
-                if (!this.data.listening.beginnerLessons.completed.includes(lesson)) {
-                    this.data.listening.beginnerLessons.completed.push(lesson);
+            completeListeningLesson(lessonNumber, score, timeSpent) {
+                const lesson = `beginner_lesson_${lessonNumber}`;
+                if (!this.data.listening.lessonsCompleted.includes(lesson)) {
+                    this.data.listening.lessonsCompleted.push(lesson);
                 }
-                
-                this.data.listening.beginnerLessons.scores[lesson] = Math.max(
-                    this.data.listening.beginnerLessons.scores[lesson] || 0, 
-                    score
+                this.data.listening.bestScores[lesson] = Math.max(
+                    this.data.listening.bestScores[lesson] || 0, score
                 );
-                
                 this.data.totalStudyTime += timeSpent;
-                this.checkBeginnerBadges(lessonNumber, score);
-                
-                // Update overall beginner level score
-                const allScores = Object.values(this.data.listening.beginnerLessons.scores);
-                if (allScores.length > 0) {
-                    this.data.listening.bestScores.beginner = Math.round(
-                        allScores.reduce((a, b) => a + b, 0) / allScores.length * 20
-                    );
-                }
-                
-                // Mark beginner as completed if all 3 lessons done
-                if (this.data.listening.beginnerLessons.completed.length === 3) {
-                    if (!this.data.listening.levelsCompleted.includes('beginner')) {
-                        this.data.listening.levelsCompleted.push('beginner');
-                    }
-                }
-                
+                this.checkListeningBadges(lessonNumber, score);
                 this.saveProgress();
                 this.updateLessonCards();
-                this.updateProgressStats();
             }
 
-            checkBeginnerBadges(lessonNumber, score) {
+            checkListeningBadges(lessonNumber, score) {
                 const badges = this.data.listening.badges;
-                
                 if (!badges.includes('beginner_pioneer')) {
                     badges.push('beginner_pioneer');
                     this.showBadgeNotification('🇺🇸 Beginner Pioneer!', 'Primeiro passo no nível intermediário!');
                 }
-                
-                if (score === 5 && !badges.includes('beginner_perfect')) {
-                    badges.push('beginner_perfect');
-                    this.showBadgeNotification('🏆 Perfect Beginner!', 'Pontuação perfeita patriótica!');
+                if (score === 5 && !badges.includes('perfect_beginner_lesson')) {
+                    badges.push('perfect_beginner_lesson');
+                    this.showBadgeNotification('🏆 Perfect Beginner!', 'Pontuação perfeita no nível A2!');
                 }
-                
-                if (this.getBeginnerCompleted() >= 3 && !badges.includes('confidence_builder')) {
-                    badges.push('confidence_builder');
-                    this.showBadgeNotification('⭐ Confidence Builder!', 'Beginner completo!');
+                if (this.data.listening.lessonsCompleted.filter(l => l.startsWith('beginner')).length >= 3 && !badges.includes('beginner_master')) {
+                    badges.push('beginner_master');
+                    this.showBadgeNotification('⭐ Beginner Master!', 'Todas as lições Beginner completas!');
                 }
             }
 
@@ -941,53 +253,25 @@
                 const notification = document.createElement('div');
                 notification.style.cssText = `
                     position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
-                    background: linear-gradient(135deg, #1e3a8a, #dc2626); 
-                    color: white; padding: 2.5rem 3rem; border-radius: 20px; z-index: 10000; 
-                    text-align: center; box-shadow: 0 25px 80px rgba(0,0,0,0.3); 
-                    backdrop-filter: blur(20px); border: 2px solid rgba(255,255,255,0.2);
-                    animation: badgeNotification 4s ease-in-out forwards;
+                    background: linear-gradient(45deg, var(--blue-dark), var(--blue-medium)); color: white;
+                    padding: 25px 35px; border-radius: 20px; z-index: 10000; text-align: center;
+                    box-shadow: 0 15px 40px rgba(0,0,0,0.3); backdrop-filter: blur(10px);
                 `;
-                
-                notification.innerHTML = `
-                    <div style="font-size: 2em; font-weight: 800; margin-bottom: 0.75rem;">${title}</div>
-                    <div style="font-size: 1.2em; font-weight: 500; opacity: 0.9;">${message}</div>
-                `;
-                
+                notification.innerHTML = `<div style="font-size: 1.8em; font-weight: bold; margin-bottom: 15px;">${title}</div><div style="font-size: 1.1em;">${message}</div>`;
                 document.body.appendChild(notification);
-                
                 setTimeout(() => { 
-                    if (document.body.contains(notification)) document.body.removeChild(notification);
-                }, 4000);
+                    if (document.body.contains(notification)) document.body.removeChild(notification); 
+                }, 3000);
             }
 
-            getBeginnerCompleted() {
-                return this.data.listening.beginnerLessons.completed.length;
-            }
-
-            getBeginnerStats() {
-                const completed = this.getBeginnerCompleted();
-                const scores = Object.values(this.data.listening.beginnerLessons.scores);
-                const average = scores.length > 0 ? Math.round(scores.reduce((a, b) => a + b, 0) / scores.length * 20) : 0;
-                const badges = this.data.listening.badges.length;
-
-                return { completed, average, badges };
-            }
-
-            updateProgressStats() {
-                const stats = this.getBeginnerStats();
-                document.querySelector('[data-completed]').textContent = `${stats.completed}/3`;
-                document.querySelector('[data-badges]').textContent = stats.badges;
-                document.querySelector('[data-average]').textContent = `${stats.average}%`;
-            }
-
-            updateLessonCards() {
-                createLessonCards();
+            updateLessonCards() { 
+                createLessonCards(); 
             }
         }
 
-        // ===== BEGINNER LESSONS DATA - CORRETO =====
+        // ===== BEGINNER LESSONS DATA =====
         const beginnerLessons = {
-            '1': { 
+            1: { 
                 title: "Personal Introduction", 
                 shortTitle: "Introduction", 
                 icon: "🇺🇸", 
@@ -1001,7 +285,7 @@
                     q5: { text: "What's a polite way to end an introduction?", options: ["See you later", "Nice meeting you", "Goodbye", "Talk to you soon"], correct: "b" } 
                 } 
             },
-            '2': { 
+            2: { 
                 title: "American Daily Routine", 
                 shortTitle: "Daily Life", 
                 icon: "⏰", 
@@ -1015,7 +299,7 @@
                     q5: { text: "How do Americans typically end their day?", options: ["Early dinner and TV", "Late dinner and work", "Gym and socializing", "Depends on person"], correct: "d" } 
                 } 
             },
-            '3': { 
+            3: { 
                 title: "American Culture & Small Talk", 
                 shortTitle: "Culture Talk", 
                 icon: "🗣️", 
@@ -1031,10 +315,7 @@
             }
         };
         
-        let currentLesson = '1';
-        let attempts = 0;
-        let lessonStartTime = Date.now();
-        let studentProgress = new BeginnerProgress();
+        let currentLesson = 1, attempts = 0, lessonStartTime = Date.now(), studentProgress = new StudentProgress();
         
         // ===== SPEED CONTROLS - FEATURE REQUEST =====
         function initSpeedControls() {
@@ -1053,50 +334,51 @@
             });
         }
         
-        // ===== LESSON CARDS CREATION =====
+        // ===== LESSON CARDS - MESMO PADRÃO CHAPTER CARDS =====
         function createLessonCards() {
-            const container = document.getElementById('lessonsGrid');
-            container.innerHTML = '';
+            const cardsContainer = document.getElementById('lessonCards');
+            if (!cardsContainer) return;
             
-            Object.keys(beginnerLessons).forEach(lessonId => {
-                const lesson = beginnerLessons[lessonId];
-                const isCompleted = studentProgress.data.listening.beginnerLessons.completed.includes(`beginner_${lessonId}`);
-                const bestScore = studentProgress.data.listening.beginnerLessons.scores[`beginner_${lessonId}`] || 0;
-                const isActive = lessonId === currentLesson;
+            cardsContainer.innerHTML = '';
+            
+            for (let i = 1; i <= 3; i++) {
+                const lesson = beginnerLessons[i];
+                if (!lesson) continue;
+                
+                const isCompleted = studentProgress.data.listening.lessonsCompleted.includes(`beginner_lesson_${i}`);
+                const bestScore = studentProgress.data.listening.bestScores[`beginner_lesson_${i}`] || 0;
+                const isActive = i === currentLesson;
                 
                 const card = document.createElement('div');
-                card.className = `lesson-card ${isActive ? 'active' : ''} ${isCompleted ? 'completed' : ''}`;
-                card.onclick = () => switchToLesson(lessonId);
+                card.className = `chapter-card ${isActive ? 'current' : ''} ${isCompleted ? 'completed' : ''}`;
+                card.onclick = () => switchToLesson(i);
                 
                 card.innerHTML = `
-                    <div class="lesson-header">
-                        <div class="lesson-icon">${lesson.icon}</div>
-                        <div class="lesson-number">${lessonId}</div>
+                    <div class="chapter-icon">${lesson.icon}</div>
+                    <div class="chapter-info">
+                        <div class="chapter-number">Lição ${i}</div>
+                        <div class="chapter-title">${lesson.shortTitle}</div>
                     </div>
-                    <div class="lesson-title">${lesson.title}</div>
-                    <div class="lesson-description">${lesson.description}</div>
-                    ${isCompleted ? `<div class="completion-badge">${bestScore}</div>` : ''}
+                    ${isCompleted ? `<div class="chapter-status">${bestScore}/5</div>` : '<div class="chapter-status">Novo</div>'}
                 `;
                 
-                container.appendChild(card);
-            });
+                cardsContainer.appendChild(card);
+            }
         }
         
-        function switchToLesson(lessonId) {
-            if (lessonId === currentLesson) return;
-            
-            currentLesson = lessonId;
+        function switchToLesson(lessonNumber) {
+            if (lessonNumber === currentLesson) return;
+            currentLesson = lessonNumber;
             loadLesson(currentLesson);
             createLessonCards();
         }
         
-        // ===== LESSON LOADING =====
-        function loadLesson(lessonId) {
-            if (!beginnerLessons[lessonId]) return;
-            const lesson = beginnerLessons[lessonId];
+        function loadLesson(lessonNumber) {
+            if (!beginnerLessons[lessonNumber]) return;
+            const lesson = beginnerLessons[lessonNumber];
             
             document.getElementById('lessonTitle').textContent = lesson.title;
-            document.getElementById('lessonNumber').textContent = `Lição ${lessonId}`;
+            document.getElementById('lessonSubtitle').textContent = `Lição ${lessonNumber} - ${lesson.description}`;
             document.getElementById('audioTitle').textContent = `🎧 Escute a Lição: ${lesson.title}`;
             document.getElementById('mainAudio').src = lesson.audioUrl;
             loadQuestions(lesson.questions);
@@ -1140,17 +422,16 @@
             });
         }
         
-        // ===== AUDIO CONTROLS =====
+        // ===== ÁUDIO =====
         function playAudio() { document.getElementById('mainAudio').play(); }
         function replayAudio() { const audio = document.getElementById('mainAudio'); audio.currentTime = 0; audio.play(); }
         function pauseAudio() { document.getElementById('mainAudio').pause(); }
         
-        // ===== QUIZ FUNCTIONS =====
+        // ===== VERIFICAR RESPOSTAS =====
         function checkAnswers() {
             const lesson = beginnerLessons[currentLesson];
             const questions = Object.keys(lesson.questions);
-            let score = 0;
-            let detailedResults = [];
+            let score = 0, detailedResults = [];
             attempts++;
             
             questions.forEach((key, index) => {
@@ -1180,9 +461,10 @@
                 }
             });
             
-            studentProgress.completeBeginnerLesson(currentLesson, score, Date.now() - lessonStartTime);
+            studentProgress.completeListeningLesson(currentLesson, score, Date.now() - lessonStartTime);
             
             document.getElementById('progressBar').style.width = (score / 5) * 100 + '%';
+            document.getElementById('progressText').textContent = `${(score / 5) * 100}%`;
             document.getElementById('scoreValue').textContent = score;
             document.getElementById('scoreSection').style.display = 'block';
             
@@ -1193,86 +475,57 @@
             
             const feedback = document.getElementById('feedback');
             let feedbackHeader = score === 5 ? 
-                '<div style="text-align: center; background: linear-gradient(135deg, #1e3a8a, #dc2626); color: white; padding: 2.5rem; border-radius: 16px; margin-bottom: 2rem; font-size: 1.3em; font-weight: 700; box-shadow: 0 15px 35px rgba(30, 58, 138, 0.3);">🇺🇸 BEGINNER PERFECT!</div>' :
-                score === 4 ? 
-                '<div style="text-align: center; background: linear-gradient(135deg, #1e293b, #334155); color: white; padding: 2.5rem; border-radius: 16px; margin-bottom: 2rem; font-size: 1.3em; font-weight: 700; box-shadow: 0 15px 35px rgba(30, 41, 59, 0.3);">⭐ EXCELLENT PROGRESS!</div>' :
-                '<div style="text-align: center; background: linear-gradient(135deg, #6b7280, #4b5563); color: white; padding: 2.5rem; border-radius: 16px; margin-bottom: 2rem; font-size: 1.3em; font-weight: 700; box-shadow: 0 15px 35px rgba(107, 114, 128, 0.3);">💪 KEEP PRACTICING!</div>';
+                '<div style="text-align: center; background: linear-gradient(45deg, var(--blue-dark), var(--blue-medium)); color: white; padding: 25px; border-radius: 15px; margin-bottom: 25px; font-size: 1.3em; font-weight: 800;">🇺🇸 BEGINNER PERFECT! ⭐</div>' :
+                '<div style="text-align: center; background: linear-gradient(45deg, var(--blue-medium), var(--blue-gray)); color: white; padding: 25px; border-radius: 15px; margin-bottom: 25px; font-size: 1.2em; font-weight: 800;">💪 CONTINUE PRATICANDO! 🎧</div>';
             
-            feedback.innerHTML = feedbackHeader + detailedResults.map(result => `<div style="margin: 1rem 0; padding: 1.25rem; background: linear-gradient(135deg, #f8fafc, #f1f5f9); border-radius: 12px; border-left: 4px solid #1e3a8a; font-weight: 500;">${result}</div>`).join('');
+            feedback.innerHTML = feedbackHeader + detailedResults.map(result => `<div style="margin: 1rem 0; padding: 1.25rem; background: #f8fafc; border-radius: 12px; border-left: 4px solid var(--blue-dark);">${result}</div>`).join('');
             feedback.style.display = 'block';
         }
         
         function resetQuiz() {
             document.querySelectorAll('input[type="radio"]').forEach(radio => {
                 radio.checked = false;
-                const option = radio.closest('.option');
-                option.classList.remove('selected', 'correct-answer', 'wrong-answer');
+                radio.closest('.option').classList.remove('selected', 'correct-answer', 'wrong-answer');
             });
-            
             document.getElementById('scoreSection').style.display = 'none';
             document.getElementById('feedback').style.display = 'none';
             document.getElementById('progressBar').style.width = '0%';
-            
-            document.querySelectorAll('.badge').forEach(badge => {
-                badge.classList.remove('earned');
-            });
-            
-            attempts = 0;
-            lessonStartTime = Date.now();
+            document.getElementById('progressText').textContent = '0%';
+            document.querySelectorAll('.badge').forEach(badge => badge.classList.remove('earned'));
+            attempts = 0; lessonStartTime = Date.now();
         }
         
         function nextLesson() {
-            const allLessons = ['1', '2', '3'];
-            const currentIndex = allLessons.indexOf(currentLesson);
-            
-            if (currentIndex < allLessons.length - 1) {
-                switchToLesson(allLessons[currentIndex + 1]);
+            if (currentLesson < 3) {
+                switchToLesson(currentLesson + 1);
             } else {
+                alert('🇺🇸 Parabéns! Beginner Level completo!\nAgora você pode partir para o Intermediate Level! 🚀');
                 setTimeout(() => {
-                    alert('🇺🇸 Parabéns! Beginner Level completo!\nAgora você pode partir para o Intermediate Level! 🚀');
                     window.location.href = '../hubs/listening-hub.html';
-                }, 500);
+                }, 2000);
             }
         }
         
-        // ===== INITIALIZATION =====
+        // ===== INICIALIZAÇÃO =====
         document.addEventListener('DOMContentLoaded', function() {
             const studentName = getStudentName();
             
             // Update user info
-            document.querySelector('[data-user-name]').textContent = 
+            document.getElementById('userName').textContent = 
                 studentName.charAt(0).toUpperCase() + studentName.slice(1).toLowerCase();
-            document.querySelector('[data-user-avatar]').textContent = studentName.charAt(0).toUpperCase();
+            document.getElementById('userAvatar').textContent = studentName.charAt(0).toUpperCase();
             
-            console.log('🇺🇸 Beginner Page - DESIGN PATRIÓTICO ELEGANTE');
-            console.log(`👤 Usuário: ${studentName}`);
-            console.log('🎯 3 lições Beginner com áudios 4-6');
-            console.log('⚡ Speed controls implementados');
+            console.log(`🇺🇸 Beginner Level - usuário: ${studentName}`);
+            console.log('✅ Visual CONSISTENTE aplicado');
+            console.log('🎯 Cores patrióticas mantidas');
+            console.log('📁 Estrutura igual foundation.html');
+            console.log('🎧 3 lições Beginner com speed controls');
+            console.log('⚡ Speed controls: 0.75x → 2x funcionando');
             
             createLessonCards();
             loadLesson(currentLesson);
-            studentProgress.updateProgressStats();
             initSpeedControls();
         });
-
-        // Add keyframes for animations
-        const style = document.createElement('style');
-        style.textContent = `
-            @keyframes badgeNotification {
-                0% { opacity: 0; transform: translate(-50%, -50%) scale(0.8) rotate(-5deg); }
-                20% { opacity: 1; transform: translate(-50%, -50%) scale(1.1) rotate(2deg); }
-                80% { opacity: 1; transform: translate(-50%, -50%) scale(1) rotate(0deg); }
-                100% { opacity: 0; transform: translate(-50%, -50%) scale(0.9) rotate(-2deg); }
-            }
-        `;
-        document.head.appendChild(style);
-
-        console.log('🎨 BEGINNER PAGE - REWRITE COMPLETO OTIMIZADO');
-        console.log('✅ Paths corretos: audio4-6, CSS externos, navegação funcional');
-        console.log('✅ Cores patrióticas: azul/vermelho elegante');
-        console.log('✅ Speed controls: 0.75x → 2x implementados');
-        console.log('✅ Design consistency: mesmo nível de elegância foundation');
-        console.log('✅ Código otimizado: <800 linhas, mantém funcionalidade');
     </script>
 </body>
 </html>
