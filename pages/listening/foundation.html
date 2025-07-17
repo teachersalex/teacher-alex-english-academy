@@ -3,828 +3,60 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Listening Foundation - Teacher Alex English Academy BETA</title>
+    <title>Foundation Level - Teacher Alex English Academy</title>
     
-    <!-- CSS - CAMINHOS CORRETOS PARA pages/listening/ -->
+    <!-- CSS Universal - MESMO PADRÃO DOS OUTROS -->
     <link rel="stylesheet" href="../../src/styles/base.css">
     <link rel="stylesheet" href="../../src/styles/layout.css">
     <link rel="stylesheet" href="../../src/styles/theme-patriot.css">
-    
-    <style>
-        /* 🎯 ELEGANT FOUNDATION DESIGN SYSTEM - REFINED */
-        
-        /* Hero section elegante e sofisticado */
-        .foundation-hero {
-            background: linear-gradient(135deg, #475569 0%, #64748b 50%, #374155 100%);
-            border-radius: 20px;
-            padding: 3rem;
-            margin-bottom: 3rem;
-            position: relative;
-            overflow: hidden;
-            border: 1px solid rgba(255,255,255,0.1);
-            box-shadow: 
-                0 25px 80px rgba(71, 85, 105, 0.15),
-                0 8px 32px rgba(71, 85, 105, 0.1);
-        }
-        
-        .foundation-hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.03) 50%, transparent 70%);
-            pointer-events: none;
-        }
-        
-        .hero-content {
-            position: relative;
-            z-index: 2;
-            text-align: center;
-            color: white;
-        }
-        
-        .foundation-title {
-            font-size: 3em;
-            font-weight: 800;
-            margin-bottom: 0.75rem;
-            color: white;
-            text-shadow: 0 4px 20px rgba(0,0,0,0.3);
-            letter-spacing: -0.02em;
-        }
-        
-        .foundation-subtitle {
-            font-size: 1.25em;
-            font-weight: 500;
-            margin-bottom: 2.5rem;
-            opacity: 0.9;
-            color: #e2e8f0;
-            line-height: 1.5;
-        }
-        
-        .foundation-stats {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
-            gap: 1.5rem;
-            max-width: 450px;
-            margin: 0 auto;
-        }
-        
-        .foundation-stat {
-            background: rgba(255,255,255,0.12);
-            backdrop-filter: blur(20px);
-            padding: 1.5rem 1rem;
-            border-radius: 16px;
-            border: 1px solid rgba(255,255,255,0.2);
-            text-align: center;
-            transition: all 0.3s ease;
-        }
-        
-        .foundation-stat:hover {
-            transform: translateY(-2px);
-            background: rgba(255,255,255,0.15);
-        }
-        
-        .stat-number {
-            font-size: 2em;
-            font-weight: 800;
-            display: block;
-            margin-bottom: 0.5rem;
-            color: white;
-        }
-        
-        .stat-label {
-            font-size: 0.9em;
-            opacity: 0.85;
-            font-weight: 600;
-            color: #cbd5e1;
-        }
-        
-        /* Lessons section refinada */
-        .lessons-section {
-            background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
-            border-radius: 20px;
-            padding: 3rem;
-            border: 1px solid #e2e8f0;
-            box-shadow: 
-                0 20px 60px rgba(15, 23, 42, 0.08),
-                0 8px 32px rgba(15, 23, 42, 0.04);
-            margin-bottom: 3rem;
-            position: relative;
-        }
-        
-        .lessons-section::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: linear-gradient(90deg, #475569, #64748b);
-            border-radius: 20px 20px 0 0;
-        }
-        
-        .section-title {
-            text-align: center;
-            font-size: 1.75em;
-            font-weight: 800;
-            color: #1e293b;
-            margin-bottom: 2.5rem;
-            letter-spacing: -0.01em;
-        }
-        
-        .lessons-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-bottom: 2rem;
-        }
-        
-        /* Cards das lições mais elegantes */
-        .lesson-card {
-            background: white;
-            border-radius: 16px;
-            padding: 2rem 1.5rem;
-            text-align: center;
-            cursor: pointer;
-            border: 2px solid #f1f5f9;
-            height: auto;
-            min-height: 220px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .lesson-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(135deg, transparent 0%, rgba(71, 85, 105, 0.02) 100%);
-            transition: all 0.4s ease;
-            opacity: 0;
-        }
-        
-        .lesson-card:hover {
-            transform: translateY(-8px) scale(1.02);
-            box-shadow: 
-                0 25px 50px rgba(71, 85, 105, 0.15),
-                0 10px 30px rgba(71, 85, 105, 0.1);
-            border-color: #cbd5e1;
-        }
-        
-        .lesson-card:hover::before {
-            opacity: 1;
-        }
-        
-        .lesson-card.active {
-            background: linear-gradient(135deg, #475569 0%, #64748b 100%);
-            color: white;
-            border-color: #475569;
-            transform: translateY(-4px) scale(1.05);
-            box-shadow: 
-                0 25px 50px rgba(71, 85, 105, 0.25),
-                0 10px 30px rgba(71, 85, 105, 0.15);
-        }
-        
-        .lesson-card.completed {
-            background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
-            color: white;
-            border-color: #1e293b;
-            transform: translateY(-2px);
-            box-shadow: 
-                0 20px 40px rgba(30, 41, 59, 0.2),
-                0 8px 25px rgba(30, 41, 59, 0.1);
-        }
-        
-        .lesson-header {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 1rem;
-            margin-bottom: 1.5rem;
-            position: relative;
-            z-index: 2;
-        }
-        
-        .lesson-icon {
-            font-size: 3em;
-            margin-bottom: 0.5rem;
-            transition: all 0.3s ease;
-        }
-        
-        .lesson-card:hover .lesson-icon {
-            transform: scale(1.1) rotate(5deg);
-        }
-        
-        .lesson-number {
-            background: linear-gradient(135deg, #475569, #64748b);
-            color: white;
-            width: 50px;
-            height: 50px;
-            border-radius: 25px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 800;
-            font-size: 1.1em;
-            box-shadow: 0 8px 25px rgba(71, 85, 105, 0.3);
-            transition: all 0.3s ease;
-        }
-        
-        .lesson-card.active .lesson-number,
-        .lesson-card.completed .lesson-number {
-            background: rgba(255, 255, 255, 0.25);
-            transform: scale(1.1);
-        }
-        
-        .lesson-title {
-            font-size: 1.2em;
-            font-weight: 700;
-            color: #1e293b;
-            margin-bottom: 0.75rem;
-            line-height: 1.3;
-            position: relative;
-            z-index: 2;
-        }
-        
-        .lesson-card.active .lesson-title,
-        .lesson-card.completed .lesson-title {
-            color: rgba(255, 255, 255, 0.95);
-        }
-        
-        .lesson-description {
-            font-size: 0.95em;
-            color: #64748b;
-            line-height: 1.5;
-            position: relative;
-            z-index: 2;
-        }
-        
-        .lesson-card.active .lesson-description,
-        .lesson-card.completed .lesson-description {
-            color: rgba(255, 255, 255, 0.8);
-        }
-        
-        /* Progress badge mais elegante */
-        .completion-badge {
-            position: absolute;
-            top: -10px;
-            right: -10px;
-            width: 36px;
-            height: 36px;
-            background: linear-gradient(135deg, #1e293b, #334155);
-            border-radius: 50%;
-            color: white;
-            font-size: 0.85em;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 800;
-            border: 3px solid white;
-            box-shadow: 
-                0 8px 25px rgba(30, 41, 59, 0.3),
-                0 4px 12px rgba(30, 41, 59, 0.2);
-            z-index: 5;
-            animation: badgePulse 2s ease-in-out infinite;
-        }
-        
-        @keyframes badgePulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-        }
-        
-        /* Current lesson container mais sofisticado */
-        .current-lesson {
-            background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
-            border-radius: 20px;
-            padding: 3rem;
-            border: 1px solid #e2e8f0;
-            box-shadow: 
-                0 20px 60px rgba(15, 23, 42, 0.08),
-                0 8px 32px rgba(15, 23, 42, 0.04);
-            margin-bottom: 3rem;
-            position: relative;
-        }
-        
-        .current-lesson::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: linear-gradient(90deg, #475569, #64748b);
-            border-radius: 20px 20px 0 0;
-        }
-        
-        .current-lesson-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 2.5rem;
-            padding-bottom: 2rem;
-            border-bottom: 2px solid #f1f5f9;
-        }
-        
-        .current-lesson-title {
-            font-size: 2.2em;
-            font-weight: 800;
-            color: #1e293b;
-            letter-spacing: -0.01em;
-        }
-        
-        .lesson-number-display {
-            background: linear-gradient(135deg, #475569, #64748b);
-            color: white;
-            padding: 1rem 2rem;
-            border-radius: 12px;
-            font-weight: 700;
-            font-size: 1.1em;
-            box-shadow: 0 8px 25px rgba(71, 85, 105, 0.3);
-        }
-        
-        /* Progress section mais elegante */
-        .progress-section {
-            background: linear-gradient(135deg, #f8fafc, #f1f5f9);
-            border-radius: 16px;
-            padding: 2rem;
-            margin-bottom: 2.5rem;
-            border: 1px solid #e2e8f0;
-        }
-        
-        .progress-bar {
-            width: 100%;
-            height: 12px;
-            background: #e2e8f0;
-            border-radius: 6px;
-            overflow: hidden;
-            margin-bottom: 2rem;
-            box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
-        }
-        
-        .progress-fill {
-            height: 100%;
-            background: linear-gradient(90deg, #475569, #64748b);
-            width: 0%;
-            transition: width 1.5s cubic-bezier(0.4, 0, 0.2, 1);
-            border-radius: 6px;
-            position: relative;
-        }
-        
-        .progress-fill::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
-            animation: shimmer 2s ease-in-out infinite;
-        }
-        
-        @keyframes shimmer {
-            0% { transform: translateX(-100%); }
-            100% { transform: translateX(100%); }
-        }
-        
-        .badges {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-            flex-wrap: wrap;
-        }
-        
-        .badge {
-            background: white;
-            border: 2px solid #e2e8f0;
-            border-radius: 25px;
-            padding: 0.75rem 1.5rem;
-            font-size: 0.85em;
-            font-weight: 600;
-            color: #64748b;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .badge::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(71, 85, 105, 0.1), transparent);
-            transition: left 0.5s ease;
-        }
-        
-        .badge.earned {
-            background: linear-gradient(135deg, #475569, #64748b);
-            color: white;
-            border-color: #475569;
-            transform: scale(1.05);
-            box-shadow: 0 8px 25px rgba(71, 85, 105, 0.3);
-        }
-        
-        .badge.earned::before {
-            left: 100%;
-        }
-        
-        /* Audio section mais refinada */
-        .audio-section {
-            background: linear-gradient(135deg, #f8fafc, #f1f5f9);
-            border-radius: 16px;
-            padding: 2.5rem;
-            margin-bottom: 2.5rem;
-            border: 1px solid #e2e8f0;
-            text-align: center;
-            position: relative;
-        }
-        
-        .audio-title {
-            font-size: 1.4em;
-            font-weight: 700;
-            color: #475569;
-            margin-bottom: 2rem;
-        }
-        
-        audio {
-            width: 100%;
-            max-width: 450px;
-            margin-bottom: 2rem;
-            border-radius: 8px;
-        }
-        
-        .play-buttons {
-            display: flex;
-            justify-content: center;
-            gap: 1.5rem;
-            flex-wrap: wrap;
-        }
-        
-        .btn {
-            padding: 0.875rem 2rem;
-            border: none;
-            border-radius: 12px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            font-size: 0.95em;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-            transition: left 0.5s ease;
-        }
-        
-        .btn:hover::before {
-            left: 100%;
-        }
-        
-        .btn-primary {
-            background: linear-gradient(135deg, #475569, #64748b);
-            color: white;
-            box-shadow: 0 4px 15px rgba(71, 85, 105, 0.3);
-        }
-        
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(71, 85, 105, 0.4);
-        }
-        
-        .btn-secondary {
-            background: linear-gradient(135deg, #f1f5f9, #e2e8f0);
-            color: #475569;
-            box-shadow: 0 4px 15px rgba(203, 213, 225, 0.3);
-        }
-        
-        .btn-secondary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(203, 213, 225, 0.5);
-        }
-        
-        /* Questions section mais elegante */
-        .questions-section {
-            margin-bottom: 2.5rem;
-        }
-        
-        .question {
-            background: white;
-            border-radius: 16px;
-            padding: 2rem;
-            margin-bottom: 2rem;
-            border: 2px solid #f1f5f9;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(15, 23, 42, 0.05);
-        }
-        
-        .question:hover {
-            border-color: #e2e8f0;
-            box-shadow: 0 8px 25px rgba(15, 23, 42, 0.08);
-            transform: translateY(-2px);
-        }
-        
-        .question-text {
-            font-size: 1.15em;
-            font-weight: 600;
-            color: #1e293b;
-            margin-bottom: 1.5rem;
-            line-height: 1.4;
-        }
-        
-        .options {
-            display: grid;
-            gap: 1rem;
-        }
-        
-        .option {
-            display: flex;
-            align-items: center;
-            padding: 1rem 1.25rem;
-            background: linear-gradient(135deg, #f8fafc, #f1f5f9);
-            border: 2px solid #f1f5f9;
-            border-radius: 12px;
-            cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .option::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(71, 85, 105, 0.05), transparent);
-            transition: left 0.3s ease;
-        }
-        
-        .option:hover {
-            border-color: #cbd5e1;
-            background: linear-gradient(135deg, #f1f5f9, #e2e8f0);
-            transform: translateX(4px);
-        }
-        
-        .option:hover::before {
-            left: 100%;
-        }
-        
-        .option.selected {
-            border-color: #475569;
-            background: linear-gradient(135deg, rgba(71, 85, 105, 0.1), rgba(71, 85, 105, 0.05));
-            transform: translateX(8px);
-        }
-        
-        .option.correct-answer {
-            background: linear-gradient(135deg, rgba(30, 41, 59, 0.1), rgba(30, 41, 59, 0.05));
-            border-color: #1e293b;
-            transform: translateX(8px);
-        }
-        
-        .option.wrong-answer {
-            background: linear-gradient(135deg, rgba(239, 68, 68, 0.1), rgba(239, 68, 68, 0.05));
-            border-color: #ef4444;
-            transform: translateX(8px);
-        }
-        
-        .option input[type="radio"] {
-            margin-right: 1rem;
-            transform: scale(1.3);
-            accent-color: #475569;
-        }
-        
-        .option label {
-            font-weight: 500;
-            color: #374155;
-            cursor: pointer;
-            flex: 1;
-            line-height: 1.4;
-        }
-        
-        /* Controls mais elegantes */
-        .controls {
-            display: flex;
-            justify-content: center;
-            gap: 1.5rem;
-            margin-bottom: 2.5rem;
-            flex-wrap: wrap;
-        }
-        
-        /* Score section mais impactante */
-        .score {
-            text-align: center;
-            background: linear-gradient(135deg, #475569, #64748b);
-            color: white;
-            padding: 2rem;
-            border-radius: 16px;
-            font-size: 1.3em;
-            font-weight: 700;
-            margin-bottom: 2rem;
-            box-shadow: 
-                0 15px 35px rgba(71, 85, 105, 0.3),
-                0 8px 25px rgba(71, 85, 105, 0.2);
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .score::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.1) 50%, transparent 70%);
-            animation: scoreShimmer 3s ease-in-out infinite;
-        }
-        
-        @keyframes scoreShimmer {
-            0%, 100% { opacity: 0; }
-            50% { opacity: 1; }
-        }
-        
-        /* Feedback mais sofisticado */
-        .feedback {
-            background: white;
-            border-radius: 16px;
-            padding: 2rem;
-            border: 2px solid #e2e8f0;
-            max-height: 450px;
-            overflow-y: auto;
-            box-shadow: 0 8px 25px rgba(15, 23, 42, 0.08);
-        }
-        
-        /* Back button mais elegante */
-        .back-to-hub {
-            background: linear-gradient(135deg, #6b7280, #4b5563);
-            color: white;
-            padding: 1rem 2rem;
-            border: none;
-            border-radius: 12px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            margin-bottom: 2rem;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.75rem;
-            box-shadow: 0 4px 15px rgba(107, 114, 128, 0.3);
-        }
-        
-        .back-to-hub:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(107, 114, 128, 0.4);
-        }
-        
-        /* Mobile responsiveness aprimorada */
-        @media (max-width: 768px) {
-            .foundation-hero {
-                padding: 2rem;
-                margin-bottom: 2rem;
-            }
-            
-            .foundation-title {
-                font-size: 2.4em;
-            }
-            
-            .foundation-stats {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 1rem;
-            }
-            
-            .lessons-section {
-                padding: 2rem;
-                margin-bottom: 2rem;
-            }
-            
-            .lessons-grid {
-                grid-template-columns: 1fr;
-                gap: 1.5rem;
-            }
-            
-            .lesson-card {
-                min-height: 200px;
-                padding: 1.5rem;
-            }
-            
-            .lesson-icon {
-                font-size: 2.5em;
-            }
-            
-            .lesson-number {
-                width: 45px;
-                height: 45px;
-                font-size: 1em;
-            }
-            
-            .current-lesson {
-                padding: 2rem;
-                margin-bottom: 2rem;
-            }
-            
-            .current-lesson-header {
-                flex-direction: column;
-                gap: 1.5rem;
-                text-align: center;
-            }
-            
-            .current-lesson-title {
-                font-size: 1.8em;
-            }
-            
-            .controls {
-                flex-direction: column;
-                align-items: center;
-            }
-            
-            .play-buttons {
-                flex-direction: column;
-                align-items: center;
-                gap: 1rem;
-            }
-            
-            .btn {
-                min-width: 200px;
-            }
-        }
-    </style>
 </head>
 <body class="listening-page">
     <!-- User Widget -->
-    <aside class="user-widget" aria-label="Informações do Usuário">
-        <div class="user-avatar" data-user-avatar>A</div>
-        <span class="user-name" data-user-name>Aluno</span>
-        <button class="logout-btn" onclick="logout()">🚪 Sair</button>
-    </aside>
+    <div class="user-widget">
+        <div class="user-avatar" id="userAvatar">A</div>
+        <span class="user-name" id="userName">Aluno</span>
+        <button class="logout-btn" onclick="logout()">Sair</button>
+    </div>
     
-    <div class="container">
+    <div class="container listening-page">
         <!-- Back Navigation -->
-        <a href="../hubs/listening-hub.html" class="back-to-hub">
-            ← Voltar ao Hub Listening
+        <a href="../hubs/listening-hub.html" class="back-button">
+            ← Voltar ao Listening Hub
         </a>
         
-        <!-- Foundation Hero -->
-        <section class="foundation-hero">
-            <div class="hero-content">
-                <h1 class="foundation-title">🌱 Foundation Level</h1>
-                <p class="foundation-subtitle">English Survival Kit • 3 Lições Essenciais para Dominação Total</p>
-                
-                <div class="foundation-stats">
-                    <div class="foundation-stat">
-                        <span class="stat-number" data-completed>0/3</span>
-                        <span class="stat-label">Concluídas</span>
-                    </div>
-                    <div class="foundation-stat">
-                        <span class="stat-number" data-average>0%</span>
-                        <span class="stat-label">Média</span>
-                    </div>
-                    <div class="foundation-stat">
-                        <span class="stat-number" data-badges>0</span>
-                        <span class="stat-label">Badges</span>
-                    </div>
+        <!-- Header - MESMO PADRÃO DO ROOMMATE -->
+        <div class="header">
+            <a href="../../index.html" style="text-decoration: none; color: inherit;">
+                <div class="logo">
+                    Teacher Alex <span class="logo-highlight">English Academy</span>
                 </div>
-            </div>
-        </section>
-
-        <!-- Lessons Section -->
-        <div class="lessons-section">
-            <h2 class="section-title">📚 Foundation Lessons</h2>
-            
-            <div class="lessons-grid" id="lessonsGrid">
-                <!-- Lessons geradas dinamicamente -->
+            </a>
+            <div class="story-title">🌱 Foundation Level</div>
+            <div class="level-badge">🎧 Listening A1 - English Survival Kit</div>
+        </div>
+        
+        <!-- NAVEGAÇÃO DE LIÇÕES - MESMO PADRÃO CHAPTERS -->
+        <div class="chapter-navigation">
+            <div class="chapter-nav-title">🎧 Escolha sua Lição Foundation</div>
+            <div class="chapter-grid" id="lessonCards">
+                <!-- Cards serão gerados dinamicamente -->
             </div>
         </div>
         
-        <!-- Current Lesson Container -->
-        <div class="current-lesson" id="lessonContainer">
-            <div class="current-lesson-header">
-                <h2 class="current-lesson-title" id="lessonTitle">Basic Survival English</h2>
-                <div class="lesson-number-display" id="lessonNumber">Lição 1</div>
+        <div class="chapter-container" id="lessonContainer">
+            <div class="current-chapter">
+                <div class="current-chapter-title" id="lessonTitle">Basic Survival English</div>
+                <div class="current-chapter-subtitle" id="lessonSubtitle">Lição 1 - Vocabulário essencial para sobrevivência</div>
+                
+                <div class="chapter-progress">
+                    <div class="progress-bar-container">
+                        <div class="progress-bar-fill" id="progressBar"></div>
+                    </div>
+                    <div class="progress-text" id="progressText">0%</div>
+                </div>
             </div>
             
             <div class="progress-section">
-                <div class="progress-bar">
-                    <div class="progress-fill" id="progressBar"></div>
-                </div>
-                
                 <div class="badges">
                     <div class="badge" id="badge1">🎯 Primeira Tentativa</div>
                     <div class="badge" id="badge2">⭐ Boa Pontuação</div>
@@ -834,7 +66,7 @@
             </div>
             
             <div class="audio-section">
-                <h3 class="audio-title" id="audioTitle">🎧 Escute a Lição: Basic Survival English</h3>
+                <div class="audio-title" id="audioTitle">🎧 Escute a Lição: Basic Survival English</div>
                 <audio id="mainAudio" controls>
                     <source src="../../src/assets/audio/listening/audio1.mp3" type="audio/mpeg">
                     Seu navegador não suporta o elemento de áudio.
@@ -848,10 +80,10 @@
             
             <div class="questions-section" id="questionsContainer"></div>
             
-            <div class="controls">
-                <button class="btn btn-primary" onclick="checkAnswers()">✅ Verificar Respostas</button>
-                <button class="btn btn-secondary" onclick="resetQuiz()">🔄 Reiniciar Quiz</button>
-                <button class="btn btn-primary" onclick="nextLesson()">➡️ Próxima Lição</button>
+            <div class="chapter-controls">
+                <button class="nav-button" onclick="checkAnswers()">✅ Verificar Respostas</button>
+                <button class="nav-button secondary" onclick="resetQuiz()">🔄 Reiniciar Lição</button>
+                <button class="nav-button" onclick="nextLesson()">➡️ Próxima Lição</button>
             </div>
             
             <div id="scoreSection" class="score" style="display: none;">
@@ -888,12 +120,13 @@
             throw new Error('Access denied');
         }
 
-        // ===== FOUNDATION PROGRESS SYSTEM =====
-        class FoundationProgress {
+        // ===== PROGRESS SYSTEM - MESMO PADRÃO DO ROOMMATE =====
+        class StudentProgress {
             constructor() {
                 this.studentId = sessionStorage.getItem('studentUsername') || 'student';
                 this.progressKey = `progress_${this.studentId}`;
                 this.loadProgress();
+                this.ensureListeningStructure();
             }
 
             loadProgress() {
@@ -902,82 +135,64 @@
                     this.data = JSON.parse(saved);
                 } else {
                     this.data = {
-                        listening: { 
-                            levelsCompleted: [],
-                            currentLevel: 'foundation',
-                            bestScores: {
-                                foundation: 0,
-                                beginner: 0,
-                                intermediate: 0,
-                                advanced: 0
-                            },
-                            foundationLessons: {
-                                completed: [],
-                                scores: {}
-                            },
-                            badges: [] 
-                        },
+                        listening: { lessonsCompleted: [], bestScores: {}, badges: [] },
                         reading: { chaptersCompleted: [], bestScores: {}, badges: [] },
-                        globalBadges: [],
+                        roommate: { chaptersCompleted: [], bestScores: {}, badges: [] },
+                        neighbor: { chaptersCompleted: [], bestScores: {}, badges: [] },
+                        globalBadges: [], 
                         totalStudyTime: 0
                     };
                 }
             }
 
+            ensureListeningStructure() {
+                if (!this.data.listening) {
+                    this.data.listening = { lessonsCompleted: [], bestScores: {}, badges: [] };
+                }
+                if (!this.data.listening.lessonsCompleted) {
+                    this.data.listening.lessonsCompleted = [];
+                }
+                if (!this.data.listening.bestScores) {
+                    this.data.listening.bestScores = {};
+                }
+                if (!this.data.listening.badges) {
+                    this.data.listening.badges = [];
+                }
+                this.saveProgress();
+            }
+
             saveProgress() { 
                 localStorage.setItem(this.progressKey, JSON.stringify(this.data));
+                console.log(`💾 Progresso salvo para ${this.studentId}`);
             }
 
-            completeFoundationLesson(lessonNumber, score, timeSpent) {
-                const lesson = `foundation_${lessonNumber}`;
-                if (!this.data.listening.foundationLessons.completed.includes(lesson)) {
-                    this.data.listening.foundationLessons.completed.push(lesson);
+            completeListeningLesson(lessonNumber, score, timeSpent) {
+                const lesson = `foundation_lesson_${lessonNumber}`;
+                if (!this.data.listening.lessonsCompleted.includes(lesson)) {
+                    this.data.listening.lessonsCompleted.push(lesson);
                 }
-                
-                this.data.listening.foundationLessons.scores[lesson] = Math.max(
-                    this.data.listening.foundationLessons.scores[lesson] || 0, 
-                    score
+                this.data.listening.bestScores[lesson] = Math.max(
+                    this.data.listening.bestScores[lesson] || 0, score
                 );
-                
                 this.data.totalStudyTime += timeSpent;
-                this.checkFoundationBadges(lessonNumber, score);
-                
-                // Update overall foundation level score
-                const allScores = Object.values(this.data.listening.foundationLessons.scores);
-                if (allScores.length > 0) {
-                    this.data.listening.bestScores.foundation = Math.round(
-                        allScores.reduce((a, b) => a + b, 0) / allScores.length * 20
-                    );
-                }
-                
-                // Mark foundation as completed if all 3 lessons done
-                if (this.data.listening.foundationLessons.completed.length === 3) {
-                    if (!this.data.listening.levelsCompleted.includes('foundation')) {
-                        this.data.listening.levelsCompleted.push('foundation');
-                    }
-                }
-                
+                this.checkListeningBadges(lessonNumber, score);
                 this.saveProgress();
                 this.updateLessonCards();
-                this.updateProgressStats();
             }
 
-            checkFoundationBadges(lessonNumber, score) {
+            checkListeningBadges(lessonNumber, score) {
                 const badges = this.data.listening.badges;
-                
-                if (!badges.includes('foundation_pioneer')) {
-                    badges.push('foundation_pioneer');
-                    this.showBadgeNotification('🎯 Foundation Pioneer!', 'Primeira lição dominada!');
+                if (!badges.includes('first_listening_lesson')) {
+                    badges.push('first_listening_lesson');
+                    this.showBadgeNotification('🎯 First Foundation!', 'Primeira lição de listening dominada!');
                 }
-                
-                if (score === 5 && !badges.includes('foundation_perfect')) {
-                    badges.push('foundation_perfect');
-                    this.showBadgeNotification('🏆 Perfect Foundation!', 'Pontuação perfeita!');
+                if (score === 5 && !badges.includes('perfect_listening_lesson')) {
+                    badges.push('perfect_listening_lesson');
+                    this.showBadgeNotification('🏆 Perfect Listening!', 'Pontuação perfeita no listening!');
                 }
-                
-                if (this.getFoundationCompleted() >= 3 && !badges.includes('survival_legend')) {
-                    badges.push('survival_legend');
-                    this.showBadgeNotification('🚀 Survival Legend!', 'Foundation completo!');
+                if (this.data.listening.lessonsCompleted.length >= 3 && !badges.includes('foundation_master')) {
+                    badges.push('foundation_master');
+                    this.showBadgeNotification('🔥 Foundation Master!', 'Todas as lições Foundation completas!');
                 }
             }
 
@@ -985,53 +200,25 @@
                 const notification = document.createElement('div');
                 notification.style.cssText = `
                     position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
-                    background: linear-gradient(135deg, #475569, #64748b); 
-                    color: white; padding: 2.5rem 3rem; border-radius: 20px; z-index: 10000; 
-                    text-align: center; box-shadow: 0 25px 80px rgba(0,0,0,0.3); 
-                    backdrop-filter: blur(20px); border: 2px solid rgba(255,255,255,0.2);
-                    animation: badgeNotification 4s ease-in-out forwards;
+                    background: linear-gradient(45deg, var(--blue-dark), var(--blue-medium)); color: white;
+                    padding: 25px 35px; border-radius: 20px; z-index: 10000; text-align: center;
+                    box-shadow: 0 15px 40px rgba(0,0,0,0.3); backdrop-filter: blur(10px);
                 `;
-                
-                notification.innerHTML = `
-                    <div style="font-size: 2em; font-weight: 800; margin-bottom: 0.75rem;">${title}</div>
-                    <div style="font-size: 1.2em; font-weight: 500; opacity: 0.9;">${message}</div>
-                `;
-                
+                notification.innerHTML = `<div style="font-size: 1.8em; font-weight: bold; margin-bottom: 15px;">${title}</div><div style="font-size: 1.1em;">${message}</div>`;
                 document.body.appendChild(notification);
-                
                 setTimeout(() => { 
-                    if (document.body.contains(notification)) document.body.removeChild(notification);
-                }, 4000);
+                    if (document.body.contains(notification)) document.body.removeChild(notification); 
+                }, 3000);
             }
 
-            getFoundationCompleted() {
-                return this.data.listening.foundationLessons.completed.length;
-            }
-
-            getFoundationStats() {
-                const completed = this.getFoundationCompleted();
-                const scores = Object.values(this.data.listening.foundationLessons.scores);
-                const average = scores.length > 0 ? Math.round(scores.reduce((a, b) => a + b, 0) / scores.length * 20) : 0;
-                const badges = this.data.listening.badges.length;
-
-                return { completed, average, badges };
-            }
-
-            updateProgressStats() {
-                const stats = this.getFoundationStats();
-                document.querySelector('[data-completed]').textContent = `${stats.completed}/3`;
-                document.querySelector('[data-badges]').textContent = stats.badges;
-                document.querySelector('[data-average]').textContent = `${stats.average}%`;
-            }
-
-            updateLessonCards() {
-                createLessonCards();
+            updateLessonCards() { 
+                createLessonCards(); 
             }
         }
 
-        // ===== FOUNDATION LESSONS DATA - MANTIDO =====
+        // ===== FOUNDATION LESSONS DATA =====
         const foundationLessons = {
-            '1': { 
+            1: { 
                 title: "Basic Survival English", 
                 shortTitle: "Survival Basics", 
                 icon: "🌱", 
@@ -1045,7 +232,7 @@
                     q5: { text: "How do you introduce yourself?", options: ["I am...", "You are...", "He is...", "We are..."], correct: "a" } 
                 } 
             },
-            '2': { 
+            2: { 
                 title: "Essential Daily Conversations", 
                 shortTitle: "Daily Talk", 
                 icon: "💬", 
@@ -1059,7 +246,7 @@
                     q5: { text: "How do you say you don't understand?", options: ["I understand", "I don't understand", "I know", "I speak"], correct: "b" } 
                 } 
             },
-            '3': { 
+            3: { 
                 title: "Emergency & Important Phrases", 
                 shortTitle: "Emergency", 
                 icon: "🚨", 
@@ -1075,55 +262,53 @@
             }
         };
         
-        let currentLesson = '1';
-        let attempts = 0;
-        let lessonStartTime = Date.now();
-        let studentProgress = new FoundationProgress();
+        let currentLesson = 1, attempts = 0, lessonStartTime = Date.now(), studentProgress = new StudentProgress();
         
-        // ===== LESSON CARDS CREATION =====
+        // ===== LESSON CARDS - MESMO PADRÃO CHAPTER CARDS =====
         function createLessonCards() {
-            const container = document.getElementById('lessonsGrid');
-            container.innerHTML = '';
+            const cardsContainer = document.getElementById('lessonCards');
+            if (!cardsContainer) return;
             
-            Object.keys(foundationLessons).forEach(lessonId => {
-                const lesson = foundationLessons[lessonId];
-                const isCompleted = studentProgress.data.listening.foundationLessons.completed.includes(`foundation_${lessonId}`);
-                const bestScore = studentProgress.data.listening.foundationLessons.scores[`foundation_${lessonId}`] || 0;
-                const isActive = lessonId === currentLesson;
+            cardsContainer.innerHTML = '';
+            
+            for (let i = 1; i <= 3; i++) {
+                const lesson = foundationLessons[i];
+                if (!lesson) continue;
+                
+                const isCompleted = studentProgress.data.listening.lessonsCompleted.includes(`foundation_lesson_${i}`);
+                const bestScore = studentProgress.data.listening.bestScores[`foundation_lesson_${i}`] || 0;
+                const isActive = i === currentLesson;
                 
                 const card = document.createElement('div');
-                card.className = `lesson-card ${isActive ? 'active' : ''} ${isCompleted ? 'completed' : ''}`;
-                card.onclick = () => switchToLesson(lessonId);
+                card.className = `chapter-card ${isActive ? 'current' : ''} ${isCompleted ? 'completed' : ''}`;
+                card.onclick = () => switchToLesson(i);
                 
                 card.innerHTML = `
-                    <div class="lesson-header">
-                        <div class="lesson-icon">${lesson.icon}</div>
-                        <div class="lesson-number">${lessonId}</div>
+                    <div class="chapter-icon">${lesson.icon}</div>
+                    <div class="chapter-info">
+                        <div class="chapter-number">Lição ${i}</div>
+                        <div class="chapter-title">${lesson.shortTitle}</div>
                     </div>
-                    <div class="lesson-title">${lesson.title}</div>
-                    <div class="lesson-description">${lesson.description}</div>
-                    ${isCompleted ? `<div class="completion-badge">${bestScore}</div>` : ''}
+                    ${isCompleted ? `<div class="chapter-status">${bestScore}/5</div>` : '<div class="chapter-status">Novo</div>'}
                 `;
                 
-                container.appendChild(card);
-            });
+                cardsContainer.appendChild(card);
+            }
         }
         
-        function switchToLesson(lessonId) {
-            if (lessonId === currentLesson) return;
-            
-            currentLesson = lessonId;
+        function switchToLesson(lessonNumber) {
+            if (lessonNumber === currentLesson) return;
+            currentLesson = lessonNumber;
             loadLesson(currentLesson);
             createLessonCards();
         }
         
-        // ===== LESSON LOADING =====
-        function loadLesson(lessonId) {
-            if (!foundationLessons[lessonId]) return;
-            const lesson = foundationLessons[lessonId];
+        function loadLesson(lessonNumber) {
+            if (!foundationLessons[lessonNumber]) return;
+            const lesson = foundationLessons[lessonNumber];
             
             document.getElementById('lessonTitle').textContent = lesson.title;
-            document.getElementById('lessonNumber').textContent = `Lição ${lessonId}`;
+            document.getElementById('lessonSubtitle').textContent = `Lição ${lessonNumber} - ${lesson.description}`;
             document.getElementById('audioTitle').textContent = `🎧 Escute a Lição: ${lesson.title}`;
             document.getElementById('mainAudio').src = lesson.audioUrl;
             loadQuestions(lesson.questions);
@@ -1167,17 +352,16 @@
             });
         }
         
-        // ===== AUDIO CONTROLS =====
+        // ===== ÁUDIO =====
         function playAudio() { document.getElementById('mainAudio').play(); }
         function replayAudio() { const audio = document.getElementById('mainAudio'); audio.currentTime = 0; audio.play(); }
         function pauseAudio() { document.getElementById('mainAudio').pause(); }
         
-        // ===== QUIZ FUNCTIONS =====
+        // ===== VERIFICAR RESPOSTAS =====
         function checkAnswers() {
             const lesson = foundationLessons[currentLesson];
             const questions = Object.keys(lesson.questions);
-            let score = 0;
-            let detailedResults = [];
+            let score = 0, detailedResults = [];
             attempts++;
             
             questions.forEach((key, index) => {
@@ -1207,9 +391,10 @@
                 }
             });
             
-            studentProgress.completeFoundationLesson(currentLesson, score, Date.now() - lessonStartTime);
+            studentProgress.completeListeningLesson(currentLesson, score, Date.now() - lessonStartTime);
             
             document.getElementById('progressBar').style.width = (score / 5) * 100 + '%';
+            document.getElementById('progressText').textContent = `${(score / 5) * 100}%`;
             document.getElementById('scoreValue').textContent = score;
             document.getElementById('scoreSection').style.display = 'block';
             
@@ -1220,86 +405,55 @@
             
             const feedback = document.getElementById('feedback');
             let feedbackHeader = score === 5 ? 
-                '<div style="text-align: center; background: linear-gradient(135deg, #475569, #64748b); color: white; padding: 2.5rem; border-radius: 16px; margin-bottom: 2rem; font-size: 1.3em; font-weight: 700; box-shadow: 0 15px 35px rgba(71, 85, 105, 0.3);">🎯 FOUNDATION PERFECT!</div>' :
-                score === 4 ? 
-                '<div style="text-align: center; background: linear-gradient(135deg, #1e293b, #334155); color: white; padding: 2.5rem; border-radius: 16px; margin-bottom: 2rem; font-size: 1.3em; font-weight: 700; box-shadow: 0 15px 35px rgba(30, 41, 59, 0.3);">⭐ EXCELLENT WORK!</div>' :
-                '<div style="text-align: center; background: linear-gradient(135deg, #6b7280, #4b5563); color: white; padding: 2.5rem; border-radius: 16px; margin-bottom: 2rem; font-size: 1.3em; font-weight: 700; box-shadow: 0 15px 35px rgba(107, 114, 128, 0.3);">💪 CONTINUE PRATICANDO!</div>';
+                '<div style="text-align: center; background: linear-gradient(45deg, var(--blue-dark), var(--blue-medium)); color: white; padding: 25px; border-radius: 15px; margin-bottom: 25px; font-size: 1.3em; font-weight: 800;">🎯 FOUNDATION PERFECT! 🌱✨</div>' :
+                '<div style="text-align: center; background: linear-gradient(45deg, var(--blue-medium), var(--blue-gray)); color: white; padding: 25px; border-radius: 15px; margin-bottom: 25px; font-size: 1.2em; font-weight: 800;">💪 CONTINUE PRATICANDO! 🎧</div>';
             
-            feedback.innerHTML = feedbackHeader + detailedResults.map(result => `<div style="margin: 1rem 0; padding: 1.25rem; background: linear-gradient(135deg, #f8fafc, #f1f5f9); border-radius: 12px; border-left: 4px solid #475569; font-weight: 500;">${result}</div>`).join('');
+            feedback.innerHTML = feedbackHeader + detailedResults.map(result => `<div style="margin: 1rem 0; padding: 1.25rem; background: #f8fafc; border-radius: 12px; border-left: 4px solid var(--blue-dark);">${result}</div>`).join('');
             feedback.style.display = 'block';
         }
         
         function resetQuiz() {
             document.querySelectorAll('input[type="radio"]').forEach(radio => {
                 radio.checked = false;
-                const option = radio.closest('.option');
-                option.classList.remove('selected', 'correct-answer', 'wrong-answer');
+                radio.closest('.option').classList.remove('selected', 'correct-answer', 'wrong-answer');
             });
-            
             document.getElementById('scoreSection').style.display = 'none';
             document.getElementById('feedback').style.display = 'none';
             document.getElementById('progressBar').style.width = '0%';
-            
-            document.querySelectorAll('.badge').forEach(badge => {
-                badge.classList.remove('earned');
-            });
-            
-            attempts = 0;
-            lessonStartTime = Date.now();
+            document.getElementById('progressText').textContent = '0%';
+            document.querySelectorAll('.badge').forEach(badge => badge.classList.remove('earned'));
+            attempts = 0; lessonStartTime = Date.now();
         }
         
         function nextLesson() {
-            const allLessons = ['1', '2', '3'];
-            const currentIndex = allLessons.indexOf(currentLesson);
-            
-            if (currentIndex < allLessons.length - 1) {
-                switchToLesson(allLessons[currentIndex + 1]);
+            if (currentLesson < 3) {
+                switchToLesson(currentLesson + 1);
             } else {
+                alert('🎯 Parabéns! Foundation Level completo!\nAgora você pode partir para o Beginner Level! 🚀');
                 setTimeout(() => {
-                    alert('🎯 Parabéns! Foundation Level completo!\nAgora você pode partir para o Beginner Level! 🚀');
                     window.location.href = '../hubs/listening-hub.html';
-                }, 500);
+                }, 2000);
             }
         }
         
-        // ===== INITIALIZATION =====
+        // ===== INICIALIZAÇÃO =====
         document.addEventListener('DOMContentLoaded', function() {
             const studentName = getStudentName();
             
             // Update user info
-            document.querySelector('[data-user-name]').textContent = 
+            document.getElementById('userName').textContent = 
                 studentName.charAt(0).toUpperCase() + studentName.slice(1).toLowerCase();
-            document.querySelector('[data-user-avatar]').textContent = studentName.charAt(0).toUpperCase();
+            document.getElementById('userAvatar').textContent = studentName.charAt(0).toUpperCase();
             
-            console.log('✨ Foundation Page - DESIGN ELEGANTE E SOFISTICADO');
-            console.log(`👤 Usuário: ${studentName}`);
-            console.log('🎯 3 lições Foundation com visual polido');
-            console.log('🎨 Micro-animations e gradients refinados');
+            console.log(`🌱 Foundation Level - usuário: ${studentName}`);
+            console.log('✅ Visual CONSISTENTE aplicado');
+            console.log('🎯 Cores patrióticas mantidas');
+            console.log('📁 Estrutura igual roommate-problem-story.html');
+            console.log('🎧 3 lições Foundation funcionando');
             
             createLessonCards();
             loadLesson(currentLesson);
-            studentProgress.updateProgressStats();
         });
-
-        // Add keyframes for animations
-        const style = document.createElement('style');
-        style.textContent = `
-            @keyframes badgeNotification {
-                0% { opacity: 0; transform: translate(-50%, -50%) scale(0.8) rotate(-5deg); }
-                20% { opacity: 1; transform: translate(-50%, -50%) scale(1.1) rotate(2deg); }
-                80% { opacity: 1; transform: translate(-50%, -50%) scale(1) rotate(0deg); }
-                100% { opacity: 0; transform: translate(-50%, -50%) scale(0.9) rotate(-2deg); }
-            }
-        `;
-        document.head.appendChild(style);
-
-        console.log('🎨 FOUNDATION PAGE - DESIGN ELEGANTE APLICADO');
-        console.log('✨ Cards sofisticados com micro-animations');
-        console.log('✨ Progress bar com shimmer effect');
-        console.log('✨ Badges com hover refinado');
-        console.log('✨ Questions com feedback visual elegante');
-        console.log('✨ Hero section com overlay sutil');
-        console.log('🎯 Mantida toda funcionalidade + visual premium');
     </script>
 </body>
 </html>
