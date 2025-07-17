@@ -213,6 +213,101 @@
             });
         };
 
+        // ===== PROGRESS DEBUG FUNCTIONS =====
+        window.checkProgress = function() {
+            const progressKey = `progress_${studentName}`;
+            const saved = localStorage.getItem(progressKey);
+            
+            console.log('📊 DIAGNÓSTICO COMPLETO DE PROGRESSO:');
+            console.log('👤 Aluno:', studentName);
+            console.log('🔑 Chave localStorage:', progressKey);
+            
+            if (saved) {
+                try {
+                    const data = JSON.parse(saved);
+                    console.log('💾 Dados salvos:', data);
+                    
+                    // Verificar cada seção
+                    console.log('🎧 Listening:', data.listening || 'Não encontrado');
+                    console.log('📖 Reading:', data.reading || 'Não encontrado');
+                    console.log('🏠 Roommate:', data.roommate || 'Não encontrado');
+                    console.log('🤝 Neighbor:', data.neighbor || 'Não encontrado');
+                    
+                    // Calcular totais
+                    const listeningLessons = data.listening?.lessonsCompleted?.length || 0;
+                    const readingChapters = data.reading?.chaptersCompleted?.length || 0;
+                    const roommateChapters = data.roommate?.chaptersCompleted?.length || 0;
+                    const neighborChapters = data.neighbor?.chaptersCompleted?.length || 0;
+                    
+                    console.log('📈 TOTAIS CALCULADOS:');
+                    console.log('   Listening Lessons:', listeningLessons);
+                    console.log('   Reading Chapters:', readingChapters);
+                    console.log('   Roommate Chapters:', roommateChapters);
+                    console.log('   Neighbor Chapters:', neighborChapters);
+                    console.log('   TOTAL CHAPTERS:', readingChapters + roommateChapters + neighborChapters);
+                    
+                } catch (e) {
+                    console.error('❌ Erro ao ler dados:', e);
+                }
+            } else {
+                console.log('❌ Nenhum dado encontrado no localStorage');
+            }
+        };
+
+        window.forceRefreshStats = function() {
+            console.log('🔄 Forçando atualização de stats...');
+            clearAllTimers();
+            loadStats();
+        };
+
+        window.showAllLocalStorage = function() {
+            console.log('💾 TODOS OS DADOS DO LOCALSTORAGE:');
+            for (let i = 0; i < localStorage.length; i++) {
+                const key = localStorage.key(i);
+                const value = localStorage.getItem(key);
+                console.log(`${key}:`, value);
+            }
+        };
+
+        // ===== TESTE DE PROGRESSO =====
+        window.simulateProgress = function() {
+            const progressKey = `progress_${studentName}`;
+            const testData = {
+                listening: {
+                    lessonsCompleted: [1, 2, 3],
+                    badges: ['beginner', 'intermediate']
+                },
+                reading: {
+                    chaptersCompleted: [1, 2],
+                    badges: ['reader']
+                },
+                roommate: {
+                    chaptersCompleted: [1, 2, 3],
+                    badges: ['story-lover']
+                },
+                neighbor: {
+                    chaptersCompleted: [1],
+                    badges: ['neighbor-friend']
+                },
+                totalStudyTime: 7200000 // 2 hours in milliseconds
+            };
+            
+            localStorage.setItem(progressKey, JSON.stringify(testData));
+            console.log('✅ Dados de teste salvos!');
+            console.log('🔄 Recarregando stats...');
+            forceRefreshStats();
+        };
+
+        window.clearAllProgress = function() {
+            if (confirm('⚠️ Isso vai apagar TODO o progresso! Tem certeza?')) {
+                const progressKey = `progress_${studentName}`;
+                localStorage.removeItem(progressKey);
+                localStorage.removeItem(`previousStats_${studentName}`);
+                console.log('🗑️ Progresso limpo!');
+                forceRefreshStats();
+            }
+        };
+
         // ===== STATS DASHBOARD =====
         function loadStats() {
             // Clear any existing timers first
@@ -520,6 +615,27 @@
         console.log('🆘 FUNÇÕES DE EMERGÊNCIA:');
         console.log('   clearStatsAnimations() - Para parar animações infinitas');
         console.log('   debugStats() - Para debugar dados do localStorage');
+        console.log('');
+        console.log('🔍 FUNÇÕES DE DEBUG DE PROGRESSO:');
+        console.log('   checkProgress() - Diagnóstico completo do progresso');
+        console.log('   forceRefreshStats() - Forçar atualização dos stats');
+        console.log('   showAllLocalStorage() - Ver todos os dados salvos');
+        console.log('');
+        console.log('💡 PARA RESOLVER PROBLEMA DE PROGRESSO:');
+        console.log('   1. Digite: checkProgress()');
+        console.log('   2. Veja se os dados estão sendo salvos corretamente');
+        console.log('   3. Se não, me informe o que aparece no console!');
+        console.log('');
+        console.log('🧪 FUNÇÕES DE TESTE:');
+        console.log('   simulateProgress() - Criar dados de teste');
+        console.log('   clearAllProgress() - Limpar todo o progresso');
+        console.log('   showAllLocalStorage() - Ver todos os dados');
+        console.log('');
+        console.log('🔥 ALEX, SIGA ESTES PASSOS:');
+        console.log('   1. Complete um capítulo no graded reader');
+        console.log('   2. Volte para o dashboard');
+        console.log('   3. Digite: checkProgress()');
+        console.log('   4. Me envie a saída do console!');
     </script>
 </body>
 </html>
