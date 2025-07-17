@@ -1,15 +1,15 @@
 {
   "name": "Teacher Alex English Academy",
   "short_name": "English Academy",
-  "description": "Aprenda inglês com Teacher Alex",
+  "description": "Aprenda inglês com Teacher Alex - Versão Simplificada",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
   "orientation": "portrait-primary",
-  "theme_color": "#dc2626",
-  "background_color": "#1e3a8a",
+  "theme_color": "#2b4c7e",
+  "background_color": "#dce0e6",
   "lang": "pt-BR",
-  "version": "2.1",
+  "version": "3.0",
   "icons": [
     {
       "src": "./src/assets/images/icons/icon-192.png",
@@ -30,12 +30,12 @@
       "purpose": "apple-touch-icon"
     }
   ],
-  "categories": ["education", "productivity"],
+  "categories": ["education", "productivity", "learning"],
   "shortcuts": [
     {
       "name": "Listening Practice",
       "short_name": "Listening",
-      "description": "Praticar listening",
+      "description": "Praticar compreensão auditiva",
       "url": "./pages/hubs/listening-hub.html",
       "icons": [
         {
@@ -46,9 +46,9 @@
       ]
     },
     {
-      "name": "Reading Hub", 
+      "name": "Graded Readers", 
       "short_name": "Reading",
-      "description": "Histórias e leitura",
+      "description": "Histórias por nível",
       "url": "./pages/hubs/graded-readers-hub.html",
       "icons": [
         {
@@ -61,7 +61,7 @@
     {
       "name": "Pure Reading",
       "short_name": "Pure Reading", 
-      "description": "Foco na interpretação textual",
+      "description": "Foco na interpretação",
       "url": "./pages/hubs/pure-reading-hub.html",
       "icons": [
         {
@@ -71,5 +71,21 @@
         }
       ]
     }
-  ]
+  ],
+  "screenshots": [
+    {
+      "src": "./src/assets/images/students/listening-student.jpg",
+      "sizes": "540x720",
+      "type": "image/jpeg",
+      "form_factor": "narrow",
+      "label": "Listening Practice Hub"
+    }
+  ],
+  "prefer_related_applications": false,
+  "edge_side_panel": {
+    "preferred_width": 400
+  },
+  "launch_handler": {
+    "client_mode": "focus-existing"
+  }
 }
