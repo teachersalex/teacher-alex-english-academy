@@ -1,1278 +1,383 @@
-<!DOCTYPE html>
+// Intermediate progress - SAFE ACCESS
+                    const intermediateCompleted = lessonsCompleted.filter(lesson => lesson.startsWith('intermediate')).length;
+                    
+                    const intermediateProgress = document.getElementById('intermediateProgress');
+                    if (intermediateProgress) {
+                        if (intermediateCompleted === 0) {
+                            intermediateProgress.textContent = '✅ Disponível';
+                        } else {
+                            intermediateProgress.textContent = `${intermediateCompleted} ✓`;
+                            intermediateProgress.style.background = 'var(--success)';
+                            intermediateProgress.style.color = 'white';
+                        }
+                    }<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Listening Intermediate - Teacher Alex English Academy BETA</title>
+    <title>Listening Hub - Teacher Alex English Academy</title>
     
-    <!-- CSS EXTERNOS - PATHS CORRETOS -->
+    <!-- CSS Universal - MESMO PADRÃO DOS OUTROS -->
     <link rel="stylesheet" href="../../src/styles/base.css">
     <link rel="stylesheet" href="../../src/styles/layout.css">
     <link rel="stylesheet" href="../../src/styles/theme-patriot.css">
-    
-    <style>
-        /* INTERMEDIATE SPECIFIC - PATRIOTIC COLORS MAINTAINED */
-        .intermediate-hero {
-            background: linear-gradient(135deg, #1e3a8a 0%, #dc2626 50%, #1e40af 100%);
-            border-radius: 20px;
-            padding: 3rem;
-            margin-bottom: 3rem;
-            position: relative;
-            overflow: hidden;
-            border: 1px solid rgba(255,255,255,0.1);
-            box-shadow: 0 25px 80px rgba(30, 58, 138, 0.15);
-        }
-        
-        .intermediate-hero::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.03) 50%, transparent 70%);
-            pointer-events: none;
-        }
-        
-        .hero-content {
-            position: relative;
-            z-index: 2;
-            text-align: center;
-            color: white;
-        }
-        
-        .intermediate-title {
-            font-size: 3em;
-            font-weight: 800;
-            margin-bottom: 0.75rem;
-            color: white;
-            text-shadow: 0 4px 20px rgba(0,0,0,0.3);
-            letter-spacing: -0.02em;
-        }
-        
-        .intermediate-subtitle {
-            font-size: 1.25em;
-            font-weight: 500;
-            margin-bottom: 2.5rem;
-            opacity: 0.9;
-            color: #e2e8f0;
-        }
-        
-        .intermediate-stats {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
-            gap: 1.5rem;
-            max-width: 450px;
-            margin: 0 auto;
-        }
-        
-        .intermediate-stat {
-            background: rgba(255,255,255,0.12);
-            backdrop-filter: blur(20px);
-            padding: 1.5rem 1rem;
-            border-radius: 16px;
-            border: 1px solid rgba(255,255,255,0.2);
-            text-align: center;
-            transition: all 0.3s ease;
-        }
-        
-        .intermediate-stat:hover {
-            transform: translateY(-2px);
-            background: rgba(255,255,255,0.15);
-        }
-        
-        .stat-number {
-            font-size: 2em;
-            font-weight: 800;
-            display: block;
-            margin-bottom: 0.5rem;
-            color: white;
-        }
-        
-        .stat-label {
-            font-size: 0.9em;
-            opacity: 0.85;
-            font-weight: 600;
-            color: #cbd5e1;
-        }
-        
-        /* Lessons section patriótica */
-        .lessons-section {
-            background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
-            border-radius: 20px;
-            padding: 3rem;
-            border: 1px solid #e2e8f0;
-            box-shadow: 0 20px 60px rgba(15, 23, 42, 0.08);
-            margin-bottom: 3rem;
-            position: relative;
-        }
-        
-        .lessons-section::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0;
-            height: 4px;
-            background: linear-gradient(90deg, #1e3a8a, #dc2626);
-            border-radius: 20px 20px 0 0;
-        }
-        
-        .section-title {
-            text-align: center;
-            font-size: 1.75em;
-            font-weight: 800;
-            color: #1e293b;
-            margin-bottom: 2.5rem;
-        }
-        
-        .lessons-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-bottom: 2rem;
-        }
-        
-        /* Cards das lições patrióticas intermediate */
-        .lesson-card {
-            background: white;
-            border-radius: 16px;
-            padding: 2rem 1.5rem;
-            text-align: center;
-            cursor: pointer;
-            border: 2px solid #f1f5f9;
-            min-height: 220px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .lesson-card::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: linear-gradient(135deg, transparent 0%, rgba(30, 58, 138, 0.02) 100%);
-            transition: all 0.4s ease;
-            opacity: 0;
-        }
-        
-        .lesson-card:hover {
-            transform: translateY(-8px) scale(1.02);
-            box-shadow: 0 25px 50px rgba(30, 58, 138, 0.15);
-            border-color: #cbd5e1;
-        }
-        
-        .lesson-card:hover::before {
-            opacity: 1;
-        }
-        
-        .lesson-card.active {
-            background: linear-gradient(135deg, #1e3a8a 0%, #dc2626 100%);
-            color: white;
-            border-color: #1e3a8a;
-            transform: translateY(-4px) scale(1.05);
-            box-shadow: 0 25px 50px rgba(30, 58, 138, 0.25);
-        }
-        
-        .lesson-card.completed {
-            background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
-            color: white;
-            border-color: #1e293b;
-            transform: translateY(-2px);
-        }
-        
-        .lesson-header {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 1rem;
-            margin-bottom: 1.5rem;
-            position: relative;
-            z-index: 2;
-        }
-        
-        .lesson-icon {
-            font-size: 3em;
-            margin-bottom: 0.5rem;
-            transition: all 0.3s ease;
-        }
-        
-        .lesson-card:hover .lesson-icon {
-            transform: scale(1.1) rotate(5deg);
-        }
-        
-        .lesson-number {
-            background: linear-gradient(135deg, #1e3a8a, #dc2626);
-            color: white;
-            width: 50px;
-            height: 50px;
-            border-radius: 25px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 800;
-            font-size: 1.1em;
-            box-shadow: 0 8px 25px rgba(30, 58, 138, 0.3);
-            transition: all 0.3s ease;
-        }
-        
-        .lesson-card.active .lesson-number,
-        .lesson-card.completed .lesson-number {
-            background: rgba(255, 255, 255, 0.25);
-            transform: scale(1.1);
-        }
-        
-        .lesson-title {
-            font-size: 1.2em;
-            font-weight: 700;
-            color: #1e293b;
-            margin-bottom: 0.75rem;
-            position: relative;
-            z-index: 2;
-        }
-        
-        .lesson-card.active .lesson-title,
-        .lesson-card.completed .lesson-title {
-            color: rgba(255, 255, 255, 0.95);
-        }
-        
-        .lesson-description {
-            font-size: 0.95em;
-            color: #64748b;
-            line-height: 1.5;
-            position: relative;
-            z-index: 2;
-        }
-        
-        .lesson-card.active .lesson-description,
-        .lesson-card.completed .lesson-description {
-            color: rgba(255, 255, 255, 0.8);
-        }
-        
-        .completion-badge {
-            position: absolute;
-            top: -10px;
-            right: -10px;
-            width: 36px;
-            height: 36px;
-            background: linear-gradient(135deg, #1e293b, #334155);
-            border-radius: 50%;
-            color: white;
-            font-size: 0.85em;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 800;
-            border: 3px solid white;
-            box-shadow: 0 8px 25px rgba(30, 41, 59, 0.3);
-            z-index: 5;
-            animation: badgePulse 2s ease-in-out infinite;
-        }
-        
-        @keyframes badgePulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-        }
-        
-        /* Current lesson container */
-        .current-lesson {
-            background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
-            border-radius: 20px;
-            padding: 3rem;
-            border: 1px solid #e2e8f0;
-            box-shadow: 0 20px 60px rgba(15, 23, 42, 0.08);
-            margin-bottom: 3rem;
-            position: relative;
-        }
-        
-        .current-lesson::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0;
-            height: 4px;
-            background: linear-gradient(90deg, #1e3a8a, #dc2626);
-            border-radius: 20px 20px 0 0;
-        }
-        
-        .current-lesson-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 2.5rem;
-            padding-bottom: 2rem;
-            border-bottom: 2px solid #f1f5f9;
-        }
-        
-        .current-lesson-title {
-            font-size: 2.2em;
-            font-weight: 800;
-            color: #1e293b;
-        }
-        
-        .lesson-number-display {
-            background: linear-gradient(135deg, #1e3a8a, #dc2626);
-            color: white;
-            padding: 1rem 2rem;
-            border-radius: 12px;
-            font-weight: 700;
-            font-size: 1.1em;
-            box-shadow: 0 8px 25px rgba(30, 58, 138, 0.3);
-        }
-        
-        /* Audio section com speed controls */
-        .audio-section {
-            background: linear-gradient(135deg, #f8fafc, #f1f5f9);
-            border-radius: 16px;
-            padding: 2.5rem;
-            margin-bottom: 2.5rem;
-            border: 1px solid #e2e8f0;
-            text-align: center;
-        }
-        
-        .audio-title {
-            font-size: 1.4em;
-            font-weight: 700;
-            color: #1e3a8a;
-            margin-bottom: 2rem;
-        }
-        
-        audio {
-            width: 100%;
-            max-width: 450px;
-            margin-bottom: 2rem;
-            border-radius: 8px;
-        }
-        
-        .audio-controls {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 1.5rem;
-        }
-        
-        .play-buttons {
-            display: flex;
-            justify-content: center;
-            gap: 1.5rem;
-            flex-wrap: wrap;
-        }
-        
-        /* SPEED CONTROLS - FEATURE REQUEST DOS ALUNOS */
-        .speed-controls {
-            display: flex;
-            justify-content: center;
-            gap: 0.75rem;
-            flex-wrap: wrap;
-            margin-top: 1rem;
-        }
-        
-        .speed-btn {
-            padding: 0.5rem 1rem;
-            border: 2px solid #e2e8f0;
-            border-radius: 8px;
-            background: white;
-            color: #64748b;
-            font-weight: 600;
-            font-size: 0.85em;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            min-width: 60px;
-        }
-        
-        .speed-btn.active,
-        .speed-btn:hover {
-            border-color: #1e3a8a;
-            background: #1e3a8a;
-            color: white;
-            transform: translateY(-1px);
-            box-shadow: 0 4px 12px rgba(30, 58, 138, 0.3);
-        }
-        
-        .btn {
-            padding: 0.875rem 2rem;
-            border: none;
-            border-radius: 12px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            font-size: 0.95em;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .btn::before {
-            content: '';
-            position: absolute;
-            top: 0; left: -100%;
-            width: 100%; height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-            transition: left 0.5s ease;
-        }
-        
-        .btn:hover::before {
-            left: 100%;
-        }
-        
-        .btn-primary {
-            background: linear-gradient(135deg, #1e3a8a, #dc2626);
-            color: white;
-            box-shadow: 0 4px 15px rgba(30, 58, 138, 0.3);
-        }
-        
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(30, 58, 138, 0.4);
-        }
-        
-        .btn-secondary {
-            background: linear-gradient(135deg, #f1f5f9, #e2e8f0);
-            color: #1e3a8a;
-            box-shadow: 0 4px 15px rgba(203, 213, 225, 0.3);
-        }
-        
-        .btn-secondary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(203, 213, 225, 0.5);
-        }
-        
-        /* Progress section patriótica */
-        .progress-section {
-            background: linear-gradient(135deg, #f8fafc, #f1f5f9);
-            border-radius: 16px;
-            padding: 2rem;
-            margin-bottom: 2.5rem;
-            border: 1px solid #e2e8f0;
-        }
-        
-        .progress-bar {
-            width: 100%;
-            height: 12px;
-            background: #e2e8f0;
-            border-radius: 6px;
-            overflow: hidden;
-            margin-bottom: 2rem;
-            box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
-        }
-        
-        .progress-fill {
-            height: 100%;
-            background: linear-gradient(90deg, #1e3a8a, #dc2626);
-            width: 0%;
-            transition: width 1.5s cubic-bezier(0.4, 0, 0.2, 1);
-            border-radius: 6px;
-            position: relative;
-        }
-        
-        .progress-fill::after {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
-            animation: shimmer 2s ease-in-out infinite;
-        }
-        
-        @keyframes shimmer {
-            0% { transform: translateX(-100%); }
-            100% { transform: translateX(100%); }
-        }
-        
-        .badges {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-            flex-wrap: wrap;
-        }
-        
-        .badge {
-            background: white;
-            border: 2px solid #e2e8f0;
-            border-radius: 25px;
-            padding: 0.75rem 1.5rem;
-            font-size: 0.85em;
-            font-weight: 600;
-            color: #64748b;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        
-        .badge.earned {
-            background: linear-gradient(135deg, #1e3a8a, #dc2626);
-            color: white;
-            border-color: #1e3a8a;
-            transform: scale(1.05);
-            box-shadow: 0 8px 25px rgba(30, 58, 138, 0.3);
-        }
-        
-        /* Questions section */
-        .questions-section {
-            margin-bottom: 2.5rem;
-        }
-        
-        .question {
-            background: white;
-            border-radius: 16px;
-            padding: 2rem;
-            margin-bottom: 2rem;
-            border: 2px solid #f1f5f9;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(15, 23, 42, 0.05);
-        }
-        
-        .question:hover {
-            border-color: #e2e8f0;
-            box-shadow: 0 8px 25px rgba(15, 23, 42, 0.08);
-            transform: translateY(-2px);
-        }
-        
-        .question-text {
-            font-size: 1.15em;
-            font-weight: 600;
-            color: #1e293b;
-            margin-bottom: 1.5rem;
-        }
-        
-        .options {
-            display: grid;
-            gap: 1rem;
-        }
-        
-        .option {
-            display: flex;
-            align-items: center;
-            padding: 1rem 1.25rem;
-            background: linear-gradient(135deg, #f8fafc, #f1f5f9);
-            border: 2px solid #f1f5f9;
-            border-radius: 12px;
-            cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        
-        .option:hover {
-            border-color: #cbd5e1;
-            background: linear-gradient(135deg, #f1f5f9, #e2e8f0);
-            transform: translateX(4px);
-        }
-        
-        .option.selected {
-            border-color: #1e3a8a;
-            background: linear-gradient(135deg, rgba(30, 58, 138, 0.1), rgba(30, 58, 138, 0.05));
-            transform: translateX(8px);
-        }
-        
-        .option.correct-answer {
-            background: linear-gradient(135deg, rgba(30, 41, 59, 0.1), rgba(30, 41, 59, 0.05));
-            border-color: #1e293b;
-        }
-        
-        .option.wrong-answer {
-            background: linear-gradient(135deg, rgba(239, 68, 68, 0.1), rgba(239, 68, 68, 0.05));
-            border-color: #ef4444;
-        }
-        
-        .option input[type="radio"] {
-            margin-right: 1rem;
-            transform: scale(1.3);
-            accent-color: #1e3a8a;
-        }
-        
-        .option label {
-            font-weight: 500;
-            color: #374155;
-            cursor: pointer;
-            flex: 1;
-        }
-        
-        .controls {
-            display: flex;
-            justify-content: center;
-            gap: 1.5rem;
-            margin-bottom: 2.5rem;
-            flex-wrap: wrap;
-        }
-        
-        .score {
-            text-align: center;
-            background: linear-gradient(135deg, #1e3a8a, #dc2626);
-            color: white;
-            padding: 2rem;
-            border-radius: 16px;
-            font-size: 1.3em;
-            font-weight: 700;
-            margin-bottom: 2rem;
-            box-shadow: 0 15px 35px rgba(30, 58, 138, 0.3);
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .score::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.1) 50%, transparent 70%);
-            animation: scoreShimmer 3s ease-in-out infinite;
-        }
-        
-        @keyframes scoreShimmer {
-            0%, 100% { opacity: 0; }
-            50% { opacity: 1; }
-        }
-        
-        .feedback {
-            background: white;
-            border-radius: 16px;
-            padding: 2rem;
-            border: 2px solid #e2e8f0;
-            max-height: 450px;
-            overflow-y: auto;
-            box-shadow: 0 8px 25px rgba(15, 23, 42, 0.08);
-        }
-        
-        .back-to-hub {
-            background: linear-gradient(135deg, #6b7280, #4b5563);
-            color: white;
-            padding: 1rem 2rem;
-            border: none;
-            border-radius: 12px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            margin-bottom: 2rem;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.75rem;
-            box-shadow: 0 4px 15px rgba(107, 114, 128, 0.3);
-        }
-        
-        .back-to-hub:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(107, 114, 128, 0.4);
-        }
-        
-        /* Mobile responsiveness */
-        @media (max-width: 768px) {
-            .intermediate-hero {
-                padding: 2rem;
-                margin-bottom: 2rem;
-            }
-            
-            .intermediate-title {
-                font-size: 2.4em;
-            }
-            
-            .intermediate-stats {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 1rem;
-            }
-            
-            .lessons-section {
-                padding: 2rem;
-                margin-bottom: 2rem;
-            }
-            
-            .lessons-grid {
-                grid-template-columns: 1fr;
-                gap: 1.5rem;
-            }
-            
-            .lesson-card {
-                min-height: 200px;
-                padding: 1.5rem;
-            }
-            
-            .current-lesson {
-                padding: 2rem;
-                margin-bottom: 2rem;
-            }
-            
-            .current-lesson-header {
-                flex-direction: column;
-                gap: 1.5rem;
-                text-align: center;
-            }
-            
-            .current-lesson-title {
-                font-size: 1.8em;
-            }
-            
-            .controls {
-                flex-direction: column;
-                align-items: center;
-            }
-            
-            .play-buttons {
-                flex-direction: column;
-                align-items: center;
-                gap: 1rem;
-            }
-            
-            .speed-controls {
-                gap: 0.5rem;
-            }
-            
-            .btn {
-                min-width: 200px;
-            }
-        }
-    </style>
 </head>
-<body class="listening-page">
-    <!-- User Widget -->
-    <aside class="user-widget" aria-label="Informações do Usuário">
-        <div class="user-avatar" data-user-avatar>A</div>
-        <span class="user-name" data-user-name>Aluno</span>
-        <button class="logout-btn" onclick="logout()">🚪 Sair</button>
-    </aside>
-    
+<body>
+    <!-- User Widget - MESMO PADRÃO -->
+    <div class="user-widget">
+        <div class="user-avatar" id="userAvatar">A</div>
+        <span class="user-name" id="userName">Aluno</span>
+        <button class="logout-btn" onclick="logout()">Sair</button>
+    </div>
+
     <div class="container">
-        <!-- Back Navigation -->
-        <a href="../hubs/listening-hub.html" class="back-to-hub">
-            ← Voltar ao Hub Listening
+        <!-- Back Navigation - MESMO PADRÃO -->
+        <a href="../../index.html" class="back-button">
+            ← Voltar ao Dashboard
         </a>
         
-        <!-- Intermediate Hero -->
-        <section class="intermediate-hero">
-            <div class="hero-content">
-                <h1 class="intermediate-title">🎯 Intermediate Level</h1>
-                <p class="intermediate-subtitle">English Skill Builder • 3 Lições Avançadas</p>
-                
-                <div class="intermediate-stats">
-                    <div class="intermediate-stat">
-                        <span class="stat-number" data-completed>0/3</span>
-                        <span class="stat-label">Concluídas</span>
+        <!-- Header - MESMO PADRÃO DO GRADED-READERS -->
+        <header class="header">
+            <h1 class="logo">Teacher Alex <span class="logo-highlight">English Academy</span></h1>
+            <h2 class="hub-title">🎧 Listening Practice Hub</h2>
+            <p class="hub-subtitle">Desenvolva sua compreensão auditiva com diálogos autênticos e progressivos</p>
+        </header>
+
+        <!-- Foundation Level -->
+        <section class="level-section">
+            <div class="level-header">
+                <div class="level-badge">Foundation - A1</div>
+                <div class="level-info">
+                    <h2 class="level-title">Foundation Level</h2>
+                    <p class="level-description">Base sólida com vocabulário essencial e estruturas fundamentais para construir confiança auditiva</p>
+                </div>
+            </div>
+            
+            <div class="stories-grid">
+                <!-- Foundation Audio -->
+                <div class="story-card" onclick="navigateToStory('foundation')">
+                    <div class="story-header">
+                        <div class="story-icon">👋</div>
+                        <h3 class="story-title">Foundation Survival Kit</h3>
+                        <p class="story-description">Primeiras apresentações e vocabulário essencial</p>
                     </div>
-                    <div class="intermediate-stat">
-                        <span class="stat-number" data-average>0%</span>
-                        <span class="stat-label">Média</span>
+                    <div class="story-content">
+                        <ul class="story-features">
+                            <li>Vocabulário de sobrevivência</li>
+                            <li>Frases de emergência</li>
+                            <li>Conversas básicas do dia a dia</li>
+                            <li>Áudio IA de alta qualidade</li>
+                            <li>Sistema de badges motivador</li>
+                        </ul>
                     </div>
-                    <div class="intermediate-stat">
-                        <span class="stat-number" data-badges>0</span>
-                        <span class="stat-label">Badges</span>
+                    <div class="story-footer">
+                        <button class="story-button">Começar Foundation</button>
+                    </div>
+                    <div class="progress-badge" id="foundationProgress">✅ Disponível</div>
+                </div>
+
+                <!-- Daily Essentials -->
+                <div class="story-card coming-soon" onclick="showComingSoon('Daily Essentials')">
+                    <div class="story-header">
+                        <div class="story-icon">🏠</div>
+                        <h3 class="story-title">Daily Essentials</h3>
+                        <p class="story-description">Família, casa e rotina doméstica</p>
+                    </div>
+                    <div class="story-content">
+                        <ul class="story-features">
+                            <li>Membros da família</li>
+                            <li>Cômodos e objetos da casa</li>
+                            <li>Rotina diária básica</li>
+                            <li>Áudio IA naturalizado</li>
+                            <li>Situações do cotidiano</li>
+                        </ul>
+                    </div>
+                    <div class="story-footer">
+                        <button class="story-button" disabled>🚀 Em Breve</button>
+                    </div>
+                </div>
+
+                <!-- Emergency English -->
+                <div class="story-card coming-soon" onclick="showComingSoon('Emergency English')">
+                    <div class="story-header">
+                        <div class="story-icon">🚨</div>
+                        <h3 class="story-title">Emergency English</h3>
+                        <p class="story-description">Situações de emergência e ajuda</p>
+                    </div>
+                    <div class="story-content">
+                        <ul class="story-features">
+                            <li>Pedindo ajuda e direções</li>
+                            <li>Situações de emergência</li>
+                            <li>Frases de cortesia</li>
+                            <li>Áudio IA expressivo</li>
+                            <li>Vocabulário essencial</li>
+                        </ul>
+                    </div>
+                    <div class="story-footer">
+                        <button class="story-button" disabled>🚀 Em Breve</button>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Lessons Section -->
-        <div class="lessons-section">
-            <h2 class="section-title">⚡ Intermediate Lessons</h2>
-            
-            <div class="lessons-grid" id="lessonsGrid">
-                <!-- Lessons geradas dinamicamente -->
-            </div>
-        </div>
-        
-        <!-- Current Lesson Container -->
-        <div class="current-lesson" id="lessonContainer">
-            <div class="current-lesson-header">
-                <h2 class="current-lesson-title" id="lessonTitle">Advanced Conversations</h2>
-                <div class="lesson-number-display" id="lessonNumber">Lição 1</div>
-            </div>
-            
-            <div class="progress-section">
-                <div class="progress-bar">
-                    <div class="progress-fill" id="progressBar"></div>
-                </div>
-                
-                <div class="badges">
-                    <div class="badge" id="badge1">🎯 Primeira Tentativa</div>
-                    <div class="badge" id="badge2">⭐ Boa Pontuação</div>
-                    <div class="badge" id="badge3">🏆 Perfeito</div>
-                    <div class="badge" id="badge4">⚡ Intermediate Expert</div>
+        <!-- Beginner Level -->
+        <section class="level-section">
+            <div class="level-header">
+                <div class="level-badge">Beginner - A2</div>
+                <div class="level-info">
+                    <h2 class="level-title">Beginner Level</h2>
+                    <p class="level-description">Expanda seu vocabulário com diálogos mais longos e situações cotidianas reais</p>
                 </div>
             </div>
             
-            <div class="audio-section">
-                <h3 class="audio-title" id="audioTitle">🎧 Escute a Lição: Advanced Conversations</h3>
-                <audio id="mainAudio" controls>
-                    <source src="../../src/assets/audio/listening/audio7.mp3" type="audio/mpeg">
-                    Seu navegador não suporta o elemento de áudio.
-                </audio>
-                <div class="audio-controls">
-                    <div class="play-buttons">
-                        <button class="btn btn-primary" onclick="playAudio()">▶️ Reproduzir</button>
-                        <button class="btn btn-secondary" onclick="replayAudio()">🔄 Repetir</button>
-                        <button class="btn btn-primary" onclick="pauseAudio()">⏸️ Pausar</button>
+            <div class="stories-grid">
+                <!-- Personal Introduction -->
+                <div class="story-card" onclick="navigateToStory('beginner')">
+                    <div class="story-header">
+                        <div class="story-icon">🇺🇸</div>
+                        <h3 class="story-title">Personal Introduction</h3>
+                        <p class="story-description">Apresentações pessoais em contexto americano</p>
                     </div>
-                    <!-- SPEED CONTROLS - FEATURE REQUEST DOS ALUNOS -->
-                    <div class="speed-controls">
-                        <button class="speed-btn" data-speed="0.75">0.75x</button>
-                        <button class="speed-btn active" data-speed="1">1x</button>
-                        <button class="speed-btn" data-speed="1.25">1.25x</button>
-                        <button class="speed-btn" data-speed="1.5">1.5x</button>
-                        <button class="speed-btn" data-speed="2">2x</button>
+                    <div class="story-content">
+                        <ul class="story-features">
+                            <li>Conversas profissionais</li>
+                            <li>Networking e apresentações</li>
+                            <li>Cultura americana básica</li>
+                            <li>Áudio IA naturalizado</li>
+                            <li>Speed controls disponíveis</li>
+                        </ul>
                     </div>
+                    <div class="story-footer">
+                        <button class="story-button">Começar Beginner</button>
+                    </div>
+                    <div class="progress-badge" id="beginnerProgress">✅ Disponível</div>
                 </div>
-            </div>
-            
-            <div class="questions-section" id="questionsContainer"></div>
-            
-            <div class="controls">
-                <button class="btn btn-primary" onclick="checkAnswers()">✅ Verificar Respostas</button>
-                <button class="btn btn-secondary" onclick="resetQuiz()">🔄 Reiniciar Quiz</button>
-                <button class="btn btn-primary" onclick="nextLesson()">➡️ Próxima Lição</button>
-            </div>
-            
-            <div id="scoreSection" class="score" style="display: none;">
-                Sua Pontuação: <span id="scoreValue">0</span>/5 🎯
-            </div>
-            
-            <div id="feedback" class="feedback" style="display: none;"></div>
-        </div>
-    </div>
-    
-    <script>
-        // ===== AUTH SYSTEM =====
-        function checkLogin() {
-            if (sessionStorage.getItem('studentLoggedIn') !== 'true') {
-                window.location.href = '../auth/login.html';
-                return false;
-            }
-            return true;
-        }
 
-        function logout() {
-            sessionStorage.removeItem('studentLoggedIn');
-            sessionStorage.removeItem('studentUsername');
+                <!-- Travel & Transport -->
+                <div class="story-card coming-soon" onclick="showComingSoon('Travel & Transport')">
+                    <div class="story-header">
+                        <div class="story-icon">✈️</div>
+                        <h3 class="story-title">Travel & Transport</h3>
+                        <p class="story-description">Viagens, aeroportos e transporte público</p>
+                    </div>
+                    <div class="story-content">
+                        <ul class="story-features">
+                            <li>Check-in e aeroportos</li>
+                            <li>Transporte público</li>
+                            <li>Hotéis e reservas</li>
+                            <li>Áudio IA profissional</li>
+                            <li>Situações práticas</li>
+                        </ul>
+                    </div>
+                    <div class="story-footer">
+                        <button class="story-button" disabled>🚀 Em Breve</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Intermediate Level -->
+        <section class="level-section">
+            <div class="level-header">
+                <div class="level-badge">Intermediate - B1</div>
+                <div class="level-info">
+                    <h2 class="level-title">Intermediate Level</h2>
+                    <p class="level-description">Domine conversas complexas com múltiplos interlocutores e contextos variados</p>
+                </div>
+            </div>
+            
+            <div class="stories-grid">
+                <!-- Advanced Conversations -->
+                <div class="story-card" onclick="navigateToStory('intermediate')">
+                    <div class="story-header">
+                        <div class="story-icon">⚡</div>
+                        <h3 class="story-title">Advanced Conversations</h3>
+                        <p class="story-description">Conversas complexas e situações avançadas</p>
+                    </div>
+                    <div class="story-content">
+                        <ul class="story-features">
+                            <li>Diálogos profissionais complexos</li>
+                            <li>Networking e negociações</li>
+                            <li>Resolução de problemas</li>
+                            <li>Áudio IA avançado</li>
+                            <li>Speed controls disponíveis</li>
+                        </ul>
+                    </div>
+                    <div class="story-footer">
+                        <button class="story-button">Começar Intermediate</button>
+                    </div>
+                    <div class="progress-badge" id="intermediateProgress">✅ Disponível</div>
+                </div>
+
+                <!-- Work & Business -->
+                <div class="story-card coming-soon" onclick="showComingSoon('Work & Business')">
+                    <div class="story-header">
+                        <div class="story-icon">💼</div>
+                        <h3 class="story-title">Work & Business</h3>
+                        <p class="story-description">Ambiente profissional e entrevistas</p>
+                    </div>
+                    <div class="story-content">
+                        <ul class="story-features">
+                            <li>Entrevistas de emprego</li>
+                            <li>Reuniões de trabalho</li>
+                            <li>Apresentações profissionais</li>
+                            <li>Áudio IA corporativo</li>
+                            <li>Vocabulário técnico</li>
+                        </ul>
+                    </div>
+                    <div class="story-footer">
+                        <button class="story-button" disabled>🚀 Em Breve</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Advanced Level -->
+        <section class="level-section">
+            <div class="level-header">
+                <div class="level-badge">Advanced - B2</div>
+                <div class="level-info">
+                    <h2 class="level-title">Advanced Level</h2>
+                    <p class="level-description">Desafie-se com conteúdo nativo, gírias e expressões complexas em situações profissionais</p>
+                </div>
+            </div>
+            
+            <div class="stories-grid">
+                <!-- Real Estate & Moving -->
+                <div class="story-card coming-soon" onclick="showComingSoon('Real Estate & Moving')">
+                    <div class="story-header">
+                        <div class="story-icon">🏠</div>
+                        <h3 class="story-title">Real Estate & Moving</h3>
+                        <p class="story-description">Mudanças, imóveis e novos vizinhos</p>
+                    </div>
+                    <div class="story-content">
+                        <ul class="story-features">
+                            <li>Aluguel e compra de imóveis</li>
+                            <li>Empresas de mudança</li>
+                            <li>Integração em novos bairros</li>
+                            <li>Áudio IA nativo</li>
+                            <li>Expressões coloquiais</li>
+                        </ul>
+                    </div>
+                    <div class="story-footer">
+                        <button class="story-button" disabled>🚀 Em Breve</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Footer -->
+        <footer class="footer">
+            <h3>🎧 Listening Practice Hub</h3>
+            <p>Desenvolva sua compreensão auditiva com diálogos autênticos e progressivos</p>
+        </footer>
+    </div>
+
+    <script>
+        // ===== AUTH CHECK =====
+        if (sessionStorage.getItem('studentLoggedIn') !== 'true') {
             window.location.href = '../auth/login.html';
         }
 
-        function getStudentName() {
-            return sessionStorage.getItem('studentUsername') || 'Student';
-        }
-
-        // Immediate protection
-        if (!checkLogin()) {
-            document.body.innerHTML = '<div style="text-align:center;padding:50px;"><h1>Redirecionando...</h1></div>';
-            throw new Error('Access denied');
-        }
-
-        // ===== INTERMEDIATE PROGRESS SYSTEM =====
-        class IntermediateProgress {
-            constructor() {
-                this.studentId = sessionStorage.getItem('studentUsername') || 'student';
-                this.progressKey = `progress_${this.studentId}`;
-                this.loadProgress();
-            }
-
-            loadProgress() {
-                const saved = localStorage.getItem(this.progressKey);
-                if (saved) {
-                    this.data = JSON.parse(saved);
-                } else {
-                    this.data = {
-                        listening: { 
-                            levelsCompleted: [],
-                            currentLevel: 'intermediate',
-                            bestScores: {
-                                foundation: 0,
-                                beginner: 0,
-                                intermediate: 0,
-                                advanced: 0
-                            },
-                            intermediateLessons: {
-                                completed: [],
-                                scores: {}
-                            },
-                            badges: [] 
-                        },
-                        reading: { chaptersCompleted: [], bestScores: {}, badges: [] },
-                        globalBadges: [],
-                        totalStudyTime: 0
-                    };
-                }
-            }
-
-            saveProgress() { 
-                localStorage.setItem(this.progressKey, JSON.stringify(this.data));
-            }
-
-            completeIntermediateLesson(lessonNumber, score, timeSpent) {
-                const lesson = `intermediate_${lessonNumber}`;
-                if (!this.data.listening.intermediateLessons.completed.includes(lesson)) {
-                    this.data.listening.intermediateLessons.completed.push(lesson);
-                }
-                
-                this.data.listening.intermediateLessons.scores[lesson] = Math.max(
-                    this.data.listening.intermediateLessons.scores[lesson] || 0, 
-                    score
-                );
-                
-                this.data.totalStudyTime += timeSpent;
-                this.checkIntermediateBadges(lessonNumber, score);
-                
-                // Update overall intermediate level score
-                const allScores = Object.values(this.data.listening.intermediateLessons.scores);
-                if (allScores.length > 0) {
-                    this.data.listening.bestScores.intermediate = Math.round(
-                        allScores.reduce((a, b) => a + b, 0) / allScores.length * 20
-                    );
-                }
-                
-                // Mark intermediate as completed if all 3 lessons done
-                if (this.data.listening.intermediateLessons.completed.length === 3) {
-                    if (!this.data.listening.levelsCompleted.includes('intermediate')) {
-                        this.data.listening.levelsCompleted.push('intermediate');
-                    }
-                }
-                
-                this.saveProgress();
-                this.updateLessonCards();
-                this.updateProgressStats();
-            }
-
-            checkIntermediateBadges(lessonNumber, score) {
-                const badges = this.data.listening.badges;
-                
-                if (!badges.includes('intermediate_pioneer')) {
-                    badges.push('intermediate_pioneer');
-                    this.showBadgeNotification('⚡ Intermediate Pioneer!', 'Nível intermediário desbloqueado!');
-                }
-                
-                if (score === 5 && !badges.includes('intermediate_perfect')) {
-                    badges.push('intermediate_perfect');
-                    this.showBadgeNotification('🏆 Perfect Intermediate!', 'Pontuação perfeita avançada!');
-                }
-                
-                if (this.getIntermediateCompleted() >= 3 && !badges.includes('skill_builder')) {
-                    badges.push('skill_builder');
-                    this.showBadgeNotification('🎯 Skill Builder!', 'Intermediate completo!');
-                }
-            }
-
-            showBadgeNotification(title, message) {
-                const notification = document.createElement('div');
-                notification.style.cssText = `
-                    position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
-                    background: linear-gradient(135deg, #1e3a8a, #dc2626); 
-                    color: white; padding: 2.5rem 3rem; border-radius: 20px; z-index: 10000; 
-                    text-align: center; box-shadow: 0 25px 80px rgba(0,0,0,0.3); 
-                    backdrop-filter: blur(20px); border: 2px solid rgba(255,255,255,0.2);
-                    animation: badgeNotification 4s ease-in-out forwards;
-                `;
-                
-                notification.innerHTML = `
-                    <div style="font-size: 2em; font-weight: 800; margin-bottom: 0.75rem;">${title}</div>
-                    <div style="font-size: 1.2em; font-weight: 500; opacity: 0.9;">${message}</div>
-                `;
-                
-                document.body.appendChild(notification);
-                
-                setTimeout(() => { 
-                    if (document.body.contains(notification)) document.body.removeChild(notification);
-                }, 4000);
-            }
-
-            getIntermediateCompleted() {
-                return this.data.listening.intermediateLessons.completed.length;
-            }
-
-            getIntermediateStats() {
-                const completed = this.getIntermediateCompleted();
-                const scores = Object.values(this.data.listening.intermediateLessons.scores);
-                const average = scores.length > 0 ? Math.round(scores.reduce((a, b) => a + b, 0) / scores.length * 20) : 0;
-                const badges = this.data.listening.badges.length;
-
-                return { completed, average, badges };
-            }
-
-            updateProgressStats() {
-                const stats = this.getIntermediateStats();
-                document.querySelector('[data-completed]').textContent = `${stats.completed}/3`;
-                document.querySelector('[data-badges]').textContent = stats.badges;
-                document.querySelector('[data-average]').textContent = `${stats.average}%`;
-            }
-
-            updateLessonCards() {
-                createLessonCards();
-            }
-        }
-
-        // ===== INTERMEDIATE LESSONS DATA - CORRETO =====
-        const intermediateLessons = {
-            '1': { 
-                title: "Advanced Conversations", 
-                shortTitle: "Advanced Talk", 
-                icon: "⚡", 
-                audioUrl: "../../src/assets/audio/listening/audio7.mp3", 
-                description: "Conversas complexas e situações avançadas",
-                questions: { 
-                    q1: { text: "What is the main topic of the conversation?", options: ["Work problems", "Family issues", "Travel plans", "Career opportunities"], correct: "d" }, 
-                    q2: { text: "How does the speaker feel about the situation?", options: ["Excited", "Worried", "Confident", "Confused"], correct: "a" }, 
-                    q3: { text: "What decision needs to be made?", options: ["Where to live", "What job to take", "When to travel", "How to invest"], correct: "b" }, 
-                    q4: { text: "What factors are being considered?", options: ["Salary only", "Location only", "Work-life balance", "All aspects"], correct: "d" }, 
-                    q5: { text: "What is the speaker's conclusion?", options: ["Take time to decide", "Accept immediately", "Reject the offer", "Ask for more money"], correct: "a" } 
-                } 
-            },
-            '2': { 
-                title: "Professional Networking", 
-                shortTitle: "Networking", 
-                icon: "🤝", 
-                audioUrl: "../../src/assets/audio/listening/audio8.mp3", 
-                description: "Networking profissional e negócios",
-                questions: { 
-                    q1: { text: "What type of event is being described?", options: ["Social party", "Business conference", "Family gathering", "School reunion"], correct: "b" }, 
-                    q2: { text: "What is the speaker's main goal?", options: ["Make friends", "Find clients", "Learn skills", "Have fun"], correct: "b" }, 
-                    q3: { text: "How does the speaker approach networking?", options: ["Aggressively", "Naturally", "Shyly", "Professionally"], correct: "d" }, 
-                    q4: { text: "What strategy does the speaker recommend?", options: ["Talk to everyone", "Focus on quality connections", "Collect business cards", "Give presentations"], correct: "b" }, 
-                    q5: { text: "What is the key to successful networking?", options: ["Being pushy", "Giving value first", "Talking about yourself", "Selling immediately"], correct: "b" } 
-                } 
-            },
-            '3': { 
-                title: "Complex Problem Solving", 
-                shortTitle: "Problem Solving", 
-                icon: "🧠", 
-                audioUrl: "../../src/assets/audio/listening/audio9.mp3", 
-                description: "Resolução de problemas complexos",
-                questions: { 
-                    q1: { text: "What is the main problem being discussed?", options: ["Technical issue", "Management conflict", "Budget constraint", "Timeline pressure"], correct: "c" }, 
-                    q2: { text: "How many solutions are proposed?", options: ["One", "Two", "Three", "Four"], correct: "c" }, 
-                    q3: { text: "What is the preferred solution?", options: ["Cut costs", "Extend timeline", "Hybrid approach", "Cancel project"], correct: "c" }, 
-                    q4: { text: "What are the main concerns?", options: ["Quality", "Speed", "Cost", "All three"], correct: "d" }, 
-                    q5: { text: "What is the final decision?", options: ["Immediate action", "Further analysis", "Team meeting", "External consultation"], correct: "b" } 
-                } 
-            }
-        };
-        
-        let currentLesson = '1';
-        let attempts = 0;
-        let lessonStartTime = Date.now();
-        let studentProgress = new IntermediateProgress();
-        
-        // ===== SPEED CONTROLS - FEATURE REQUEST =====
-        function initSpeedControls() {
-            document.querySelectorAll('.speed-btn').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    const speed = parseFloat(this.dataset.speed);
-                    const audio = document.getElementById('mainAudio');
-                    audio.playbackRate = speed;
-                    
-                    // Update active state
-                    document.querySelectorAll('.speed-btn').forEach(b => b.classList.remove('active'));
-                    this.classList.add('active');
-                    
-                    console.log(`⚡ Velocidade alterada para: ${speed}x`);
-                });
-            });
-        }
-        
-        // ===== LESSON CARDS CREATION =====
-        function createLessonCards() {
-            const container = document.getElementById('lessonsGrid');
-            container.innerHTML = '';
-            
-            Object.keys(intermediateLessons).forEach(lessonId => {
-                const lesson = intermediateLessons[lessonId];
-                const isCompleted = studentProgress.data.listening.intermediateLessons.completed.includes(`intermediate_${lessonId}`);
-                const bestScore = studentProgress.data.listening.intermediateLessons.scores[`intermediate_${lessonId}`] || 0;
-                const isActive = lessonId === currentLesson;
-                
-                const card = document.createElement('div');
-                card.className = `lesson-card ${isActive ? 'active' : ''} ${isCompleted ? 'completed' : ''}`;
-                card.onclick = () => switchToLesson(lessonId);
-                
-                card.innerHTML = `
-                    <div class="lesson-header">
-                        <div class="lesson-icon">${lesson.icon}</div>
-                        <div class="lesson-number">${lessonId}</div>
-                    </div>
-                    <div class="lesson-title">${lesson.title}</div>
-                    <div class="lesson-description">${lesson.description}</div>
-                    ${isCompleted ? `<div class="completion-badge">${bestScore}</div>` : ''}
-                `;
-                
-                container.appendChild(card);
-            });
-        }
-        
-        function switchToLesson(lessonId) {
-            if (lessonId === currentLesson) return;
-            
-            currentLesson = lessonId;
-            loadLesson(currentLesson);
-            createLessonCards();
-        }
-        
-        // ===== LESSON LOADING =====
-        function loadLesson(lessonId) {
-            if (!intermediateLessons[lessonId]) return;
-            const lesson = intermediateLessons[lessonId];
-            
-            document.getElementById('lessonTitle').textContent = lesson.title;
-            document.getElementById('lessonNumber').textContent = `Lição ${lessonId}`;
-            document.getElementById('audioTitle').textContent = `🎧 Escute a Lição: ${lesson.title}`;
-            document.getElementById('mainAudio').src = lesson.audioUrl;
-            loadQuestions(lesson.questions);
-            resetQuiz();
-        }
-        
-        function loadQuestions(questions) {
-            const container = document.getElementById('questionsContainer');
-            container.innerHTML = '';
-            Object.keys(questions).forEach((key, index) => {
-                const q = questions[key];
-                const div = document.createElement('div');
-                div.className = 'question';
-                div.innerHTML = `
-                    <div class="question-text">${index + 1}. ${q.text}</div>
-                    <div class="options">
-                        ${q.options.map((opt, i) => `
-                            <div class="option" data-value="${String.fromCharCode(97 + i)}">
-                                <input type="radio" name="${key}" value="${String.fromCharCode(97 + i)}" id="${key}_${i}">
-                                <label for="${key}_${i}">${String.fromCharCode(97 + i).toUpperCase()}) ${opt}</label>
-                            </div>
-                        `).join('')}
-                    </div>
-                `;
-                container.appendChild(div);
-            });
-            addOptionEventListeners();
-        }
-        
-        function addOptionEventListeners() {
-            document.querySelectorAll('.option').forEach(option => {
-                option.addEventListener('click', function() {
-                    const radio = this.querySelector('input[type="radio"]');
-                    radio.checked = true;
-                    const name = radio.name;
-                    document.querySelectorAll(`input[name="${name}"]`).forEach(opt => {
-                        opt.closest('.option').classList.remove('selected');
-                    });
-                    this.classList.add('selected');
-                });
-            });
-        }
-        
-        // ===== AUDIO CONTROLS =====
-        function playAudio() { document.getElementById('mainAudio').play(); }
-        function replayAudio() { const audio = document.getElementById('mainAudio'); audio.currentTime = 0; audio.play(); }
-        function pauseAudio() { document.getElementById('mainAudio').pause(); }
-        
-        // ===== QUIZ FUNCTIONS =====
-        function checkAnswers() {
-            const lesson = intermediateLessons[currentLesson];
-            const questions = Object.keys(lesson.questions);
-            let score = 0;
-            let detailedResults = [];
-            attempts++;
-            
-            questions.forEach((key, index) => {
-                const selected = document.querySelector(`input[name="${key}"]:checked`);
-                const correct = lesson.questions[key].correct;
-                const allOptions = document.querySelectorAll(`input[name="${key}"]`);
-                
-                allOptions.forEach(opt => {
-                    opt.closest('.option').classList.remove('correct-answer', 'wrong-answer');
-                });
-                
-                const correctOption = document.querySelector(`input[name="${key}"][value="${correct}"]`);
-                correctOption.closest('.option').classList.add('correct-answer');
-                
-                if (selected && selected.value !== correct) {
-                    selected.closest('.option').classList.add('wrong-answer');
-                }
-                
-                const correctOptionText = lesson.questions[key].options[correct.charCodeAt(0) - 97];
-                const selectedOptionText = selected ? lesson.questions[key].options[selected.value.charCodeAt(0) - 97] : "Não respondida";
-                
-                if (selected && selected.value === correct) {
-                    score++;
-                    detailedResults.push(`✅ Questão ${index + 1}: CORRETO! 🎯`);
-                } else {
-                    detailedResults.push(`❌ Questão ${index + 1}: ${selectedOptionText} → Correto: ${correctOptionText}`);
-                }
-            });
-            
-            studentProgress.completeIntermediateLesson(currentLesson, score, Date.now() - lessonStartTime);
-            
-            document.getElementById('progressBar').style.width = (score / 5) * 100 + '%';
-            document.getElementById('scoreValue').textContent = score;
-            document.getElementById('scoreSection').style.display = 'block';
-            
-            if (attempts === 1) document.getElementById('badge1').classList.add('earned');
-            if (score >= 4) document.getElementById('badge2').classList.add('earned');
-            if (score === 5) document.getElementById('badge3').classList.add('earned');
-            if (score >= 4) document.getElementById('badge4').classList.add('earned');
-            
-            const feedback = document.getElementById('feedback');
-            let feedbackHeader = score === 5 ? 
-                '<div style="text-align: center; background: linear-gradient(135deg, #1e3a8a, #dc2626); color: white; padding: 2.5rem; border-radius: 16px; margin-bottom: 2rem; font-size: 1.3em; font-weight: 700; box-shadow: 0 15px 35px rgba(30, 58, 138, 0.3);">⚡ INTERMEDIATE PERFECT!</div>' :
-                score === 4 ? 
-                '<div style="text-align: center; background: linear-gradient(135deg, #1e293b, #334155); color: white; padding: 2.5rem; border-radius: 16px; margin-bottom: 2rem; font-size: 1.3em; font-weight: 700; box-shadow: 0 15px 35px rgba(30, 41, 59, 0.3);">🎯 EXCELLENT SKILLS!</div>' :
-                '<div style="text-align: center; background: linear-gradient(135deg, #6b7280, #4b5563); color: white; padding: 2.5rem; border-radius: 16px; margin-bottom: 2rem; font-size: 1.3em; font-weight: 700; box-shadow: 0 15px 35px rgba(107, 114, 128, 0.3);">💪 KEEP BUILDING!</div>';
-            
-            feedback.innerHTML = feedbackHeader + detailedResults.map(result => `<div style="margin: 1rem 0; padding: 1.25rem; background: linear-gradient(135deg, #f8fafc, #f1f5f9); border-radius: 12px; border-left: 4px solid #1e3a8a; font-weight: 500;">${result}</div>`).join('');
-            feedback.style.display = 'block';
-        }
-        
-        function resetQuiz() {
-            document.querySelectorAll('input[type="radio"]').forEach(radio => {
-                radio.checked = false;
-                const option = radio.closest('.option');
-                option.classList.remove('selected', 'correct-answer', 'wrong-answer');
-            });
-            
-            document.getElementById('scoreSection').style.display = 'none';
-            document.getElementById('feedback').style.display = 'none';
-            document.getElementById('progressBar').style.width = '0%';
-            
-            document.querySelectorAll('.badge').forEach(badge => {
-                badge.classList.remove('earned');
-            });
-            
-            attempts = 0;
-            lessonStartTime = Date.now();
-        }
-        
-        function nextLesson() {
-            const allLessons = ['1', '2', '3'];
-            const currentIndex = allLessons.indexOf(currentLesson);
-            
-            if (currentIndex < allLessons.length - 1) {
-                switchToLesson(allLessons[currentIndex + 1]);
-            } else {
-                setTimeout(() => {
-                    alert('⚡ Parabéns! Intermediate Level completo!\nAgora você pode partir para o Advanced Level! 🚀');
-                    window.location.href = '../hubs/listening-hub.html';
-                }, 500);
-            }
-        }
-        
         // ===== INITIALIZATION =====
-        document.addEventListener('DOMContentLoaded', function() {
-            const studentName = getStudentName();
-            
-            // Update user info
-            document.querySelector('[data-user-name]').textContent = 
-                studentName.charAt(0).toUpperCase() + studentName.slice(1).toLowerCase();
-            document.querySelector('[data-user-avatar]').textContent = studentName.charAt(0).toUpperCase();
-            
-            console.log('⚡ Intermediate Page - DESIGN PATRIÓTICO AVANÇADO');
-            console.log(`👤 Usuário: ${studentName}`);
-            console.log('🎯 3 lições Intermediate com áudios 7-9');
-            console.log('⚡ Speed controls implementados');
-            
-            createLessonCards();
-            loadLesson(currentLesson);
-            studentProgress.updateProgressStats();
-            initSpeedControls();
-        });
+        const studentName = sessionStorage.getItem('studentUsername') || 'Student';
+        
+        // Update UI
+        document.getElementById('userName').textContent = studentName;
+        document.getElementById('userAvatar').textContent = studentName.charAt(0).toUpperCase();
 
-        // Add keyframes for animations
-        const style = document.createElement('style');
-        style.textContent = `
-            @keyframes badgeNotification {
-                0% { opacity: 0; transform: translate(-50%, -50%) scale(0.8) rotate(-5deg); }
-                20% { opacity: 1; transform: translate(-50%, -50%) scale(1.1) rotate(2deg); }
-                80% { opacity: 1; transform: translate(-50%, -50%) scale(1) rotate(0deg); }
-                100% { opacity: 0; transform: translate(-50%, -50%) scale(0.9) rotate(-2deg); }
+        // ===== PROGRESS LOADING - BUG CORRIGIDO =====
+        function loadProgress() {
+            const progressKey = `progress_${studentName}`;
+            const saved = localStorage.getItem(progressKey);
+            
+            if (saved) {
+                try {
+                    const data = JSON.parse(saved);
+                    
+                    // Foundation progress - SAFE ACCESS
+                    const listening = data.listening || { lessonsCompleted: [] };
+                    const lessonsCompleted = listening.lessonsCompleted || [];
+                    const foundationCompleted = lessonsCompleted.filter(lesson => lesson.startsWith('foundation')).length;
+                    
+                    const foundationProgress = document.getElementById('foundationProgress');
+                    if (foundationCompleted === 0) {
+                        foundationProgress.textContent = '✅ Disponível';
+                    } else {
+                        foundationProgress.textContent = `${foundationCompleted} ✓`;
+                        foundationProgress.style.background = 'var(--success)';
+                        foundationProgress.style.color = 'white';
+                    }
+                    
+                    // Beginner progress - SAFE ACCESS
+                    const beginnerCompleted = lessonsCompleted.filter(lesson => lesson.startsWith('beginner')).length;
+                    
+                    const beginnerProgress = document.getElementById('beginnerProgress');
+                    if (beginnerProgress) {
+                        if (beginnerCompleted === 0) {
+                            beginnerProgress.textContent = '✅ Disponível';
+                        } else {
+                            beginnerProgress.textContent = `${beginnerCompleted} ✓`;
+                            beginnerProgress.style.background = 'var(--success)';
+                            beginnerProgress.style.color = 'white';
+                        }
+                    }
+                    
+                } catch (e) {
+                    console.error('Erro ao carregar progresso:', e);
+                }
             }
-        `;
-        document.head.appendChild(style);
+        }
 
-        console.log('🎨 INTERMEDIATE PAGE - TODOS OS PROBLEMAS CORRIGIDOS');
-        console.log('✅ Paths corretos: audio7-9, CSS externos, navegação funcional');
-        console.log('✅ Cores patrióticas: azul/vermelho elegante (não amarelo)');
-        console.log('✅ Speed controls: 0.75x → 2x implementados');
-        console.log('✅ Design consistency: mesmo nível de elegância foundation/beginner');
-        console.log('✅ Código otimizado: <800 linhas, mantém funcionalidade');
+        // ===== NAVIGATION - BEGINNER ADICIONADO =====
+        function navigateToStory(storyId) {
+            const card = event.currentTarget;
+            const button = card.querySelector('.story-button');
+            const originalText = button.textContent;
+            
+            // Loading state
+            button.textContent = 'Carregando...';
+            card.style.opacity = '0.7';
+            
+            setTimeout(() => {
+                if (storyId === 'foundation') {
+                    window.location.href = '../listening/foundation.html';
+                } else if (storyId === 'beginner') {
+                    window.location.href = '../listening/beginner.html';
+                } else if (storyId === 'intermediate') {
+                    window.location.href = '../listening/intermediate.html';
+                }
+            }, 500);
+        }
+
+        function showComingSoon(storyTitle) {
+            const messages = [
+                `🚀 "${storyTitle}" está em desenvolvimento!`,
+                `🎧 Em breve teremos este listening incrível!`,
+                `⭐ Continue praticando Foundation, Beginner e Intermediate enquanto preparamos "${storyTitle}"!`,
+                `🎯 Sua dedicação será recompensada quando "${storyTitle}" for lançada!`
+            ];
+            alert(messages[Math.floor(Math.random() * messages.length)]);
+        }
+
+        // ===== LOGOUT =====
+        function logout() {
+            sessionStorage.clear();
+            window.location.href = '../auth/login.html';
+        }
+
+        // ===== LOAD DATA =====
+        loadProgress();
+        
+        console.log('🎧 LISTENING HUB v3.0 - PADRÃO UNIVERSAL + 3 NÍVEIS FUNCIONANDO!');
+        console.log('👤 Usuário:', studentName);
+        console.log('✅ Visual CONSISTENTE com graded-readers-hub');
+        console.log('🎯 Cores: theme-patriot.css universal');
+        console.log('📁 Navegação funcionando:');
+        console.log('   → ../listening/foundation.html ✅');
+        console.log('   → ../listening/beginner.html ✅');
+        console.log('   → ../listening/intermediate.html ✅');
+        console.log('🐛 Bug lessonsCompleted undefined CORRIGIDO!');
     </script>
 </body>
 </html>
