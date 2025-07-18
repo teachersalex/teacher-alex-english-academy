@@ -125,140 +125,240 @@
             throw new Error('Access denied');
         }
 
-        // ===== PROGRESS SYSTEM - MESMO PADRÃO DOS OUTROS =====
-        class StudentProgress {
-            constructor() {
-                this.studentId = sessionStorage.getItem('studentUsername') || 'student';
-                this.progressKey = `progress_${this.studentId}`;
-                this.loadProgress();
-                this.ensureListeningStructure();
-            }
+        // ✅ =======================================================
+// ✅ CÓDIGO CORRIGIDO PARA O SCRIPT DO BEGINNER.HTML
+// ✅ =======================================================
 
-            loadProgress() {
-                const saved = localStorage.getItem(this.progressKey);
-                if (saved) {
-                    this.data = JSON.parse(saved);
-                } else {
-                    this.data = {
-                        listening: { lessonsCompleted: [], bestScores: {}, badges: [] },
-                        reading: { chaptersCompleted: [], bestScores: {}, badges: [] },
-                        roommate: { chaptersCompleted: [], bestScores: {}, badges: [] },
-                        neighbor: { chaptersCompleted: [], bestScores: {}, badges: [] },
-                        globalBadges: [], 
-                        totalStudyTime: 0
-                    };
-                }
-            }
+// ===== DADOS DA LIÇÃO (Nenhuma mudança aqui) =====
+const beginnerLessons = {
+    1: { 
+        title: "Personal Introduction", shortTitle: "Introduction", icon: "🇺🇸", 
+        audioUrl: "../../src/assets/audio/listening/audio4.mp3", 
+        description: "Apresentações pessoais em contexto americano",
+        questions: { 
+            q1: { text: "How do you introduce yourself professionally?", options: ["Hi, I'm...", "My name is...", "I am called...", "You can call me..."], correct: "b" }, 
+            q2: { text: "What do you say when meeting someone new?", options: ["How are you?", "Nice to meet you", "Good to see you", "What's up?"], correct: "b" }, 
+            q3: { text: "How do you ask about someone's job?", options: ["What do you do?", "Where do you work?", "What's your job?", "All answers"], correct: "d" }, 
+            q4: { text: "How do you respond to 'Where are you from?'", options: ["I live in...", "I'm from...", "I work in...", "I study in..."], correct: "b" }, 
+            q5: { text: "What's a polite way to end an introduction?", options: ["See you later", "Nice meeting you", "Goodbye", "Talk to you soon"], correct: "b" } 
+        } 
+    },
+    2: { 
+        title: "American Daily Routine", shortTitle: "Daily Life", icon: "⏰", 
+        audioUrl: "../../src/assets/audio/listening/audio5.mp3", 
+        description: "Rotina diária no contexto americano",
+        questions: { 
+            q1: { text: "What time do most Americans start work?", options: ["8:00 AM", "9:00 AM", "10:00 AM", "7:00 AM"], correct: "b" }, 
+            q2: { text: "What's a typical American breakfast?", options: ["Cereal and coffee", "Toast and tea", "Eggs and bacon", "All answers"], correct: "d" }, 
+            q3: { text: "When is lunch time in America?", options: ["11:00 AM", "12:00 PM", "1:00 PM", "2:00 PM"], correct: "b" }, 
+            q4: { text: "What do Americans say before eating?", options: ["Good appetite", "Enjoy your meal", "Let's eat", "Bon appétit"], correct: "b" }, 
+            q5: { text: "How do Americans typically end their day?", options: ["Early dinner and TV", "Late dinner and work", "Gym and socializing", "Depends on person"], correct: "d" } 
+        } 
+    },
+    3: { 
+        title: "American Culture & Small Talk", shortTitle: "Culture Talk", icon: "🗣️", 
+        audioUrl: "../../src/assets/audio/listening/audio6.mp3", 
+        description: "Conversas sociais e cultura americana",
+        questions: { 
+            q1: { text: "What's common small talk in America?", options: ["Weather", "Sports", "Work", "All answers"], correct: "d" }, 
+            q2: { text: "How do Americans typically greet friends?", options: ["Handshake", "Hug", "High five", "Depends on relationship"], correct: "d" }, 
+            q3: { text: "What's important in American culture?", options: ["Being on time", "Personal space", "Direct communication", "All answers"], correct: "d" }, 
+            q4: { text: "How do Americans show politeness?", options: ["Saying please/thank you", "Holding doors", "Apologizing when needed", "All answers"], correct: "d" }, 
+            q5: { text: "What topics should you avoid in small talk?", options: ["Weather", "Politics/religion", "Sports", "Movies"], correct: "b" } 
+        } 
+    }
+};
 
-            ensureListeningStructure() {
-                if (!this.data.listening) {
-                    this.data.listening = { lessonsCompleted: [], bestScores: {}, badges: [] };
-                }
-                this.saveProgress();
-            }
+// Variáveis de controle da página
+let currentLesson = 1;
+let attempts = 0;
+let lessonStartTime = Date.now();
+// ❌ A linha "studentProgress = new StudentProgress()" foi removida.
+// O objeto "studentProgress" será criado pelo sistema universal.
 
-            saveProgress() { 
-                localStorage.setItem(this.progressKey, JSON.stringify(this.data));
-                console.log(`💾 Progresso salvo para ${this.studentId}`);
-            }
+// ===== FUNÇÕES DA PÁGINA (A maioria sem mudanças) =====
 
-            completeListeningLesson(lessonNumber, score, timeSpent) {
-                const lesson = `beginner_lesson_${lessonNumber}`;
-                if (!this.data.listening.lessonsCompleted.includes(lesson)) {
-                    this.data.listening.lessonsCompleted.push(lesson);
-                }
-                this.data.listening.bestScores[lesson] = Math.max(
-                    this.data.listening.bestScores[lesson] || 0, score
-                );
-                this.data.totalStudyTime += timeSpent;
-                this.checkListeningBadges(lessonNumber, score);
-                this.saveProgress();
-                this.updateLessonCards();
-            }
+function createLessonCards() {
+    const cardsContainer = document.getElementById('lessonCards');
+    if (!cardsContainer || !window.studentProgress) return;
+    
+    cardsContainer.innerHTML = '';
+    
+    // Acessa os dados de progresso do objeto universal `window.studentProgress`
+    const progressData = window.studentProgress.data.listening;
 
-            checkListeningBadges(lessonNumber, score) {
-                const badges = this.data.listening.badges;
-                if (!badges.includes('beginner_pioneer')) {
-                    badges.push('beginner_pioneer');
-                    this.showBadgeNotification('🇺🇸 Beginner Pioneer!', 'Primeiro passo no nível intermediário!');
-                }
-                if (score === 5 && !badges.includes('perfect_beginner_lesson')) {
-                    badges.push('perfect_beginner_lesson');
-                    this.showBadgeNotification('🏆 Perfect Beginner!', 'Pontuação perfeita no nível A2!');
-                }
-                if (this.data.listening.lessonsCompleted.filter(l => l.startsWith('beginner')).length >= 3 && !badges.includes('beginner_master')) {
-                    badges.push('beginner_master');
-                    this.showBadgeNotification('⭐ Beginner Master!', 'Todas as lições Beginner completas!');
-                }
-            }
+    Object.keys(beginnerLessons).forEach(lessonKey => {
+        const lessonNumber = parseInt(lessonKey);
+        const lesson = beginnerLessons[lessonNumber];
+        
+        const lessonId = `beginner_lesson_${lessonNumber}`;
+        const isCompleted = progressData.lessonsCompleted.includes(lessonId);
+        const bestScore = progressData.bestScores[lessonId] || 0;
+        const isActive = lessonNumber === currentLesson;
+        
+        const card = document.createElement('div');
+        card.className = `chapter-card ${isActive ? 'current' : ''} ${isCompleted ? 'completed' : ''}`;
+        card.onclick = () => switchToLesson(lessonNumber);
+        
+        card.innerHTML = `
+            <div class="chapter-icon">${lesson.icon}</div>
+            <div class="chapter-info">
+                <div class="chapter-number">Lição ${lessonNumber}</div>
+                <div class="chapter-title">${lesson.shortTitle}</div>
+            </div>
+            ${isCompleted ? `<div class="chapter-status">${bestScore}/5</div>` : '<div class="chapter-status">Novo</div>'}
+        `;
+        cardsContainer.appendChild(card);
+    });
+}
 
-            showBadgeNotification(title, message) {
-                const notification = document.createElement('div');
-                notification.style.cssText = `
-                    position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
-                    background: linear-gradient(45deg, var(--blue-dark), var(--blue-medium)); color: white;
-                    padding: 25px 35px; border-radius: 20px; z-index: 10000; text-align: center;
-                    box-shadow: 0 15px 40px rgba(0,0,0,0.3); backdrop-filter: blur(10px);
-                `;
-                notification.innerHTML = `<div style="font-size: 1.8em; font-weight: bold; margin-bottom: 15px;">${title}</div><div style="font-size: 1.1em;">${message}</div>`;
-                document.body.appendChild(notification);
-                setTimeout(() => { 
-                    if (document.body.contains(notification)) document.body.removeChild(notification); 
-                }, 3000);
-            }
+function switchToLesson(lessonNumber) {
+    if (lessonNumber === currentLesson) return;
+    currentLesson = lessonNumber;
+    loadLesson(currentLesson);
+    createLessonCards();
+}
 
-            updateLessonCards() { 
-                createLessonCards(); 
+// ✅ FUNÇÃO CORRIGIDA
+function loadLesson(lessonNumber) {
+    // 1. Verificação de segurança (do script universal)
+    if (!ensureQuestionsLoad(beginnerLessons, lessonNumber)) {
+        alert('Erro ao carregar a lição. Por favor, recarregue a página.');
+        return;
+    }
+
+    const lesson = beginnerLessons[lessonNumber];
+    
+    document.getElementById('lessonTitle').textContent = lesson.title;
+    document.getElementById('lessonSubtitle').textContent = `Lição ${lessonNumber} - ${lesson.description}`;
+    document.getElementById('audioTitle').textContent = `🎧 Escute a Lição: ${lesson.title}`;
+    document.getElementById('mainAudio').src = lesson.audioUrl;
+    
+    // 2. Chamada para carregar as questões
+    loadQuestions(lesson.questions);
+    resetQuiz();
+}
+
+function loadQuestions(questions) {
+    const container = document.getElementById('questionsContainer');
+    container.innerHTML = '';
+    Object.keys(questions).forEach((key, index) => {
+        const q = questions[key];
+        const div = document.createElement('div');
+        div.className = 'question';
+        div.innerHTML = `
+            <div class="question-text">${index + 1}. ${q.text}</div>
+            <div class="options">
+                ${q.options.map((opt, i) => `
+                    <div class="option" data-value="${String.fromCharCode(97 + i)}">
+                        <input type="radio" name="${key}" value="${String.fromCharCode(97 + i)}" id="${key}_${i}">
+                        <label for="${key}_${i}">${String.fromCharCode(97 + i).toUpperCase()}) ${opt}</label>
+                    </div>
+                `).join('')}
+            </div>
+        `;
+        container.appendChild(div);
+    });
+    addOptionEventListeners();
+}
+
+function addOptionEventListeners() {
+    document.querySelectorAll('.option').forEach(option => {
+        option.addEventListener('click', function() {
+            const radio = this.querySelector('input[type="radio"]');
+            radio.checked = true;
+            const name = radio.name;
+            document.querySelectorAll(`input[name="${name}"]`).forEach(opt => {
+                opt.closest('.option').classList.remove('selected');
+            });
+            this.classList.add('selected');
+        });
+    });
+}
+
+function playAudio() { document.getElementById('mainAudio').play(); }
+function replayAudio() { const audio = document.getElementById('mainAudio'); audio.currentTime = 0; audio.play(); }
+function pauseAudio() { document.getElementById('mainAudio').pause(); }
+
+// ✅ FUNÇÃO CORRIGIDA
+function checkAnswers() {
+    const lesson = beginnerLessons[currentLesson];
+    const questions = Object.keys(lesson.questions);
+    let score = 0;
+    attempts++;
+    
+    questions.forEach((key) => {
+        const selected = document.querySelector(`input[name="${key}"]:checked`);
+        const correct = lesson.questions[key].correct;
+        
+        // ... (lógica de verificação visual é a mesma)
+        const correctOption = document.querySelector(`input[name="${key}"][value="${correct}"]`);
+        correctOption.closest('.option').classList.add('correct-answer');
+        
+        if (selected) {
+            if (selected.value === correct) {
+                score++;
+            } else {
+                selected.closest('.option').classList.add('wrong-answer');
             }
         }
+    });
+    
+    // 🔥 AQUI ESTÁ A MUDANÇA PRINCIPAL: Usando o sistema universal para salvar
+    const timeSpent = Date.now() - lessonStartTime;
+    window.studentProgress.completeListeningLesson('beginner', currentLesson, score, timeSpent);
+    
+    // Atualiza a UI (sem mudanças aqui)
+    document.getElementById('scoreValue').textContent = score;
+    document.getElementById('scoreSection').style.display = 'block';
+    
+    // Atualiza os cards para mostrar a nova pontuação
+    createLessonCards(); 
+}
 
-        // ===== BEGINNER LESSONS DATA =====
-        const beginnerLessons = {
-            1: { 
-                title: "Personal Introduction", 
-                shortTitle: "Introduction", 
-                icon: "🇺🇸", 
-                audioUrl: "../../src/assets/audio/listening/audio4.mp3", 
-                description: "Apresentações pessoais em contexto americano",
-                questions: { 
-                    q1: { text: "How do you introduce yourself professionally?", options: ["Hi, I'm...", "My name is...", "I am called...", "You can call me..."], correct: "b" }, 
-                    q2: { text: "What do you say when meeting someone new?", options: ["How are you?", "Nice to meet you", "Good to see you", "What's up?"], correct: "b" }, 
-                    q3: { text: "How do you ask about someone's job?", options: ["What do you do?", "Where do you work?", "What's your job?", "All answers"], correct: "d" }, 
-                    q4: { text: "How do you respond to 'Where are you from?'", options: ["I live in...", "I'm from...", "I work in...", "I study in..."], correct: "b" }, 
-                    q5: { text: "What's a polite way to end an introduction?", options: ["See you later", "Nice meeting you", "Goodbye", "Talk to you soon"], correct: "b" } 
-                } 
-            },
-            2: { 
-                title: "American Daily Routine", 
-                shortTitle: "Daily Life", 
-                icon: "⏰", 
-                audioUrl: "../../src/assets/audio/listening/audio5.mp3", 
-                description: "Rotina diária no contexto americano",
-                questions: { 
-                    q1: { text: "What time do most Americans start work?", options: ["8:00 AM", "9:00 AM", "10:00 AM", "7:00 AM"], correct: "b" }, 
-                    q2: { text: "What's a typical American breakfast?", options: ["Cereal and coffee", "Toast and tea", "Eggs and bacon", "All answers"], correct: "d" }, 
-                    q3: { text: "When is lunch time in America?", options: ["11:00 AM", "12:00 PM", "1:00 PM", "2:00 PM"], correct: "b" }, 
-                    q4: { text: "What do Americans say before eating?", options: ["Good appetite", "Enjoy your meal", "Let's eat", "Bon appétit"], correct: "b" }, 
-                    q5: { text: "How do Americans typically end their day?", options: ["Early dinner and TV", "Late dinner and work", "Gym and socializing", "Depends on person"], correct: "d" } 
-                } 
-            },
-            3: { 
-                title: "American Culture & Small Talk", 
-                shortTitle: "Culture Talk", 
-                icon: "🗣️", 
-                audioUrl: "../../src/assets/audio/listening/audio6.mp3", 
-                description: "Conversas sociais e cultura americana",
-                questions: { 
-                    q1: { text: "What's common small talk in America?", options: ["Weather", "Sports", "Work", "All answers"], correct: "d" }, 
-                    q2: { text: "How do Americans typically greet friends?", options: ["Handshake", "Hug", "High five", "Depends on relationship"], correct: "d" }, 
-                    q3: { text: "What's important in American culture?", options: ["Being on time", "Personal space", "Direct communication", "All answers"], correct: "d" }, 
-                    q4: { text: "How do Americans show politeness?", options: ["Saying please/thank you", "Holding doors", "Apologizing when needed", "All answers"], correct: "d" }, 
-                    q5: { text: "What topics should you avoid in small talk?", options: ["Weather", "Politics/religion", "Sports", "Movies"], correct: "b" } 
-                } 
-            }
-        };
-        
-        let currentLesson = 1, attempts = 0, lessonStartTime = Date.now(), studentProgress = new StudentProgress();
+function resetQuiz() {
+    // ... (função resetQuiz sem mudanças)
+    document.querySelectorAll('input[type="radio"]').forEach(radio => {
+        radio.checked = false;
+        radio.closest('.option').classList.remove('selected', 'correct-answer', 'wrong-answer');
+    });
+    document.getElementById('scoreSection').style.display = 'none';
+    document.getElementById('feedback')?.style.display = 'none';
+    attempts = 0;
+    lessonStartTime = Date.now();
+}
+
+function nextLesson() {
+    if (currentLesson < Object.keys(beginnerLessons).length) {
+        switchToLesson(currentLesson + 1);
+    } else {
+        alert('🇺🇸 Parabéns! Beginner Level completo! 🚀');
+        window.location.href = '../hubs/listening-hub.html';
+    }
+}
+
+function logout() {
+    sessionStorage.clear();
+    window.location.href = '../../index.html';
+}
+
+// ===== INICIALIZAÇÃO DA PÁGINA =====
+// ✅ UNIFICADO E CORRIGIDO
+document.addEventListener('DOMContentLoaded', function() {
+    // 1. Iniciar o sistema universal. Ele cuida do login e do progresso.
+    const initialized = initializeUniversalListening('beginner', beginnerLessons);
+    if (!initialized) {
+        // A própria função já redireciona se não estiver logado,
+        // mas isso previne erros caso ela falhe por outro motivo.
+        console.error("Falha na inicialização do sistema universal. A página pode não funcionar.");
+        return; 
+    }
+    
+    // 2. O resto da inicialização da página
+    console.log("Sistema universal carregado. Iniciando a página Beginner Level...");
+    createLessonCards();
+    loadLesson(currentLesson);
+});
         
         // ❌ FUNÇÃO initSpeedControls() REMOVIDA! (Agora é automática via script)
         
