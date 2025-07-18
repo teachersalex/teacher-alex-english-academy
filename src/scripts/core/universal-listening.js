@@ -1,11 +1,11 @@
-// ===== UNIVERSAL LISTENING SYSTEM - VERSÃO CORRIGIDA =====
+// ===== UNIVERSAL LISTENING SYSTEM - VERSÃO FINAL CORRIGIDA =====
 // 📁 Arquivo: src/scripts/core/universal-listening.js
-// 🔧 SOLUÇÕES: Timing fix + Questões garantidas + Debug melhorado
+// 🔧 FIXES: Timing + Questões garantidas + Anti-travamento + Debug
 
 (function() {
     'use strict';
     
-    console.log('🎓 Universal Listening System v2.0 carregando...');
+    console.log('🎓 Universal Listening System v2.1 carregando...');
     
     // ===== UNIVERSAL PROGRESS SYSTEM =====
     class UniversalStudentProgress {
@@ -242,28 +242,7 @@
         
         if (!questionsData) {
             console.error('❌ ERRO: Dados de questões não encontrados!');
-            console.log('🔍 Tentando detectar questões globais...');
-            
-            // 🔧 TENTATIVA DE RECUPERAÇÃO
-            const globalQuestions = [
-                'foundationLessons', 
-                'beginnerLessons', 
-                'intermediateLessons', 
-                'advancedLessons'
-            ];
-            
-            for (const varName of globalQuestions) {
-                if (window[varName]) {
-                    console.log(`✅ Questões encontradas em: ${varName}`);
-                    questionsData = window[varName];
-                    break;
-                }
-            }
-            
-            if (!questionsData) {
-                console.error('❌ ERRO CRÍTICO: Nenhuma questão encontrada!');
-                return false;
-            }
+            return false;
         }
         
         if (!questionsData[currentLesson]) {
@@ -282,7 +261,7 @@
     }
 
     // ===== 🔧 INICIALIZAR SISTEMA - MELHORADO =====
-    function initializeUniversalListening(levelName, questionsData = null) {
+    function initializeUniversalListening(levelName) {
         console.log(`🎧 Inicializando sistema para: ${levelName}`);
         
         // 1. Verificar login
@@ -292,43 +271,15 @@
             return false;
         }
         
-        // 2. Criar sistema de progresso
+        // 2. Criar sistema de progresso SE NÃO EXISTIR
         if (!window.studentProgress) {
             window.studentProgress = new UniversalStudentProgress();
+            console.log('✅ Sistema de progresso criado');
+        } else {
+            console.log('✅ Sistema de progresso já existe');
         }
         
-        // 3. 🔧 BUSCAR QUESTÕES SE NÃO FORNECIDAS
-        if (!questionsData) {
-            console.log('⏳ Questões não fornecidas, buscando automaticamente...');
-            const possibleVars = [
-                'foundationLessons', 
-                'beginnerLessons', 
-                'intermediateLessons', 
-                'advancedLessons'
-            ];
-            
-            for (const varName of possibleVars) {
-                if (window[varName]) {
-                    questionsData = window[varName];
-                    console.log(`✅ Questões encontradas: ${varName}`);
-                    break;
-                }
-            }
-        }
-        
-        // 4. Verificar questões
-        if (!questionsData) {
-            console.error('❌ ERRO: Sem dados de questões!');
-            
-            // 🔧 RETRY COM DELAY
-            setTimeout(() => {
-                console.log('🔄 Tentativa de retry...');
-                initializeUniversalListening(levelName, null);
-            }, 1000);
-            return false;
-        }
-        
-        // 5. Atualizar info do usuário
+        // 3. Atualizar info do usuário
         const studentName = sessionStorage.getItem('studentUsername') || 'Student';
         const userNameEl = document.getElementById('userName') || document.querySelector('[data-user-name]');
         const userAvatarEl = document.getElementById('userAvatar') || document.querySelector('[data-user-avatar]');
@@ -342,12 +293,11 @@
         
         console.log(`✅ Sistema inicializado para ${levelName}`);
         console.log(`👤 Aluno: ${studentName}`);
-        console.log(`📊 Questões: ${Object.keys(questionsData).length} lições`);
         
         return true;
     }
 
-    // ===== 🔧 AUTO-INICIALIZAÇÃO - MELHORADA =====
+    // ===== 🔧 AUTO-INICIALIZAÇÃO INTELIGENTE =====
     function smartAutoStart() {
         // Detecta qual página está carregando
         const path = window.location.pathname;
@@ -357,81 +307,29 @@
         else if (path.includes('beginner.html')) levelName = 'beginner';
         else if (path.includes('intermediate.html')) levelName = 'intermediate';
         else if (path.includes('advanced.html')) levelName = 'advanced';
+        else if (path.includes('listening-hub.html')) levelName = 'hub';
         
         console.log(`🔍 Página detectada: ${levelName} (${path})`);
         
-        // Só inicializa em páginas listening
+        // Só inicializa em páginas listening ou hub
         if (levelName === 'unknown') {
-            console.log('❌ Não é uma página de listening, saindo...');
+            console.log('ℹ️ Não é uma página de listening, sistema não será iniciado');
             return;
         }
         
-        // 🔧 SISTEMA DE RETRY INTELIGENTE
-        let attempts = 0;
-        const maxAttempts = 5;
+        // Inicializa sistema
+        const success = initializeUniversalListening(levelName);
         
-        function tryInitialization() {
-            attempts++;
-            console.log(`🔄 Tentativa ${attempts}/${maxAttempts} de inicialização...`);
+        if (success) {
+            console.log('🎉 Sistema universal inicializado!');
             
-            // Busca dados de questões
-            const possibleQuestionsVars = [
-                'foundationLessons', 
-                'beginnerLessons', 
-                'intermediateLessons', 
-                'advancedLessons'
-            ];
-            
-            let questionsData = null;
-            for (const varName of possibleQuestionsVars) {
-                if (window[varName]) {
-                    questionsData = window[varName];
-                    console.log(`✅ Questões encontradas: ${varName}`);
-                    break;
-                }
-            }
-            
-            if (questionsData) {
-                // ✅ SUCESSO
-                console.log('🎯 Inicializando sistema...');
-                const success = initializeUniversalListening(levelName, questionsData);
-                
-                if (success) {
-                    console.log('🎉 Sistema inicializado com sucesso!');
-                    
-                    // Dispara evento de sistema pronto
-                    window.dispatchEvent(new CustomEvent('universalListeningReady', {
-                        detail: { level: levelName, questions: questionsData }
-                    }));
-                } else {
-                    console.error('❌ Falha na inicialização');
-                }
-            } else {
-                // ❌ RETRY
-                if (attempts < maxAttempts) {
-                    console.log(`⏳ Questões não encontradas, retry em ${attempts * 500}ms...`);
-                    setTimeout(tryInitialization, attempts * 500);
-                } else {
-                    console.error('❌ ERRO: Questões não encontradas após todas as tentativas!');
-                    
-                    // 🔧 FALLBACK: Tentar forçar carregamento
-                    setTimeout(() => {
-                        const stillNoQuestions = !window.foundationLessons && !window.beginnerLessons && 
-                                                !window.intermediateLessons && !window.advancedLessons;
-                        
-                        if (stillNoQuestions) {
-                            alert('⚠️ Erro ao carregar as questões.\n\nPor favor, recarregue a página.\n\nSe o problema persistir, limpe o cache do navegador.');
-                        } else {
-                            console.log('🔄 Questões carregadas tardiamente, tentando novamente...');
-                            tryInitialization();
-                        }
-                    }, 2000);
-                }
-            }
+            // Dispara evento de sistema pronto
+            window.dispatchEvent(new CustomEvent('universalListeningReady', {
+                detail: { level: levelName }
+            }));
+        } else {
+            console.error('❌ Falha na inicialização do sistema');
         }
-        
-        // Inicia tentativas
-        tryInitialization();
     }
 
     // ===== FUNÇÕES GLOBAIS =====
@@ -476,21 +374,26 @@
     `;
     document.head.appendChild(style);
     
-    // ===== 🔧 INICIAR AUTOMATICAMENTE - MELHORADO =====
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', () => {
-            console.log('📄 DOM carregado, aguardando scripts...');
-            setTimeout(smartAutoStart, 100); // Pequeno delay para garantir carregamento
-        });
-    } else {
-        console.log('📄 DOM já pronto, iniciando...');
-        setTimeout(smartAutoStart, 100);
+    // ===== 🔧 INICIAR AUTOMATICAMENTE - OTIMIZADO =====
+    function startWhenReady() {
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', () => {
+                console.log('📄 DOM carregado, iniciando sistema...');
+                setTimeout(smartAutoStart, 100);
+            });
+        } else {
+            console.log('📄 DOM já pronto, iniciando sistema...');
+            setTimeout(smartAutoStart, 100);
+        }
     }
     
-    console.log('🎓 Universal Listening System v2.0 carregado!');
-    console.log('🔧 Sistema de retry inteligente ativo');
+    // Inicia quando script carrega
+    startWhenReady();
+    
+    console.log('🎓 Universal Listening System v2.1 carregado!');
+    console.log('🔧 Fixes aplicados: Timing + Anti-travamento + Fallbacks');
     console.log('💾 Sistema de progresso unificado');
     console.log('🎯 Debug: use debugListening() no console');
-    console.log('🔄 Retry manual: use retryListeningSystem() no console');
+    console.log('🔄 Retry: use retryListeningSystem() no console');
     
 })();
