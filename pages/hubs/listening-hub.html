@@ -9,9 +9,6 @@
     <link rel="stylesheet" href="../../src/styles/base.css">
     <link rel="stylesheet" href="../../src/styles/layout.css">
     <link rel="stylesheet" href="../../src/styles/theme-patriot.css">
-
-    <!-- ✨ Navigation Fix Universal -->
-    <script src="../../src/scripts/core/navigation-fix.js"></script>
 </head>
 <body>
     <!-- User Widget -->
@@ -287,70 +284,32 @@
     </div>
 
     <script>
-        // ===== AUTH & BASIC SETUP =====
+        // ===== AUTH =====
         if (sessionStorage.getItem('studentLoggedIn') !== 'true') {
             window.location.href = '../auth/login.html';
         }
 
-        const studentName = sessionStorage.getItem('studentUsername') || 'Student';
-        document.getElementById('userName').textContent = studentName;
-        document.getElementById('userAvatar').textContent = studentName.charAt(0).toUpperCase();
+        function logout() {
+            sessionStorage.clear();
+            window.location.href = '../auth/login.html';
+        }
 
-        // ===== PROGRESS LOADING =====
-        function loadProgress() {
-            const progressKey = `progress_${studentName}`;
-            const saved = localStorage.getItem(progressKey);
+        // ===== NAVEGAÇÃO LIMPA (SEM TRAVAMENTO) =====
+        function navigateToStory(storyId) {
+            const routes = {
+                'foundation': '../listening/foundation.html',
+                'beginner': '../listening/beginner.html',
+                'intermediate': '../listening/intermediate.html',
+                'advanced': '../listening/advanced.html'
+            };
             
-            if (saved) {
-                try {
-                    const data = JSON.parse(saved);
-                    const listening = data.listening || { lessonsCompleted: [] };
-                    const lessonsCompleted = listening.lessonsCompleted || [];
-                    
-                    // Foundation
-                    const foundationCompleted = lessonsCompleted.filter(lesson => lesson.startsWith('foundation')).length;
-                    const foundationProgress = document.getElementById('foundationProgress');
-                    foundationProgress.textContent = foundationCompleted === 0 ? '✅ Disponível' : `${foundationCompleted}/3 ✓`;
-                    if (foundationCompleted > 0) {
-                        foundationProgress.style.background = 'var(--success)';
-                        foundationProgress.style.color = 'white';
-                    }
-                    
-                    // Beginner
-                    const beginnerCompleted = lessonsCompleted.filter(lesson => lesson.startsWith('beginner')).length;
-                    const beginnerProgress = document.getElementById('beginnerProgress');
-                    beginnerProgress.textContent = beginnerCompleted === 0 ? '✅ Disponível' : `${beginnerCompleted}/3 ✓`;
-                    if (beginnerCompleted > 0) {
-                        beginnerProgress.style.background = 'var(--success)';
-                        beginnerProgress.style.color = 'white';
-                    }
-                    
-                    // Intermediate
-                    const intermediateCompleted = lessonsCompleted.filter(lesson => lesson.startsWith('intermediate')).length;
-                    const intermediateProgress = document.getElementById('intermediateProgress');
-                    intermediateProgress.textContent = intermediateCompleted === 0 ? '✅ Disponível' : `${intermediateCompleted}/3 ✓`;
-                    if (intermediateCompleted > 0) {
-                        intermediateProgress.style.background = 'var(--success)';
-                        intermediateProgress.style.color = 'white';
-                    }
-                    
-                    // Advanced
-                    const advancedLessons = data.listening.advancedLessons || { completed: [] };
-                    const advancedCompleted = advancedLessons.completed.length;
-                    const advancedProgress = document.getElementById('advancedProgress');
-                    advancedProgress.textContent = advancedCompleted === 0 ? '✅ Disponível' : `${advancedCompleted}/2 ✓`;
-                    if (advancedCompleted > 0) {
-                        advancedProgress.style.background = 'var(--success)';
-                        advancedProgress.style.color = 'white';
-                    }
-                    
-                } catch (e) {
-                    console.error('Erro ao carregar progresso:', e);
-                }
+            if (routes[storyId]) {
+                window.location.href = routes[storyId];
+            } else {
+                showComingSoon(storyId);
             }
         }
 
-        // ===== UTILITY FUNCTIONS =====
         function showComingSoon(storyTitle) {
             const messages = [
                 `🚀 "${storyTitle}" está em desenvolvimento!`,
@@ -361,17 +320,85 @@
             alert(messages[Math.floor(Math.random() * messages.length)]);
         }
 
-        function logout() {
-            sessionStorage.clear();
-            window.location.href = '../auth/login.html';
+        // ===== PROGRESS LOADING =====
+        function loadProgress() {
+            const studentName = sessionStorage.getItem('studentUsername') || 'Student';
+            const progressKey = `progress_${studentName}`;
+            const saved = localStorage.getItem(progressKey);
+            
+            if (!saved) return;
+            
+            try {
+                const data = JSON.parse(saved);
+                const listening = data.listening || { lessonsCompleted: [] };
+                const lessonsCompleted = listening.lessonsCompleted || [];
+                
+                // Foundation
+                const foundationCompleted = lessonsCompleted.filter(lesson => lesson.startsWith('foundation')).length;
+                const foundationProgress = document.getElementById('foundationProgress');
+                foundationProgress.textContent = foundationCompleted === 0 ? '✅ Disponível' : `${foundationCompleted}/3 ✓`;
+                if (foundationCompleted > 0) {
+                    foundationProgress.style.background = 'var(--success)';
+                    foundationProgress.style.color = 'white';
+                }
+                
+                // Beginner
+                const beginnerCompleted = lessonsCompleted.filter(lesson => lesson.startsWith('beginner')).length;
+                const beginnerProgress = document.getElementById('beginnerProgress');
+                beginnerProgress.textContent = beginnerCompleted === 0 ? '✅ Disponível' : `${beginnerCompleted}/3 ✓`;
+                if (beginnerCompleted > 0) {
+                    beginnerProgress.style.background = 'var(--success)';
+                    beginnerProgress.style.color = 'white';
+                }
+                
+                // Intermediate
+                const intermediateCompleted = lessonsCompleted.filter(lesson => lesson.startsWith('intermediate')).length;
+                const intermediateProgress = document.getElementById('intermediateProgress');
+                intermediateProgress.textContent = intermediateCompleted === 0 ? '✅ Disponível' : `${intermediateCompleted}/3 ✓`;
+                if (intermediateCompleted > 0) {
+                    intermediateProgress.style.background = 'var(--success)';
+                    intermediateProgress.style.color = 'white';
+                }
+                
+                // Advanced
+                const advancedLessons = data.listening.advancedLessons || { completed: [] };
+                const advancedCompleted = advancedLessons.completed.length;
+                const advancedProgress = document.getElementById('advancedProgress');
+                advancedProgress.textContent = advancedCompleted === 0 ? '✅ Disponível' : `${advancedCompleted}/2 ✓`;
+                if (advancedCompleted > 0) {
+                    advancedProgress.style.background = 'var(--success)';
+                    advancedProgress.style.color = 'white';
+                }
+                
+            } catch (e) {
+                console.error('Erro ao carregar progresso:', e);
+            }
         }
 
         // ===== INITIALIZATION =====
-        loadProgress();
-        
-        console.log('🎧 Listening Hub v5.0 - CÓDIGO LIMPO!');
-        console.log('👤 Usuário:', studentName);
-        console.log('✨ Navigation Fix Universal ativo');
+        function initializeHub() {
+            const studentName = sessionStorage.getItem('studentUsername') || 'Student';
+            
+            // Update user info
+            document.getElementById('userName').textContent = studentName;
+            document.getElementById('userAvatar').textContent = studentName.charAt(0).toUpperCase();
+            
+            // Load progress
+            loadProgress();
+            
+            console.log('🎧 Listening Hub inicializado');
+            console.log('👤 Usuário:', studentName);
+        }
+
+        // ===== START =====
+        document.addEventListener('DOMContentLoaded', initializeHub);
+
+        // Backup for already loaded DOM
+        if (document.readyState !== 'loading') {
+            setTimeout(initializeHub, 50);
+        }
+
+        console.log('🎧 Listening Hub script carregado!');
     </script>
 </body>
 </html>
