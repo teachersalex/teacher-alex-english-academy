@@ -59,6 +59,9 @@ self.addEventListener('fetch', event => {
   // Só intercepta nosso site
   if (!event.request.url.startsWith(self.location.origin)) return;
   
+  // ✅ NÃO INTERCEPTA ÁUDIOS (LINHA ADICIONADA)
+  if (event.request.url.includes('.mp3') || event.request.url.includes('audio')) return;
+  
   event.respondWith(
     caches.match(event.request)
       .then(response => {
