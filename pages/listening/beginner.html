@@ -309,7 +309,9 @@
             document.getElementById('lessonSubtitle').textContent = `Lição ${lessonNumber} - ${lesson.description}`;
             document.getElementById('audioTitle').textContent = `🎧 Escute a Lição: ${lesson.title}`;
             document.getElementById('mainAudio').src = lesson.audioUrl;
-            loadQuestions(lesson.questions);
+            function loadQuestions(questions) {
+    return safeLoadQuestions(questions, 'questionsContainer');
+}
             resetQuiz();
         }
         
@@ -433,7 +435,18 @@
                 }, 2000);
             }
         }
-        
+        document.addEventListener('DOMContentLoaded', function() {
+    // 🔧 CORREÇÃO DO BUG - ADICIONAR ESTA LINHA PRIMEIRO
+    const initialized = safeInitialization('beginner', beginnerLessons); // trocar 'beginner' pelo nível correto
+    if (!initialized) {
+        return; // Para execução se falhou
+    }
+    
+    // ... resto do código já existente
+    createLessonCards();
+    loadLesson(currentLesson);
+    // etc...
+});
         // ===== INICIALIZAÇÃO =====
         document.addEventListener('DOMContentLoaded', function() {
             const studentName = getStudentName();
