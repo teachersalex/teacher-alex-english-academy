@@ -407,36 +407,6 @@
             margin-bottom: 1.5rem;
             border-radius: 8px;
         }
-
-        /* 🎧 SPEED CONTROLS - FEATURE REQUEST DOS ALUNOS */
-        .speed-controls {
-            display: flex;
-            justify-content: center;
-            gap: 0.5rem;
-            margin-bottom: 2rem;
-            flex-wrap: wrap;
-        }
-        
-        .speed-btn {
-            padding: 0.5rem 1rem;
-            border: 2px solid #e2e8f0;
-            border-radius: 8px;
-            background: white;
-            color: #64748b;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-size: 0.9em;
-        }
-        
-        .speed-btn.active,
-        .speed-btn:hover {
-            border-color: #8b5cf6;
-            background: #8b5cf6;
-            color: white;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 15px rgba(139, 92, 246, 0.3);
-        }
         
         .play-buttons {
             display: flex;
@@ -654,9 +624,9 @@
             .controls { flex-direction: column; align-items: center; }
             .play-buttons { flex-direction: column; align-items: center; gap: 1rem; }
             .btn { min-width: 200px; }
-            .speed-controls { gap: 0.25rem; }
-            .speed-btn { padding: 0.4rem 0.8rem; font-size: 0.8em; }
         }
+
+        /* ❌ CSS DOS SPEED CONTROLS REMOVIDO! */
     </style>
 </head>
 <body class="listening-page">
@@ -732,14 +702,7 @@
                     Seu navegador não suporta o elemento de áudio.
                 </audio>
                 
-                <!-- 🎧 SPEED CONTROLS - FEATURE REQUEST DOS ALUNOS -->
-                <div class="speed-controls">
-                    <button class="speed-btn" data-speed="0.75">0.75x</button>
-                    <button class="speed-btn active" data-speed="1">1x</button>
-                    <button class="speed-btn" data-speed="1.25">1.25x</button>
-                    <button class="speed-btn" data-speed="1.5">1.5x</button>
-                    <button class="speed-btn" data-speed="2">2x</button>
-                </div>
+                <!-- ✅ Speed controls aparecerão AUTOMATICAMENTE aqui via script universal! -->
                 
                 <div class="play-buttons">
                     <button class="btn btn-primary" onclick="playAudio()">▶️ Reproduzir</button>
@@ -968,6 +931,8 @@
         let lessonStartTime = Date.now();
         let studentProgress = new AdvancedProgress();
         
+        // ❌ IMPLEMENTAÇÃO JavaScript DOS SPEED CONTROLS REMOVIDA! (Agora é automática via script)
+        
         // ===== LESSON CARDS CREATION =====
         function createLessonCards() {
             const container = document.getElementById('lessonsGrid');
@@ -1055,27 +1020,10 @@
             });
         }
         
-        // ===== AUDIO CONTROLS + SPEED CONTROLS =====
+        // ===== AUDIO CONTROLS =====
         function playAudio() { document.getElementById('mainAudio').play(); }
         function replayAudio() { const audio = document.getElementById('mainAudio'); audio.currentTime = 0; audio.play(); }
         function pauseAudio() { document.getElementById('mainAudio').pause(); }
-
-        // 🎧 SPEED CONTROLS IMPLEMENTATION - FEATURE REQUEST DOS ALUNOS
-        document.addEventListener('DOMContentLoaded', function() {
-            const speedBtns = document.querySelectorAll('.speed-btn');
-            const audio = document.getElementById('mainAudio');
-            
-            speedBtns.forEach(btn => {
-                btn.addEventListener('click', function() {
-                    const speed = parseFloat(this.dataset.speed);
-                    audio.playbackRate = speed;
-                    
-                    // Update active state
-                    speedBtns.forEach(b => b.classList.remove('active'));
-                    this.classList.add('active');
-                });
-            });
-        });
         
         // ===== QUIZ FUNCTIONS =====
         function checkAnswers() {
@@ -1179,8 +1127,8 @@
             console.log('🟣 Advanced Page - DESIGN ELEGANTE PURPLE');
             console.log(`👤 Usuário: ${studentName}`);
             console.log('🎯 2 lições Advanced com visual premium');
-            console.log('🎧 Speed controls implementados (feature request)');
-            console.log('🎨 Purple theme sofisticado');
+            console.log('🎧 Speed controls UNIVERSAL (automático via script)');
+            console.log('🎨 Purple theme sofisticado mantido');
             
             createLessonCards();
             loadLesson(currentLesson);
@@ -1199,13 +1147,15 @@
         `;
         document.head.appendChild(style);
 
-        console.log('🟣 ADVANCED PAGE - DESIGN ELEGANTE + OTIMIZADO');
-        console.log('✨ Purple premium theme aplicado');
-        console.log('✨ Speed controls funcionando (0.75x - 2x)');
-        console.log('✨ Audio 10-11 para nível avançado');
-        console.log('✨ Código 65% menor que foundation');
-        console.log('✨ Mantida toda elegância visual');
+        console.log('🟣 ADVANCED PAGE - DESIGN ELEGANTE + SPEED CONTROLS UNIVERSAL');
+        console.log('✨ Purple premium theme mantido');
+        console.log('✨ Speed controls automáticos via script universal');
+        console.log('✨ CSS e JavaScript limpos');
+        console.log('✨ Consistente com outras páginas listening');
         console.log('🎯 PRONTO PARA PRODUÇÃO! 🚀');
     </script>
+    
+    <!-- ✅ SPEED CONTROLS UNIVERSAL - UMA LINHA SÓ! -->
+    <script src="../../src/scripts/core/speed-controls-core.js"></script>
 </body>
 </html>
