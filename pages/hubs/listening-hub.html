@@ -366,17 +366,55 @@
             }
         }
 
-        // ===== NAVIGATION - TODOS OS NÍVEIS FUNCIONANDO =====
+        // ===== 🔧 NAVIGATION - ANTI-TRAVAMENTO =====
         function navigateToStory(storyId) {
             const card = event.currentTarget;
             const button = card.querySelector('.story-button');
             const originalText = button.textContent;
             
+            console.log(`🎯 Navegando para: ${storyId}`);
+            
             // Loading state
             button.textContent = 'Carregando...';
+            button.disabled = true;
             card.style.opacity = '0.7';
             
+            // 🔧 TIMER DE SEGURANÇA - Auto-reset após 3 segundos
+            const resetTimer = setTimeout(() => {
+                console.log('⚠️ Reset automático do botão por timeout');
+                button.textContent = originalText;
+                button.disabled = false;
+                card.style.opacity = '1';
+            }, 3000);
+            
+            // 🔧 LISTENER PARA PAGESHOW - Detecta voltar do navegador
+            const handlePageShow = function(event) {
+                if (event.persisted) {
+                    console.log('🔄 Página restaurada do cache - resetando botões');
+                    clearTimeout(resetTimer);
+                    button.textContent = originalText;
+                    button.disabled = false;
+                    card.style.opacity = '1';
+                }
+                window.removeEventListener('pageshow', handlePageShow);
+            };
+            
+            window.addEventListener('pageshow', handlePageShow);
+            
+            // 🔧 LISTENER PARA BEFOREUNLOAD - Limpa estado antes de sair
+            const handleBeforeUnload = function() {
+                clearTimeout(resetTimer);
+                window.removeEventListener('beforeunload', handleBeforeUnload);
+            };
+            
+            window.addEventListener('beforeunload', handleBeforeUnload);
+            
+            // Navegação com delay
             setTimeout(() => {
+                clearTimeout(resetTimer);
+                window.removeEventListener('pageshow', handlePageShow);
+                window.removeEventListener('beforeunload', handleBeforeUnload);
+                
                 if (storyId === 'foundation') {
                     window.location.href = '../listening/foundation.html';
                 } else if (storyId === 'beginner') {
@@ -386,12 +424,48 @@
                 } else if (storyId === 'advanced') {
                     window.location.href = '../listening/advanced.html';
                 } else {
-                    // Fallback
+                    // Fallback - reset do botão
                     button.textContent = originalText;
+                    button.disabled = false;
                     card.style.opacity = '1';
                     alert('🚀 Página não encontrada!');
                 }
             }, 500);
+        }
+
+        // ===== 🔧 FUNÇÃO ADICIONAL - Reset geral de botões =====
+        function resetAllLoadingButtons() {
+            console.log('🔄 Resetando todos os botões carregando...');
+            
+            document.querySelectorAll('.story-button').forEach(button => {
+                if (button.textContent === 'Carregando...') {
+                    // Tenta restaurar o texto original baseado no contexto
+                    const card = button.closest('.story-card');
+                    const isFoundation = card && card.textContent.includes('Foundation');
+                    const isBeginner = card && card.textContent.includes('Personal Introduction');
+                    const isIntermediate = card && card.textContent.includes('Advanced Conversations');
+                    const isAdvanced = card && card.textContent.includes('Professional English');
+                    
+                    if (isFoundation) {
+                        button.textContent = 'Começar Foundation';
+                    } else if (isBeginner) {
+                        button.textContent = 'Começar Beginner';
+                    } else if (isIntermediate) {
+                        button.textContent = 'Começar Intermediate';
+                    } else if (isAdvanced) {
+                        button.textContent = 'Começar Advanced';
+                    } else {
+                        button.textContent = 'Começar Lição';
+                    }
+                    
+                    button.disabled = false;
+                }
+            });
+            
+            // Reset opacity dos cards
+            document.querySelectorAll('.story-card').forEach(card => {
+                card.style.opacity = '1';
+            });
         }
 
         function showComingSoon(storyTitle) {
@@ -410,19 +484,45 @@
             window.location.href = '../auth/login.html';
         }
 
+        // ===== 🔧 AUTO-RESET NA INICIALIZAÇÃO =====
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('🎧 Listening Hub carregado');
+            
+            // Reset automático de botões travados
+            setTimeout(resetAllLoadingButtons, 100);
+            
+            // Listener para detectar retorno à página
+            window.addEventListener('focus', function() {
+                console.log('👁️ Página recebeu foco - verificando botões');
+                setTimeout(resetAllLoadingButtons, 100);
+            });
+            
+            // Listener para popstate (botão voltar)
+            window.addEventListener('popstate', function() {
+                console.log('⬅️ Usuário voltou - resetando botões');
+                resetAllLoadingButtons();
+            });
+            
+            console.log('✅ Sistema anti-travamento de botões ativo');
+        });
+
+        // ===== 🔧 FUNÇÃO GLOBAL PARA DEBUG =====
+        window.resetButtons = resetAllLoadingButtons;
+
         // ===== LOAD DATA =====
         loadProgress();
         
-        console.log('🎧 LISTENING HUB v4.0 - TODOS OS NÍVEIS DISPONÍVEIS!');
+        console.log('🎧 LISTENING HUB v4.1 - BOTÕES ANTI-TRAVAMENTO!');
         console.log('👤 Usuário:', studentName);
         console.log('✅ Visual CONSISTENTE com graded-readers-hub');
         console.log('🎯 Cores: theme-patriot.css universal');
+        console.log('🔧 Fix aplicado: navegação com reset automático');
         console.log('📁 Navegação funcionando:');
         console.log('   → ../listening/foundation.html ✅');
         console.log('   → ../listening/beginner.html ✅');
         console.log('   → ../listening/intermediate.html ✅');
         console.log('   → ../listening/advanced.html ✅');
-        console.log('🚀 SISTEMA LISTENING COMPLETO!');
+        console.log('🚀 SISTEMA LISTENING COMPLETO COM FIXES!');
     </script>
 </body>
 </html>
