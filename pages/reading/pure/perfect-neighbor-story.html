@@ -5,48 +5,321 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Perfect Neighbor - Teacher Alex English Academy</title>
     
-    <!-- CSS Simplificado - Paths corretos para /pages/reading/pure/ -->
+    <!-- CSS Universal -->
     <link rel="stylesheet" href="../../../src/styles/base.css">
     <link rel="stylesheet" href="../../../src/styles/layout.css">
     <link rel="stylesheet" href="../../../src/styles/theme-patriot.css">
     
     <style>
-        /* REVOLUÇÃO NA LEGIBILIDADE - FOCO NO TEXTO */
-        .reading-text {
-            max-width: 700px;
-            margin: 0 auto 30px auto;
-            background: white;
-            padding: 40px;
+        /* ===== PURE READING REVOLUTION ===== */
+        
+        /* Reading Container - Perfeito para Leitura Longa */
+        .reading-container {
+            max-width: 750px;
+            margin: 0 auto;
+            background: #fefefe;
             border-radius: var(--radius-large);
-            border: 1px solid var(--blue-gray);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+            border: 1px solid #e8eaed;
+            overflow: hidden;
+        }
+        
+        /* Story Header - Visual Hierarchy */
+        .story-header-reading {
+            background: linear-gradient(135deg, var(--blue-dark) 0%, var(--blue-medium) 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+            border-bottom: 4px solid var(--blue-dark);
+        }
+        
+        .story-title-reading {
+            font-size: 2.2rem;
+            font-weight: 800;
+            margin-bottom: 15px;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.3);
+        }
+        
+        .story-subtitle-reading {
             font-size: 1.2rem;
+            opacity: 0.9;
+            font-weight: 500;
+            margin-bottom: 20px;
+        }
+        
+        .chapter-indicator {
+            background: rgba(255,255,255,0.2);
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            display: inline-block;
+        }
+        
+        /* Revolutionary Text Formatting */
+        .story-content {
+            padding: 50px;
+            font-family: 'Georgia', 'Times New Roman', serif;
+            font-size: 1.25rem;
             line-height: 1.8;
-            color: var(--dark);
+            color: #2c3e50;
+            background: #fefefe;
+        }
+        
+        .story-content p {
+            margin-bottom: 2rem;
             text-align: justify;
+            hyphens: auto;
+            -webkit-hyphens: auto;
+            -moz-hyphens: auto;
         }
         
-        .reading-text p {
-            margin-bottom: 1.5rem;
-            text-indent: 1.5rem;
+        .story-content p:first-child {
+            font-size: 1.35rem;
+            font-weight: 500;
+            color: var(--blue-dark);
+            border-left: 4px solid var(--blue-medium);
+            padding-left: 20px;
+            margin-bottom: 2.5rem;
         }
         
-        .reading-text p:first-child {
-            text-indent: 0;
+        .story-content p:not(:first-child) {
+            text-indent: 2rem;
         }
         
-        /* Mobile - Texto mais legível */
+        /* Dialogue Formatting */
+        .story-content p:has(") {
+            font-style: italic;
+            color: #34495e;
+            margin-left: 1rem;
+            border-left: 2px solid #ecf0f1;
+            padding-left: 1rem;
+        }
+        
+        /* Section Breaks */
+        .section-break {
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 3rem 0;
+        }
+        
+        .section-break::before {
+            content: "❖ ❖ ❖";
+            color: var(--blue-medium);
+            font-size: 1.5rem;
+            opacity: 0.6;
+        }
+        
+        /* Mobile-First Revolution */
         @media (max-width: 768px) {
-            .reading-text {
-                padding: 25px;
-                font-size: 1.1rem;
-                line-height: 1.7;
-                text-align: left;
+            .reading-container {
+                margin: 0;
+                border-radius: 0;
+                border: none;
+                box-shadow: none;
             }
             
-            .reading-text p {
-                text-indent: 0;
-                margin-bottom: 1.2rem;
+            .story-header-reading {
+                padding: 30px 25px;
             }
+            
+            .story-title-reading {
+                font-size: 1.8rem;
+                margin-bottom: 12px;
+            }
+            
+            .story-subtitle-reading {
+                font-size: 1rem;
+                margin-bottom: 15px;
+            }
+            
+            .story-content {
+                padding: 30px 25px;
+                font-size: 1.1rem;
+                line-height: 1.7;
+            }
+            
+            .story-content p {
+                text-align: left;
+                text-indent: 0;
+                margin-bottom: 1.5rem;
+            }
+            
+            .story-content p:first-child {
+                font-size: 1.2rem;
+                padding-left: 15px;
+                margin-bottom: 2rem;
+            }
+            
+            .story-content p:not(:first-child) {
+                text-indent: 0;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .story-content {
+                padding: 25px 20px;
+                font-size: 1.05rem;
+                line-height: 1.65;
+            }
+            
+            .story-content p {
+                margin-bottom: 1.3rem;
+            }
+        }
+        
+        /* Reading Mode Toggle */
+        .reading-controls {
+            position: fixed;
+            top: 120px;
+            right: 20px;
+            background: white;
+            border-radius: var(--radius-large);
+            padding: 15px;
+            box-shadow: var(--shadow-medium);
+            border: 1px solid var(--gray-200);
+            z-index: 100;
+        }
+        
+        .font-size-controls {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 10px;
+        }
+        
+        .font-control {
+            background: var(--blue-medium);
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: var(--radius);
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: var(--transition);
+        }
+        
+        .font-control:hover {
+            background: var(--blue-dark);
+        }
+        
+        .reading-mode-toggle {
+            background: var(--dark);
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: var(--radius);
+            cursor: pointer;
+            font-size: 0.85rem;
+            width: 100%;
+            transition: var(--transition);
+        }
+        
+        /* Dark Reading Mode */
+        .dark-mode .story-content {
+            background: #1a1a1a;
+            color: #e8e8e8;
+        }
+        
+        .dark-mode .reading-container {
+            background: #1a1a1a;
+            border-color: #333;
+        }
+        
+        .dark-mode .story-content p:first-child {
+            color: #64b5f6;
+            border-left-color: #64b5f6;
+        }
+        
+        /* Hide on mobile */
+        @media (max-width: 768px) {
+            .reading-controls {
+                display: none;
+            }
+        }
+        
+        /* Chapter Navigation Improved */
+        .chapter-navigation-reading {
+            background: white;
+            border-radius: var(--radius-large);
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: var(--shadow-light);
+            border: 1px solid var(--gray-200);
+        }
+        
+        .chapter-cards-reading {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .chapter-card-reading {
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            border: 2px solid var(--gray-200);
+            border-radius: var(--radius);
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            position: relative;
+        }
+        
+        .chapter-card-reading:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-medium);
+            border-color: var(--blue-medium);
+        }
+        
+        .chapter-card-reading.active {
+            background: linear-gradient(135deg, #fef3c7 0%, #fed7aa 100%);
+            border-color: var(--warning);
+            box-shadow: 0 0 20px rgba(245, 158, 11, 0.3);
+        }
+        
+        .chapter-card-reading.completed {
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+            border-color: var(--success);
+        }
+        
+        .chapter-icon-reading {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            display: block;
+        }
+        
+        .chapter-number-reading {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--blue-dark);
+            margin-bottom: 5px;
+        }
+        
+        .chapter-title-reading {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--dark);
+            line-height: 1.2;
+        }
+        
+        /* Questions Section Improved */
+        .questions-reading {
+            background: white;
+            border-radius: var(--radius-large);
+            padding: 40px;
+            margin-top: 40px;
+            box-shadow: var(--shadow-light);
+            border: 1px solid var(--gray-200);
+        }
+        
+        .questions-title {
+            font-size: 1.8rem;
+            color: var(--blue-dark);
+            margin-bottom: 30px;
+            text-align: center;
+            font-weight: 700;
         }
     </style>
 </head>
@@ -58,6 +331,15 @@
         <button class="logout-btn" onclick="logout()">Sair</button>
     </div>
 
+    <!-- Reading Controls -->
+    <div class="reading-controls">
+        <div class="font-size-controls">
+            <button class="font-control" onclick="changeFontSize(-1)">A-</button>
+            <button class="font-control" onclick="changeFontSize(1)">A+</button>
+        </div>
+        <button class="reading-mode-toggle" onclick="toggleDarkMode()">🌙 Modo Noturno</button>
+    </div>
+
     <div class="container">
         <!-- Back Navigation -->
         <a href="a2-low.html" class="back-button">
@@ -67,9 +349,8 @@
         <!-- Header -->
         <header class="header">
             <h1 class="logo">Teacher Alex <span class="logo-highlight">English Academy</span></h1>
-            <h2 class="hub-title">📺 The Perfect Neighbor</h2>
-            <p class="hub-subtitle">Um thriller psicológico sobre obsessão e identidade</p>
-            <div class="story-level-badge">📖 Nível A2 Low - Pure Reading</div>
+            <h2 class="hub-title">📖 Pure Reading Hub</h2>
+            <p class="hub-subtitle">Experiência de leitura otimizada para autonomia total</p>
         </header>
 
         <!-- Progress Section -->
@@ -90,50 +371,53 @@
         </section>
         
         <!-- Chapter Navigation -->
-        <section class="info-section">
-            <h2 class="info-title">📖 Escolha seu Capítulo</h2>
-            <div class="chapter-cards" id="chapterCards">
+        <section class="chapter-navigation-reading">
+            <h2 class="stats-title">📖 Escolha seu Capítulo</h2>
+            <div class="chapter-cards-reading" id="chapterCards">
                 <!-- Cards serão gerados dinamicamente -->
             </div>
         </section>
         
-        <!-- Chapter Content -->
-        <main id="chapterContent">
-            <div class="header">
-                <h2 id="chapterTitle">The New Neighbor</h2>
-                <p id="chapterNumber">Capítulo 1</p>
+        <!-- Reading Experience Revolution -->
+        <main class="reading-container">
+            <!-- Story Header -->
+            <div class="story-header-reading">
+                <h1 class="story-title-reading" id="chapterTitle">The New Neighbor</h1>
+                <p class="story-subtitle-reading">Um thriller psicológico sobre obsessão e identidade</p>
+                <div class="chapter-indicator" id="chapterIndicator">Capítulo 1 de 5</div>
             </div>
             
-            <!-- TEXTO DA HISTÓRIA - REVOLUCIONADO -->
-            <div class="reading-text" id="storyText">
+            <!-- Story Content -->
+            <div class="story-content" id="storyContent">
                 <!-- Texto será inserido aqui -->
             </div>
-            
-            <!-- Questions -->
-            <div class="questions-section" id="questionsContainer">
-                <!-- Questões serão inseridas aqui -->
-            </div>
-            
-            <!-- Controls -->
-            <div class="controls">
-                <button class="btn" onclick="checkAnswers()">✅ Verificar Respostas</button>
-                <button class="btn btn-secondary" onclick="resetQuiz()">🔄 Reiniciar</button>
-                <button class="btn" onclick="nextChapter()">➡️ Próximo Capítulo</button>
-            </div>
-            
-            <!-- Score -->
-            <div id="scoreSection" class="score" style="display: none;">
-                Sua Pontuação: <span id="scoreValue">0</span>/5 📚
-            </div>
-            
-            <!-- Feedback -->
-            <div id="feedback" class="feedback" style="display: none;"></div>
         </main>
+        
+        <!-- Questions -->
+        <div class="questions-reading" id="questionsContainer">
+            <h3 class="questions-title">📝 Teste sua Compreensão</h3>
+            <!-- Questões serão inseridas aqui -->
+        </div>
+        
+        <!-- Controls -->
+        <div class="controls">
+            <button class="btn" onclick="checkAnswers()">✅ Verificar Respostas</button>
+            <button class="btn btn-secondary" onclick="resetQuiz()">🔄 Reiniciar</button>
+            <button class="btn" onclick="nextChapter()">➡️ Próximo Capítulo</button>
+        </div>
+        
+        <!-- Score -->
+        <div id="scoreSection" class="score" style="display: none;">
+            Sua Pontuação: <span id="scoreValue">0</span>/5 📚
+        </div>
+        
+        <!-- Feedback -->
+        <div id="feedback" class="feedback" style="display: none;"></div>
         
         <!-- Footer -->
         <footer class="footer">
             <h3>📺 The Perfect Neighbor</h3>
-            <p>Thriller psicológico em 5 capítulos envolventes</p>
+            <p>Experiência de leitura profissional para desenvolvimento autônomo</p>
         </footer>
     </div>
 
@@ -558,11 +842,33 @@ Because sometimes, the perfect neighbor is perfectly dangerous.`,
             }
         };
 
-        // ===== PROGRESS SYSTEM =====
+        // ===== READING EXPERIENCE FEATURES =====
+        let currentFontSize = 1.25;
+        let isDarkMode = false;
         let currentChapter = 1;
         let studentProgress = {
             data: { neighbor: { chaptersCompleted: [], bestScores: {}, badges: [] } }
         };
+
+        function changeFontSize(delta) {
+            currentFontSize += delta * 0.1;
+            currentFontSize = Math.max(1.0, Math.min(1.8, currentFontSize));
+            
+            const storyContent = document.getElementById('storyContent');
+            storyContent.style.fontSize = currentFontSize + 'rem';
+            
+            localStorage.setItem('reading_font_size', currentFontSize);
+        }
+
+        function toggleDarkMode() {
+            isDarkMode = !isDarkMode;
+            document.body.classList.toggle('dark-mode', isDarkMode);
+            
+            const toggleBtn = document.querySelector('.reading-mode-toggle');
+            toggleBtn.textContent = isDarkMode ? '☀️ Modo Claro' : '🌙 Modo Noturno';
+            
+            localStorage.setItem('reading_dark_mode', isDarkMode);
+        }
 
         function loadProgress() {
             const progressKey = `progress_${studentName}`;
@@ -609,14 +915,14 @@ Because sometimes, the perfect neighbor is perfectly dangerous.`,
                 const isActive = i === currentChapter;
                 
                 const card = document.createElement('div');
-                card.className = `chapter-card ${isActive ? 'active' : ''} ${isCompleted ? 'completed' : ''}`;
+                card.className = `chapter-card-reading ${isActive ? 'active' : ''} ${isCompleted ? 'completed' : ''}`;
                 card.onclick = () => switchToChapter(i);
                 
                 card.innerHTML = `
-                    <div class="chapter-icon">${chapter.icon}</div>
-                    <div class="chapter-number">Capítulo ${i}</div>
-                    <div class="chapter-name">${chapter.title}</div>
-                    ${isCompleted ? `<div class="completion-badge">${bestScore}</div>` : ''}
+                    <div class="chapter-icon-reading">${chapter.icon}</div>
+                    <div class="chapter-number-reading">Cap. ${i}</div>
+                    <div class="chapter-title-reading">${chapter.title}</div>
+                    ${isCompleted ? `<div style="position: absolute; top: 5px; right: 5px; background: var(--success); color: white; border-radius: 50%; width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; font-size: 0.7rem; font-weight: bold;">${bestScore}</div>` : ''}
                 `;
                 
                 container.appendChild(card);
@@ -634,9 +940,9 @@ Because sometimes, the perfect neighbor is perfectly dangerous.`,
             const chapter = chapters[chapterNumber];
             
             document.getElementById('chapterTitle').textContent = chapter.title;
-            document.getElementById('chapterNumber').textContent = `Capítulo ${chapterNumber}`;
+            document.getElementById('chapterIndicator').textContent = `Capítulo ${chapterNumber} de 5`;
             
-            // REVOLUÇÃO NO TEXTO - Formatação limpa
+            // Revolutionary Text Formatting with proper paragraph breaks
             const formattedStory = chapter.story
                 .split('\n\n')
                 .map(paragraph => paragraph.trim())
@@ -644,7 +950,21 @@ Because sometimes, the perfect neighbor is perfectly dangerous.`,
                 .map(paragraph => `<p>${paragraph}</p>`)
                 .join('');
             
-            document.getElementById('storyText').innerHTML = formattedStory;
+            // Add section breaks every 4 paragraphs for better reading rhythm
+            const paragraphs = formattedStory.split('</p>');
+            let finalStory = '';
+            
+            paragraphs.forEach((p, index) => {
+                if (p.trim()) {
+                    finalStory += p + '</p>';
+                    // Add section break every 4 paragraphs (except last)
+                    if ((index + 1) % 4 === 0 && index < paragraphs.length - 2) {
+                        finalStory += '<div class="section-break"></div>';
+                    }
+                }
+            });
+            
+            document.getElementById('storyContent').innerHTML = finalStory;
             
             loadQuestions(chapter.questions);
             resetQuiz();
@@ -652,26 +972,27 @@ Because sometimes, the perfect neighbor is perfectly dangerous.`,
 
         function loadQuestions(questions) {
             const container = document.getElementById('questionsContainer');
-            container.innerHTML = '';
+            let questionsHTML = '<h3 class="questions-title">📝 Teste sua Compreensão</h3>';
             
             Object.keys(questions).forEach((key, index) => {
                 const q = questions[key];
-                const div = document.createElement('div');
-                div.className = 'question';
-                div.innerHTML = `
-                    <div class="question-type ${q.type}">${q.type === 'grammar' ? 'GRAMÁTICA' : 'INTERPRETAÇÃO'}</div>
-                    <div class="question-text">${index + 1}. ${q.text}</div>
-                    <div class="options">
-                        ${q.options.map((opt, i) => `
-                            <div class="option" onclick="selectOption('${key}', '${String.fromCharCode(97 + i)}')">
-                                <input type="radio" name="${key}" value="${String.fromCharCode(97 + i)}" id="${key}_${i}">
-                                <label for="${key}_${i}">${String.fromCharCode(97 + i).toUpperCase()}) ${opt}</label>
-                            </div>
-                        `).join('')}
+                questionsHTML += `
+                    <div class="question">
+                        <div class="question-type ${q.type}">${q.type === 'grammar' ? 'GRAMÁTICA' : 'INTERPRETAÇÃO'}</div>
+                        <div class="question-text">${index + 1}. ${q.text}</div>
+                        <div class="options">
+                            ${q.options.map((opt, i) => `
+                                <div class="option" onclick="selectOption('${key}', '${String.fromCharCode(97 + i)}')">
+                                    <input type="radio" name="${key}" value="${String.fromCharCode(97 + i)}" id="${key}_${i}">
+                                    <label for="${key}_${i}">${String.fromCharCode(97 + i).toUpperCase()}) ${opt}</label>
+                                </div>
+                            `).join('')}
+                        </div>
                     </div>
                 `;
-                container.appendChild(div);
             });
+            
+            container.innerHTML = questionsHTML;
         }
 
         function selectOption(questionName, value) {
@@ -797,13 +1118,30 @@ Because sometimes, the perfect neighbor is perfectly dangerous.`,
         }
 
         // ===== INITIALIZATION =====
-        loadProgress();
-        createChapterCards();
-        loadChapter(currentChapter);
-        
-        console.log('📺 THE PERFECT NEIGHBOR v3.0 CLEAN carregado!');
-        console.log('👤 Usuário:', studentName);
-        console.log('📖 REVOLUÇÃO NA LEGIBILIDADE aplicada!');
+        document.addEventListener('DOMContentLoaded', function() {
+            // Load saved preferences
+            const savedFontSize = localStorage.getItem('reading_font_size');
+            if (savedFontSize) {
+                currentFontSize = parseFloat(savedFontSize);
+                document.getElementById('storyContent').style.fontSize = currentFontSize + 'rem';
+            }
+            
+            const savedDarkMode = localStorage.getItem('reading_dark_mode');
+            if (savedDarkMode === 'true') {
+                toggleDarkMode();
+            }
+            
+            loadProgress();
+            createChapterCards();
+            loadChapter(currentChapter);
+            
+            console.log('📖 PERFECT NEIGHBOR - READING REVOLUTION v4.0!');
+            console.log('👤 Usuário:', studentName);
+            console.log('🎨 EXPERIÊNCIA DE LEITURA PREMIUM aplicada!');
+            console.log('📱 Mobile-first typography otimizada!');
+            console.log('🌙 Modo noturno disponível!');
+            console.log('🔤 Controles de fonte funcionando!');
+        });
     </script>
 </body>
 </html>
