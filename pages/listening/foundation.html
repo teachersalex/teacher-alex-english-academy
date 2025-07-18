@@ -95,26 +95,6 @@
     </div>
     
     <script>
-        // ===== AUTH SYSTEM =====
-        function checkLogin() {
-            if (sessionStorage.getItem('studentLoggedIn') !== 'true') {
-                window.location.href = '../auth/login.html';
-                return false;
-            }
-            return true;
-        }
-
-        function logout() {
-            sessionStorage.clear();
-            window.location.href = '../auth/login.html';
-        }
-
-        // Proteção imediata
-        if (!checkLogin()) {
-            document.body.innerHTML = '<div style="text-align:center;padding:50px;"><h1>Redirecionando...</h1></div>';
-            throw new Error('Access denied');
-        }
-
         // ===== FOUNDATION LESSONS DATA =====
         const foundationLessons = {
             1: { 
@@ -160,22 +140,26 @@
                 } 
             }
         };
-        
-        // ===== VARIÁVEIS DE CONTROLE =====
+
+        // ===== AUTH =====
+        if (sessionStorage.getItem('studentLoggedIn') !== 'true') {
+            window.location.href = '../auth/login.html';
+        }
+
+        function logout() {
+            sessionStorage.clear();
+            window.location.href = '../auth/login.html';
+        }
+
+        // ===== VARIABLES =====
         let currentLesson = 1;
         let attempts = 0;
         let lessonStartTime = Date.now();
-        
+
         // ===== LESSON CARDS =====
         function createLessonCards() {
             const cardsContainer = document.getElementById('lessonCards');
             if (!cardsContainer) return;
-            
-            // Aguarda sistema universal
-            if (!window.studentProgress) {
-                setTimeout(createLessonCards, 100);
-                return;
-            }
             
             cardsContainer.innerHTML = '';
             
@@ -183,9 +167,20 @@
                 const lesson = foundationLessons[i];
                 if (!lesson) continue;
                 
-                const lessonId = `foundation_lesson_${i}`;
-                const isCompleted = window.studentProgress.data.listening.lessonsCompleted.includes(lessonId);
-                const bestScore = window.studentProgress.data.listening.bestScores[lessonId] || 0;
+                let isCompleted = false;
+                let bestScore = 0;
+                
+                // Check progress if available
+                try {
+                    if (window.studentProgress && window.studentProgress.data) {
+                        const lessonId = `foundation_lesson_${i}`;
+                        isCompleted = window.studentProgress.data.listening.lessonsCompleted.includes(lessonId);
+                        bestScore = window.studentProgress.data.listening.bestScores[lessonId] || 0;
+                    }
+                } catch (e) {
+                    // Continue without progress data
+                }
+                
                 const isActive = i === currentLesson;
                 
                 const card = document.createElement('div');
@@ -203,25 +198,24 @@
                 
                 cardsContainer.appendChild(card);
             }
+            
+            console.log('✅ Foundation cards criados');
         }
-        
+
         function switchToLesson(lessonNumber) {
             if (lessonNumber === currentLesson) return;
             currentLesson = lessonNumber;
             loadLesson(currentLesson);
             createLessonCards();
         }
-        
+
+        // ===== LOAD LESSON =====
         function loadLesson(lessonNumber) {
-            console.log(`🎯 Carregando lição: ${lessonNumber}`);
-            
-            // Verificação usando função universal
-            if (window.ensureQuestionsLoad && !window.ensureQuestionsLoad(foundationLessons, lessonNumber)) {
-                alert('Erro ao carregar a lição. Por favor, recarregue a página.');
+            const lesson = foundationLessons[lessonNumber];
+            if (!lesson) {
+                console.error(`Lição ${lessonNumber} não encontrada`);
                 return;
             }
-
-            const lesson = foundationLessons[lessonNumber];
             
             document.getElementById('lessonTitle').textContent = lesson.title;
             document.getElementById('lessonSubtitle').textContent = `Lição ${lessonNumber} - ${lesson.description}`;
@@ -230,10 +224,14 @@
             
             loadQuestions(lesson.questions);
             resetQuiz();
+            
+            console.log(`✅ Lição ${lessonNumber} carregada`);
         }
-        
+
         function loadQuestions(questions) {
             const container = document.getElementById('questionsContainer');
+            if (!container) return;
+            
             container.innerHTML = '';
             Object.keys(questions).forEach((key, index) => {
                 const q = questions[key];
@@ -252,9 +250,10 @@
                 `;
                 container.appendChild(div);
             });
+            
             addOptionEventListeners();
         }
-        
+
         function addOptionEventListeners() {
             document.querySelectorAll('.option').forEach(option => {
                 option.addEventListener('click', function() {
@@ -268,13 +267,13 @@
                 });
             });
         }
-        
-        // ===== ÁUDIO =====
+
+        // ===== AUDIO CONTROLS =====
         function playAudio() { document.getElementById('mainAudio').play(); }
         function replayAudio() { const audio = document.getElementById('mainAudio'); audio.currentTime = 0; audio.play(); }
         function pauseAudio() { document.getElementById('mainAudio').pause(); }
-        
-        // ===== VERIFICAR RESPOSTAS - CORRIGIDO =====
+
+        // ===== CHECK ANSWERS =====
         function checkAnswers() {
             const lesson = foundationLessons[currentLesson];
             const questions = Object.keys(lesson.questions);
@@ -287,13 +286,16 @@
                 const correct = lesson.questions[key].correct;
                 const allOptions = document.querySelectorAll(`input[name="${key}"]`);
                 
+                // Remove previous classes
                 allOptions.forEach(opt => {
                     opt.closest('.option').classList.remove('correct-answer', 'wrong-answer');
                 });
                 
+                // Mark correct answer
                 const correctOption = document.querySelector(`input[name="${key}"][value="${correct}"]`);
                 correctOption.closest('.option').classList.add('correct-answer');
                 
+                // Mark wrong answer if applicable
                 if (selected && selected.value !== correct) {
                     selected.closest('.option').classList.add('wrong-answer');
                 }
@@ -309,25 +311,29 @@
                 }
             });
             
-            // ✅ USANDO SISTEMA UNIVERSAL
-            if (window.studentProgress) {
-                const timeSpent = Date.now() - lessonStartTime;
-                window.studentProgress.completeListeningLesson('foundation', currentLesson, score, timeSpent);
-            } else {
-                console.error('❌ Sistema universal não encontrado!');
+            // Save progress if system available
+            try {
+                if (window.studentProgress && typeof window.studentProgress.completeListeningLesson === 'function') {
+                    const timeSpent = Date.now() - lessonStartTime;
+                    window.studentProgress.completeListeningLesson('foundation', currentLesson, score, timeSpent);
+                }
+            } catch (e) {
+                console.log('Progress not saved:', e);
             }
             
-            // UI updates
+            // Update UI
             document.getElementById('progressBar').style.width = (score / 5) * 100 + '%';
             document.getElementById('progressText').textContent = `${(score / 5) * 100}%`;
             document.getElementById('scoreValue').textContent = score;
             document.getElementById('scoreSection').style.display = 'block';
             
+            // Update badges
             if (attempts === 1) document.getElementById('badge1').classList.add('earned');
             if (score >= 4) document.getElementById('badge2').classList.add('earned');
             if (score === 5) document.getElementById('badge3').classList.add('earned');
             if (score >= 4) document.getElementById('badge4').classList.add('earned');
             
+            // Show feedback
             const feedback = document.getElementById('feedback');
             let feedbackHeader = score === 5 ? 
                 '<div style="text-align: center; background: linear-gradient(45deg, var(--blue-dark), var(--blue-medium)); color: white; padding: 25px; border-radius: 15px; margin-bottom: 25px; font-size: 1.3em; font-weight: 800;">🎯 FOUNDATION PERFECT! 🌱✨</div>' :
@@ -336,7 +342,7 @@
             feedback.innerHTML = feedbackHeader + detailedResults.map(result => `<div style="margin: 1rem 0; padding: 1.25rem; background: #f8fafc; border-radius: 12px; border-left: 4px solid var(--blue-dark);">${result}</div>`).join('');
             feedback.style.display = 'block';
         }
-        
+
         function resetQuiz() {
             document.querySelectorAll('input[type="radio"]').forEach(radio => {
                 radio.checked = false;
@@ -350,7 +356,7 @@
             attempts = 0;
             lessonStartTime = Date.now();
         }
-        
+
         function nextLesson() {
             if (currentLesson < 3) {
                 switchToLesson(currentLesson + 1);
@@ -361,14 +367,14 @@
                 }, 2000);
             }
         }
-        
-        // ===== FUNÇÃO GLOBAL PARA ATUALIZAÇÕES =====
+
+        // ===== GLOBAL FUNCTION =====
         window.updateLessonCards = function() {
             createLessonCards();
         };
-        
-        // ===== INICIALIZAÇÃO =====
-        document.addEventListener('DOMContentLoaded', function() {
+
+        // ===== INITIALIZATION =====
+        function initializePage() {
             const studentName = sessionStorage.getItem('studentUsername') || 'Student';
             
             // Update user info
@@ -378,20 +384,22 @@
             
             console.log(`🌱 Foundation Level - usuário: ${studentName}`);
             
-            // Aguarda sistema universal
-            function waitForSystem() {
-                if (window.studentProgress) {
-                    console.log('✅ Sistema universal pronto!');
-                    createLessonCards();
-                    loadLesson(currentLesson);
-                } else {
-                    console.log('⏳ Aguardando sistema universal...');
-                    setTimeout(waitForSystem, 100);
-                }
-            }
+            // Create cards immediately
+            createLessonCards();
+            loadLesson(currentLesson);
             
-            waitForSystem();
-        });
+            console.log('✅ Foundation Level pronto!');
+        }
+
+        // ===== START =====
+        document.addEventListener('DOMContentLoaded', initializePage);
+
+        // Backup for already loaded DOM
+        if (document.readyState !== 'loading') {
+            setTimeout(initializePage, 50);
+        }
+
+        console.log('🌱 Foundation script carregado!');
     </script>
     
     <!-- ✅ SCRIPTS UNIVERSAIS -->
