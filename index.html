@@ -15,8 +15,8 @@
     <link rel="stylesheet" href="src/styles/layout.css">
     <link rel="stylesheet" href="src/styles/theme-patriot.css">
 
-    <!-- No <head> de TODAS as páginas -->
-    <script src="../../src/scripts/core/navigation-fix.js"></script>
+    <!-- ✅ CORREÇÃO #1: Path correto para navigation-fix -->
+    <script src="src/scripts/core/navigation-fix.js"></script>
     
 </head>
 <body>
@@ -178,17 +178,24 @@
     </div>
 
     <script>
-        // ===== UNIVERSAL PROGRESS SYSTEM =====
+        // ===== ✅ CORREÇÃO #2: PROGRESS SYSTEM ESTABILIZADO =====
         class ProgressManager {
             constructor() {
                 this.studentName = sessionStorage.getItem('studentUsername') || 'Student';
                 this.progressKey = `progress_${this.studentName}`;
-                this.init();
+                this.isInitialized = false;
+                this.safeInit();
             }
 
-            init() {
-                this.ensureProgressStructure();
-                console.log('📊 Progress Manager initialized for:', this.studentName);
+            safeInit() {
+                try {
+                    this.ensureProgressStructure();
+                    this.isInitialized = true;
+                    console.log('📊 Progress Manager initialized safely for:', this.studentName);
+                } catch (error) {
+                    console.error('❌ Progress Manager init error:', error);
+                    this.createFallbackStructure();
+                }
             }
 
             ensureProgressStructure() {
@@ -214,8 +221,21 @@
 
                 if (updated) {
                     this.saveAllProgress(data);
-                    console.log('✅ Progress structure created/updated');
+                    console.log('✅ Progress structure ensured');
                 }
+            }
+
+            createFallbackStructure() {
+                const fallbackData = {
+                    listening: { chaptersCompleted: [], badges: [], lastAccessed: Date.now() },
+                    reading: { chaptersCompleted: [], badges: [], lastAccessed: Date.now() },
+                    roommate: { chaptersCompleted: [], badges: [], lastAccessed: Date.now() },
+                    neighbor: { chaptersCompleted: [], badges: [], lastAccessed: Date.now() },
+                    totalStudyTime: 0
+                };
+                this.saveAllProgress(fallbackData);
+                this.isInitialized = true;
+                console.log('🔄 Fallback progress structure created');
             }
 
             getAllProgress() {
@@ -232,11 +252,19 @@
             }
 
             saveAllProgress(data) {
-                localStorage.setItem(this.progressKey, JSON.stringify(data));
-                console.log('💾 Progress saved:', data);
+                try {
+                    localStorage.setItem(this.progressKey, JSON.stringify(data));
+                    console.log('💾 Progress saved successfully');
+                } catch (error) {
+                    console.error('❌ Error saving progress:', error);
+                }
             }
 
             getStatistics() {
+                if (!this.isInitialized) {
+                    return { lessons: 0, chapters: 0, badges: 0, studyHours: 0, raw: {} };
+                }
+
                 const data = this.getAllProgress();
                 
                 let totalLessons = 0;
@@ -275,6 +303,7 @@
                 console.log('🔍 PROGRESS DEBUG:', {
                     studentName: this.studentName,
                     progressKey: this.progressKey,
+                    isInitialized: this.isInitialized,
                     rawData: data,
                     statistics: stats
                 });
@@ -283,90 +312,95 @@
             }
         }
 
-        // ===== AUTH CHECK =====
-        if (sessionStorage.getItem('studentLoggedIn') !== 'true') {
-            window.location.href = 'pages/auth/login.html';
+        // ===== ✅ CORREÇÃO #3: AUTH CHECK ESTABILIZADO =====
+        function checkAuthSafely() {
+            try {
+                if (sessionStorage.getItem('studentLoggedIn') !== 'true') {
+                    console.log('🚪 User not authenticated, redirecting...');
+                    window.location.href = 'pages/auth/login.html';
+                    return false;
+                }
+                return true;
+            } catch (error) {
+                console.error('❌ Auth check error:', error);
+                window.location.href = 'pages/auth/login.html';
+                return false;
+            }
         }
 
-        // ===== EMERGENCY TIMER CLEANUP =====
-        let activeTimers = [];
-        
-        function clearAllTimers() {
-            activeTimers.forEach(timer => clearInterval(timer));
-            activeTimers = [];
+        // ===== ✅ CORREÇÃO #4: TIMER SYSTEM ROBUSTO =====
+        class TimerManager {
+            constructor() {
+                this.activeTimers = new Set();
+                this.isClearing = false;
+            }
+
+            addTimer(timerId) {
+                this.activeTimers.add(timerId);
+            }
+
+            removeTimer(timerId) {
+                this.activeTimers.delete(timerId);
+                if (timerId) {
+                    clearInterval(timerId);
+                }
+            }
+
+            clearAllTimers() {
+                if (this.isClearing) return;
+                this.isClearing = true;
+
+                try {
+                    this.activeTimers.forEach(timerId => {
+                        if (timerId) {
+                            clearInterval(timerId);
+                        }
+                    });
+                    this.activeTimers.clear();
+                    console.log('🧹 All timers cleared safely');
+                } catch (error) {
+                    console.error('❌ Error clearing timers:', error);
+                } finally {
+                    this.isClearing = false;
+                }
+            }
+
+            safeInterval(callback, delay) {
+                const timerId = setInterval(callback, delay);
+                this.addTimer(timerId);
+                return timerId;
+            }
         }
 
-        // ===== INITIALIZATION =====
-        const studentName = sessionStorage.getItem('studentUsername') || 'Student';
-        const progressManager = new ProgressManager();
-        
-        // Clear any existing timers on page load
-        clearAllTimers();
-        
-        // Store previous stats for comparison
-        let previousStats = JSON.parse(localStorage.getItem(`previousStats_${studentName}`)) || {
-            lessons: 0, chapters: 0, badges: 0, time: 0
-        };
-        
-        // Update UI with student info
-        document.getElementById('userName').textContent = studentName;
-        document.getElementById('userAvatar').textContent = studentName.charAt(0).toUpperCase();
-        document.getElementById('welcomeMsg').textContent = `Bem-vindo de volta, ${studentName}!`;
+        // ===== GLOBAL INSTANCES =====
+        const timerManager = new TimerManager();
+        let progressManager = null;
+        let previousStats = null;
 
-        // ===== STATS DASHBOARD - IMPROVED VERSION =====
-        function loadStats() {
-            clearAllTimers();
-            
-            const stats = progressManager.getStatistics();
-            
-            console.log('📊 Stats from Progress Manager:', stats);
-            
-            // Compare with previous stats for trend indicators
-            const currentStats = { 
-                lessons: stats.lessons, 
-                chapters: stats.chapters, 
-                badges: stats.badges, 
-                time: stats.studyHours 
-            };
-            
-            // Animate with safety checks
-            animateStatWithTrend('statLessons', stats.lessons, previousStats.lessons);
-            animateStatWithTrend('statChapters', stats.chapters, previousStats.chapters);
-            animateStatWithTrend('statBadges', stats.badges, previousStats.badges);
-            animateStatWithTrend('statTime', stats.studyHours, previousStats.time, 'h');
-            
-            // Store current stats as previous for next time
-            localStorage.setItem(`previousStats_${studentName}`, JSON.stringify(currentStats));
-            
-            // Add special effects for high achievers
-            checkHighAchievements(stats.lessons, stats.chapters, stats.badges, stats.studyHours);
-            
-            // Update progress badges based on completion
-            updateProgressBadges(stats.raw);
-      
-
-        }
-
-        function animateStatWithTrend(elementId, targetValue, previousValue, suffix = '') {
+        // ===== ✅ CORREÇÃO #5: STATS ANIMATION ESTABILIZADA =====
+        function animateStatSafely(elementId, targetValue, previousValue, suffix = '') {
             const element = document.getElementById(elementId);
-            if (!element) return;
+            if (!element) {
+                console.warn(`⚠️ Element ${elementId} not found`);
+                return;
+            }
             
             // Convert to numbers safely
             const startValue = parseInt(element.textContent.replace(/[^0-9]/g, '')) || 0;
             const target = parseInt(targetValue) || 0;
             
-            // Skip animation if no change or invalid values
+            // Immediate update if no animation needed
             if (target === startValue || target < 0 || target > 1000) {
                 element.textContent = target + suffix;
                 return;
             }
             
-            // Show trend indicator based on comparison with previous session
+            // Show trend if improvement
             if (target > previousValue) {
                 element.classList.add('achievement');
                 setTimeout(() => element.classList.remove('achievement'), 2000);
                 
-                // Show trend indicator
+                // Update trend indicator
                 const trendMap = {
                     'statLessons': 'lessonsTrend',
                     'statChapters': 'chaptersTrend',
@@ -383,68 +417,116 @@
                 }
             }
             
-            // Simple animation with safety checks
+            // Safe animation with cleanup
             const difference = Math.abs(target - startValue);
             const increment = target > startValue ? 1 : -1;
-            const stepTime = Math.max(50, Math.floor(1000 / difference));
+            const stepTime = Math.max(50, Math.floor(800 / difference));
             
             let currentValue = startValue;
             let steps = 0;
-            const maxSteps = difference;
+            const maxSteps = Math.min(difference, 20); // Limit animation steps
             
-            const timer = setInterval(() => {
+            const timerId = timerManager.safeInterval(() => {
                 steps++;
                 currentValue += increment;
                 element.textContent = currentValue + suffix;
                 
-                // Multiple safety conditions
-                if (currentValue === target || steps >= maxSteps || steps > 50) {
-                    clearInterval(timer);
-                    element.textContent = target + suffix;
-                    // Remove from active timers
-                    const index = activeTimers.indexOf(timer);
-                    if (index > -1) activeTimers.splice(index, 1);
+                if (currentValue === target || steps >= maxSteps) {
+                    timerManager.removeTimer(timerId);
+                    element.textContent = target + suffix; // Ensure final value
                 }
             }, stepTime);
-            
-            // Track active timer
-            activeTimers.push(timer);
+        }
+
+        function loadStatsSafely() {
+            try {
+                timerManager.clearAllTimers();
+                
+                if (!progressManager || !progressManager.isInitialized) {
+                    console.warn('⚠️ Progress manager not ready, using default stats');
+                    setDefaultStats();
+                    return;
+                }
+                
+                const stats = progressManager.getStatistics();
+                console.log('📊 Loading stats:', stats);
+                
+                // Get previous stats for comparison
+                const currentStats = { 
+                    lessons: stats.lessons, 
+                    chapters: stats.chapters, 
+                    badges: stats.badges, 
+                    time: stats.studyHours 
+                };
+                
+                // Animate with safety checks
+                animateStatSafely('statLessons', stats.lessons, previousStats?.lessons || 0);
+                animateStatSafely('statChapters', stats.chapters, previousStats?.chapters || 0);
+                animateStatSafely('statBadges', stats.badges, previousStats?.badges || 0);
+                animateStatSafely('statTime', stats.studyHours, previousStats?.time || 0, 'h');
+                
+                // Store current stats for next comparison
+                previousStats = currentStats;
+                localStorage.setItem(`previousStats_${progressManager.studentName}`, JSON.stringify(currentStats));
+                
+                // Achievement effects
+                checkHighAchievements(stats.lessons, stats.chapters, stats.badges, stats.studyHours);
+                
+                // Update progress badges
+                updateProgressBadgesSafely(stats.raw);
+                
+            } catch (error) {
+                console.error('❌ Error loading stats:', error);
+                setDefaultStats();
+            }
         }
 
         function setDefaultStats() {
-            clearAllTimers();
-            
-            document.getElementById('statLessons').textContent = '0';
-            document.getElementById('statChapters').textContent = '0';
-            document.getElementById('statBadges').textContent = '0';
-            document.getElementById('statTime').textContent = '0h';
+            const defaultValues = [
+                { id: 'statLessons', value: '0' },
+                { id: 'statChapters', value: '0' },
+                { id: 'statBadges', value: '0' },
+                { id: 'statTime', value: '0h' }
+            ];
+
+            defaultValues.forEach(({ id, value }) => {
+                const element = document.getElementById(id);
+                if (element) {
+                    element.textContent = value;
+                }
+            });
         }
 
         function checkHighAchievements(lessons, chapters, badges, hours) {
-            document.querySelectorAll('.stat-card').forEach(card => {
-                card.classList.remove('high-achiever');
-            });
-            
-            const lessonsCard = document.querySelector('.stat-card.lessons');
-            const chaptersCard = document.querySelector('.stat-card.chapters');
-            const badgesCard = document.querySelector('.stat-card.badges');
-            const timeCard = document.querySelector('.stat-card.time');
-            
-            if (lessons >= 5 && lessonsCard) {
-                lessonsCard.classList.add('high-achiever');
-            }
-            if (chapters >= 3 && chaptersCard) {
-                chaptersCard.classList.add('high-achiever');
-            }
-            if (badges >= 3 && badgesCard) {
-                badgesCard.classList.add('high-achiever');
-            }
-            if (hours >= 2 && timeCard) {
-                timeCard.classList.add('high-achiever');
-            }
-            
-            if (lessons >= 10 || chapters >= 8 || badges >= 5 || hours >= 5) {
-                showCelebrationMessage();
+            try {
+                // Remove previous high achiever status
+                document.querySelectorAll('.stat-card').forEach(card => {
+                    card.classList.remove('high-achiever');
+                });
+                
+                // Add high achiever status based on thresholds
+                const achievements = [
+                    { selector: '.stat-card.lessons', threshold: lessons >= 5 },
+                    { selector: '.stat-card.chapters', threshold: chapters >= 3 },
+                    { selector: '.stat-card.badges', threshold: badges >= 3 },
+                    { selector: '.stat-card.time', threshold: hours >= 2 }
+                ];
+
+                achievements.forEach(({ selector, threshold }) => {
+                    if (threshold) {
+                        const card = document.querySelector(selector);
+                        if (card) {
+                            card.classList.add('high-achiever');
+                        }
+                    }
+                });
+                
+                // Celebration for high achievers
+                if (lessons >= 10 || chapters >= 8 || badges >= 5 || hours >= 5) {
+                    setTimeout(() => showCelebrationMessage(), 1000);
+                }
+            } catch (error) {
+                console.error('❌ Error checking achievements:', error);
             }
         }
 
@@ -456,62 +538,67 @@
                 '🔥 Dedicação exemplar! Keep it up!'
             ];
             
-            setTimeout(() => {
-                const randomMessage = messages[Math.floor(Math.random() * messages.length)];
-                if (confirm(randomMessage + '\n\nQuer continuar estudando?')) {
-                    console.log('Aluno motivado a continuar!');
-                }
-            }, 2000);
-        }
-
-        function updateProgressBadges(data) {
-            const listeningCompleted = data.listening?.chaptersCompleted?.length || 0;
-            const listeningBadge = document.getElementById('listeningProgress');
-            if (listeningBadge) {
-                if (listeningCompleted > 0) {
-                    listeningBadge.textContent = `${listeningCompleted} ✓`;
-                    listeningBadge.style.background = 'var(--success)';
-                } else {
-                    listeningBadge.textContent = '✨ Pronto';
-                    listeningBadge.style.background = 'var(--blue-medium)';
-                }
-            }
-            
-            const roommateCompleted = data.roommate?.chaptersCompleted?.length || 0;
-            const readingCompleted = data.reading?.chaptersCompleted?.length || 0;
-            const gradedBadge = document.getElementById('gradedProgress');
-            if (gradedBadge) {
-                const totalGradedChapters = roommateCompleted + readingCompleted;
-                if (totalGradedChapters > 0) {
-                    gradedBadge.textContent = `${totalGradedChapters} ✓`;
-                    gradedBadge.style.background = 'var(--success)';
-                } else {
-                    gradedBadge.textContent = '✨ Pronto';
-                    gradedBadge.style.background = 'var(--blue-medium)';
-                }
-            }
-            
-            const neighborCompleted = data.neighbor?.chaptersCompleted?.length || 0;
-            const pureBadge = document.getElementById('pureProgress');
-            if (pureBadge) {
-                if (neighborCompleted > 0) {
-                    pureBadge.textContent = `${neighborCompleted} ✓`;
-                    pureBadge.style.background = 'var(--success)';
-                } else {
-                    pureBadge.textContent = '✨ Pronto';
-                    pureBadge.style.background = 'var(--blue-medium)';
-                }
+            const randomMessage = messages[Math.floor(Math.random() * messages.length)];
+            if (confirm(randomMessage + '\n\nQuer continuar estudando?')) {
+                console.log('✨ Student motivated to continue!');
             }
         }
 
-        // ===== NAVIGATION SYSTEM =====
+        function updateProgressBadgesSafely(data) {
+            try {
+                const badges = [
+                    {
+                        id: 'listeningProgress',
+                        completed: data.listening?.chaptersCompleted?.length || 0,
+                        defaultText: '✨ Pronto'
+                    },
+                    {
+                        id: 'gradedProgress', 
+                        completed: (data.roommate?.chaptersCompleted?.length || 0) + (data.reading?.chaptersCompleted?.length || 0),
+                        defaultText: '✨ Pronto'
+                    },
+                    {
+                        id: 'pureProgress',
+                        completed: data.neighbor?.chaptersCompleted?.length || 0,
+                        defaultText: '✨ Pronto'
+                    }
+                ];
+
+                badges.forEach(({ id, completed, defaultText }) => {
+                    const badge = document.getElementById(id);
+                    if (badge) {
+                        if (completed > 0) {
+                            badge.textContent = `${completed} ✓`;
+                            badge.style.background = 'var(--success)';
+                            badge.style.color = 'white';
+                        } else {
+                            badge.textContent = defaultText;
+                            badge.style.background = 'var(--blue-medium)';
+                            badge.style.color = 'white';
+                        }
+                    }
+                });
+            } catch (error) {
+                console.error('❌ Error updating progress badges:', error);
+            }
+        }
+
+        // ===== ✅ CORREÇÃO #6: NAVIGATION ESTABILIZADA =====
         function navigate(section) {
             const card = event.currentTarget;
             const button = card.querySelector('.hub-button');
+            if (!button) return;
+            
             const originalText = button.textContent;
+            
+            // Prevent double clicks
+            if (button.disabled || button.textContent.includes('Carregando')) {
+                return;
+            }
             
             // Loading state
             button.textContent = 'Carregando...';
+            button.disabled = true;
             card.style.opacity = '0.7';
             
             const routes = {
@@ -520,15 +607,25 @@
                 'pure-reading': 'pages/hubs/pure-reading-hub.html'
             };
             
+            // Safety reset timer
+            const resetTimer = setTimeout(() => {
+                button.textContent = originalText;
+                button.disabled = false;
+                card.style.opacity = '1';
+            }, 5000);
+            
             setTimeout(() => {
                 if (routes[section]) {
+                    clearTimeout(resetTimer);
                     window.location.href = routes[section];
                 } else {
+                    clearTimeout(resetTimer);
                     button.textContent = originalText;
+                    button.disabled = false;
                     card.style.opacity = '1';
                     alert('🚀 Seção em desenvolvimento!');
                 }
-            }, 500);
+            }, 300);
         }
 
         function showComingSoon() {
@@ -544,61 +641,105 @@
         // ===== LOGOUT FUNCTION =====
         function logout() {
             if (confirm('Tem certeza que deseja sair?')) {
+                timerManager.clearAllTimers();
                 sessionStorage.clear();
                 window.location.href = 'pages/auth/login.html';
             }
         }
 
-        // ===== PWA SERVICE WORKER =====
-        if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('./sw.js')
-                .then(registration => {
-                    console.log('🔧 Service Worker registrado com sucesso:', registration);
-                })
-                .catch(error => {
-                    console.log('❌ Falha ao registrar Service Worker:', error);
-                });
+        // ===== ✅ CORREÇÃO #7: INITIALIZATION ROBUSTO =====
+        function initializeDashboard() {
+            try {
+                // 1. Check auth first
+                if (!checkAuthSafely()) {
+                    return;
+                }
+
+                // 2. Initialize progress manager
+                progressManager = new ProgressManager();
+
+                // 3. Load previous stats
+                const studentName = sessionStorage.getItem('studentUsername') || 'Student';
+                previousStats = JSON.parse(localStorage.getItem(`previousStats_${studentName}`)) || {
+                    lessons: 0, chapters: 0, badges: 0, time: 0
+                };
+
+                // 4. Update UI
+                document.getElementById('userName').textContent = studentName;
+                document.getElementById('userAvatar').textContent = studentName.charAt(0).toUpperCase();
+                document.getElementById('welcomeMsg').textContent = `Bem-vindo de volta, ${studentName}!`;
+
+                // 5. Load stats
+                loadStatsSafely();
+
+                console.log('✅ Dashboard initialized successfully');
+                console.log(`👤 User: ${studentName}`);
+                console.log('📊 Progress Manager active');
+
+            } catch (error) {
+                console.error('❌ Dashboard initialization error:', error);
+                // Fallback initialization
+                setDefaultStats();
+            }
         }
 
-        // ===== PAGE CLEANUP =====
+        // ===== ✅ CORREÇÃO #8: CLEANUP EVENTS =====
         let sessionStartTime = Date.now();
         
         window.addEventListener('beforeunload', () => {
-            clearAllTimers();
+            timerManager.clearAllTimers();
             
-            const sessionTime = Date.now() - sessionStartTime;
-            if (sessionTime > 0) {
-                const data = progressManager.getAllProgress();
-                data.totalStudyTime = (data.totalStudyTime || 0) + sessionTime;
-                progressManager.saveAllProgress(data);
+            if (progressManager && progressManager.isInitialized) {
+                const sessionTime = Date.now() - sessionStartTime;
+                if (sessionTime > 0) {
+                    const data = progressManager.getAllProgress();
+                    data.totalStudyTime = (data.totalStudyTime || 0) + sessionTime;
+                    progressManager.saveAllProgress(data);
+                }
             }
         });
 
         document.addEventListener('visibilitychange', () => {
             if (document.hidden) {
-                clearAllTimers();
+                timerManager.clearAllTimers();
             }
         });
 
-        // ===== GLOBAL FUNCTIONS FOR DEBUGGING =====
-        window.progressManager = progressManager;
+        // ===== PWA SERVICE WORKER =====
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('./sw.js')
+                .then(registration => {
+                    console.log('🔧 Service Worker registered successfully:', registration);
+                })
+                .catch(error => {
+                    console.log('❌ Service Worker registration failed:', error);
+                });
+        }
+
+        // ===== GLOBAL DEBUG FUNCTIONS =====
+        window.progressManager = () => progressManager;
         window.clearStatsAnimations = function() {
-            clearAllTimers();
+            timerManager.clearAllTimers();
             setDefaultStats();
-            console.log('🆘 Animações de stats resetadas com sucesso!');
+            console.log('🆘 Stats animations cleared successfully!');
         };
 
         window.debugProgress = function() {
-            return progressManager.debugProgress();
+            return progressManager ? progressManager.debugProgress() : { error: 'Progress manager not initialized' };
         };
 
         window.forceRefreshStats = function() {
-            console.log('🔄 Forçando atualização de stats...');
-            clearAllTimers();
-            loadStats();
+            console.log('🔄 Forcing stats refresh...');
+            timerManager.clearAllTimers();
+            loadStatsSafely();
         };
 
         window.simulateProgress = function() {
+            if (!progressManager) {
+                console.error('❌ Progress manager not available');
+                return;
+            }
+
             const testData = {
                 listening: {
                     chaptersCompleted: [1, 2, 3],
@@ -620,7 +761,7 @@
             };
             
             progressManager.saveAllProgress(testData);
-            console.log('✅ Dados de teste salvos!');
+            console.log('✅ Test data saved!');
             forceRefreshStats();
         };
 
@@ -632,18 +773,32 @@
             }, 500);
         });
 
-        // ===== INITIALIZATION =====
-        loadStats();
+        // ===== FINAL INITIALIZATION =====
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('📄 DOM loaded, initializing dashboard...');
+            
+            // Small delay to ensure all scripts loaded
+            setTimeout(() => {
+                initializeDashboard();
+            }, 100);
+        });
         
-        console.log('🎓 TEACHER ALEX ENGLISH ACADEMY carregado!');
-        console.log('👤 Usuário logado:', studentName);
-        console.log('📊 PROGRESS MANAGER ativo - Sistema universal de progresso!');
+        console.log('🎓 TEACHER ALEX ENGLISH ACADEMY - INDEX ESTABILIZADO!');
+        console.log('✅ CORREÇÕES APLICADAS:');
+        console.log('  1. Path navigation-fix.js corrigido');
+        console.log('  2. Timer system robusto implementado');
+        console.log('  3. Progress manager estabilizado');
+        console.log('  4. Auth check com fallbacks');
+        console.log('  5. Stats animation safeguardada');
+        console.log('  6. Navigation com anti-double-click');
+        console.log('  7. Cleanup events otimizados');
+        console.log('  8. Memory leak prevention');
         console.log('');
-        console.log('🔥 ALEX, PARA TESTAR O PROGRESSO:');
-        console.log('   1. Digite: simulateProgress() para criar dados de teste');
-        console.log('   2. Digite: debugProgress() para ver dados atuais');
-        console.log('   3. Digite: forceRefreshStats() para atualizar dashboard');
-        console.log('   4. Complete um capítulo e volte - progresso deve aparecer!');
+        console.log('🔥 PARA TESTAR:');
+        console.log('   1. simulateProgress() - criar dados teste');
+        console.log('   2. debugProgress() - ver dados atuais');
+        console.log('   3. forceRefreshStats() - atualizar dashboard');
+        console.log('   4. clearStatsAnimations() - emergency reset');
     </script>
 </body>
 </html>
