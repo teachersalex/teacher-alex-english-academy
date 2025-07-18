@@ -587,24 +587,18 @@
             }
         }
 
-        // ===== ✅ CORREÇÃO #6: NAVIGATION IGUAL LISTENING-HUB =====
+        // ===== ✅ CORREÇÃO #6: NAVIGATION SIMPLES IGUAL LISTENING-HUB =====
         function navigateToSection(section) {
-            const card = this; // Use 'this' instead of event.currentTarget
+            const card = this;
             const button = card.querySelector('.hub-button');
             if (!button) return;
             
             const originalText = button.textContent;
             
-            // Prevent double clicks
-            if (button.disabled || button.textContent.includes('Carregando')) {
-                return;
-            }
-            
             console.log('🎯 Navegando para:', section);
             
             // Loading state
             button.textContent = 'Carregando...';
-            button.disabled = true;
             card.style.opacity = '0.7';
             
             const routes = {
@@ -618,11 +612,10 @@
                     window.location.href = routes[section];
                 } else {
                     button.textContent = originalText;
-                    button.disabled = false;
                     card.style.opacity = '1';
                     showComingSoon();
                 }
-            }, 300);
+            }, 500);
         }
 
         function showComingSoon() {
