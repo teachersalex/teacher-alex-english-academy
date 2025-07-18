@@ -9,6 +9,98 @@
     <link rel="stylesheet" href="../../src/styles/base.css">
     <link rel="stylesheet" href="../../src/styles/layout.css">
     <link rel="stylesheet" href="../../src/styles/theme-patriot.css">
+    
+    <style>
+        /* ===== ACHIEVEMENTS ANIMATIONS ===== */
+        .badge.earned {
+            background: linear-gradient(45deg, var(--success), #34d399) !important;
+            color: white !important;
+            transform: scale(1.05);
+            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4);
+            animation: badgeEarned 0.6s ease-out;
+        }
+        
+        @keyframes badgeEarned {
+            0% { 
+                transform: scale(1) rotate(0deg); 
+                opacity: 0.7; 
+            }
+            50% { 
+                transform: scale(1.2) rotate(5deg); 
+                opacity: 1; 
+            }
+            100% { 
+                transform: scale(1.05) rotate(0deg); 
+                opacity: 1; 
+            }
+        }
+        
+        .score {
+            animation: scoreReveal 0.8s ease-out;
+        }
+        
+        @keyframes scoreReveal {
+            0% { 
+                opacity: 0; 
+                transform: translateY(20px) scale(0.9); 
+            }
+            100% { 
+                opacity: 1; 
+                transform: translateY(0) scale(1); 
+            }
+        }
+        
+        .feedback {
+            animation: feedbackSlide 0.6s ease-out;
+        }
+        
+        @keyframes feedbackSlide {
+            0% { 
+                opacity: 0; 
+                transform: translateX(-30px); 
+            }
+            100% { 
+                opacity: 1; 
+                transform: translateX(0); 
+            }
+        }
+        
+        .achievement-popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: linear-gradient(45deg, var(--blue-dark), var(--blue-medium));
+            color: white;
+            padding: 30px 40px;
+            border-radius: 20px;
+            z-index: 10000;
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            animation: achievementPopup 3s ease-in-out forwards;
+            font-size: 1.2em;
+            font-weight: 700;
+        }
+        
+        @keyframes achievementPopup {
+            0% { 
+                opacity: 0; 
+                transform: translate(-50%, -50%) scale(0.5) rotate(-10deg); 
+            }
+            20% { 
+                opacity: 1; 
+                transform: translate(-50%, -50%) scale(1.1) rotate(2deg); 
+            }
+            80% { 
+                opacity: 1; 
+                transform: translate(-50%, -50%) scale(1) rotate(0deg); 
+            }
+            100% { 
+                opacity: 0; 
+                transform: translate(-50%, -50%) scale(0.9) rotate(0deg); 
+            }
+        }
+    </style>
 </head>
 <body class="listening-page">
     <!-- User Widget -->
@@ -204,6 +296,9 @@
 
         function switchToLesson(lessonNumber) {
             if (lessonNumber === currentLesson) return;
+            
+            console.log(`🔄 Mudando para lição ${lessonNumber}`);
+            
             currentLesson = lessonNumber;
             loadLesson(currentLesson);
             createLessonCards();
@@ -216,6 +311,8 @@
                 console.error(`Lição ${lessonNumber} não encontrada`);
                 return;
             }
+            
+            console.log(`📖 Carregando lição ${lessonNumber}: ${lesson.title}`);
             
             document.getElementById('lessonTitle').textContent = lesson.title;
             document.getElementById('lessonSubtitle').textContent = `Lição ${lessonNumber} - ${lesson.description}`;
@@ -269,9 +366,95 @@
         }
 
         // ===== AUDIO CONTROLS =====
-        function playAudio() { document.getElementById('mainAudio').play(); }
-        function replayAudio() { const audio = document.getElementById('mainAudio'); audio.currentTime = 0; audio.play(); }
-        function pauseAudio() { document.getElementById('mainAudio').pause(); }
+        function playAudio() { 
+            const audio = document.getElementById('mainAudio');
+            if (audio) audio.play(); 
+        }
+        
+        function replayAudio() { 
+            const audio = document.getElementById('mainAudio'); 
+            if (audio) {
+                audio.currentTime = 0; 
+                audio.play(); 
+            }
+        }
+        
+        function pauseAudio() { 
+            const audio = document.getElementById('mainAudio');
+            if (audio) audio.pause(); 
+        }
+
+        // ===== ACHIEVEMENT SYSTEM =====
+        function showAchievementPopup(message) {
+            // Remove existing popup
+            const existing = document.querySelector('.achievement-popup');
+            if (existing) existing.remove();
+            
+            // Create new popup
+            const popup = document.createElement('div');
+            popup.className = 'achievement-popup';
+            popup.textContent = message;
+            document.body.appendChild(popup);
+            
+            // Remove after animation
+            setTimeout(() => {
+                if (document.body.contains(popup)) {
+                    document.body.removeChild(popup);
+                }
+            }, 3000);
+        }
+
+        function activateBadges(score, attempts) {
+            console.log(`🏆 Ativando badges - Pontuação: ${score}, Tentativa: ${attempts}`);
+            
+            // GARANTIR que todos os badges sejam resetados primeiro
+            document.querySelectorAll('.badge').forEach(badge => {
+                badge.classList.remove('earned');
+            });
+            
+            // Aguardar um frame para garantir reset
+            setTimeout(() => {
+                let newBadges = [];
+                
+                // Badge 1: Primeira tentativa
+                if (attempts === 1) {
+                    document.getElementById('badge1').classList.add('earned');
+                    newBadges.push('🎯 Primeira Tentativa');
+                    console.log('✅ Badge 1 ativado: Primeira Tentativa');
+                }
+                
+                // Badge 2: Boa pontuação (4+)
+                if (score >= 4) {
+                    document.getElementById('badge2').classList.add('earned');
+                    newBadges.push('⭐ Boa Pontuação');
+                    console.log('✅ Badge 2 ativado: Boa Pontuação');
+                }
+                
+                // Badge 3: Perfeito (5)
+                if (score === 5) {
+                    document.getElementById('badge3').classList.add('earned');
+                    newBadges.push('🏆 Perfeito');
+                    console.log('✅ Badge 3 ativado: Perfeito');
+                }
+                
+                // Badge 4: Foundation Expert (4+)
+                if (score >= 4) {
+                    document.getElementById('badge4').classList.add('earned');
+                    newBadges.push('🔥 Foundation Expert');
+                    console.log('✅ Badge 4 ativado: Foundation Expert');
+                }
+                
+                // Show popup for special achievements
+                if (score === 5) {
+                    showAchievementPopup('🏆 FOUNDATION PERFECT! 🌱');
+                } else if (score >= 4 && attempts === 1) {
+                    showAchievementPopup('🎯 PRIMEIRA TENTATIVA EXCELENTE! ⭐');
+                }
+                
+                console.log(`🎉 ${newBadges.length} badges ativados:`, newBadges);
+                
+            }, 50);
+        }
 
         // ===== CHECK ANSWERS =====
         function checkAnswers() {
@@ -280,6 +463,8 @@
             let score = 0;
             let detailedResults = [];
             attempts++;
+            
+            console.log(`🎯 Verificando respostas - Lição: ${currentLesson}, Tentativa: ${attempts}`);
             
             questions.forEach((key, index) => {
                 const selected = document.querySelector(`input[name="${key}"]:checked`);
@@ -293,7 +478,9 @@
                 
                 // Mark correct answer
                 const correctOption = document.querySelector(`input[name="${key}"][value="${correct}"]`);
-                correctOption.closest('.option').classList.add('correct-answer');
+                if (correctOption) {
+                    correctOption.closest('.option').classList.add('correct-answer');
+                }
                 
                 // Mark wrong answer if applicable
                 if (selected && selected.value !== correct) {
@@ -311,14 +498,17 @@
                 }
             });
             
+            console.log(`📊 Resultado final: ${score}/5 pontos`);
+            
             // Save progress if system available
             try {
                 if (window.studentProgress && typeof window.studentProgress.completeListeningLesson === 'function') {
                     const timeSpent = Date.now() - lessonStartTime;
                     window.studentProgress.completeListeningLesson('foundation', currentLesson, score, timeSpent);
+                    console.log('💾 Progresso salvo no sistema');
                 }
             } catch (e) {
-                console.log('Progress not saved:', e);
+                console.log('⚠️ Progresso não salvo:', e);
             }
             
             // Update UI
@@ -327,34 +517,50 @@
             document.getElementById('scoreValue').textContent = score;
             document.getElementById('scoreSection').style.display = 'block';
             
-            // Update badges
-            if (attempts === 1) document.getElementById('badge1').classList.add('earned');
-            if (score >= 4) document.getElementById('badge2').classList.add('earned');
-            if (score === 5) document.getElementById('badge3').classList.add('earned');
-            if (score >= 4) document.getElementById('badge4').classList.add('earned');
+            // ACTIVATE BADGES - GARANTIDO
+            activateBadges(score, attempts);
             
             // Show feedback
             const feedback = document.getElementById('feedback');
-            let feedbackHeader = score === 5 ? 
-                '<div style="text-align: center; background: linear-gradient(45deg, var(--blue-dark), var(--blue-medium)); color: white; padding: 25px; border-radius: 15px; margin-bottom: 25px; font-size: 1.3em; font-weight: 800;">🎯 FOUNDATION PERFECT! 🌱✨</div>' :
-                '<div style="text-align: center; background: linear-gradient(45deg, var(--blue-medium), var(--blue-gray)); color: white; padding: 25px; border-radius: 15px; margin-bottom: 25px; font-size: 1.2em; font-weight: 800;">💪 CONTINUE PRATICANDO! 🎧</div>';
+            let feedbackHeader;
+            
+            if (score === 5) {
+                feedbackHeader = '<div style="text-align: center; background: linear-gradient(45deg, var(--success), #34d399); color: white; padding: 25px; border-radius: 15px; margin-bottom: 25px; font-size: 1.3em; font-weight: 800;">🎯 FOUNDATION PERFECT! 🌱✨</div>';
+            } else if (score >= 4) {
+                feedbackHeader = '<div style="text-align: center; background: linear-gradient(45deg, var(--blue-dark), var(--blue-medium)); color: white; padding: 25px; border-radius: 15px; margin-bottom: 25px; font-size: 1.2em; font-weight: 800;">⭐ EXCELENTE TRABALHO! 🎧</div>';
+            } else {
+                feedbackHeader = '<div style="text-align: center; background: linear-gradient(45deg, var(--blue-medium), var(--blue-gray)); color: white; padding: 25px; border-radius: 15px; margin-bottom: 25px; font-size: 1.2em; font-weight: 800;">💪 CONTINUE PRATICANDO! 🎧</div>';
+            }
             
             feedback.innerHTML = feedbackHeader + detailedResults.map(result => `<div style="margin: 1rem 0; padding: 1.25rem; background: #f8fafc; border-radius: 12px; border-left: 4px solid var(--blue-dark);">${result}</div>`).join('');
             feedback.style.display = 'block';
+            
+            console.log(`✅ Verificação completa! Score: ${score}, Badges ativados: ${attempts === 1 ? 'Primeira tentativa + ' : ''}${score >= 4 ? 'Boa pontuação + ' : ''}${score === 5 ? 'Perfeito + ' : ''}${score >= 4 ? 'Expert' : ''}`);
         }
 
         function resetQuiz() {
+            console.log(`🔄 Resetando quiz da lição ${currentLesson}`);
+            
+            // Reset form
             document.querySelectorAll('input[type="radio"]').forEach(radio => {
                 radio.checked = false;
                 radio.closest('.option').classList.remove('selected', 'correct-answer', 'wrong-answer');
             });
+            
+            // Reset UI
             document.getElementById('scoreSection').style.display = 'none';
             document.getElementById('feedback').style.display = 'none';
             document.getElementById('progressBar').style.width = '0%';
             document.getElementById('progressText').textContent = '0%';
+            
+            // Reset badges
             document.querySelectorAll('.badge').forEach(badge => badge.classList.remove('earned'));
+            
+            // Reset counters - IMPORTANTE
             attempts = 0;
             lessonStartTime = Date.now();
+            
+            console.log(`✅ Quiz resetado - Pronto para nova tentativa`);
         }
 
         function nextLesson() {
@@ -382,13 +588,13 @@
                 studentName.charAt(0).toUpperCase() + studentName.slice(1).toLowerCase();
             document.getElementById('userAvatar').textContent = studentName.charAt(0).toUpperCase();
             
-            console.log(`🌱 Foundation Level - usuário: ${studentName}`);
+            console.log(`🌱 Foundation Level inicializando - Usuário: ${studentName}`);
             
-            // Create cards immediately
+            // Create cards and load lesson
             createLessonCards();
             loadLesson(currentLesson);
             
-            console.log('✅ Foundation Level pronto!');
+            console.log('✅ Foundation Level pronto! Achievements garantidos em todas as lições.');
         }
 
         // ===== START =====
@@ -399,7 +605,7 @@
             setTimeout(initializePage, 50);
         }
 
-        console.log('🌱 Foundation script carregado!');
+        console.log('🌱 Foundation script carregado - Versão com achievements garantidos!');
     </script>
     
     <!-- ✅ SCRIPTS UNIVERSAIS -->
