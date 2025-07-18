@@ -82,7 +82,7 @@
         <!-- Main Activities -->
         <main class="hubs-grid">
             <!-- Listening Hub -->
-            <div class="hub-card" onclick="navigate('listening')">
+            <div class="hub-card" data-navigate="listening">
                 <div class="hub-header">
                     <div class="hub-icon">🎧</div>
                     <h3 class="hub-title-card">Listening Practice</h3>
@@ -104,7 +104,7 @@
             </div>
             
             <!-- Graded Readers Hub -->
-            <div class="hub-card" onclick="navigate('graded-readers')">
+            <div class="hub-card" data-navigate="graded-readers">
                 <div class="hub-header">
                     <div class="hub-icon">📚</div>
                     <h3 class="hub-title-card">Graded Readers</h3>
@@ -126,7 +126,7 @@
             </div>
             
             <!-- Pure Reading Hub -->
-            <div class="hub-card" onclick="navigate('pure-reading')">
+            <div class="hub-card" data-navigate="pure-reading">
                 <div class="hub-header">
                     <div class="hub-icon">📖</div>
                     <h3 class="hub-title-card">Pure Reading</h3>
@@ -148,7 +148,7 @@
             </div>
             
             <!-- Secret Area -->
-            <div class="hub-card coming-soon" onclick="showComingSoon()">
+            <div class="hub-card coming-soon" data-navigate="secret">
                 <div class="hub-header">
                     <div class="hub-icon">🔒</div>
                     <h3 class="hub-title-card">Secret Area</h3>
@@ -583,8 +583,8 @@
             }
         }
 
-        // ===== ✅ CORREÇÃO #6: NAVIGATION ESTABILIZADA =====
-        function navigate(section) {
+        // ===== ✅ CORREÇÃO #6: NAVIGATION IGUAL LISTENING-HUB =====
+        function navigateToSection(section) {
             const card = event.currentTarget;
             const button = card.querySelector('.hub-button');
             if (!button) return;
@@ -607,23 +607,14 @@
                 'pure-reading': 'pages/hubs/pure-reading-hub.html'
             };
             
-            // Safety reset timer
-            const resetTimer = setTimeout(() => {
-                button.textContent = originalText;
-                button.disabled = false;
-                card.style.opacity = '1';
-            }, 5000);
-            
             setTimeout(() => {
                 if (routes[section]) {
-                    clearTimeout(resetTimer);
                     window.location.href = routes[section];
                 } else {
-                    clearTimeout(resetTimer);
                     button.textContent = originalText;
                     button.disabled = false;
                     card.style.opacity = '1';
-                    alert('🚀 Seção em desenvolvimento!');
+                    showComingSoon();
                 }
             }, 300);
         }
@@ -647,7 +638,7 @@
             }
         }
 
-        // ===== ✅ CORREÇÃO #7: INITIALIZATION ROBUSTO =====
+        // ===== ✅ CORREÇÃO #7: INITIALIZATION IGUAL LISTENING-HUB =====
         function initializeDashboard() {
             try {
                 // 1. Check auth first
@@ -669,18 +660,42 @@
                 document.getElementById('userAvatar').textContent = studentName.charAt(0).toUpperCase();
                 document.getElementById('welcomeMsg').textContent = `Bem-vindo de volta, ${studentName}!`;
 
-                // 5. Load stats
+                // 5. Setup navigation event listeners (IGUAL LISTENING-HUB)
+                setupNavigationListeners();
+
+                // 6. Load stats
                 loadStatsSafely();
 
                 console.log('✅ Dashboard initialized successfully');
                 console.log(`👤 User: ${studentName}`);
                 console.log('📊 Progress Manager active');
+                console.log('🎯 Navigation listeners attached');
 
             } catch (error) {
                 console.error('❌ Dashboard initialization error:', error);
                 // Fallback initialization
                 setDefaultStats();
             }
+        }
+
+        // ===== SETUP NAVIGATION LISTENERS (COPIADO DO LISTENING-HUB) =====
+        function setupNavigationListeners() {
+            document.querySelectorAll('[data-navigate]').forEach(card => {
+                card.addEventListener('click', function() {
+                    const section = this.getAttribute('data-navigate');
+                    
+                    // Set event.currentTarget for compatibility
+                    const originalEvent = window.event;
+                    window.event = { currentTarget: this };
+                    
+                    navigateToSection(section);
+                    
+                    // Restore original event
+                    window.event = originalEvent;
+                });
+            });
+            
+            console.log('✅ Navigation listeners attached to all cards');
         }
 
         // ===== ✅ CORREÇÃO #8: CLEANUP EVENTS =====
