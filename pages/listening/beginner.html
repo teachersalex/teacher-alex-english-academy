@@ -97,27 +97,7 @@
     </div>
     
     <script>
-        // ===== AUTH SYSTEM =====
-        function checkLogin() {
-            if (sessionStorage.getItem('studentLoggedIn') !== 'true') {
-                window.location.href = '../auth/login.html';
-                return false;
-            }
-            return true;
-        }
-
-        function logout() {
-            sessionStorage.clear();
-            window.location.href = '../auth/login.html';
-        }
-
-        // Proteção imediata
-        if (!checkLogin()) {
-            document.body.innerHTML = '<div style="text-align:center;padding:50px;"><h1>Redirecionando...</h1></div>';
-            throw new Error('Access denied');
-        }
-
-        // ===== BEGINNER LESSONS DATA =====
+        // ===== 📊 BEGINNER LESSONS DATA - CARREGADO PRIMEIRO =====
         const beginnerLessons = {
             1: { 
                 title: "Personal Introduction", shortTitle: "Introduction", icon: "🇺🇸", 
@@ -157,20 +137,72 @@
             }
         };
 
+        console.log('📊 Beginner Lessons carregadas:', Object.keys(beginnerLessons).length, 'lições');
+
+        // ===== AUTH SYSTEM =====
+        function checkLogin() {
+            if (sessionStorage.getItem('studentLoggedIn') !== 'true') {
+                window.location.href = '../auth/login.html';
+                return false;
+            }
+            return true;
+        }
+
+        function logout() {
+            sessionStorage.clear();
+            window.location.href = '../auth/login.html';
+        }
+
+        // Proteção imediata
+        if (!checkLogin()) {
+            document.body.innerHTML = '<div style="text-align:center;padding:50px;"><h1>Redirecionando...</h1></div>';
+            throw new Error('Access denied');
+        }
+
         // ===== VARIÁVEIS DE CONTROLE =====
         let currentLesson = 1;
         let attempts = 0;
         let lessonStartTime = Date.now();
+        let systemReady = false;
+
+        // ===== 🔧 AGUARDAR SISTEMA UNIVERSAL =====
+        function waitForUniversalSystem() {
+            return new Promise((resolve) => {
+                let attempts = 0;
+                const maxAttempts = 10;
+                
+                function checkSystem() {
+                    attempts++;
+                    console.log(`🔄 Verificando sistema universal (${attempts}/${maxAttempts})...`);
+                    
+                    if (window.studentProgress && typeof window.studentProgress.completeListeningLesson === 'function') {
+                        console.log('✅ Sistema universal PRONTO!');
+                        systemReady = true;
+                        resolve(true);
+                    } else if (attempts < maxAttempts) {
+                        setTimeout(checkSystem, 200);
+                    } else {
+                        console.warn('⚠️ Sistema universal não carregou, continuando sem ele...');
+                        resolve(false);
+                    }
+                }
+                
+                checkSystem();
+            });
+        }
 
         // ===== LESSON CARDS =====
-        function createLessonCards() {
+        async function createLessonCards() {
             const cardsContainer = document.getElementById('lessonCards');
-            if (!cardsContainer) return;
-            
-            // Aguarda sistema universal
-            if (!window.studentProgress) {
-                setTimeout(createLessonCards, 100);
+            if (!cardsContainer) {
+                console.error('❌ Container de cards não encontrado!');
                 return;
+            }
+            
+            // 🔧 Aguarda sistema universal estar pronto
+            if (!systemReady) {
+                console.log('⏳ Aguardando sistema universal para criar cards...');
+                await waitForUniversalSystem();
             }
             
             cardsContainer.innerHTML = '';
@@ -179,9 +211,16 @@
                 const lessonNumber = parseInt(lessonKey);
                 const lesson = beginnerLessons[lessonNumber];
                 
-                const lessonId = `beginner_lesson_${lessonNumber}`;
-                const isCompleted = window.studentProgress.data.listening.lessonsCompleted.includes(lessonId);
-                const bestScore = window.studentProgress.data.listening.bestScores[lessonId] || 0;
+                let isCompleted = false;
+                let bestScore = 0;
+                
+                // Verifica progresso se sistema estiver disponível
+                if (window.studentProgress) {
+                    const lessonId = `beginner_lesson_${lessonNumber}`;
+                    isCompleted = window.studentProgress.data.listening.lessonsCompleted.includes(lessonId);
+                    bestScore = window.studentProgress.data.listening.bestScores[lessonId] || 0;
+                }
+                
                 const isActive = lessonNumber === currentLesson;
                 
                 const card = document.createElement('div');
@@ -198,6 +237,8 @@
                 `;
                 cardsContainer.appendChild(card);
             });
+            
+            console.log('✅ Lesson cards criados');
         }
 
         function switchToLesson(lessonNumber) {
@@ -207,28 +248,47 @@
             createLessonCards();
         }
 
+        // ===== 🔧 LOAD LESSON - MELHORADO =====
         function loadLesson(lessonNumber) {
             console.log(`🎯 Carregando lição: ${lessonNumber}`);
             
-            // Verificação usando função universal
-            if (window.ensureQuestionsLoad && !window.ensureQuestionsLoad(beginnerLessons, lessonNumber)) {
-                alert('Erro ao carregar a lição. Por favor, recarregue a página.');
+            // Verificação de questões
+            if (!beginnerLessons[lessonNumber]) {
+                console.error(`❌ Lição ${lessonNumber} não encontrada!`);
+                alert('Erro: Lição não encontrada. Recarregando...');
+                window.location.reload();
+                return;
+            }
+            
+            if (!beginnerLessons[lessonNumber].questions) {
+                console.error(`❌ Questões da lição ${lessonNumber} não encontradas!`);
+                alert('Erro: Questões não encontradas. Recarregando...');
+                window.location.reload();
                 return;
             }
 
             const lesson = beginnerLessons[lessonNumber];
             
+            // Atualizar UI
             document.getElementById('lessonTitle').textContent = lesson.title;
             document.getElementById('lessonSubtitle').textContent = `Lição ${lessonNumber} - ${lesson.description}`;
             document.getElementById('audioTitle').textContent = `🎧 Escute a Lição: ${lesson.title}`;
             document.getElementById('mainAudio').src = lesson.audioUrl;
             
+            // Carregar questões
             loadQuestions(lesson.questions);
             resetQuiz();
+            
+            console.log(`✅ Lição ${lessonNumber} carregada com sucesso`);
         }
 
         function loadQuestions(questions) {
             const container = document.getElementById('questionsContainer');
+            if (!container) {
+                console.error('❌ Container de questões não encontrado!');
+                return;
+            }
+            
             container.innerHTML = '';
             Object.keys(questions).forEach((key, index) => {
                 const q = questions[key];
@@ -248,6 +308,8 @@
                 container.appendChild(div);
             });
             addOptionEventListeners();
+            
+            console.log(`✅ ${Object.keys(questions).length} questões carregadas`);
         }
 
         function addOptionEventListeners() {
@@ -269,8 +331,13 @@
         function replayAudio() { const audio = document.getElementById('mainAudio'); audio.currentTime = 0; audio.play(); }
         function pauseAudio() { document.getElementById('mainAudio').pause(); }
 
-        // ===== VERIFICAR RESPOSTAS - CORRIGIDO =====
+        // ===== 🔧 VERIFICAR RESPOSTAS - SISTEMA UNIVERSAL INTEGRADO =====
         function checkAnswers() {
+            if (!beginnerLessons[currentLesson]) {
+                console.error('❌ Dados da lição atual não encontrados!');
+                return;
+            }
+            
             const lesson = beginnerLessons[currentLesson];
             const questions = Object.keys(lesson.questions);
             let score = 0;
@@ -287,7 +354,9 @@
                 });
                 
                 const correctOption = document.querySelector(`input[name="${key}"][value="${correct}"]`);
-                correctOption.closest('.option').classList.add('correct-answer');
+                if (correctOption) {
+                    correctOption.closest('.option').classList.add('correct-answer');
+                }
                 
                 if (selected && selected.value !== correct) {
                     selected.closest('.option').classList.add('wrong-answer');
@@ -304,12 +373,13 @@
                 }
             });
             
-            // ✅ USANDO SISTEMA UNIVERSAL
-            if (window.studentProgress) {
+            // ✅ USANDO SISTEMA UNIVERSAL SE DISPONÍVEL
+            if (window.studentProgress && typeof window.studentProgress.completeListeningLesson === 'function') {
                 const timeSpent = Date.now() - lessonStartTime;
                 window.studentProgress.completeListeningLesson('beginner', currentLesson, score, timeSpent);
+                console.log('✅ Progresso salvo no sistema universal');
             } else {
-                console.error('❌ Sistema universal não encontrado!');
+                console.warn('⚠️ Sistema universal não disponível, progresso não salvo');
             }
             
             // UI updates
@@ -330,6 +400,8 @@
             
             feedback.innerHTML = feedbackHeader + detailedResults.map(result => `<div style="margin: 1rem 0; padding: 1.25rem; background: #f8fafc; border-radius: 12px; border-left: 4px solid var(--blue-dark);">${result}</div>`).join('');
             feedback.style.display = 'block';
+            
+            console.log(`✅ Respostas verificadas: ${score}/5`);
         }
 
         function resetQuiz() {
@@ -352,7 +424,9 @@
                 switchToLesson(currentLesson + 1);
             } else {
                 alert('🇺🇸 Parabéns! Beginner Level completo! 🚀');
-                window.location.href = '../hubs/listening-hub.html';
+                setTimeout(() => {
+                    window.location.href = '../hubs/listening-hub.html';
+                }, 1000);
             }
         }
 
@@ -361,8 +435,8 @@
             createLessonCards();
         };
 
-        // ===== INICIALIZAÇÃO =====
-        document.addEventListener('DOMContentLoaded', function() {
+        // ===== 🔧 INICIALIZAÇÃO ROBUSTA =====
+        async function initializePage() {
             const studentName = sessionStorage.getItem('studentUsername') || 'Student';
             
             // Update user info
@@ -370,25 +444,47 @@
                 studentName.charAt(0).toUpperCase() + studentName.slice(1).toLowerCase();
             document.getElementById('userAvatar').textContent = studentName.charAt(0).toUpperCase();
             
-            console.log(`🇺🇸 Beginner Level - usuário: ${studentName}`);
+            console.log(`🇺🇸 Beginner Level inicializando...`);
+            console.log(`👤 Usuário: ${studentName}`);
+            console.log(`📊 Questões disponíveis: ${Object.keys(beginnerLessons).length} lições`);
             
             // Aguarda sistema universal
-            function waitForSystem() {
-                if (window.studentProgress) {
-                    console.log('✅ Sistema universal pronto!');
+            console.log('⏳ Aguardando sistema universal...');
+            await waitForUniversalSystem();
+            
+            // Criar cards e carregar primeira lição
+            console.log('🎯 Criando interface...');
+            await createLessonCards();
+            loadLesson(currentLesson);
+            
+            console.log('✅ Beginner Level pronto para uso!');
+        }
+
+        // ===== INICIALIZAÇÃO =====
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('📄 DOM carregado, inicializando página...');
+            
+            // Pequeno delay para garantir que scripts universais carregaram
+            setTimeout(() => {
+                initializePage().catch(error => {
+                    console.error('❌ Erro na inicialização:', error);
+                    
+                    // Fallback: tentar inicializar sem sistema universal
+                    console.log('🔧 Fallback: inicializando sem sistema universal...');
                     createLessonCards();
                     loadLesson(currentLesson);
-                } else {
-                    console.log('⏳ Aguardando sistema universal...');
-                    setTimeout(waitForSystem, 100);
-                }
-            }
-            
-            waitForSystem();
+                });
+            }, 200);
         });
+
+        console.log('🇺🇸 Beginner Page Script carregado!');
+        console.log('🔧 Versão com fixes aplicados');
+        console.log('📊 Questões: CARREGADAS PRIMEIRO');
+        console.log('⏳ Sistema: AGUARDA UNIVERSAL');
+        console.log('🛡️ Fallback: ATIVO');
     </script>
     
-    <!-- ✅ SCRIPTS UNIVERSAIS -->
+    <!-- ✅ SCRIPTS UNIVERSAIS - CARREGADOS APÓS DADOS -->
     <script src="../../src/scripts/core/speed-controls-core.js"></script>
     <script src="../../src/scripts/core/universal-listening.js"></script>
 </body>
