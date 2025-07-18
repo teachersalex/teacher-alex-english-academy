@@ -5,17 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Listening Hub - Teacher Alex English Academy</title>
     
-    <!-- CSS Universal - MESMO PADRÃO DOS OUTROS -->
+    <!-- CSS Universal -->
     <link rel="stylesheet" href="../../src/styles/base.css">
     <link rel="stylesheet" href="../../src/styles/layout.css">
     <link rel="stylesheet" href="../../src/styles/theme-patriot.css">
 
-    <!-- No <head> de TODAS as páginas -->
+    <!-- ✨ Navigation Fix Universal -->
     <script src="../../src/scripts/core/navigation-fix.js"></script>
-    
 </head>
 <body>
-    <!-- User Widget - MESMO PADRÃO -->
+    <!-- User Widget -->
     <div class="user-widget">
         <div class="user-avatar" id="userAvatar">A</div>
         <span class="user-name" id="userName">Aluno</span>
@@ -23,12 +22,12 @@
     </div>
 
     <div class="container">
-        <!-- Back Navigation - MESMO PADRÃO -->
+        <!-- Back Navigation -->
         <a href="../../index.html" class="back-button">
             ← Voltar ao Dashboard
         </a>
         
-        <!-- Header - MESMO PADRÃO DO GRADED-READERS -->
+        <!-- Header -->
         <header class="header">
             <h1 class="logo">Teacher Alex <span class="logo-highlight">English Academy</span></h1>
             <h2 class="hub-title">🎧 Listening Practice Hub</h2>
@@ -46,7 +45,7 @@
             </div>
             
             <div class="stories-grid">
-                <!-- Foundation Audio - DISPONÍVEL -->
+                <!-- Foundation Audio -->
                 <div class="story-card" onclick="navigateToStory('foundation')">
                     <div class="story-header">
                         <div class="story-icon">🌱</div>
@@ -85,7 +84,7 @@
                         </ul>
                     </div>
                     <div class="story-footer">
-                        <button class="story-button" disabled>🚀 Em Breve</button>
+                        <button class="story-button" disabled data-permanently-disabled>🚀 Em Breve</button>
                     </div>
                 </div>
 
@@ -106,7 +105,7 @@
                         </ul>
                     </div>
                     <div class="story-footer">
-                        <button class="story-button" disabled>🚀 Em Breve</button>
+                        <button class="story-button" disabled data-permanently-disabled>🚀 Em Breve</button>
                     </div>
                 </div>
             </div>
@@ -123,7 +122,7 @@
             </div>
             
             <div class="stories-grid">
-                <!-- Personal Introduction - DISPONÍVEL -->
+                <!-- Personal Introduction -->
                 <div class="story-card" onclick="navigateToStory('beginner')">
                     <div class="story-header">
                         <div class="story-icon">🇺🇸</div>
@@ -162,13 +161,13 @@
                         </ul>
                     </div>
                     <div class="story-footer">
-                        <button class="story-button" disabled>🚀 Em Breve</button>
+                        <button class="story-button" disabled data-permanently-disabled>🚀 Em Breve</button>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Intermediate Level - ✅ AGORA DISPONÍVEL! -->
+        <!-- Intermediate Level -->
         <section class="level-section">
             <div class="level-header">
                 <div class="level-badge">Intermediate - B1</div>
@@ -179,7 +178,7 @@
             </div>
             
             <div class="stories-grid">
-                <!-- Advanced Conversations - DISPONÍVEL -->
+                <!-- Advanced Conversations -->
                 <div class="story-card" onclick="navigateToStory('intermediate')">
                     <div class="story-header">
                         <div class="story-icon">⚡</div>
@@ -218,13 +217,13 @@
                         </ul>
                     </div>
                     <div class="story-footer">
-                        <button class="story-button" disabled>🚀 Em Breve</button>
+                        <button class="story-button" disabled data-permanently-disabled>🚀 Em Breve</button>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Advanced Level - ✅ AGORA DISPONÍVEL! -->
+        <!-- Advanced Level -->
         <section class="level-section">
             <div class="level-header">
                 <div class="level-badge">Advanced - B2</div>
@@ -235,7 +234,7 @@
             </div>
             
             <div class="stories-grid">
-                <!-- Work and Career - DISPONÍVEL -->
+                <!-- Professional English -->
                 <div class="story-card" onclick="navigateToStory('advanced')">
                     <div class="story-header">
                         <div class="story-icon">🟣</div>
@@ -274,7 +273,7 @@
                         </ul>
                     </div>
                     <div class="story-footer">
-                        <button class="story-button" disabled>🚀 Em Breve</button>
+                        <button class="story-button" disabled data-permanently-disabled>🚀 Em Breve</button>
                     </div>
                 </div>
             </div>
@@ -288,19 +287,16 @@
     </div>
 
     <script>
-        // ===== AUTH CHECK =====
+        // ===== AUTH & BASIC SETUP =====
         if (sessionStorage.getItem('studentLoggedIn') !== 'true') {
             window.location.href = '../auth/login.html';
         }
 
-        // ===== INITIALIZATION =====
         const studentName = sessionStorage.getItem('studentUsername') || 'Student';
-        
-        // Update UI
         document.getElementById('userName').textContent = studentName;
         document.getElementById('userAvatar').textContent = studentName.charAt(0).toUpperCase();
 
-        // ===== PROGRESS LOADING - TODOS OS NÍVEIS =====
+        // ===== PROGRESS LOADING =====
         function loadProgress() {
             const progressKey = `progress_${studentName}`;
             const saved = localStorage.getItem(progressKey);
@@ -308,18 +304,14 @@
             if (saved) {
                 try {
                     const data = JSON.parse(saved);
-                    
-                    // Foundation progress - SAFE ACCESS
                     const listening = data.listening || { lessonsCompleted: [] };
                     const lessonsCompleted = listening.lessonsCompleted || [];
                     
                     // Foundation
                     const foundationCompleted = lessonsCompleted.filter(lesson => lesson.startsWith('foundation')).length;
                     const foundationProgress = document.getElementById('foundationProgress');
-                    if (foundationCompleted === 0) {
-                        foundationProgress.textContent = '✅ Disponível';
-                    } else {
-                        foundationProgress.textContent = `${foundationCompleted}/3 ✓`;
+                    foundationProgress.textContent = foundationCompleted === 0 ? '✅ Disponível' : `${foundationCompleted}/3 ✓`;
+                    if (foundationCompleted > 0) {
                         foundationProgress.style.background = 'var(--success)';
                         foundationProgress.style.color = 'white';
                     }
@@ -327,41 +319,29 @@
                     // Beginner
                     const beginnerCompleted = lessonsCompleted.filter(lesson => lesson.startsWith('beginner')).length;
                     const beginnerProgress = document.getElementById('beginnerProgress');
-                    if (beginnerProgress) {
-                        if (beginnerCompleted === 0) {
-                            beginnerProgress.textContent = '✅ Disponível';
-                        } else {
-                            beginnerProgress.textContent = `${beginnerCompleted}/3 ✓`;
-                            beginnerProgress.style.background = 'var(--success)';
-                            beginnerProgress.style.color = 'white';
-                        }
+                    beginnerProgress.textContent = beginnerCompleted === 0 ? '✅ Disponível' : `${beginnerCompleted}/3 ✓`;
+                    if (beginnerCompleted > 0) {
+                        beginnerProgress.style.background = 'var(--success)';
+                        beginnerProgress.style.color = 'white';
                     }
                     
                     // Intermediate
                     const intermediateCompleted = lessonsCompleted.filter(lesson => lesson.startsWith('intermediate')).length;
                     const intermediateProgress = document.getElementById('intermediateProgress');
-                    if (intermediateProgress) {
-                        if (intermediateCompleted === 0) {
-                            intermediateProgress.textContent = '✅ Disponível';
-                        } else {
-                            intermediateProgress.textContent = `${intermediateCompleted}/3 ✓`;
-                            intermediateProgress.style.background = 'var(--success)';
-                            intermediateProgress.style.color = 'white';
-                        }
+                    intermediateProgress.textContent = intermediateCompleted === 0 ? '✅ Disponível' : `${intermediateCompleted}/3 ✓`;
+                    if (intermediateCompleted > 0) {
+                        intermediateProgress.style.background = 'var(--success)';
+                        intermediateProgress.style.color = 'white';
                     }
                     
-                    // Advanced - Estrutura diferente (advancedLessons)
+                    // Advanced
                     const advancedLessons = data.listening.advancedLessons || { completed: [] };
                     const advancedCompleted = advancedLessons.completed.length;
                     const advancedProgress = document.getElementById('advancedProgress');
-                    if (advancedProgress) {
-                        if (advancedCompleted === 0) {
-                            advancedProgress.textContent = '✅ Disponível';
-                        } else {
-                            advancedProgress.textContent = `${advancedCompleted}/2 ✓`;
-                            advancedProgress.style.background = 'var(--success)';
-                            advancedProgress.style.color = 'white';
-                        }
+                    advancedProgress.textContent = advancedCompleted === 0 ? '✅ Disponível' : `${advancedCompleted}/2 ✓`;
+                    if (advancedCompleted > 0) {
+                        advancedProgress.style.background = 'var(--success)';
+                        advancedProgress.style.color = 'white';
                     }
                     
                 } catch (e) {
@@ -370,108 +350,7 @@
             }
         }
 
-        // ===== 🔧 NAVIGATION - ANTI-TRAVAMENTO =====
-        function navigateToStory(storyId) {
-            const card = event.currentTarget;
-            const button = card.querySelector('.story-button');
-            const originalText = button.textContent;
-            
-            console.log(`🎯 Navegando para: ${storyId}`);
-            
-            // Loading state
-            button.textContent = 'Carregando...';
-            button.disabled = true;
-            card.style.opacity = '0.7';
-            
-            // 🔧 TIMER DE SEGURANÇA - Auto-reset após 3 segundos
-            const resetTimer = setTimeout(() => {
-                console.log('⚠️ Reset automático do botão por timeout');
-                button.textContent = originalText;
-                button.disabled = false;
-                card.style.opacity = '1';
-            }, 3000);
-            
-            // 🔧 LISTENER PARA PAGESHOW - Detecta voltar do navegador
-            const handlePageShow = function(event) {
-                if (event.persisted) {
-                    console.log('🔄 Página restaurada do cache - resetando botões');
-                    clearTimeout(resetTimer);
-                    button.textContent = originalText;
-                    button.disabled = false;
-                    card.style.opacity = '1';
-                }
-                window.removeEventListener('pageshow', handlePageShow);
-            };
-            
-            window.addEventListener('pageshow', handlePageShow);
-            
-            // 🔧 LISTENER PARA BEFOREUNLOAD - Limpa estado antes de sair
-            const handleBeforeUnload = function() {
-                clearTimeout(resetTimer);
-                window.removeEventListener('beforeunload', handleBeforeUnload);
-            };
-            
-            window.addEventListener('beforeunload', handleBeforeUnload);
-            
-            // Navegação com delay
-            setTimeout(() => {
-                clearTimeout(resetTimer);
-                window.removeEventListener('pageshow', handlePageShow);
-                window.removeEventListener('beforeunload', handleBeforeUnload);
-                
-                if (storyId === 'foundation') {
-                    window.location.href = '../listening/foundation.html';
-                } else if (storyId === 'beginner') {
-                    window.location.href = '../listening/beginner.html';
-                } else if (storyId === 'intermediate') {
-                    window.location.href = '../listening/intermediate.html';
-                } else if (storyId === 'advanced') {
-                    window.location.href = '../listening/advanced.html';
-                } else {
-                    // Fallback - reset do botão
-                    button.textContent = originalText;
-                    button.disabled = false;
-                    card.style.opacity = '1';
-                    alert('🚀 Página não encontrada!');
-                }
-            }, 500);
-        }
-
-        // ===== 🔧 FUNÇÃO ADICIONAL - Reset geral de botões =====
-        function resetAllLoadingButtons() {
-            console.log('🔄 Resetando todos os botões carregando...');
-            
-            document.querySelectorAll('.story-button').forEach(button => {
-                if (button.textContent === 'Carregando...') {
-                    // Tenta restaurar o texto original baseado no contexto
-                    const card = button.closest('.story-card');
-                    const isFoundation = card && card.textContent.includes('Foundation');
-                    const isBeginner = card && card.textContent.includes('Personal Introduction');
-                    const isIntermediate = card && card.textContent.includes('Advanced Conversations');
-                    const isAdvanced = card && card.textContent.includes('Professional English');
-                    
-                    if (isFoundation) {
-                        button.textContent = 'Começar Foundation';
-                    } else if (isBeginner) {
-                        button.textContent = 'Começar Beginner';
-                    } else if (isIntermediate) {
-                        button.textContent = 'Começar Intermediate';
-                    } else if (isAdvanced) {
-                        button.textContent = 'Começar Advanced';
-                    } else {
-                        button.textContent = 'Começar Lição';
-                    }
-                    
-                    button.disabled = false;
-                }
-            });
-            
-            // Reset opacity dos cards
-            document.querySelectorAll('.story-card').forEach(card => {
-                card.style.opacity = '1';
-            });
-        }
-
+        // ===== UTILITY FUNCTIONS =====
         function showComingSoon(storyTitle) {
             const messages = [
                 `🚀 "${storyTitle}" está em desenvolvimento!`,
@@ -482,51 +361,17 @@
             alert(messages[Math.floor(Math.random() * messages.length)]);
         }
 
-        // ===== LOGOUT =====
         function logout() {
             sessionStorage.clear();
             window.location.href = '../auth/login.html';
         }
 
-        // ===== 🔧 AUTO-RESET NA INICIALIZAÇÃO =====
-        document.addEventListener('DOMContentLoaded', function() {
-            console.log('🎧 Listening Hub carregado');
-            
-            // Reset automático de botões travados
-            setTimeout(resetAllLoadingButtons, 100);
-            
-            // Listener para detectar retorno à página
-            window.addEventListener('focus', function() {
-                console.log('👁️ Página recebeu foco - verificando botões');
-                setTimeout(resetAllLoadingButtons, 100);
-            });
-            
-            // Listener para popstate (botão voltar)
-            window.addEventListener('popstate', function() {
-                console.log('⬅️ Usuário voltou - resetando botões');
-                resetAllLoadingButtons();
-            });
-            
-            console.log('✅ Sistema anti-travamento de botões ativo');
-        });
-
-        // ===== 🔧 FUNÇÃO GLOBAL PARA DEBUG =====
-        window.resetButtons = resetAllLoadingButtons;
-
-        // ===== LOAD DATA =====
+        // ===== INITIALIZATION =====
         loadProgress();
         
-        console.log('🎧 LISTENING HUB v4.1 - BOTÕES ANTI-TRAVAMENTO!');
+        console.log('🎧 Listening Hub v5.0 - CÓDIGO LIMPO!');
         console.log('👤 Usuário:', studentName);
-        console.log('✅ Visual CONSISTENTE com graded-readers-hub');
-        console.log('🎯 Cores: theme-patriot.css universal');
-        console.log('🔧 Fix aplicado: navegação com reset automático');
-        console.log('📁 Navegação funcionando:');
-        console.log('   → ../listening/foundation.html ✅');
-        console.log('   → ../listening/beginner.html ✅');
-        console.log('   → ../listening/intermediate.html ✅');
-        console.log('   → ../listening/advanced.html ✅');
-        console.log('🚀 SISTEMA LISTENING COMPLETO COM FIXES!');
+        console.log('✨ Navigation Fix Universal ativo');
     </script>
 </body>
 </html>
