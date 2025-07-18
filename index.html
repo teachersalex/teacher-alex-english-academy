@@ -585,7 +585,7 @@
 
         // ===== ✅ CORREÇÃO #6: NAVIGATION IGUAL LISTENING-HUB =====
         function navigateToSection(section) {
-            const card = event.currentTarget;
+            const card = this; // Use 'this' instead of event.currentTarget
             const button = card.querySelector('.hub-button');
             if (!button) return;
             
@@ -595,6 +595,8 @@
             if (button.disabled || button.textContent.includes('Carregando')) {
                 return;
             }
+            
+            console.log('🎯 Navegando para:', section);
             
             // Loading state
             button.textContent = 'Carregando...';
@@ -678,24 +680,19 @@
             }
         }
 
-        // ===== SETUP NAVIGATION LISTENERS (COPIADO DO LISTENING-HUB) =====
+        // ===== SETUP NAVIGATION LISTENERS (VERSÃO MODERNA E ROBUSTA) =====
         function setupNavigationListeners() {
             document.querySelectorAll('[data-navigate]').forEach(card => {
-                card.addEventListener('click', function() {
+                card.addEventListener('click', function(event) {
                     const section = this.getAttribute('data-navigate');
+                    console.log('🎯 Card clicado, seção:', section);
                     
-                    // Set event.currentTarget for compatibility
-                    const originalEvent = window.event;
-                    window.event = { currentTarget: this };
-                    
-                    navigateToSection(section);
-                    
-                    // Restore original event
-                    window.event = originalEvent;
+                    // Call navigation with proper context using 'call'
+                    navigateToSection.call(this, section);
                 });
             });
             
-            console.log('✅ Navigation listeners attached to all cards');
+            console.log('✅ Navigation listeners attached to', document.querySelectorAll('[data-navigate]').length, 'cards');
         }
 
         // ===== ✅ CORREÇÃO #8: CLEANUP EVENTS =====
