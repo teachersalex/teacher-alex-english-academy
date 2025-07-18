@@ -42,10 +42,10 @@
             </div>
             
             <div class="stories-grid">
-                <!-- Foundation Audio -->
+                <!-- Foundation Audio - DISPONÍVEL -->
                 <div class="story-card" onclick="navigateToStory('foundation')">
                     <div class="story-header">
-                        <div class="story-icon">👋</div>
+                        <div class="story-icon">🌱</div>
                         <h3 class="story-title">Foundation Survival Kit</h3>
                         <p class="story-description">Primeiras apresentações e vocabulário essencial</p>
                     </div>
@@ -55,7 +55,7 @@
                             <li>Frases de emergência</li>
                             <li>Conversas básicas do dia a dia</li>
                             <li>Áudio IA de alta qualidade</li>
-                            <li>Sistema de badges motivador</li>
+                            <li>Speed controls universais</li>
                         </ul>
                     </div>
                     <div class="story-footer">
@@ -64,7 +64,7 @@
                     <div class="progress-badge" id="foundationProgress">✅ Disponível</div>
                 </div>
 
-                <!-- Daily Essentials -->
+                <!-- Daily Essentials - EM BREVE -->
                 <div class="story-card coming-soon" onclick="showComingSoon('Daily Essentials')">
                     <div class="story-header">
                         <div class="story-icon">🏠</div>
@@ -85,7 +85,7 @@
                     </div>
                 </div>
 
-                <!-- Emergency English -->
+                <!-- Emergency English - EM BREVE -->
                 <div class="story-card coming-soon" onclick="showComingSoon('Emergency English')">
                     <div class="story-header">
                         <div class="story-icon">🚨</div>
@@ -119,7 +119,7 @@
             </div>
             
             <div class="stories-grid">
-                <!-- Personal Introduction -->
+                <!-- Personal Introduction - DISPONÍVEL -->
                 <div class="story-card" onclick="navigateToStory('beginner')">
                     <div class="story-header">
                         <div class="story-icon">🇺🇸</div>
@@ -132,7 +132,7 @@
                             <li>Networking e apresentações</li>
                             <li>Cultura americana básica</li>
                             <li>Áudio IA naturalizado</li>
-                            <li>Speed controls disponíveis</li>
+                            <li>Speed controls universais</li>
                         </ul>
                     </div>
                     <div class="story-footer">
@@ -141,7 +141,7 @@
                     <div class="progress-badge" id="beginnerProgress">✅ Disponível</div>
                 </div>
 
-                <!-- Travel & Transport -->
+                <!-- Travel & Transport - EM BREVE -->
                 <div class="story-card coming-soon" onclick="showComingSoon('Travel & Transport')">
                     <div class="story-header">
                         <div class="story-icon">✈️</div>
@@ -164,7 +164,7 @@
             </div>
         </section>
 
-        <!-- Intermediate Level -->
+        <!-- Intermediate Level - ✅ AGORA DISPONÍVEL! -->
         <section class="level-section">
             <div class="level-header">
                 <div class="level-badge">Intermediate - B1</div>
@@ -175,7 +175,29 @@
             </div>
             
             <div class="stories-grid">
-                <!-- Work & Business -->
+                <!-- Advanced Conversations - DISPONÍVEL -->
+                <div class="story-card" onclick="navigateToStory('intermediate')">
+                    <div class="story-header">
+                        <div class="story-icon">⚡</div>
+                        <h3 class="story-title">Advanced Conversations</h3>
+                        <p class="story-description">Conversas complexas e situações avançadas</p>
+                    </div>
+                    <div class="story-content">
+                        <ul class="story-features">
+                            <li>Networking profissional</li>
+                            <li>Resolução de problemas</li>
+                            <li>Conversas de negócios</li>
+                            <li>Áudio IA corporativo</li>
+                            <li>Speed controls universais</li>
+                        </ul>
+                    </div>
+                    <div class="story-footer">
+                        <button class="story-button">Começar Intermediate</button>
+                    </div>
+                    <div class="progress-badge" id="intermediateProgress">✅ Disponível</div>
+                </div>
+
+                <!-- Work & Business - EM BREVE -->
                 <div class="story-card coming-soon" onclick="showComingSoon('Work & Business')">
                     <div class="story-header">
                         <div class="story-icon">💼</div>
@@ -198,18 +220,40 @@
             </div>
         </section>
 
-        <!-- Advanced Level -->
+        <!-- Advanced Level - ✅ AGORA DISPONÍVEL! -->
         <section class="level-section">
             <div class="level-header">
                 <div class="level-badge">Advanced - B2</div>
                 <div class="level-info">
                     <h2 class="level-title">Advanced Level</h2>
-                    <p class="level-description">Desafie-se com conteúdo nativo, gírias e expressões complexas em situações profissionais</p>
+                    <p class="level-description">Desafie-se com conteúdo nativo e expressões complexas em situações profissionais</p>
                 </div>
             </div>
             
             <div class="stories-grid">
-                <!-- Real Estate & Moving -->
+                <!-- Work and Career - DISPONÍVEL -->
+                <div class="story-card" onclick="navigateToStory('advanced')">
+                    <div class="story-header">
+                        <div class="story-icon">🟣</div>
+                        <h3 class="story-title">Professional English</h3>
+                        <p class="story-description">Inglês profissional e planos futuros</p>
+                    </div>
+                    <div class="story-content">
+                        <ul class="story-features">
+                            <li>Vocabulário corporativo</li>
+                            <li>Planos de carreira</li>
+                            <li>Sonhos e objetivos</li>
+                            <li>Design purple premium</li>
+                            <li>Speed controls universais</li>
+                        </ul>
+                    </div>
+                    <div class="story-footer">
+                        <button class="story-button">Começar Advanced</button>
+                    </div>
+                    <div class="progress-badge" id="advancedProgress">✅ Disponível</div>
+                </div>
+
+                <!-- Real Estate & Moving - EM BREVE -->
                 <div class="story-card coming-soon" onclick="showComingSoon('Real Estate & Moving')">
                     <div class="story-header">
                         <div class="story-icon">🏠</div>
@@ -252,7 +296,7 @@
         document.getElementById('userName').textContent = studentName;
         document.getElementById('userAvatar').textContent = studentName.charAt(0).toUpperCase();
 
-        // ===== PROGRESS LOADING - BUG CORRIGIDO =====
+        // ===== PROGRESS LOADING - TODOS OS NÍVEIS =====
         function loadProgress() {
             const progressKey = `progress_${studentName}`;
             const saved = localStorage.getItem(progressKey);
@@ -264,28 +308,55 @@
                     // Foundation progress - SAFE ACCESS
                     const listening = data.listening || { lessonsCompleted: [] };
                     const lessonsCompleted = listening.lessonsCompleted || [];
-                    const foundationCompleted = lessonsCompleted.filter(lesson => lesson.startsWith('foundation')).length;
                     
+                    // Foundation
+                    const foundationCompleted = lessonsCompleted.filter(lesson => lesson.startsWith('foundation')).length;
                     const foundationProgress = document.getElementById('foundationProgress');
                     if (foundationCompleted === 0) {
                         foundationProgress.textContent = '✅ Disponível';
                     } else {
-                        foundationProgress.textContent = `${foundationCompleted} ✓`;
+                        foundationProgress.textContent = `${foundationCompleted}/3 ✓`;
                         foundationProgress.style.background = 'var(--success)';
                         foundationProgress.style.color = 'white';
                     }
                     
-                    // Beginner progress - SAFE ACCESS
+                    // Beginner
                     const beginnerCompleted = lessonsCompleted.filter(lesson => lesson.startsWith('beginner')).length;
-                    
                     const beginnerProgress = document.getElementById('beginnerProgress');
                     if (beginnerProgress) {
                         if (beginnerCompleted === 0) {
                             beginnerProgress.textContent = '✅ Disponível';
                         } else {
-                            beginnerProgress.textContent = `${beginnerCompleted} ✓`;
+                            beginnerProgress.textContent = `${beginnerCompleted}/3 ✓`;
                             beginnerProgress.style.background = 'var(--success)';
                             beginnerProgress.style.color = 'white';
+                        }
+                    }
+                    
+                    // Intermediate
+                    const intermediateCompleted = lessonsCompleted.filter(lesson => lesson.startsWith('intermediate')).length;
+                    const intermediateProgress = document.getElementById('intermediateProgress');
+                    if (intermediateProgress) {
+                        if (intermediateCompleted === 0) {
+                            intermediateProgress.textContent = '✅ Disponível';
+                        } else {
+                            intermediateProgress.textContent = `${intermediateCompleted}/3 ✓`;
+                            intermediateProgress.style.background = 'var(--success)';
+                            intermediateProgress.style.color = 'white';
+                        }
+                    }
+                    
+                    // Advanced - Estrutura diferente (advancedLessons)
+                    const advancedLessons = data.listening.advancedLessons || { completed: [] };
+                    const advancedCompleted = advancedLessons.completed.length;
+                    const advancedProgress = document.getElementById('advancedProgress');
+                    if (advancedProgress) {
+                        if (advancedCompleted === 0) {
+                            advancedProgress.textContent = '✅ Disponível';
+                        } else {
+                            advancedProgress.textContent = `${advancedCompleted}/2 ✓`;
+                            advancedProgress.style.background = 'var(--success)';
+                            advancedProgress.style.color = 'white';
                         }
                     }
                     
@@ -295,7 +366,7 @@
             }
         }
 
-        // ===== NAVIGATION - BEGINNER ADICIONADO =====
+        // ===== NAVIGATION - TODOS OS NÍVEIS FUNCIONANDO =====
         function navigateToStory(storyId) {
             const card = event.currentTarget;
             const button = card.querySelector('.story-button');
@@ -310,6 +381,15 @@
                     window.location.href = '../listening/foundation.html';
                 } else if (storyId === 'beginner') {
                     window.location.href = '../listening/beginner.html';
+                } else if (storyId === 'intermediate') {
+                    window.location.href = '../listening/intermediate.html';
+                } else if (storyId === 'advanced') {
+                    window.location.href = '../listening/advanced.html';
+                } else {
+                    // Fallback
+                    button.textContent = originalText;
+                    card.style.opacity = '1';
+                    alert('🚀 Página não encontrada!');
                 }
             }, 500);
         }
@@ -318,7 +398,7 @@
             const messages = [
                 `🚀 "${storyTitle}" está em desenvolvimento!`,
                 `🎧 Em breve teremos este listening incrível!`,
-                `⭐ Continue praticando Foundation e Beginner enquanto preparamos "${storyTitle}"!`,
+                `⭐ Continue praticando os níveis disponíveis enquanto preparamos "${storyTitle}"!`,
                 `🎯 Sua dedicação será recompensada quando "${storyTitle}" for lançada!`
             ];
             alert(messages[Math.floor(Math.random() * messages.length)]);
@@ -333,14 +413,16 @@
         // ===== LOAD DATA =====
         loadProgress();
         
-        console.log('🎧 LISTENING HUB v3.0 - PADRÃO UNIVERSAL + BUG CORRIGIDO!');
+        console.log('🎧 LISTENING HUB v4.0 - TODOS OS NÍVEIS DISPONÍVEIS!');
         console.log('👤 Usuário:', studentName);
         console.log('✅ Visual CONSISTENTE com graded-readers-hub');
         console.log('🎯 Cores: theme-patriot.css universal');
         console.log('📁 Navegação funcionando:');
         console.log('   → ../listening/foundation.html ✅');
         console.log('   → ../listening/beginner.html ✅');
-        console.log('🐛 Bug lessonsCompleted undefined CORRIGIDO!');
+        console.log('   → ../listening/intermediate.html ✅');
+        console.log('   → ../listening/advanced.html ✅');
+        console.log('🚀 SISTEMA LISTENING COMPLETO!');
     </script>
 </body>
 </html>
