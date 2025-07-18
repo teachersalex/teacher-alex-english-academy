@@ -388,10 +388,8 @@
             document.getElementById('scoreValue').textContent = score;
             document.getElementById('scoreSection').style.display = 'block';
             
-            if (attempts === 1) document.getElementById('badge1').classList.add('earned');
-            if (score >= 4) document.getElementById('badge2').classList.add('earned');
-            if (score === 5) document.getElementById('badge3').classList.add('earned');
-            if (score >= 4) document.getElementById('badge4').classList.add('earned');
+            // ✅ ACTIVATE BADGES - MÉTODO FOUNDATION QUE FUNCIONA
+            activateBadges(score, attempts);
             
             const feedback = document.getElementById('feedback');
             let feedbackHeader = score === 5 ? 
@@ -404,6 +402,51 @@
             console.log(`✅ Respostas verificadas: ${score}/5`);
         }
 
+        // ===== 🏆 ACTIVATE BADGES - MÉTODO FOUNDATION EXATO =====
+        function activateBadges(score, attempts) {
+            console.log(`🏆 Ativando badges: score=${score}, attempts=${attempts}`);
+            
+            // Reset TODOS os badges primeiro (CRÍTICO)
+            document.querySelectorAll('.badge').forEach(badge => {
+                badge.classList.remove('earned');
+            });
+            
+            // Aguarda um frame e ativa os badges earned
+            setTimeout(() => {
+                if (attempts === 1) {
+                    const badge1 = document.getElementById('badge1');
+                    if (badge1) {
+                        badge1.classList.add('earned');
+                        console.log('✅ Badge 1 ativado: Primeira Tentativa');
+                    }
+                }
+                
+                if (score >= 4) {
+                    const badge2 = document.getElementById('badge2');
+                    if (badge2) {
+                        badge2.classList.add('earned');
+                        console.log('✅ Badge 2 ativado: Boa Pontuação');
+                    }
+                }
+                
+                if (score === 5) {
+                    const badge3 = document.getElementById('badge3');
+                    if (badge3) {
+                        badge3.classList.add('earned');
+                        console.log('✅ Badge 3 ativado: Perfeito');
+                    }
+                }
+                
+                if (score >= 4) {
+                    const badge4 = document.getElementById('badge4');
+                    if (badge4) {
+                        badge4.classList.add('earned');
+                        console.log('✅ Badge 4 ativado: Beginner Expert');
+                    }
+                }
+            }, 50); // Delay necessário para animação
+        }
+
         function resetQuiz() {
             document.querySelectorAll('input[type="radio"]').forEach(radio => {
                 radio.checked = false;
@@ -414,9 +457,15 @@
             if (feedback) feedback.style.display = 'none';
             document.getElementById('progressBar').style.width = '0%';
             document.getElementById('progressText').textContent = '0%';
+            
+            // Reset badges - CRÍTICO
             document.querySelectorAll('.badge').forEach(badge => badge.classList.remove('earned'));
+            
+            // Reset counters
             attempts = 0;
             lessonStartTime = Date.now();
+            
+            console.log('🔄 Quiz resetado completamente');
         }
 
         function nextLesson() {
@@ -478,10 +527,10 @@
         });
 
         console.log('🇺🇸 Beginner Page Script carregado!');
-        console.log('🔧 Versão com fixes aplicados');
-        console.log('📊 Questões: CARREGADAS PRIMEIRO');
-        console.log('⏳ Sistema: AGUARDA UNIVERSAL');
-        console.log('🛡️ Fallback: ATIVO');
+        console.log('🔧 Versão com BADGES CORRIGIDOS');
+        console.log('🏆 activateBadges(): MÉTODO FOUNDATION APLICADO');
+        console.log('⏱️ setTimeout(50ms): TIMING CORRETO');
+        console.log('🔄 Reset badges: ANTES DE ATIVAR');
     </script>
     
     <!-- ✅ SCRIPTS UNIVERSAIS - CARREGADOS APÓS DADOS -->
