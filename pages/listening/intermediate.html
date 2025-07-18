@@ -5,12 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Intermediate Level - Teacher Alex English Academy</title>
     
-    <!-- CSS Universal - MESMO PADRÃO DOS OUTROS -->
+    <!-- CSS Universal -->
     <link rel="stylesheet" href="../../src/styles/base.css">
     <link rel="stylesheet" href="../../src/styles/layout.css">
     <link rel="stylesheet" href="../../src/styles/theme-patriot.css">
-    
-    <!-- ❌ CSS INLINE DOS SPEED CONTROLS REMOVIDO! -->
 </head>
 <body class="listening-page">
     <!-- User Widget -->
@@ -26,7 +24,7 @@
             ← Voltar ao Listening Hub
         </a>
         
-        <!-- Header - MESMO PADRÃO DOS OUTROS -->
+        <!-- Header -->
         <div class="header">
             <a href="../../index.html" style="text-decoration: none; color: inherit;">
                 <div class="logo">
@@ -37,11 +35,11 @@
             <div class="level-badge">🎧 Listening B1 - English Skill Builder</div>
         </div>
         
-        <!-- NAVEGAÇÃO DE LIÇÕES - MESMO PADRÃO CHAPTERS -->
+        <!-- Navegação de Lições -->
         <div class="chapter-navigation">
             <div class="chapter-nav-title">🎧 Escolha sua Lição Intermediate</div>
             <div class="chapter-grid" id="lessonCards">
-                <!-- Cards serão gerados dinamicamente -->
+                <!-- Cards gerados dinamicamente -->
             </div>
         </div>
         
@@ -79,7 +77,6 @@
                         <button class="btn btn-secondary" onclick="replayAudio()">🔄 Repetir</button>
                         <button class="btn btn-primary" onclick="pauseAudio()">⏸️ Pausar</button>
                     </div>
-                    <!-- ✅ Speed controls aparecerão AUTOMATICAMENTE aqui via script universal! -->
                 </div>
             </div>
             
@@ -110,106 +107,14 @@
         }
 
         function logout() {
-            sessionStorage.removeItem('studentLoggedIn');
-            sessionStorage.removeItem('studentUsername');
+            sessionStorage.clear();
             window.location.href = '../auth/login.html';
         }
 
-        function getStudentName() {
-            return sessionStorage.getItem('studentUsername') || 'Student';
-        }
-
-        // Immediate protection
+        // Proteção imediata
         if (!checkLogin()) {
             document.body.innerHTML = '<div style="text-align:center;padding:50px;"><h1>Redirecionando...</h1></div>';
             throw new Error('Access denied');
-        }
-
-        // ===== PROGRESS SYSTEM - MESMO PADRÃO DOS OUTROS =====
-        class StudentProgress {
-            constructor() {
-                this.studentId = sessionStorage.getItem('studentUsername') || 'student';
-                this.progressKey = `progress_${this.studentId}`;
-                this.loadProgress();
-                this.ensureListeningStructure();
-            }
-
-            loadProgress() {
-                const saved = localStorage.getItem(this.progressKey);
-                if (saved) {
-                    this.data = JSON.parse(saved);
-                } else {
-                    this.data = {
-                        listening: { lessonsCompleted: [], bestScores: {}, badges: [] },
-                        reading: { chaptersCompleted: [], bestScores: {}, badges: [] },
-                        roommate: { chaptersCompleted: [], bestScores: {}, badges: [] },
-                        neighbor: { chaptersCompleted: [], bestScores: {}, badges: [] },
-                        globalBadges: [], 
-                        totalStudyTime: 0
-                    };
-                }
-            }
-
-            ensureListeningStructure() {
-                if (!this.data.listening) {
-                    this.data.listening = { lessonsCompleted: [], bestScores: {}, badges: [] };
-                }
-                this.saveProgress();
-            }
-
-            saveProgress() { 
-                localStorage.setItem(this.progressKey, JSON.stringify(this.data));
-                console.log(`💾 Progresso salvo para ${this.studentId}`);
-            }
-
-            completeListeningLesson(lessonNumber, score, timeSpent) {
-                const lesson = `intermediate_lesson_${lessonNumber}`;
-                if (!this.data.listening.lessonsCompleted.includes(lesson)) {
-                    this.data.listening.lessonsCompleted.push(lesson);
-                }
-                this.data.listening.bestScores[lesson] = Math.max(
-                    this.data.listening.bestScores[lesson] || 0, score
-                );
-                this.data.totalStudyTime += timeSpent;
-                this.checkListeningBadges(lessonNumber, score);
-                this.saveProgress();
-                this.updateLessonCards();
-            }
-
-            checkListeningBadges(lessonNumber, score) {
-                const badges = this.data.listening.badges;
-                if (!badges.includes('intermediate_pioneer')) {
-                    badges.push('intermediate_pioneer');
-                    this.showBadgeNotification('⚡ Intermediate Pioneer!', 'Nível intermediário desbloqueado!');
-                }
-                if (score === 5 && !badges.includes('perfect_intermediate_lesson')) {
-                    badges.push('perfect_intermediate_lesson');
-                    this.showBadgeNotification('🏆 Perfect Intermediate!', 'Pontuação perfeita no nível B1!');
-                }
-                if (this.data.listening.lessonsCompleted.filter(l => l.startsWith('intermediate')).length >= 3 && !badges.includes('intermediate_master')) {
-                    badges.push('intermediate_master');
-                    this.showBadgeNotification('⚡ Intermediate Master!', 'Todas as lições Intermediate completas!');
-                }
-            }
-
-            showBadgeNotification(title, message) {
-                const notification = document.createElement('div');
-                notification.style.cssText = `
-                    position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
-                    background: linear-gradient(45deg, var(--blue-dark), var(--blue-medium)); color: white;
-                    padding: 25px 35px; border-radius: 20px; z-index: 10000; text-align: center;
-                    box-shadow: 0 15px 40px rgba(0,0,0,0.3); backdrop-filter: blur(10px);
-                `;
-                notification.innerHTML = `<div style="font-size: 1.8em; font-weight: bold; margin-bottom: 15px;">${title}</div><div style="font-size: 1.1em;">${message}</div>`;
-                document.body.appendChild(notification);
-                setTimeout(() => { 
-                    if (document.body.contains(notification)) document.body.removeChild(notification); 
-                }, 3000);
-            }
-
-            updateLessonCards() { 
-                createLessonCards(); 
-            }
         }
 
         // ===== INTERMEDIATE LESSONS DATA =====
@@ -258,14 +163,21 @@
             }
         };
         
-        let currentLesson = 1, attempts = 0, lessonStartTime = Date.now(), studentProgress = new StudentProgress();
+        // ===== VARIÁVEIS DE CONTROLE =====
+        let currentLesson = 1;
+        let attempts = 0;
+        let lessonStartTime = Date.now();
         
-        // ❌ FUNÇÃO initSpeedControls() REMOVIDA! (Agora é automática via script)
-        
-        // ===== LESSON CARDS - MESMO PADRÃO CHAPTER CARDS =====
+        // ===== LESSON CARDS =====
         function createLessonCards() {
             const cardsContainer = document.getElementById('lessonCards');
             if (!cardsContainer) return;
+            
+            // Aguarda sistema universal
+            if (!window.studentProgress) {
+                setTimeout(createLessonCards, 100);
+                return;
+            }
             
             cardsContainer.innerHTML = '';
             
@@ -273,8 +185,9 @@
                 const lesson = intermediateLessons[i];
                 if (!lesson) continue;
                 
-                const isCompleted = studentProgress.data.listening.lessonsCompleted.includes(`intermediate_lesson_${i}`);
-                const bestScore = studentProgress.data.listening.bestScores[`intermediate_lesson_${i}`] || 0;
+                const lessonId = `intermediate_lesson_${i}`;
+                const isCompleted = window.studentProgress.data.listening.lessonsCompleted.includes(lessonId);
+                const bestScore = window.studentProgress.data.listening.bestScores[lessonId] || 0;
                 const isActive = i === currentLesson;
                 
                 const card = document.createElement('div');
@@ -302,13 +215,21 @@
         }
         
         function loadLesson(lessonNumber) {
-            if (!intermediateLessons[lessonNumber]) return;
+            console.log(`🎯 Carregando lição: ${lessonNumber}`);
+            
+            // Verificação usando função universal
+            if (window.ensureQuestionsLoad && !window.ensureQuestionsLoad(intermediateLessons, lessonNumber)) {
+                alert('Erro ao carregar a lição. Por favor, recarregue a página.');
+                return;
+            }
+
             const lesson = intermediateLessons[lessonNumber];
             
             document.getElementById('lessonTitle').textContent = lesson.title;
             document.getElementById('lessonSubtitle').textContent = `Lição ${lessonNumber} - ${lesson.description}`;
             document.getElementById('audioTitle').textContent = `🎧 Escute a Lição: ${lesson.title}`;
             document.getElementById('mainAudio').src = lesson.audioUrl;
+            
             loadQuestions(lesson.questions);
             resetQuiz();
         }
@@ -355,11 +276,12 @@
         function replayAudio() { const audio = document.getElementById('mainAudio'); audio.currentTime = 0; audio.play(); }
         function pauseAudio() { document.getElementById('mainAudio').pause(); }
         
-        // ===== VERIFICAR RESPOSTAS =====
+        // ===== VERIFICAR RESPOSTAS - CORRIGIDO =====
         function checkAnswers() {
             const lesson = intermediateLessons[currentLesson];
             const questions = Object.keys(lesson.questions);
-            let score = 0, detailedResults = [];
+            let score = 0;
+            let detailedResults = [];
             attempts++;
             
             questions.forEach((key, index) => {
@@ -389,8 +311,15 @@
                 }
             });
             
-            studentProgress.completeListeningLesson(currentLesson, score, Date.now() - lessonStartTime);
+            // ✅ USANDO SISTEMA UNIVERSAL
+            if (window.studentProgress) {
+                const timeSpent = Date.now() - lessonStartTime;
+                window.studentProgress.completeListeningLesson('intermediate', currentLesson, score, timeSpent);
+            } else {
+                console.error('❌ Sistema universal não encontrado!');
+            }
             
+            // UI updates
             document.getElementById('progressBar').style.width = (score / 5) * 100 + '%';
             document.getElementById('progressText').textContent = `${(score / 5) * 100}%`;
             document.getElementById('scoreValue').textContent = score;
@@ -420,7 +349,8 @@
             document.getElementById('progressBar').style.width = '0%';
             document.getElementById('progressText').textContent = '0%';
             document.querySelectorAll('.badge').forEach(badge => badge.classList.remove('earned'));
-            attempts = 0; lessonStartTime = Date.now();
+            attempts = 0;
+            lessonStartTime = Date.now();
         }
         
         function nextLesson() {
@@ -434,9 +364,14 @@
             }
         }
         
+        // ===== FUNÇÃO GLOBAL PARA ATUALIZAÇÕES =====
+        window.updateLessonCards = function() {
+            createLessonCards();
+        };
+        
         // ===== INICIALIZAÇÃO =====
         document.addEventListener('DOMContentLoaded', function() {
-            const studentName = getStudentName();
+            const studentName = sessionStorage.getItem('studentUsername') || 'Student';
             
             // Update user info
             document.getElementById('userName').textContent = 
@@ -444,19 +379,25 @@
             document.getElementById('userAvatar').textContent = studentName.charAt(0).toUpperCase();
             
             console.log(`⚡ Intermediate Level - usuário: ${studentName}`);
-            console.log('✅ Visual CONSISTENTE aplicado');
-            console.log('🎯 Cores patrióticas mantidas');
-            console.log('📁 Estrutura igual foundation/beginner.html');
-            console.log('🎧 3 lições Intermediate com speed controls UNIVERSAL');
-            console.log('⚡ Speed controls carregam automaticamente via script');
             
-            createLessonCards();
-            loadLesson(currentLesson);
-            // ❌ initSpeedControls(); REMOVIDO! (Agora é automático)
+            // Aguarda sistema universal
+            function waitForSystem() {
+                if (window.studentProgress) {
+                    console.log('✅ Sistema universal pronto!');
+                    createLessonCards();
+                    loadLesson(currentLesson);
+                } else {
+                    console.log('⏳ Aguardando sistema universal...');
+                    setTimeout(waitForSystem, 100);
+                }
+            }
+            
+            waitForSystem();
         });
     </script>
     
-    <!-- ✅ SPEED CONTROLS UNIVERSAL - UMA LINHA SÓ! -->
+    <!-- ✅ SCRIPTS UNIVERSAIS -->
     <script src="../../src/scripts/core/speed-controls-core.js"></script>
+    <script src="../../src/scripts/core/universal-listening.js"></script>
 </body>
 </html>
