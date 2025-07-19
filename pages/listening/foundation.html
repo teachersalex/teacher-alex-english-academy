@@ -9,6 +9,229 @@
     <link rel="stylesheet" href="../../src/styles/base.css">
     <link rel="stylesheet" href="../../src/styles/layout.css">
     <link rel="stylesheet" href="../../src/styles/theme-patriot.css">
+    
+    <style>
+        /* Foundation Expanded Styles */
+        .foundation-hero {
+            background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 50%, #1e40af 100%);
+            border-radius: 20px;
+            padding: 3rem;
+            margin-bottom: 3rem;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.1);
+            color: white;
+            text-align: center;
+        }
+        
+        .foundation-title {
+            font-size: 3em;
+            font-weight: 800;
+            margin-bottom: 0.75rem;
+            text-shadow: 0 4px 20px rgba(0,0,0,0.3);
+        }
+        
+        .foundation-subtitle {
+            font-size: 1.25em;
+            font-weight: 500;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+        
+        .foundation-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+            gap: 1.5rem;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        
+        .foundation-stat {
+            background: rgba(255,255,255,0.12);
+            backdrop-filter: blur(20px);
+            padding: 1.5rem 1rem;
+            border-radius: 16px;
+            border: 1px solid rgba(255,255,255,0.2);
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        
+        .foundation-stat:hover {
+            transform: translateY(-2px);
+            background: rgba(255,255,255,0.15);
+        }
+        
+        .stat-number {
+            font-size: 2em;
+            font-weight: 800;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+        
+        .stat-label {
+            font-size: 0.9em;
+            opacity: 0.85;
+            font-weight: 600;
+        }
+
+        /* Group Navigation */
+        .lesson-groups {
+            display: grid;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        
+        .lesson-group {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.08);
+            border: 1px solid #e2e8f0;
+            position: relative;
+        }
+        
+        .lesson-group::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 4px;
+            border-radius: 20px 20px 0 0;
+        }
+        
+        .group-1::before { background: linear-gradient(90deg, #3b82f6, #1d4ed8); }
+        .group-2::before { background: linear-gradient(90deg, #10b981, #059669); }
+        .group-3::before { background: linear-gradient(90deg, #f59e0b, #d97706); }
+        
+        .group-title {
+            font-size: 1.4em;
+            font-weight: 800;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .group-1 .group-title { color: #1d4ed8; }
+        .group-2 .group-title { color: #059669; }
+        .group-3 .group-title { color: #d97706; }
+        
+        .lesson-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+        
+        /* Lesson Cards */
+        .lesson-card {
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+            border: 2px solid #e2e8f0;
+            border-radius: 16px;
+            padding: 25px;
+            text-align: center;
+            cursor: pointer;
+            min-height: 180px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .lesson-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(59, 130, 246, 0.2);
+            border-color: #3b82f6;
+        }
+        
+        .lesson-card.active {
+            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+            color: white;
+            border-color: #3b82f6;
+            transform: translateY(-4px) scale(1.05);
+            box-shadow: 0 20px 40px rgba(59, 130, 246, 0.3);
+        }
+        
+        .lesson-card.completed {
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+            border-color: #10b981;
+        }
+        
+        .lesson-icon {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+            display: block;
+        }
+        
+        .lesson-number {
+            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+            color: white;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 1em;
+            margin: 0 auto 15px auto;
+            box-shadow: 0 6px 15px rgba(59, 130, 246, 0.3);
+        }
+        
+        .lesson-card.active .lesson-number,
+        .lesson-card.completed .lesson-number {
+            background: rgba(255, 255, 255, 0.25);
+        }
+        
+        .lesson-title {
+            font-size: 1.1em;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 8px;
+        }
+        
+        .lesson-card.active .lesson-title,
+        .lesson-card.completed .lesson-title {
+            color: rgba(255, 255, 255, 0.95);
+        }
+        
+        .lesson-description {
+            font-size: 0.9em;
+            color: #64748b;
+            line-height: 1.4;
+        }
+        
+        .lesson-card.active .lesson-description,
+        .lesson-card.completed .lesson-description {
+            color: rgba(255, 255, 255, 0.8);
+        }
+        
+        .completion-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 30px;
+            height: 30px;
+            background: #10b981;
+            border-radius: 50%;
+            color: white;
+            font-size: 0.8em;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            border: 2px solid white;
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4);
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .foundation-title { font-size: 2.2em; }
+            .foundation-stats { grid-template-columns: repeat(2, 1fr); }
+            .lesson-cards { grid-template-columns: repeat(2, 1fr); gap: 15px; }
+            .lesson-card { padding: 20px; min-height: 160px; }
+            .lesson-icon { font-size: 2em; }
+        }
+    </style>
 </head>
 <body class="listening-page">
     <!-- User Widget -->
@@ -18,32 +241,62 @@
         <button class="logout-btn" onclick="logout()">Sair</button>
     </div>
     
-    <div class="container listening-page">
+    <div class="container">
         <!-- Back Navigation -->
         <a href="../hubs/listening-hub.html" class="back-button">
             ← Voltar ao Listening Hub
         </a>
         
-        <!-- Header -->
-        <div class="header">
-            <a href="../../index.html" style="text-decoration: none; color: inherit;">
-                <div class="logo">
-                    Teacher Alex <span class="logo-highlight">English Academy</span>
+        <!-- Foundation Hero -->
+        <section class="foundation-hero">
+            <h1 class="foundation-title">🚀 Foundation Level</h1>
+            <p class="foundation-subtitle">English Survival Kit • 12 Lições Essenciais para Dominar o Básico</p>
+            
+            <div class="foundation-stats">
+                <div class="foundation-stat">
+                    <span class="stat-number" data-completed>0/12</span>
+                    <span class="stat-label">Concluídas</span>
                 </div>
-            </a>
-            <div class="story-title">🚀 Foundation Level</div>
-            <div class="level-badge">🎧 Listening A1 - English First Steps</div>
-        </div>
-        
-        <!-- Navegação de Lições -->
-        <div class="chapter-navigation">
-            <div class="chapter-nav-title">🎧 Escolha sua Lição Foundation</div>
-            <div class="chapter-grid" id="lessonCards">
-                <!-- Cards gerados dinamicamente -->
+                <div class="foundation-stat">
+                    <span class="stat-number" data-average>0%</span>
+                    <span class="stat-label">Média</span>
+                </div>
+                <div class="foundation-stat">
+                    <span class="stat-number" data-badges>0</span>
+                    <span class="stat-label">Badges</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Lesson Groups -->
+        <div class="lesson-groups">
+            <!-- Grupo 1: Survival Basics -->
+            <div class="lesson-group group-1">
+                <h2 class="group-title">📝 Grupo 1: Survival Basics</h2>
+                <div class="lesson-cards" id="group1Cards">
+                    <!-- F1-F4 gerados dinamicamente -->
+                </div>
+            </div>
+
+            <!-- Grupo 2: Daily Essentials -->
+            <div class="lesson-group group-2">
+                <h2 class="group-title">🌟 Grupo 2: Daily Essentials</h2>
+                <div class="lesson-cards" id="group2Cards">
+                    <!-- F5-F8 gerados dinamicamente -->
+                </div>
+            </div>
+
+            <!-- Grupo 3: Practical Skills -->
+            <div class="lesson-group group-3">
+                <h2 class="group-title">🚀 Grupo 3: Practical Skills</h2>
+                <div class="lesson-cards" id="group3Cards">
+                    <!-- F9-F12 gerados dinamicamente -->
+                </div>
             </div>
         </div>
         
-        <div class="chapter-container" id="lessonContainer">
+        <!-- Current Lesson Container -->
+        <div class="current-lesson" id="lessonContainer">
             <div class="current-chapter">
                 <div class="current-chapter-title" id="lessonTitle">Basic Greetings</div>
                 <div class="current-chapter-subtitle" id="lessonSubtitle">Lição 1 - Cumprimentos básicos em inglês</div>
@@ -66,17 +319,16 @@
             </div>
             
             <div class="audio-section">
-                <div class="audio-title" id="audioTitle">🎧 Escute a Lição: Basic Greetings</div>
+                <h3 class="audio-title" id="audioTitle">🎧 Escute a Lição: Basic Greetings</h3>
                 <audio id="mainAudio" controls>
                     <source src="../../src/assets/audio/listening/audio1.mp3" type="audio/mpeg">
                     Seu navegador não suporta o elemento de áudio.
                 </audio>
-                <div class="audio-controls">
-                    <div class="play-buttons">
-                        <button class="btn btn-primary" onclick="playAudio()">▶️ Reproduzir</button>
-                        <button class="btn btn-secondary" onclick="replayAudio()">🔄 Repetir</button>
-                        <button class="btn btn-primary" onclick="pauseAudio()">⏸️ Pausar</button>
-                    </div>
+                
+                <div class="play-buttons">
+                    <button class="btn btn-primary" onclick="playAudio()">▶️ Reproduzir</button>
+                    <button class="btn btn-secondary" onclick="replayAudio()">🔄 Repetir</button>
+                    <button class="btn btn-primary" onclick="pauseAudio()">⏸️ Pausar</button>
                 </div>
             </div>
             
@@ -84,7 +336,7 @@
             
             <div class="chapter-controls">
                 <button class="nav-button" onclick="checkAnswers()">✅ Verificar Respostas</button>
-                <button class="nav-button secondary" onclick="resetQuiz()">🔄 Reiniciar Lição</button>
+                <button class="nav-button secondary" onclick="resetQuiz()">🔄 Reiniciar Quiz</button>
                 <button class="nav-button" onclick="nextLesson()">➡️ Próxima Lição</button>
             </div>
             
@@ -97,11 +349,15 @@
     </div>
     
     <script>
-        // ===== 📊 FOUNDATION LESSONS DATA - CARREGADO PRIMEIRO =====
+        // ===== 📊 FOUNDATION LESSONS DATA - 12 LIÇÕES COMPLETAS =====
         const foundationLessons = {
+            // Grupo 1: Survival Basics (F1-F4)
             1: { 
-                title: "Basic Greetings", shortTitle: "Greetings", icon: "👋", 
-                audioUrl: "../../src/assets/audio/listening/audio1.mp3", 
+                title: "Basic Greetings", 
+                shortTitle: "Greetings", 
+                icon: "👋", 
+                group: 1,
+                audioUrl: "../../src/assets/audio/listening/audio1.mp3", // ✅ Manter atual
                 description: "Cumprimentos básicos em inglês",
                 questions: { 
                     q1: { text: "What do you say when you meet someone in the morning?", options: ["Good night", "Good morning", "Good evening", "Good afternoon"], correct: "b" }, 
@@ -112,8 +368,11 @@
                 } 
             },
             2: { 
-                title: "Numbers & Time", shortTitle: "Numbers", icon: "🕐", 
-                audioUrl: "../../src/assets/audio/listening/audio2.mp3", 
+                title: "Numbers & Time", 
+                shortTitle: "Numbers", 
+                icon: "🕐", 
+                group: 1,
+                audioUrl: "../../src/assets/audio/listening/audio2.mp3", // ✅ Manter atual
                 description: "Números e horas em inglês",
                 questions: { 
                     q1: { text: "How do you say '3' in English?", options: ["Tree", "Three", "Free", "Thee"], correct: "b" }, 
@@ -124,8 +383,11 @@
                 } 
             },
             3: { 
-                title: "Colors & Objects", shortTitle: "Colors", icon: "🌈", 
-                audioUrl: "../../src/assets/audio/listening/audio3.mp3", 
+                title: "Colors & Objects", 
+                shortTitle: "Colors", 
+                icon: "🌈", 
+                group: 1,
+                audioUrl: "../../src/assets/audio/listening/audio3.mp3", // ✅ Manter atual
                 description: "Cores e objetos do dia a dia",
                 questions: { 
                     q1: { text: "What color is the sun?", options: ["Blue", "Red", "Yellow", "Green"], correct: "c" }, 
@@ -134,10 +396,149 @@
                     q4: { text: "What do you call a writing instrument?", options: ["Book", "Pen", "Table", "Chair"], correct: "b" }, 
                     q5: { text: "Where do you sleep?", options: ["Kitchen", "Bathroom", "Bedroom", "Living room"], correct: "c" } 
                 } 
+            },
+            4: { 
+                title: "Family & People", 
+                shortTitle: "Family", 
+                icon: "👨‍👩‍👧‍👦", 
+                group: 1,
+                audioUrl: "../../src/assets/audio/listening/audioF4.mp3", // 🆕 Novo áudio
+                description: "Família e relacionamentos",
+                questions: { 
+                    q1: { text: "What do you call your father's wife?", options: ["Sister", "Mother", "Daughter", "Aunt"], correct: "b" }, 
+                    q2: { text: "What do you call your mother's son?", options: ["Father", "Uncle", "Cousin", "Brother"], correct: "d" }, 
+                    q3: { text: "Who is your father's father?", options: ["Uncle", "Grandfather", "Cousin", "Brother"], correct: "b" }, 
+                    q4: { text: "What do you call your sister's daughter?", options: ["Niece", "Nephew", "Cousin", "Daughter"], correct: "a" }, 
+                    q5: { text: "Who is your parent's sister?", options: ["Grandmother", "Cousin", "Aunt", "Sister"], correct: "c" } 
+                } 
+            },
+
+            // Grupo 2: Daily Essentials (F5-F8)
+            5: { 
+                title: "Food & Drinks", 
+                shortTitle: "Food", 
+                icon: "🍔", 
+                group: 2,
+                audioUrl: "../../src/assets/audio/listening/audioF5.mp3", // 🆕 Novo áudio
+                description: "Comidas e bebidas essenciais",
+                questions: { 
+                    q1: { text: "What do you drink when thirsty?", options: ["Bread", "Water", "Meat", "Rice"], correct: "b" }, 
+                    q2: { text: "What meal do you eat in the morning?", options: ["Lunch", "Dinner", "Breakfast", "Snack"], correct: "c" }, 
+                    q3: { text: "What fruit is yellow?", options: ["Apple", "Banana", "Orange", "Grape"], correct: "b" }, 
+                    q4: { text: "Where do you buy food?", options: ["Hospital", "School", "Supermarket", "Bank"], correct: "c" }, 
+                    q5: { text: "What do you use to eat soup?", options: ["Fork", "Knife", "Spoon", "Hands"], correct: "c" } 
+                } 
+            },
+            6: { 
+                title: "Body & Health", 
+                shortTitle: "Body", 
+                icon: "💪", 
+                group: 2,
+                audioUrl: "../../src/assets/audio/listening/audioF6.mp3", // 🆕 Novo áudio
+                description: "Corpo e saúde básica",
+                questions: { 
+                    q1: { text: "What do you use to see?", options: ["Ears", "Eyes", "Nose", "Mouth"], correct: "b" }, 
+                    q2: { text: "What do you use to hear?", options: ["Ears", "Eyes", "Nose", "Mouth"], correct: "a" }, 
+                    q3: { text: "When you're sick, you go to...", options: ["School", "Doctor", "Store", "Park"], correct: "b" }, 
+                    q4: { text: "What do you use to walk?", options: ["Hands", "Arms", "Feet", "Head"], correct: "c" }, 
+                    q5: { text: "Where is your brain?", options: ["In your head", "In your chest", "In your stomach", "In your legs"], correct: "a" } 
+                } 
+            },
+            7: { 
+                title: "Weather & Seasons", 
+                shortTitle: "Weather", 
+                icon: "☀️", 
+                group: 2,
+                audioUrl: "../../src/assets/audio/listening/audioF7.mp3", // 🆕 Novo áudio
+                description: "Clima e estações do ano",
+                questions: { 
+                    q1: { text: "What color is the sun?", options: ["Blue", "Yellow", "Green", "Red"], correct: "b" }, 
+                    q2: { text: "What's the weather when it rains?", options: ["Sunny", "Rainy", "Hot", "Cold"], correct: "b" }, 
+                    q3: { text: "What color is grass?", options: ["Blue", "Yellow", "Green", "Red"], correct: "c" }, 
+                    q4: { text: "When it's very cold, it might...", options: ["Rain", "Snow", "Sun", "Wind"], correct: "b" }, 
+                    q5: { text: "What color is the sky on a clear day?", options: ["Blue", "Yellow", "Green", "Red"], correct: "a" } 
+                } 
+            },
+            8: { 
+                title: "Directions & Places", 
+                shortTitle: "Directions", 
+                icon: "🗺️", 
+                group: 2,
+                audioUrl: "../../src/assets/audio/listening/audioF8.mp3", // 🆕 Novo áudio
+                description: "Direções e lugares importantes",
+                questions: { 
+                    q1: { text: "What's the opposite of 'left'?", options: ["Up", "Down", "Right", "Front"], correct: "c" }, 
+                    q2: { text: "Where do children learn?", options: ["Hospital", "School", "Store", "Park"], correct: "b" }, 
+                    q3: { text: "Where do you sleep?", options: ["Kitchen", "Bathroom", "Bedroom", "Living room"], correct: "c" }, 
+                    q4: { text: "How do you ask for directions?", options: ["Where is...?", "What is...?", "Who is...?", "When is...?"], correct: "a" }, 
+                    q5: { text: "Where do you buy medicine?", options: ["Supermarket", "Pharmacy", "Restaurant", "Bank"], correct: "b" } 
+                } 
+            },
+
+            // Grupo 3: Practical Skills (F9-F12)
+            9: { 
+                title: "Shopping & Money", 
+                shortTitle: "Shopping", 
+                icon: "💰", 
+                group: 3,
+                audioUrl: "../../src/assets/audio/listening/audioF9.mp3", // 🆕 Novo áudio
+                description: "Compras e dinheiro",
+                questions: { 
+                    q1: { text: "How do you ask the price?", options: ["How much?", "How many?", "How old?", "How big?"], correct: "a" }, 
+                    q2: { text: "What do you say when you want to buy?", options: ["I need this", "I want this", "I like this", "I have this"], correct: "b" }, 
+                    q3: { text: "What do you give to pay?", options: ["Food", "Money", "Water", "Clothes"], correct: "b" }, 
+                    q4: { text: "Where do you pay?", options: ["Entrance", "Cashier", "Exit", "Bathroom"], correct: "b" }, 
+                    q5: { text: "What do you get after paying?", options: ["Receipt", "Menu", "Map", "Key"], correct: "a" } 
+                } 
+            },
+            10: { 
+                title: "Work & School", 
+                shortTitle: "Work", 
+                icon: "📚", 
+                group: 3,
+                audioUrl: "../../src/assets/audio/listening/audioF10.mp3", // 🆕 Novo áudio
+                description: "Trabalho e escola",
+                questions: { 
+                    q1: { text: "What do you ask in an interview?", options: ["What's your name?", "What's your job?", "Where do you work?", "All answers"], correct: "d" }, 
+                    q2: { text: "Where do students study?", options: ["Office", "School", "Hospital", "Store"], correct: "b" }, 
+                    q3: { text: "Who teaches in school?", options: ["Doctor", "Teacher", "Driver", "Cook"], correct: "b" }, 
+                    q4: { text: "What do you need for a job?", options: ["Experience", "Skills", "Resume", "All answers"], correct: "d" }, 
+                    q5: { text: "When do most people work?", options: ["Night", "Weekend", "Morning to evening", "Midnight"], correct: "c" } 
+                } 
+            },
+            11: { 
+                title: "Emergency & Help", 
+                shortTitle: "Emergency", 
+                icon: "🚨", 
+                group: 3,
+                audioUrl: "../../src/assets/audio/listening/audioF11.mp3", // 🆕 Novo áudio
+                description: "Emergências e pedindo ajuda",
+                questions: { 
+                    q1: { text: "What do you call for emergency?", options: ["Store", "Friend", "Police", "Teacher"], correct: "c" }, 
+                    q2: { text: "How do you ask for help?", options: ["Help me!", "Thank you!", "Goodbye!", "Hello!"], correct: "a" }, 
+                    q3: { text: "Where do you go when very sick?", options: ["School", "Hospital", "Store", "Park"], correct: "b" }, 
+                    q4: { text: "What number for emergency in US?", options: ["111", "999", "911", "411"], correct: "c" }, 
+                    q5: { text: "When you're lost, you ask...", options: ["Where am I?", "Who are you?", "What time?", "How much?"], correct: "a" } 
+                } 
+            },
+            12: { 
+                title: "Phone & Technology", 
+                shortTitle: "Technology", 
+                icon: "📱", 
+                group: 3,
+                audioUrl: "../../src/assets/audio/listening/audioF12.mp3", // 🆕 Novo áudio
+                description: "Telefone e tecnologia básica",
+                questions: { 
+                    q1: { text: "How do you answer the phone?", options: ["Goodbye", "Hello", "Thank you", "Excuse me"], correct: "b" }, 
+                    q2: { text: "What do you need for internet?", options: ["Water", "Food", "WiFi password", "Money"], correct: "c" }, 
+                    q3: { text: "How do you end a phone call?", options: ["Hello", "Goodbye", "Please", "Sorry"], correct: "b" }, 
+                    q4: { text: "What app do you use for messages?", options: ["Camera", "Clock", "Messages", "Calculator"], correct: "c" }, 
+                    q5: { text: "When your phone doesn't work...", options: ["It's broken", "It's expensive", "It's new", "It's big"], correct: "a" } 
+                } 
             }
         };
 
-        console.log('📊 Foundation Lessons carregadas:', Object.keys(foundationLessons).length, 'lições');
+        console.log('📊 Foundation Lessons EXPANDIDAS:', Object.keys(foundationLessons).length, 'lições');
 
         // ===== AUTH SYSTEM =====
         function checkLogin() {
@@ -191,54 +592,61 @@
             });
         }
 
-        // ===== LESSON CARDS =====
+        // ===== LESSON CARDS CREATION - POR GRUPOS =====
         async function createLessonCards() {
-            const cardsContainer = document.getElementById('lessonCards');
-            if (!cardsContainer) {
-                console.error('❌ Container de cards não encontrado!');
-                return;
-            }
-            
-            // 🔧 Aguarda sistema universal estar pronto
+            // Aguarda sistema universal estar pronto
             if (!systemReady) {
                 console.log('⏳ Aguardando sistema universal para criar cards...');
                 await waitForUniversalSystem();
             }
             
-            cardsContainer.innerHTML = '';
+            // Criar cards por grupo
+            for (let group = 1; group <= 3; group++) {
+                const container = document.getElementById(`group${group}Cards`);
+                if (!container) continue;
+                
+                container.innerHTML = '';
+                
+                // Filtrar lições do grupo atual
+                const groupLessons = Object.keys(foundationLessons).filter(lessonKey => {
+                    const lessonNumber = parseInt(lessonKey);
+                    return foundationLessons[lessonNumber].group === group;
+                });
+                
+                groupLessons.forEach(lessonKey => {
+                    const lessonNumber = parseInt(lessonKey);
+                    const lesson = foundationLessons[lessonNumber];
+                    
+                    let isCompleted = false;
+                    let bestScore = 0;
+                    
+                    // Verifica progresso se sistema estiver disponível
+                    if (window.studentProgress) {
+                        const lessonId = `foundation_lesson_${lessonNumber}`;
+                        isCompleted = window.studentProgress.data.listening.lessonsCompleted.includes(lessonId);
+                        bestScore = window.studentProgress.data.listening.bestScores[lessonId] || 0;
+                    }
+                    
+                    const isActive = lessonNumber === currentLesson;
+                    
+                    const card = document.createElement('div');
+                    card.className = `lesson-card ${isActive ? 'active' : ''} ${isCompleted ? 'completed' : ''}`;
+                    card.onclick = () => switchToLesson(lessonNumber);
+                    
+                    card.innerHTML = `
+                        <div class="lesson-icon">${lesson.icon}</div>
+                        <div class="lesson-number">F${lessonNumber}</div>
+                        <div class="lesson-title">${lesson.shortTitle}</div>
+                        <div class="lesson-description">${lesson.description}</div>
+                        ${isCompleted ? `<div class="completion-badge">${bestScore}</div>` : ''}
+                    `;
+                    
+                    container.appendChild(card);
+                });
+            }
             
-            Object.keys(foundationLessons).forEach(lessonKey => {
-                const lessonNumber = parseInt(lessonKey);
-                const lesson = foundationLessons[lessonNumber];
-                
-                let isCompleted = false;
-                let bestScore = 0;
-                
-                // Verifica progresso se sistema estiver disponível
-                if (window.studentProgress) {
-                    const lessonId = `foundation_lesson_${lessonNumber}`;
-                    isCompleted = window.studentProgress.data.listening.lessonsCompleted.includes(lessonId);
-                    bestScore = window.studentProgress.data.listening.bestScores[lessonId] || 0;
-                }
-                
-                const isActive = lessonNumber === currentLesson;
-                
-                const card = document.createElement('div');
-                card.className = `chapter-card ${isActive ? 'current' : ''} ${isCompleted ? 'completed' : ''}`;
-                card.onclick = () => switchToLesson(lessonNumber);
-                
-                card.innerHTML = `
-                    <div class="chapter-icon">${lesson.icon}</div>
-                    <div class="chapter-info">
-                        <div class="chapter-number">Lição ${lessonNumber}</div>
-                        <div class="chapter-title">${lesson.shortTitle}</div>
-                    </div>
-                    ${isCompleted ? `<div class="chapter-status">${bestScore}/5</div>` : '<div class="chapter-status">Novo</div>'}
-                `;
-                cardsContainer.appendChild(card);
-            });
-            
-            console.log('✅ Lesson cards criados');
+            updateFoundationStats();
+            console.log('✅ Foundation cards criados para 12 lições');
         }
 
         function switchToLesson(lessonNumber) {
@@ -252,7 +660,6 @@
         function loadLesson(lessonNumber) {
             console.log(`🎯 Carregando lição: ${lessonNumber}`);
             
-            // Verificação de questões
             if (!foundationLessons[lessonNumber]) {
                 console.error(`❌ Lição ${lessonNumber} não encontrada!`);
                 alert('Erro: Lição não encontrada. Recarregando...');
@@ -260,13 +667,6 @@
                 return;
             }
             
-            if (!foundationLessons[lessonNumber].questions) {
-                console.error(`❌ Questões da lição ${lessonNumber} não encontradas!`);
-                alert('Erro: Questões não encontradas. Recarregando...');
-                window.location.reload();
-                return;
-            }
-
             const lesson = foundationLessons[lessonNumber];
             
             // Atualizar UI
@@ -382,13 +782,13 @@
                 console.warn('⚠️ Sistema universal não disponível, progresso não salvo');
             }
             
-            // UI updates com activateBadges
+            // UI updates
             document.getElementById('progressBar').style.width = (score / 5) * 100 + '%';
             document.getElementById('progressText').textContent = `${(score / 5) * 100}%`;
             document.getElementById('scoreValue').textContent = score;
             document.getElementById('scoreSection').style.display = 'block';
             
-            // ✅ ACTIVATE BADGES (MÉTODO DO FOUNDATION)
+            // ✅ ACTIVATE BADGES - MÉTODO ORIGINAL QUE FUNCIONAVA
             activateBadges(score, attempts);
             
             const feedback = document.getElementById('feedback');
@@ -402,7 +802,7 @@
             console.log(`✅ Respostas verificadas: ${score}/5`);
         }
 
-        // ===== 🔧 ACTIVATE BADGES - MÉTODO EXATO DO FOUNDATION =====
+        // ===== 🏆 ACTIVATE BADGES - MÉTODO ORIGINAL =====
         function activateBadges(score, attempts) {
             console.log(`🏆 Ativando badges: score=${score}, attempts=${attempts}`);
             
@@ -444,7 +844,7 @@
                         console.log('✅ Badge 4 ativado: Foundation Expert');
                     }
                 }
-            }, 50); // Delay necessário para animação
+            }, 150); // ← TIMING OTIMIZADO: 150ms
         }
 
         function resetQuiz() {
@@ -458,21 +858,18 @@
             document.getElementById('progressBar').style.width = '0%';
             document.getElementById('progressText').textContent = '0%';
             
-            // Reset badges - CRÍTICO
+            // Reset badges
             document.querySelectorAll('.badge').forEach(badge => badge.classList.remove('earned'));
             
-            // Reset counters
             attempts = 0;
             lessonStartTime = Date.now();
-            
-            console.log('🔄 Quiz resetado completamente');
         }
 
         function nextLesson() {
-            if (currentLesson < Object.keys(foundationLessons).length) {
+            if (currentLesson < 12) {
                 switchToLesson(currentLesson + 1);
             } else {
-                alert('🚀 Parabéns! Foundation Level completo! 🎯');
+                alert('🚀 Parabéns! Foundation Level completo! 🎯\nVocê dominou todas as 12 lições de sobrevivência em inglês!');
                 setTimeout(() => {
                     window.location.href = '../hubs/listening-hub.html';
                 }, 1000);
@@ -484,6 +881,23 @@
             createLessonCards();
         };
 
+        // ===== ATUALIZAR STATS =====
+        function updateFoundationStats() {
+            if (!window.studentProgress) return;
+            
+            const foundationCompleted = Array.from({length: 12}, (_, i) => i + 1).filter(lesson => 
+                window.studentProgress.data.listening.lessonsCompleted.includes(`foundation_lesson_${lesson}`)
+            ).length;
+            
+            const scores = Object.values(window.studentProgress.data.listening.bestScores).filter(score => score > 0);
+            const average = scores.length > 0 ? Math.round(scores.reduce((a, b) => a + b, 0) / scores.length * 20) : 0;
+            const badges = window.studentProgress.data.listening.badges.length;
+
+            document.querySelector('[data-completed]').textContent = `${foundationCompleted}/12`;
+            document.querySelector('[data-badges]').textContent = badges;
+            document.querySelector('[data-average]').textContent = `${average}%`;
+        }
+
         // ===== 🔧 INICIALIZAÇÃO ROBUSTA =====
         async function initializePage() {
             const studentName = sessionStorage.getItem('studentUsername') || 'Student';
@@ -493,9 +907,10 @@
                 studentName.charAt(0).toUpperCase() + studentName.slice(1).toLowerCase();
             document.getElementById('userAvatar').textContent = studentName.charAt(0).toUpperCase();
             
-            console.log(`🚀 Foundation Level inicializando...`);
+            console.log(`🚀 Foundation EXPANDIDO inicializando...`);
             console.log(`👤 Usuário: ${studentName}`);
-            console.log(`📊 Questões disponíveis: ${Object.keys(foundationLessons).length} lições`);
+            console.log(`📊 12 lições disponíveis organizadas em 3 grupos`);
+            console.log('🎯 Grupo 1: Basics | Grupo 2: Daily | Grupo 3: Practical');
             
             // Aguarda sistema universal
             console.log('⏳ Aguardando sistema universal...');
@@ -506,14 +921,13 @@
             await createLessonCards();
             loadLesson(currentLesson);
             
-            console.log('✅ Foundation Level pronto para uso!');
+            console.log('✅ Foundation Level expandido pronto para uso!');
         }
 
         // ===== INICIALIZAÇÃO =====
         document.addEventListener('DOMContentLoaded', function() {
             console.log('📄 DOM carregado, inicializando página...');
             
-            // Pequeno delay para garantir que scripts universais carregaram
             setTimeout(() => {
                 initializePage().catch(error => {
                     console.error('❌ Erro na inicialização:', error);
@@ -526,12 +940,10 @@
             }, 200);
         });
 
-        console.log('🚀 Foundation Page Script carregado!');
-        console.log('🔧 Versão com padrão Beginner aplicado');
-        console.log('📊 Questões: CARREGADAS PRIMEIRO');
-        console.log('⏳ Sistema: AGUARDA UNIVERSAL');
-        console.log('🛡️ Fallback: ATIVO');
-        console.log('🏆 Badges: MÉTODO FOUNDATION EXATO');
+        console.log('🚀 Foundation EXPANDIDO Script carregado!');
+        console.log('📊 12 Lições: F1-F3 (atuais) + F4-F12 (novos)');
+        console.log('🎵 Áudios: audio1-3.mp3 + audioF4-F12.mp3');
+        console.log('🏆 Badges: Método original otimizado (150ms)');
     </script>
     
     <!-- ✅ SCRIPTS UNIVERSAIS - CARREGADOS APÓS DADOS -->
